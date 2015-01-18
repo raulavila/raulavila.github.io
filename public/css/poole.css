@@ -136,6 +136,14 @@ hr {
   border-bottom: 1px solid #fff;
 }
 
+hr.post_split {
+  position: relative;
+  margin: 1.5rem 0;
+  border: 0;
+  border-top: 1px dashed #404040;
+  border-bottom: 1px dashed #404040;
+}
+
 abbr {
   font-size: 85%;
   font-weight: bold;
