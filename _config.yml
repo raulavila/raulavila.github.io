@@ -7,7 +7,7 @@ title:            Raúl Ávila
 tagline:          Blog
 url:              http://raulavila.github.io
 paginate:         5
-baseurl:          `http://raulavila.github.io/`
+baseurl:          http://raulavila.github.io/
 author:
   name:           Raul Avila
   url:            https://twitter.com/ravila80
