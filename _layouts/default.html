@@ -7,10 +7,15 @@
 
     <div class="container content">
       <header class="masthead">
-        <h3 class="masthead-title">
+        <h1 class="masthead-title">
           <a href="{{ site.baseurl }}" title="Home">{{ site.title }}</a>
-          <small>{{ site.tagline }}</small>
-        </h3>
+        </h1>
+
+            <small><a href="/sobre-mi">Sobre mí</a></small>
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/archivos">Archivos</a></small>
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/atom.xml">Feed</a></small>
       </header>
 
       <main>
@@ -19,7 +24,7 @@
 
       <footer class="footer">
         <small>
-          &copy; <time datetime="{{ site.time | date_to_xmlschema }}">{{ site.time | date: '%Y' }}</time>. All rights reserved.
+          &copy; <time datetime="{{ site.time | date_to_xmlschema }}">{{ site.time | date: '%Y' }}</time> Raúl Ávila. Blog creado con <a href="http://jekyllrb.com">Jekyll</a>. Plantilla basada en <a href="http://getpoole.com">Poole</a>.<br>
         </small>
       </footer>
     </div>
