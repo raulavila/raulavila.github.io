@@ -5,6 +5,8 @@ layout: default
 <article class="post">
   <h1 class="post-title">{{ page.title }}</h1>
   <time datetime="{{ page.date | date_to_xmlschema }}" class="post-date">{{ page.date | date: "%d/%m/%Y" }}</time>
+  <div class="post-tags"><a href="#">Patrones de diseño</a>, <a href="#">Java</a>, <a href="#">tag1</a></div>  
+  <div class="post-share">Twitter</div>  
   {{ content }}
 </article>
 

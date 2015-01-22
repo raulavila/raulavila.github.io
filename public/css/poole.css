@@ -358,8 +358,22 @@ tbody tr:nth-child(odd) th {
 .post-date {
   display: block;
   margin-top: -.5rem;
-  margin-bottom: 1rem;
   color: #9a9a9a;
+}
+
+.post-tags {
+  font-size: 75%;
+  margin-bottom: 1rem;
+  padding-left: 20px;
+  background-image: url("../pictures/icons/tag.png");
+  background-repeat: no-repeat;
+  background-position: left; 
+  background-size: 15px 15px;
+}
+
+.post-share {
+  font-size: 75%;
+  margin-bottom: 1rem;
 }
 
 /* Related posts */
