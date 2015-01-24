@@ -5,7 +5,7 @@ relative_permalinks: true
 # Setup
 title:            Raúl Ávila
 tagline:          Blog
-url:              http://raulavila.github.io
+url:              http://www.raulavila.com
 paginate:         5
 baseurl:          /
 author:

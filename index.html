@@ -12,15 +12,13 @@ title: Home
       </a>
     </h1>
 
-    <time datetime="{{ post.date | date_to_xmlschema }}" class="post-date">{{ post.date | date: "%d/%m/%Y" }}</time>    
+    <time datetime="{{ post.date | date_to_xmlschema }}" class="post-date index-date">{{ post.date | date: "%d/%m/%Y" }}</time>    
 
     {{ post.content | split:'<!--break-->' | first }}
     {% if post.content contains '<!--break-->' %}
       <a href="{{ post.url }}">[...Leer más...]</a>
     {% endif %}
   </article>
-
-  <hr class="post_split"/>
 
   {% endfor %}
 </div>

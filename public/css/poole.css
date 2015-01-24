@@ -92,6 +92,7 @@ h1 {
 }
 h2 {
   margin-top: 1rem;
+  margin-bottom: 0.75rem;
   font-size: 1.5rem;
 }
 h3 {
@@ -311,7 +312,7 @@ tbody tr:nth-child(odd) th {
 .masthead {
   padding-top:    1rem;
   padding-bottom: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 0.50rem;
   text-align: center;
   border-bottom: 1px solid black;
 }
@@ -361,8 +362,13 @@ tbody tr:nth-child(odd) th {
   color: #9a9a9a;
 }
 
+.index-date {
+  margin-bottom:0.75rem;
+}
+
 .post-tags {
   font-size: 75%;
+  margin-top:0.25rem;
   margin-bottom: 1rem;
   padding-left: 20px;
   background-image: url("../pictures/icons/tag.png");

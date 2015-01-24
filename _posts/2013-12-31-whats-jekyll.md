@@ -2,6 +2,9 @@
 layout: post
 title: What's Jekyll?
 permalink: /whats/jekyll
+tags:
+- Me
+- design-patterns
 ---
 
 Blog creado con [Jekyll](http://jekyllrb.com). Plantilla basada en [Poole](http://getpoole.com).
