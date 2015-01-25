@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-01-25T18:44:39+00:00</updated>
+ <updated>2015-01-25T23:32:05+00:00</updated>
  <id>http://www.raulavila.com</id>
  <author>
    <name>Raul Avila</name>
@@ -14,7 +14,7 @@
  
  <entry>
    <title>Hello World!</title>
-   <link href="http://www.raulavila.com//hello-world"/>
+   <link href="http://www.raulavila.com/hello-world"/>
    <updated>2015-01-25T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/hello-world</id>
    <content type="html">&lt;p&gt;Desde hace tiempo me lleva rondando por la cabeza la idea de tener una página personal / blog. La verdad es que hasta hace poco consideraba que no tenía demasiadas cosas que aportar a la comunidad, pero me he dado cuenta de que &lt;a href=&quot;/sobre-mi&quot;&gt;cualquiera&lt;/a&gt; en este mundillo tiene algo que decir.&lt;/p&gt;
