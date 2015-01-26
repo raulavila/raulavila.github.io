@@ -4,13 +4,77 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-01-25T23:32:05+00:00</updated>
+ <updated>2015-01-26T21:17:10+00:00</updated>
  <id>http://www.raulavila.com</id>
  <author>
    <name>Raul Avila</name>
    <email>ravila80@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>Cómo hice el blog</title>
+   <link href="http://www.raulavila.com/como-hice-el-blog"/>
+   <updated>2015-01-26T00:00:00+00:00</updated>
+   <id>http://www.raulavila.com/como-hice-el-blog</id>
+   <content type="html">&lt;p&gt;&lt;img src=&quot;/public/pictures/jekyll-github.png&quot; alt=&quot;Jekyll y GitHub&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;En Internet hay un montón de alternativas para crear un blog propio. Cuando me propuse crear una web personal tuve claro desde el principio que los contenidos generados deberían ser míos. Me explico: en ocasiones, al utilizar plataformas como &lt;a href=&quot;http://www.blogger.com&quot;&gt;blogger&lt;/a&gt; ocurre que los posts quedan alojados en un servidor sobre el que no tienes ningún control. Y así te puedes encontrar con que nuestro amigo Google ha decidido que no estás cumpliendo las &lt;em&gt;condiciones de uso&lt;/em&gt; y cerrártelo de buenas a primeras. En la misma liga juegan los blogs de &lt;a href=&quot;https://es.wordpress.com/&quot;&gt;WordPress&lt;/a&gt;, por ejemplo.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;No hablo de primera mano, pero sí que me he encontrado con gente en esta situación leyendo foros y demás. Siempre es posible hacer copias de seguridad, pero en caso de catástrofe recuperar los contenidos de la forma en que se encontraban supondría un esfuerzo que no sé si estaría dispuesto a asumir (y digo esto cuando aún no he publicado la segunda entrada de mi blog :)).&lt;/p&gt;
+
+&lt;p&gt;Total, que las opciones se iban reduciendo. Durante varias semanas casi llegué a decidirme por contratar un hosting e instalar WordPress (&lt;a href=&quot;http://www.creartiendavirtual.com.es/diferencias-entre-wordpress-org-y-wordpress-com-y-tu-padre-y-tu-madre-cual-te-conviene-elegir/&quot;&gt;no es lo mismo Wordpress.org que Wordpress.com&lt;/a&gt;), pero, para ser sinceros, no me apetecía demasiado el desembolso inicial, y seguía teniendo la sensación de estar limitado por una plataforma, plataforma que es infinita en cuanto a opciones por otra parte, y permite conseguir resultados tan chulos como &lt;a href=&quot;http://carlosalcaniz.com/&quot;&gt;esta web&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;La opción definitiva la descubrí de la mano de &lt;a href=&quot;http://trishagee.github.io/&quot;&gt;Trisha Gee&lt;/a&gt;, referencia de la &lt;a href=&quot;https://twitter.com/ljcjug&quot;&gt;London Java Community&lt;/a&gt;. Descubrí que su blog está alojado en &lt;a href=&quot;https://pages.github.com/&quot;&gt;GitHub Pages&lt;/a&gt;, una especia de servicio de hosting que da GitHub a sus usuarios, ¡de forma gratuita! La idea es que tú generas tu web como quieras y la subes a un repositorio GitHub para finalmente ser publicada en la URL [usuario].github.io. Genial.&lt;/p&gt;
+
+&lt;p&gt;Profundizando más, existe una plataforma llamada &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt;, que es utilizada por GitHub pages para generar webs a partir de contenido estático creado mediante &lt;a href=&quot;http://es.wikipedia.org/wiki/Markdown&quot;&gt;Markdown&lt;/a&gt;. Esta plataforma corre con Ruby, lenguage del que no tengo ni idea, pero del que apenas hay que conocer nada para utilizar Jekyll. En resumen, que me decidí por Jekyll + GitHub pages, y diría que no puedo estar más contento con la decisión. Aparte de permitirme mantener una copia local de mi web puedo jugar todo lo que quiera con estilos, plantillas, etc. Otra ventaja muy interesante es que al subirse como contenidos estáticos, sin bases de datos o plugins respaldando, la seguridad frente a ataques es bastante alta.&lt;/p&gt;
+
+&lt;p&gt;Reproduciré a continuación, a modo de referencia, los diferentes pasos que llevé a cabo para poner en marcha esta web (y así queda registrado por si tengo que volver a hacerlo algún día):&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Dar de alta una cuenta en &lt;a href=&quot;https://github.com/&quot;&gt;GitHub&lt;/a&gt;. El nombre de usuario será el que dará nombre a la web una vez publicada (en mi caso raulavila.github.io).&lt;/li&gt;
+  &lt;li&gt;Crear el repositorio que alojará el blog, &lt;a href=&quot;https://pages.github.com/&quot;&gt;según se explica aquí&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.webhostwhat.com/guide-how-to-host-jekyll-blog-on-github-using-a-mac/&quot;&gt;Instalar Jekyll&lt;/a&gt;. Si no tienes un Mac sería necesario &lt;a href=&quot;http://jekyllrb.com/docs/installation/&quot;&gt;instalar Ruby primero&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Buscar una plantilla de referencia para, a partir de ahí, dar forma al blog. Esta opción es más sencilla que crear la página desde cero, aunque también sería una posibilidad, claro. La plantilla que elegí fue &lt;a href=&quot;http://getpoole.com/&quot;&gt;Poole&lt;/a&gt;, es muy minimalista, e incluye varios archivos útiles como el Feed, 404, config, etc.&lt;/li&gt;
+  &lt;li&gt;Añadir la plantilla al repositorio, junto con un fichero .gitignore (para que no se incluyan ciertos archivos en los commits). Si lo subimos a GitHub podremos ver la web publicada por primera vez pasados unos 30 minutos (en posteriores commits los cambios se actualizan automáticamente).&lt;/li&gt;
+  &lt;li&gt;Configurar correctamente las variables del fichero _config.yml&lt;/li&gt;
+  &lt;li&gt;Tunear los ficheros CSS a mi gusto, así como el layout de las plantillas.&lt;/li&gt;
+  &lt;li&gt;Cambiar el idioma de los textos de las plantillas a Castellano. Algún día escribiré un post explicando por qué decidí escribir en Castellano y no en inglés.&lt;/li&gt;
+  &lt;li&gt;Añadir una página de &lt;a href=&quot;/archivos&quot;&gt;Archivos&lt;/a&gt;, que recorre todos los posts publicados y los lista por fecha. Para ello utilizo el lenguaje de plantillas &lt;a href=&quot;http://jekyllrb.com/docs/templates/&quot;&gt;Liquid&lt;/a&gt;. También añadí una página &lt;a href=&quot;/sobre-mi&quot;&gt;Sobre mí&lt;/a&gt;, pero tampoco tiene demasiado misterio.&lt;/li&gt;
+  &lt;li&gt;Jekyll genera de forma automática los permalinks, pero no me gustaba demasiado la forma en que lo hacía. Existe la opción de asignar el permalink que deseemos mediante la variable permalink &lt;a href=&quot;http://jekyllrb.com/docs/frontmatter/&quot;&gt;en la cabecera de los posts&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Añadir botones de Twitter (&lt;a href=&quot;https://dev.twitter.com/web/follow-button&quot;&gt;Follow Me&lt;/a&gt; en “Sobre mí”, y &lt;a href=&quot;https://dev.twitter.com/web/tweet-button&quot;&gt;Tweet&lt;/a&gt; en la cabecera de los posts). Es muy sencillo siguiendo las indicaciones de los enlaces.&lt;/li&gt;
+  &lt;li&gt;Soporte para añadir tags en los posts, y crear páginas para cada tag específico. Seguí las indicaciones de &lt;a href=&quot;http://charliepark.org/tags-in-jekyll/&quot;&gt;este blog&lt;/a&gt;, no obstante me trajo varios quebraderos de cabeza por motivos que explicaré en el anexo. La verdad es que el soporte para tags es uno de los puntos flacos de Jekyll+GitHub Pages.&lt;/li&gt;
+  &lt;li&gt;Truncar posts en la página de inicio, según se explica &lt;a href=&quot;http://mikeygee.com/blog/truncate.html&quot;&gt;aquí&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Para publicar bajo un dominio propio, en lugar de *.github.io, compré el nombre en &lt;a href=&quot;https://www.namecheap.com/&quot;&gt;NameCheap&lt;/a&gt;. Es una opción bastante barata, e incluye el servicio &lt;a href=&quot;https://www.namecheap.com/domains/whois.aspx&quot;&gt;WhoIs Guard&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Configurar las DNS de GitHub pages en NameCheap. &lt;a href=&quot;http://davidensinger.com/2013/03/setting-the-dns-for-github-pages-on-namecheap/&quot;&gt;Este blog&lt;/a&gt; lo explica perfectamente.&lt;/li&gt;
+  &lt;li&gt;Añadir comentarios &lt;a href=&quot;https://disqus.com/&quot;&gt;Disqus&lt;/a&gt;. Tras darme de alta en la web, las indicaciones fueron muy claras y funcionó sin ningún problema.&lt;/li&gt;
+  &lt;li&gt;Añadir &lt;a href=&quot;http://www.google.com/analytics/&quot;&gt;Google Analytics&lt;/a&gt;, para así poder saber si me visita alguien de vez en cuando. &lt;/li&gt;
+  &lt;li&gt;Tunear detallitos sin importancia aquí y allá.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Creo que no me dejo nada. Mención especial para &lt;a href=&quot;http://joshualande.com/jekyll-github-pages-poole/&quot;&gt;este post&lt;/a&gt;, que me sirvió de referencia para muchos de los puntos. De hecho, utilizo la misma plantilla.&lt;/p&gt;
+
+&lt;h3 id=&quot;anexo-github-y-los-plugins&quot;&gt;Anexo: GitHub y los plugins&lt;/h3&gt;
+
+&lt;p&gt;Me encontré con un problema inesperado a la hora de añadir el plugin de Ruby que creaba automáticamente las páginas para los tags. Al subirlo a GitHub pages descubrí que dichas páginas ¡no se generaban! Tras investigar un poco, lo que ocurre es que GitHub pages, al generar los sites a partir de las plantillas de Jekyll no ejecuta, por seguridad, los plugins adicionales que pueda haber en la carpeta &lt;strong&gt;_plugins&lt;/strong&gt;, y que sí se ejecutan a nivel local.&lt;/p&gt;
+
+&lt;p&gt;La solución a este dilema no fue nada sencilla. Pensé en descartar el uso de plugins para la web, pero me parecía limitarme demasiado. No solo me llevaba a crear una solución más chapucera para los tags, a medio plazo no podría añadir cualquier otra cosa si lo consideraba necesario.&lt;/p&gt;
+
+&lt;p&gt;La salida más razonable está explicada en &lt;a href=&quot;http://www.sitepoint.com/jekyll-plugins-github/&quot;&gt;este post&lt;/a&gt;. En lugar de dejar a GitHub la tarea de generar la web la genero yo localmente y la subo al repositorio de GitHub pages. El código fuente está subido en un repositorio diferente. Aunque existe una solución que juega con las ramas dentro del mismo repositorio, me pareció más adecuado así (&lt;a href=&quot;http://en.wikipedia.org/wiki/Separation_of_concerns&quot;&gt;Separation of concerns&lt;/a&gt; y tal).&lt;/p&gt;
+
+&lt;p&gt;Por tanto, finalmente mi blog está dividido en dos repositorios:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/raulavila/blog-source-code&quot;&gt;Uno con el código fuente&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/raulavila/raulavila.github.io&quot;&gt;Y otro con el site generado en local con Jekyll&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Es increíble la cantidad de trabajo que puede llevar montar una página tan sencillita, pero estoy bastante orgulloso del resultado.&lt;/p&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Hello World!</title>
