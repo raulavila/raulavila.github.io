@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-01-31T17:13:06+00:00</updated>
+ <updated>2015-01-31T17:43:57+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>Entornos integrados de desarrollo (IDE)</title>
-   <link href="http://www.raulavila.com/2015/01/31/entornos-integrados-desarrollo/"/>
+   <link href="http://www.raulavila.com/2015/01/entornos-integrados-desarrollo"/>
    <updated>2015-01-31T00:00:00+00:00</updated>
-   <id>http://www.raulavila.com/2015/01/31/entornos-integrados-desarrollo</id>
+   <id>http://www.raulavila.com/2015/01/entornos-integrados-desarrollo</id>
    <content type="html">&lt;p&gt;&lt;img src=&quot;/public/pictures/screenshot_intellij.png&quot; alt=&quot;IntelliJ Idea&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Los entornos integrados de desarrollo (IDE) son una herramienta fundamental en el desarrollo de software profesional (y no profesional, diría yo). La asistencia que ofrecen para la generación de código, navegación entre archivos, depuración, despliegues, integración con control de versiones, etc, los hace imprescindibles para cumplir con los mínimos de productividad que exige un mercado tan competitivo como el actual.&lt;/p&gt;
@@ -50,9 +50,9 @@
  
  <entry>
    <title>Cómo hice el blog</title>
-   <link href="http://www.raulavila.com/como-hice-el-blog"/>
+   <link href="http://www.raulavila.com/2015/01/como-hice-el-blog"/>
    <updated>2015-01-26T00:00:00+00:00</updated>
-   <id>http://www.raulavila.com/como-hice-el-blog</id>
+   <id>http://www.raulavila.com/2015/01/como-hice-el-blog</id>
    <content type="html">&lt;p&gt;&lt;img src=&quot;/public/pictures/jekyll-github.png&quot; alt=&quot;Jekyll y GitHub&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;En Internet hay un montón de alternativas para crear un blog propio. Cuando me propuse crear una web personal tuve claro desde el principio que los contenidos generados deberían ser míos. Me explico: en ocasiones, al utilizar plataformas como &lt;a href=&quot;http://www.blogger.com&quot;&gt;blogger&lt;/a&gt; ocurre que los posts quedan alojados en un servidor sobre el que no tienes ningún control. Y así te puedes encontrar con que nuestro amigo Google ha decidido que no estás cumpliendo las &lt;em&gt;condiciones de uso&lt;/em&gt; y cerrártelo de buenas a primeras. En la misma liga juegan los blogs de &lt;a href=&quot;https://es.wordpress.com/&quot;&gt;WordPress&lt;/a&gt;, por ejemplo.&lt;/p&gt;
@@ -114,9 +114,9 @@
  
  <entry>
    <title>Hello World!</title>
-   <link href="http://www.raulavila.com/hello-world"/>
+   <link href="http://www.raulavila.com/2015/01/hello-world"/>
    <updated>2015-01-25T00:00:00+00:00</updated>
-   <id>http://www.raulavila.com/hello-world</id>
+   <id>http://www.raulavila.com/2015/01/hello-world</id>
    <content type="html">&lt;p&gt;Desde hace tiempo me lleva rondando por la cabeza la idea de tener una página personal / blog. La verdad es que hasta hace poco consideraba que no tenía demasiadas cosas que aportar a la comunidad, pero me he dado cuenta de que &lt;a href=&quot;/sobre-mi&quot;&gt;cualquiera&lt;/a&gt; en este mundillo tiene algo que decir.&lt;/p&gt;
 
 &lt;!--break--&gt;
