@@ -4,13 +4,49 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-01-26T21:17:10+00:00</updated>
- <id>http://www.raulavila.com</id>
+ <updated>2015-01-31T17:13:06+00:00</updated>
+ <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
-   <email>ravila80@gmail.com</email>
+   <email/>
  </author>
 
+ 
+ <entry>
+   <title>Entornos integrados de desarrollo (IDE)</title>
+   <link href="http://www.raulavila.com/2015/01/31/entornos-integrados-desarrollo/"/>
+   <updated>2015-01-31T00:00:00+00:00</updated>
+   <id>http://www.raulavila.com/2015/01/31/entornos-integrados-desarrollo</id>
+   <content type="html">&lt;p&gt;&lt;img src=&quot;/public/pictures/screenshot_intellij.png&quot; alt=&quot;IntelliJ Idea&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Los entornos integrados de desarrollo (IDE) son una herramienta fundamental en el desarrollo de software profesional (y no profesional, diría yo). La asistencia que ofrecen para la generación de código, navegación entre archivos, depuración, despliegues, integración con control de versiones, etc, los hace imprescindibles para cumplir con los mínimos de productividad que exige un mercado tan competitivo como el actual.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;En el mundo Java son principalmente tres los IDE’s que podemos utilizar:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://eclipse.org/&quot;&gt;Eclipse&lt;/a&gt;, creado por la fundación del mismo nombre&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://netbeans.org/&quot;&gt;NetBeans&lt;/a&gt;, proyecto open-source&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.jetbrains.com/idea/&quot;&gt;IntelliJ Idea&lt;/a&gt;, producto comercial de la empresa JetBrains&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Durante la mayor parte de mi carrera profesional trabajé con Eclipse, y para un par de proyectos utilicé NetBeans, en parte por imposiciones del proyecto (aunque no sea necesario, en ciertos equipos de trabajo interesa que todos los desarrolladores utilicen el mismo IDE). Nunca me gustó excesivamente NetBeans, aunque siendo honesto, hará cuatro años que no lo utilizo, así que quizás ha evolucionado hasta ponerse a la altura. Su principal problema era el excesivo consumo de recursos, y la escasa fluidez en el funcionamiento.&lt;/p&gt;
+
+&lt;p&gt;Eclipse, por tanto, fue siempre mi opción favorita. Cuenta además con una cantidad ingente de plugins que permiten ampliar su funcionalidad e incrementar su potencial, muchos de ellos se van incluyendo por defecto en posteriores versiones de la aplicación si su aceptación es grande (por ejemplo el plugin de Maven, &lt;a href=&quot;http://eclipse.org/m2e/&quot;&gt;M2Eclipse&lt;/a&gt;). &lt;/p&gt;
+
+&lt;p&gt;IntelliJ nunca fue opción debido a su naturaleza comercial. Ya sabemos que la mayoría de empresas en España piensas más en términos de gasto que de inversión, y existiendo opciones libres no le ven sentido a gastar en licencias. Aunque bien es verdad que existe una &lt;a href=&quot;http://www.jetbrains.org/pages/viewpage.action?pageId=983211&quot;&gt;versión libre&lt;/a&gt;, carece de demasiadas herramientas que son imprescindibles a nivel empresarial (como la integración con Tomcat). &lt;/p&gt;
+
+&lt;p&gt;Mi mudanza a Londres cambió esta perspectiva, ya que aquí IntelliJ es el número 1. Al principio mostré reticencias a dar el salto, mis primeras semanas en la empresa fueron un bombardeo de información en un idioma que estaba empezando a dominar, y no me apetecía aprender una herramienta nueva cuando con Eclipse me manejaba como pez en el agua. Pero la llegada a mi empresa de un brillante developer con las ideas muy claras prácticamente me obligó a cambiar. Sencillamente, no entendía cómo era posible que no utilizara IntelliJ, y se tomó convencerme para usarlo como algo personal.&lt;/p&gt;
+
+&lt;p&gt;Total, que finalmente no me quedó más remedio que instalármelo…y ¡la verdad es que tenía razón! IntelliJ IDEA es el IDE definitivo, el “flow” es increíble cuando estás escribiendo código, y la integración con Maven es total (seamless que dirían los angloparlantes). Aunque en el fondo las funcionalidades son prácticamente las mismas (con &lt;a href=&quot;https://www.youtube.com/watch?v=YvVbPTxE4DA&quot;&gt;brillantes excepciones&lt;/a&gt;), a mi parecer todo es mucho más intuitivo y agradable. El mayor hándicap que se le puede encontrar (precio aparte) es que, a diferencia de Eclipse, no permite tener varios proyectos abiertos en la misma ventana, pero no es algo que yo haya echado especialmente de menos, sobre todo si trabajas con dos monitores.&lt;/p&gt;
+
+&lt;p&gt;Dadle a una oportunidad a IntelliJ, la Community Edition es suficiente para trastear en casa. Eso sí, luego no querréis volver a Eclipse, como me ha pasado a mí, aunque para evitar el efecto regresión sigo utilizando los mismos atajos de teclado, no sea que algún día en una futura empresa haya que volver a Eclipse.&lt;/p&gt;
+
+&lt;p&gt;Atajos de teclado…precisamente en este post quería hablar de atajos de teclado, pero me he extendido tanto que creo que será mejor hacerlo más adelante :).&lt;/p&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Cómo hice el blog</title>
