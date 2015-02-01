@@ -4,13 +4,770 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-01-31T17:43:57+00:00</updated>
+ <updated>2015-02-01T21:02:30+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Atajos de teclado en IDE's</title>
+   <link href="http://www.raulavila.com/2015/02/atajos-teclado-ide"/>
+   <updated>2015-02-01T00:00:00+00:00</updated>
+   <id>http://www.raulavila.com/2015/02/atajos-teclado-ide</id>
+   <content type="html">&lt;p&gt;En mi &lt;a href=&quot;/2015/01/entornos-integrados-desarrollo&quot;&gt;anterior post&lt;/a&gt; hablé de IDE’s y las diferentes alternativas que hay en el mercado. Mi intención inicial con ese post era hablar de atajos de teclado, pero me extendí demasiado con la introducción y preferí terminar ese hilo para hablar de ello más adelante.&lt;/p&gt;
+
+&lt;p&gt;En mi opinión, ningún desarrollador profesional puede proclamarse como tal si no domina al menos una gran parte de los atajos de teclado que detallaré a continuación. El desarrollo de software debe estar centrado en producir una buena arquitectura y un código mantenible y modular. Un código con estas características no es generado a la primera, requiriendo de un proceso sucesivo de depuración y refactorización. Las herramientas ofrecidas por los IDE’s facilitan muchísimo esta labor, y me atrevería a decir que no conocerlas dificulta el proceso a seguir para llevar a cabo las acciones necesarias que nos llevarán a cumplir con el objetivo de entregar un código &lt;a href=&quot;http://es.wikipedia.org/wiki/SOLID_%28object-oriented_design%29&quot;&gt;SOLID&lt;/a&gt;. &lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;Bien es verdad que todas las acciones están disponibles mediante los menús, pero usarlas de esta forma te hace no llegar a interiorizarlas jamás. Es el uso continuado mediante los atajos de teclado (o shorcuts) lo que realmente consigue que sea totalmente natural pulsar Alt + Shift + M para &lt;a href=&quot;http://refactoring.com/catalog/extractMethod.html&quot;&gt;extraer un método&lt;/a&gt;, por ejemplo.&lt;/p&gt;
+
+&lt;p&gt;Como ya comenté, actualmente me he pasado a &lt;a href=&quot;https://www.jetbrains.com/idea/&quot;&gt;IntelliJ IDEA&lt;/a&gt;, pero durante muchos años utilicé &lt;a href=&quot;https://eclipse.org/&quot;&gt;Eclipse&lt;/a&gt;. Además, nunca se sabe si tendré que volver a Eclipse en algún momento, así que personalmente, consideré mucho más fácil utilizar en IntelliJ el Keymap de Eclipse, con alguna pequeña modificación. Recientemente me he pasado a Mac en casa, y eso añade otra capa de complejidad al asunto, porque los teclados de Mac tienen la tecla Cmd, que no existe en los teclados Windows. La mayoría de las veces, los shorcuts que en Windows son Ctrl + Algo, en Mac son Cmd + Algo, pero no siempre, porque Mac sigue teniendo la tecla Ctrl. Un lío, vaya.&lt;/p&gt;
+
+&lt;p&gt;En las siguiente tablas detallo todos los atajos que considero son imprescindibles en el día a día. Puede que se pueda vivir sin un 10-20% de ellos, pero yo no sería capaz de programar sin utilizar la gran mayoría. Separaré las tablas por categorías, y detallaré el atajo en Windows y en Mac. Repito que este Keymap es prácticamente común para Eclipse e IntelliJ, aunque alguna accción no está implementada en Eclipse. En este último caso añadiré una nota en la columna correspondiente. Si hay varios shortcuts, los separaré por comas, y en ocasiones he modificado el shortcut por defecto o añadido uno (no siempre existe shortcut por defecto). La intención del post es dar a conocer las acciones disponibles, y ya es cuestión de cada uno personalizarlo a su medida.&lt;/p&gt;
+
+&lt;p&gt;Vamos a ello.&lt;/p&gt;
+
+&lt;h3 id=&quot;opciones-de-navegacin&quot;&gt;Opciones de navegación&lt;/h3&gt;
+
+&lt;table class=&quot;font-small&quot;&gt;
+	&lt;thead&gt;
+		&lt;tr&gt;
+			&lt;th&gt;
+				Acción
+			&lt;/th&gt;
+			&lt;th&gt;
+				Windows
+			&lt;/th&gt;
+			&lt;th&gt;
+				OS X
+			&lt;/th&gt;
+			&lt;th&gt;
+				Notas
+			&lt;/th&gt;
+		&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Navegar entre ficheros
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Tab
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Tab
+			&lt;/td&gt;
+			&lt;td&gt;
+				Eclipse: modificada sobre el default
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Ir a la declaración seleccionada (Clase o método)
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Click, F3
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Click, F3
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Cerrar fichero abierto
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + W
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + W
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Cerrar todos los fichero abiertos
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + W
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Shift + W
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Ver ficheros editados recientemente
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + E
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + E
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Ir al último punto editado
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Q
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Q
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Ir al método siguiente/anterior
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + Down/Up
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Alt + Down/Up
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Mostrar usos (llámadas a un método, por ejemplo)
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + G
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Shift + G
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Abrir definición en popup
+			&lt;/td&gt;
+			&lt;td&gt;
+				Alt + Space
+			&lt;/td&gt;
+			&lt;td&gt;
+				Alt + Space
+			&lt;/td&gt;
+			&lt;td&gt;
+				No existe en Eclipse
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Me dejo algún atajo como Navegar adelante/atrás, a modo explorador. La verdad es que en este caso sigo utilizando las flechas de la barra de herramientas, y no pienso reflejar comandos que no utilizo para darme el pisto :). Si en algún momento los añado a mi toolbox diario lo actualizaría aquí.&lt;/p&gt;
+
+&lt;h3 id=&quot;asistencia-en-generacin-de-cdigo&quot;&gt;Asistencia en generación de código&lt;/h3&gt;
+
+&lt;table class=&quot;font-small&quot;&gt;
+	&lt;thead&gt;
+		&lt;tr&gt;
+			&lt;th&gt;
+				Acción
+			&lt;/th&gt;
+			&lt;th&gt;
+				Windows
+			&lt;/th&gt;
+			&lt;th&gt;
+				OS X
+			&lt;/th&gt;
+			&lt;th&gt;
+				Notas
+			&lt;/th&gt;
+		&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Copiar
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + C
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + C
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Cortar
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + X
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + X
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Pegar
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + V
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + V
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Pegar de la historia
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + V
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Shift + V
+			&lt;/td&gt;
+			&lt;td&gt;
+				No existe en Eclipse
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Deshacer
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Z
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Z
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Rehacer
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Y
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Shift + Z
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Duplicar línea
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Alt + Down
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Alt + Down
+			&lt;/td&gt;
+			&lt;td&gt;
+				Eclipse: no hay shortcut por defecto
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Borrar línea 	
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + D
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + D
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Completar statement / bloque
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + Enter
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Shift + Enter
+			&lt;/td&gt;
+			&lt;td&gt;
+				No existe en Eclipse
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Quick Fix
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + 1, Alt + Enter
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + 1
+			&lt;/td&gt;
+			&lt;td&gt;
+				-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Sugerencias (autocompletado)
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Space
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Space
+			&lt;/td&gt;
+			&lt;td&gt;
+				-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Generar código 
+			&lt;/td&gt;
+			&lt;td&gt;
+				Alt + Insert
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Enter
+			&lt;/td&gt;
+			&lt;td&gt;
+				-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Las opciones reflejadas en esta tabla son, sin duda, las que mayor repercusión tienen en el incremento de la productividad. Veamos con detalle las más complejas: &lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;“Pegar de la historia”, en IntelliJ, guarda un histórico del portapapeles, y permite seleccionar el fragmento a pegar de una lista. Es bastante interesante.&lt;/li&gt;
+  &lt;li&gt;Completar statement / bloque: una de las opciones más potentes de IntelliJ de las que no existen en Eclipse. Cierra y formatea la línea o bloque en curso, añadiendo los paréntesis o llaves necesarios para balancear correctamente la instrucción, así como el punto y coma si es un statement de una sola línea.&lt;/li&gt;
+  &lt;li&gt;Quick fix: un clásico, ofrece opciones para solucionar problemas, por ejemplo: implementar métodos ausentes (si estamos implementado una interfaz y faltan métodos), convertir un método a static si no lo es y lo estamos referenciando como tal, etc.&lt;/li&gt;
+  &lt;li&gt;Generar código: por ejemplo, getters y setters, constructores con ciertos parametros, etc. Aunque existe en Eclipse, el popup de generación de código que aparece en IntelliJ no existe como tal:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/intellij_autocomplete.png&quot; alt=&quot;Generate Intellij&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;opciones-de-bsqueda&quot;&gt;Opciones de búsqueda&lt;/h3&gt;
+
+&lt;table class=&quot;font-small&quot;&gt;
+	&lt;thead&gt;
+		&lt;tr&gt;
+			&lt;th&gt;
+				Acción
+			&lt;/th&gt;
+			&lt;th&gt;
+				Windows
+			&lt;/th&gt;
+			&lt;th&gt;
+				OS X
+			&lt;/th&gt;
+			&lt;th&gt;
+				Notas
+			&lt;/th&gt;
+		&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Buscar en fichero
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + F
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + F
+			&lt;/td&gt;
+			&lt;td&gt;
+				IntelliJ: no hay shortcut por defecto (increíblemente)
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Reemplazar en fichero
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + R
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + R
+			&lt;/td&gt;
+			&lt;td&gt;
+				IntelliJ: no hay shortcut por defecto (increíblemente)
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Buscar fichero en proyecto
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + R
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Shift + R
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Buscar clase en proyecto (y dependencias)
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + T
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Shift + T
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Buscar implementación (de interface, clase abstracta...)
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + T
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + T
+			&lt;/td&gt;
+			&lt;td&gt;
+				IntelliJ: no hay shortcut por defecto
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;refactoring&quot;&gt;Refactoring&lt;/h3&gt;
+
+&lt;table class=&quot;font-small&quot;&gt;
+	&lt;thead&gt;
+		&lt;tr&gt;
+			&lt;th&gt;
+				Acción
+			&lt;/th&gt;
+			&lt;th&gt;
+				Windows
+			&lt;/th&gt;
+			&lt;th&gt;
+				OS X
+			&lt;/th&gt;
+			&lt;th&gt;
+				Notas
+			&lt;/th&gt;
+		&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Renombrar
+			&lt;/td&gt;
+			&lt;td&gt;
+				Alt + Shift + R
+			&lt;/td&gt;
+			&lt;td&gt;
+				Alt + Shift + R
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Extraer método
+			&lt;/td&gt;
+			&lt;td&gt;
+				Alt + Shift + M
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Alt + M
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Extraer variable
+			&lt;/td&gt;
+			&lt;td&gt;
+				Alt + Shift + L 
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Alt + L 
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Extraer constante
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Alt + C
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Alt + K
+			&lt;/td&gt;
+			&lt;td&gt;
+				No hay shortcut por defecto
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Extraer atributo
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Alt + F
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Alt + F
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Cambiar declaración del método
+			&lt;/td&gt;
+			&lt;td&gt;
+				Alt + Shift + C
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Alt + C
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;formateo-y-organizacin-de-cdigo&quot;&gt;Formateo y organización de código&lt;/h3&gt;
+
+&lt;table class=&quot;font-small&quot;&gt;
+	&lt;thead&gt;
+		&lt;tr&gt;
+			&lt;th&gt;
+				Acción
+			&lt;/th&gt;
+			&lt;th&gt;
+				Windows
+			&lt;/th&gt;
+			&lt;th&gt;
+				OS X
+			&lt;/th&gt;
+			&lt;th&gt;
+				Notas
+			&lt;/th&gt;
+		&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Organizar imports
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + O
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Shift + O
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Mover línea/método arriba/abajo
+			&lt;/td&gt;
+			&lt;td&gt;
+				Alt + Up/Down
+			&lt;/td&gt;
+			&lt;td&gt;
+				Alt + Up/Down
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Formatear código
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + F
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Shift + F
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Evidentemente, la opción “Formatear código” lo hará según lo tengamos configurado en las preferencias =&amp;gt; Code Style. En proyectos corporativos es muy importante tratar de ser consistente en el estilo de código ejecutado por los desarrolladores. Una plantilla muy buena para esto es &lt;a href=&quot;https://google-styleguide.googlecode.com/svn/trunk/javaguide.html&quot;&gt;la de Google&lt;/a&gt;. De este tema hablaré en un post futuro, seguramente.&lt;/p&gt;
+
+&lt;h3 id=&quot;acciones-genricas&quot;&gt;Acciones genéricas&lt;/h3&gt;
+
+&lt;table class=&quot;font-small&quot;&gt;
+	&lt;thead&gt;
+		&lt;tr&gt;
+			&lt;th&gt;
+				Acción
+			&lt;/th&gt;
+			&lt;th&gt;
+				Windows
+			&lt;/th&gt;
+			&lt;th&gt;
+				OS X
+			&lt;/th&gt;
+			&lt;th&gt;
+				Notas
+			&lt;/th&gt;
+		&lt;/tr&gt;
+	&lt;/thead&gt;
+	&lt;tbody&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Seleccionar todo
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + A
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + A
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Comentar línea
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + /
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + /
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Comentar bloque
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + /
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Shift + /
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Encontrar Acción
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + A
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + A
+			&lt;/td&gt;
+			&lt;td&gt;
+				No es el shortcut por defecto de IntelliJ
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Ejecutar clase / tests
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + F10
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + F10 (personalizado), Ctrl + Shift + R (default)
+			&lt;/td&gt;
+			&lt;td&gt;
+				Eclipse: estas no son las opciones por defecto
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Extender / disminuir selección
+			&lt;/td&gt;
+			&lt;td&gt;
+				Alt + Shift + Up / Down
+			&lt;/td&gt;
+			&lt;td&gt;
+				Alt + Shift + Up / Down
+			&lt;/td&gt;
+			&lt;td&gt;
+				No es el shortcut por defecto en OS X
+			&lt;/td&gt;		
+		&lt;/tr&gt;
+	&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;La última opción de la tabla existe sólo en IntelliJ, y es muy interesante. Permite, desde la posición actual del cursor, aumentar el texto seleccionado por bloques compilables. Probadla, porque seguro que la introducís en vuestro día a día.&lt;/p&gt;
+
+&lt;h3 id=&quot;conclusin&quot;&gt;Conclusión&lt;/h3&gt;
+
+&lt;p&gt;Una buena forma de aprender estos atajos de teclado es introducirlos de manera progresiva en la dinámica de trabajo. No es posible dominar más de cuarenta shortcuts en un par de días, pero aprender tres o cuatro por semana es perfectamente posible, y seguramente ya conozcáis muchos de ellos. De hecho me daría por contento si gracias a este post os he dado a conocer dos o tres atajos que os resulten útiles de ahora en adelante.&lt;/p&gt;
+
+&lt;p&gt;Personalmente, mi intención con este artículo ha sido más la de recolectar de forma ordenada los diferentes shortcuts que utilizo para que me sirva de recordatorio si algún día tengo que configurar de cero el Keymap en una nueva instalación.&lt;/p&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>Entornos integrados de desarrollo (IDE)</title>

@@ -156,6 +156,10 @@ abbr[title] {
   border-bottom: 1px dotted #e5e5e5;
 }
 
+.font-small {
+  font-size:0.80rem;
+}
+
 /* Code */
 code,
 pre {
