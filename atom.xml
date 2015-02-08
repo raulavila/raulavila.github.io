@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-02-08T19:41:14+00:00</updated>
+ <updated>2015-02-08T19:43:36+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -20,6 +20,8 @@
    <content type="html">&lt;p&gt;&lt;img src=&quot;/public/pictures/refactoring_fowler.jpg&quot; alt=&quot;Refactoring, el libro&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;El libro &lt;a href=&quot;http://www.amazon.es/Refactoring-Improving-Design-Existing-Technology/dp/0201485672/ref=sr_1_1?ie=UTF8&amp;amp;qid=1423418116&amp;amp;sr=8-1&amp;amp;keywords=Refactoring&quot;&gt;“Refactoring: Improving the design of existing code”&lt;/a&gt;, es un clásico absoluto de la Ingeniería del Software. Cualquier desarrollador experimentado debe conocer forzosamente muchas de las refactorizaciones propuestas en el libro. El propio autor las tiene recogidas online en &lt;a href=&quot;http://refactoring.com/catalog/&quot;&gt;este catálogo&lt;/a&gt;, aunque sin entrar en muchos detalles (hay que seguir vendiendo el libro, cosa totalmente lícita). En pocas palabras, refactorizar consiste en modificar el código sin que la funcionalidad se vea afectada, y es algo totalmente necesario para la buena salud de nuestro código.&lt;/p&gt;
+
+&lt;!--break--&gt;
 
 &lt;p&gt;Recientemente he terminado de leer este compendio de técnicas para mejorar el código que desarrollamos, y la valoración general es muy positiva. Me ha servido para plantearme ciertas cosas que hago o dejo de hacer a diario, y diría que soy un poco mejor programador que antes de leerlo. Por supuesto lo recomendaría a cualquiera.&lt;/p&gt;
 
