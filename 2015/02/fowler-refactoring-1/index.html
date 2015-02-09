@@ -121,14 +121,18 @@
 
 <p>Si queremos usar de todas todas la clase Date para limitar los rangos de DateRange, la forma adecuada de que DateRange sea inmutable es crear “defensive copies” en los getters. Esta técnica está explicada estupendamente en el libro <a href="http://www.amazon.es/Effective-Java-Programming-Language-Guide/dp/0321356683/ref=sr_1_1?ie=UTF8&amp;qid=1423422393&amp;sr=8-1&amp;keywords=Effective+Java">“Effective Java”</a> de Joshua Bloch. Consiste en crear una copia del objeto a devolver en lugar del propio objeto. de esta forma el cliente no tiene una referencia de la instancia contenida en la clase inmutable, sino una copia, y puede hacer lo que quiera con ella, ya que la instancia original seguirá encapsulada en dicha clase inmutable:</p>
 
+<div class="font-small">
+(Gracias Jorge por el comentario sobre el error en el constructor)
+</div>
+
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DateRangeInmutable</span> <span class="o">{</span>
 
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">Date</span> <span class="n">start</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">Date</span> <span class="n">end</span><span class="o">;</span>
 
     <span class="kd">public</span> <span class="nf">DateRangeInmutable</span><span class="o">(</span><span class="n">Date</span> <span class="n">start</span><span class="o">,</span> <span class="n">Date</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">start</span> <span class="o">=</span> <span class="n">start</span><span class="o">;</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">end</span> <span class="o">=</span> <span class="n">end</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">start</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Date</span><span class="o">(</span><span class="n">start</span><span class="o">.</span><span class="na">getTime</span><span class="o">());</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">end</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Date</span><span class="o">(</span><span class="n">end</span><span class="o">.</span><span class="na">getTime</span><span class="o">());</span>
     <span class="o">}</span>
 
     <span class="kd">public</span> <span class="n">Date</span> <span class="nf">getStart</span><span class="o">()</span> <span class="o">{</span>
