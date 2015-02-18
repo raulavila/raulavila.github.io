@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-02-18T21:13:09+00:00</updated>
+ <updated>2015-02-18T21:14:12+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -27,7 +27,7 @@
     &lt;span class=&quot;n&quot;&gt;SALESMAN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;!-- break --&gt;
+&lt;!--break--&gt;
 
 &lt;p&gt;También es bastante normal que se utilicen de una forma algo más avanzada, asignando parámetros a cada valor enumerado:&lt;/p&gt;
 
