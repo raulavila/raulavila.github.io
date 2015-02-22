@@ -60,9 +60,7 @@
     data-count="none"
     href="https://twitter.com/share">Tweet</a>
   </div>  
-  <p>Termino con este post mi repaso a los “puntos mejorables” en el libro de Fowler. Insisto en mi consideración a esta 
-obra como una referencia indiscutible, de hecho en casi 400 páginas sólo he encontrado unos pocos puntos dignos de 
-discusión. Además si algún lector considera que he desbarrado en algún aspecto, admitiré encantado cualquier comentario.</p>
+  <p>Termino con este post mi repaso a los “puntos mejorables” en el libro de Fowler. Insisto en mi consideración a esta obra como una referencia indiscutible, de hecho en casi 400 páginas sólo he encontrado unos pocos puntos dignos de discusión. Además si algún lector considera que he desbarrado en algún aspecto, admitiré encantado cualquier comentario.</p>
 
 <!--break-->
 
@@ -77,24 +75,16 @@ discusión. Además si algún lector considera que he desbarrado en algún aspec
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="k">return</span> <span class="o">(</span><span class="n">anOrder</span><span class="o">.</span><span class="na">basePrice</span><span class="o">()</span> <span class="o">&gt;</span><span class="mi">1000</span><span class="o">);</span></code></pre></div>
 
-<p>No diría que este refactoring es un gran error “per se”, pero la experiencia me ha enseñado que siempre es mejor 
-almacenar el retorno de un método en una variable temporal <strong>para facilitar los procesos de debugging</strong>. En efecto, 
-si en algún momento necesitamos depurar y leer el valor de retorno del método basePrice, con la primera versión del 
-código bastaría con ubicar un breakpoint en la sentencia return, mientras que en la segunda versión necesitamos 
-navegar dentro del método basePrice (y si por cualquier motivo este método no utilizara variables temporales 
-estaríamos en las mismas).</p>
+<p>No diría que este refactoring es un gran error “per se”, pero la experiencia me ha enseñado que siempre es mejor almacenar el retorno de un método en una variable temporal <strong>para facilitar los procesos de debugging</strong>. En efecto, si en algún momento necesitamos depurar y leer el valor de retorno del método basePrice, con la primera versión del código bastaría con ubicar un breakpoint en la sentencia return, mientras que en la segunda versión necesitamos navegar dentro del método basePrice (y si por cualquier motivo este método no utilizara variables temporales estaríamos en las mismas).</p>
 
-<p>En resumen, no creo que la se obtenga un gran beneficio. Quizás podría discutirse que estamos creando una variable 
-temporal “poco útil”, pero la deuda técnica de no utilizarla es un potencial incremento en el tiempo de depuración.
-Otro peligro es la reutilización de variables temporales, pero esto es fácil de evitar utilizando el modificador final:</p>
+<p>En resumen, no creo que la se obtenga un gran beneficio. Quizás podría discutirse que estamos creando una variable temporal “poco útil”, pero la deuda técnica de no utilizarla es un potencial incremento en el tiempo de depuración. Otro peligro es la reutilización de variables temporales, pero esto es fácil de evitar utilizando el modificador final:</p>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">final</span> <span class="kt">double</span> <span class="n">basePrice</span> <span class="o">=</span> <span class="n">anOrder</span><span class="o">.</span><span class="na">basePrice</span><span class="o">();</span>
 <span class="k">return</span> <span class="o">(</span><span class="n">basePrice</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="o">);</span></code></pre></div>
 
 <h3 id="replace-subclass-with-fields-pg-232">Replace Subclass with Fields (pág. 232)</h3>
 
-<p>Este refactoring, <a href="http://refactoring.com/catalog/replaceSubclassWithFields.html">descrito en la web de Fowler</a>, 
-pretende eliminar jerarquías innecesarias, pero no diría que el resultado es especiamente brillante:</p>
+<p>Este refactoring, <a href="http://refactoring.com/catalog/replaceSubclassWithFields.html">descrito en la web de Fowler</a>, pretende eliminar jerarquías innecesarias, pero no diría que el resultado es especiamente brillante:</p>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="kd">final</span> <span class="kt">boolean</span> <span class="n">male</span><span class="o">;</span>
@@ -122,13 +112,11 @@ pretende eliminar jerarquías innecesarias, pero no diría que el resultado es e
     <span class="o">}</span>
 <span class="o">}</span></code></pre></div>
 
-<p>Disculpemos el uso de un char para indicar el sexo de la persona, debido a la no existencia de enums en aquel 
-entonces. Aún así, sigue habiendo dos claros errores de diseño:</p>
+<p>Disculpemos el uso de un char para indicar el sexo de la persona, debido a la no existencia de enums en aquel entonces. Aún así, sigue habiendo dos claros errores de diseño:</p>
 
 <ul>
   <li>El atributo male es totalmente redundante, pudiéndose extraer como code == ‘M’. Recordemos, <a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself">Don’t repeat yourself</a>.</li>
-  <li>De nuevo vuelve a utilizar métodos factory estáticos en la propia clase. En este caso diría que no es tan grave 
-<a href="/2015/02/fowler-refactoring-2">como en el ejemplo del artículo anterior</a>, pero sigue sin gustarme. </li>
+  <li>De nuevo vuelve a utilizar métodos factory estáticos en la propia clase. En este caso diría que no es tan grave <a href="/2015/02/fowler-refactoring-2">como en el ejemplo del artículo anterior</a>, pero sigue sin gustarme.</li>
 </ul>
 
 <p>Mi propuesta de mejora contiene una enumeración y una clase Factory:</p>
@@ -138,7 +126,7 @@ entonces. Aún así, sigue habiendo dos claros errores de diseño:</p>
     <span class="n">FEMALE</span><span class="o">(</span><span class="sc">&#39;F&#39;</span><span class="o">);</span>
 
     <span class="kd">private</span> <span class="kd">final</span> <span class="kt">char</span> <span class="n">code</span><span class="o">;</span>
-    
+
     <span class="n">Gender</span><span class="o">(</span><span class="kt">char</span> <span class="n">code</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">code</span> <span class="o">=</span> <span class="n">code</span><span class="o">;</span>
     <span class="o">}</span>
@@ -175,17 +163,13 @@ entonces. Aún así, sigue habiendo dos claros errores de diseño:</p>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></div>
 
-<p>Mantengo el código de tipo char, ya que los clientes pueden seguir necesitando dicho identificador, pero en esta 
-ocasión lo encapsulo dentro de un enumerado. El enumerado es de ámbito package, por lo que fuera de la factoria y la 
-clase Person no puede ser utilizado.</p>
+<p>Mantengo el código de tipo char, ya que los clientes pueden seguir necesitando dicho identificador, pero en esta ocasión lo encapsulo dentro de un enumerado. El enumerado es de ámbito package, por lo que fuera de la factoria y la clase Person no puede ser utilizado.</p>
 
-<p>( <a href="https://github
-.com/raulavila/fowlers-refactoring-errors">El código de este apartado está subido en mi repositorio de GitHub</a> )</p>
+<p>( <a href="https://github.com/raulavila/fowlers-refactoring-errors">El código de este apartado está subido en mi repositorio de GitHub</a> )</p>
 
 <h3 id="classforname">Class.forName</h3>
 
-<p>En el refactoring “Replace Constructor with Factory Method” (pág 304), se crea un método factory genérico de la 
-siguiente forma:</p>
+<p>En el refactoring “Replace Constructor with Factory Method” (pág 304), se crea un método factory genérico de la siguiente forma:</p>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="n">Employee</span> <span class="nf">create</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">){</span>
     <span class="k">try</span> <span class="o">{</span>
@@ -199,35 +183,21 @@ siguiente forma:</p>
    <span class="k">return</span> <span class="nf">create</span><span class="o">(</span><span class="s">&quot;Engineer&quot;</span><span class="o">);</span>
 <span class="c1">//....</span></code></pre></div>
 
-<p>Esta forma de crear instancias es totalmente inadecuada, porque se pierde seguridad de tipos (<a href="http://en.wikipedia.org/wiki/Type_safety">type safety</a>). Lo mejor del caso es que el propio Fowler lo reconoce nada más plantear la alternativa. Bajo
- mi punto de vista, esta forma de instanciar objetos solo estaría justificada si el parámetro del método create está 
- configurado fuera del ámbito de la aplicación (por ejemplo, en una base de datos). En tal caso, sería imprescindible
-  cubrir con tests dicha configuración para evitar errores en tiempo de ejecución.</p>
+<p>Esta forma de crear instancias es totalmente inadecuada, porque se pierde seguridad de tipos (<a href="http://en.wikipedia.org/wiki/Type_safety">type safety</a>). Lo mejor del caso es que el propio Fowler lo reconoce nada más plantear la alternativa. Bajo mi punto de vista, esta forma de instanciar objetos solo estaría justificada si el parámetro del método create está configurado fuera del ámbito de la aplicación (por ejemplo, en una base de datos). En tal caso, sería imprescindible cubrir con tests dicha configuración para evitar errores en tiempo de ejecución.</p>
 
 <h3 id="conclusiones">Conclusiones</h3>
 
-<p>Y aquí termino mi repaso a este gran libro. Me dejo algunas cosas en el tintero, pero que creo que ya han sido 
-discutidas sobradamente en la comunidad, como por ejemplo:</p>
+<p>Y aquí termino mi repaso a este gran libro. Me dejo algunas cosas en el tintero, pero que creo que ya han sido discutidas sobradamente en la comunidad, como por ejemplo:</p>
 
 <ul>
   <li>El uso de <a href="http://stackoverflow.com/questions/6115896/java-checked-vs-unchecked-exception-explanation">Checked Exceptions vs Unchecked Exceptions</a> (yo apenas utilizo Checked Exceptions de un tiempo a esta parte)</li>
   <li>Extender una clase mediante herencia o con un wrapper (<a href="http://stackoverflow.com/questions/2150273/java-extend-or-wrap-a-class-to-add-extra-functionality">Inheritance vs. Composition</a>)</li>
 </ul>
 
-<p>Concluyo citando el propio libro. En referencia a la importancia de refactorizar en un proyecto corporativo, donde
- las fechas de entrega añaden una presión difícil de soportar en ocasiones, y cuando los managers no entienden la
- importancia del Refactoring, el consejo de Fowler en estas ocasiones es claro e implacable: “No digas que 
- refactorizas”.</p>
+<p>Concluyo citando el propio libro. En referencia a la importancia de refactorizar en un proyecto corporativo, donde las fechas de entrega añaden una presión difícil de soportar en ocasiones, y cuando los managers no entienden la importancia del Refactoring, el consejo de Fowler en estas ocasiones es claro e implacable: “No digas que refactorizas”.</p>
 
 <blockquote>
-  <p>“Of course, many people say they are driven by quality but are more driven by schedule. In these
- cases I give my more controversial advice: Don’t tell! Subversive? I don’t think so. Software developers are professionals. Our job is to build effective
- software as rapidly as we can. My experience is that refactoring is a big aid to building software
- quickly. If I need to add a new function and the design does not suit the change, I find it’s quicker
- to refactor first and then add the function. If I need to fix a bug, I need to understand how the
- software works—and I find refactoring is the fastest way to do this. A schedule-driven manager
- wants me to do things the fastest way I can; how I do it is my business. The fastest way is to
- refactor; therefore I refactor”</p>
+  <p>“Of course, many people say they are driven by quality but are more driven by schedule. In these cases I give my more controversial advice: Don’t tell! Subversive? I don’t think so. Software developers are professionals. Our job is to build effective software as rapidly as we can. My experience is that refactoring is a big aid to building software quickly. If I need to add a new function and the design does not suit the change, I find it’s quicker to refactor first and then add the function. If I need to fix a bug, I need to understand how the software works—and I find refactoring is the fastest way to do this. A schedule-driven manager wants me to do things the fastest way I can; how I do it is my business. The fastest way is to refactor; therefore I refactor”</p>
 </blockquote>
 
 </article>

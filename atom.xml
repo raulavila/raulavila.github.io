@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-02-22T19:12:45+00:00</updated>
+ <updated>2015-02-22T20:12:15+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -88,9 +88,7 @@
    <link href="http://www.raulavila.com/2015/02/enums-java"/>
    <updated>2015-02-18T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/02/enums-java</id>
-   <content type="html">&lt;p&gt;&lt;a href=&quot;http://docs.oracle.com/javase/7/docs/api/java/lang/Enum.html&quot;&gt;Los tipos enumerados de Java&lt;/a&gt; (&lt;code&gt;enum&lt;/code&gt;) fueron añadidos en la versión 5 del lenguaje. Su uso más inmediato fue el de
-“contenedores de constantes”, y me temo que gran parte de los desarrolladores desconocen la flexibilidad que permiten
- más allá de este típico uso:&lt;/p&gt;
+   <content type="html">&lt;p&gt;&lt;a href=&quot;http://docs.oracle.com/javase/7/docs/api/java/lang/Enum.html&quot;&gt;Los tipos enumerados de Java&lt;/a&gt; (&lt;code&gt;enum&lt;/code&gt;) fueron añadidos en la versión 5 del lenguaje. Su uso más inmediato fue el de “contenedores de constantes”, y me temo que gran parte de los desarrolladores desconocen la flexibilidad que permiten más allá de este típico uso:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;EmployeeType&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;ENGINEER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
@@ -124,19 +122,15 @@
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;En el ejemplo se asigna un nombre “para mostrar” (&lt;code&gt;toString()&lt;/code&gt; por defecto sacaría el valor del enumerado tal cual, 
-en letras mayúsculas) y un salario a cada tipo de empleado.&lt;/p&gt;
+&lt;p&gt;En el ejemplo se asigna un nombre “para mostrar” (&lt;code&gt;toString()&lt;/code&gt; por defecto sacaría el valor del enumerado tal cual, en letras mayúsculas) y un salario a cada tipo de empleado.&lt;/p&gt;
 
-&lt;p&gt;Mi intención con este post es dar a conocer usos más avanzados de los enumerados, que yo personalmente utilizo 
-bastante a menudo y de formas quizás menos ortodoxas.&lt;/p&gt;
+&lt;p&gt;Mi intención con este post es dar a conocer usos más avanzados de los enumerados, que yo personalmente utilizo bastante a menudo y de formas quizás menos ortodoxas.&lt;/p&gt;
 
 &lt;p&gt;(&lt;a href=&quot;https://github.com/raulavila/enums-examples&quot;&gt;Como siempre el código está en GitHub&lt;/a&gt;)&lt;/p&gt;
 
 &lt;h3 id=&quot;enums-como-estados-con-comportamiento-asociado&quot;&gt;Enums como estados con comportamiento asociado&lt;/h3&gt;
 
-&lt;p&gt;Los enumerados me parecen una de las formas más claras y elegantes de implementar &lt;a href=&quot;http://en.wikipedia.org/wiki/State_pattern&quot;&gt;el patrón State&lt;/a&gt;. En el siguiente ejemplo creamos una clase &lt;em&gt;Calculator&lt;/em&gt; de una sola operación, y que expone
- dos métodos, &lt;code&gt;setOperation&lt;/code&gt;, para cambiar la operación (el estado) de la calculadora, y &lt;code&gt;performOperation&lt;/code&gt;, que 
- recibe dos números y devuelve el resultado de aplicar la operación:&lt;/p&gt;
+&lt;p&gt;Los enumerados me parecen una de las formas más claras y elegantes de implementar &lt;a href=&quot;http://en.wikipedia.org/wiki/State_pattern&quot;&gt;el patrón State&lt;/a&gt;. En el siguiente ejemplo creamos una clase &lt;em&gt;Calculator&lt;/em&gt; de una sola operación, y que expone dos métodos, &lt;code&gt;setOperation&lt;/code&gt;, para cambiar la operación (el estado) de la calculadora, y &lt;code&gt;performOperation&lt;/code&gt;, que recibe dos números y devuelve el resultado de aplicar la operación:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Calculator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
@@ -157,8 +151,7 @@ bastante a menudo y de formas quizás menos ortodoxas.&lt;/p&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Como vemos, la clase no tiene ni idea de como se implementan las operaciones, delegando su ejecución a la instancia
-   de Operation:&lt;/p&gt;
+&lt;p&gt;Como vemos, la clase no tiene ni idea de como se implementan las operaciones, delegando su ejecución a la instancia de Operation:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Operation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;ADD&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;+&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
@@ -199,13 +192,9 @@ bastante a menudo y de formas quizás menos ortodoxas.&lt;/p&gt;
     &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;abstract&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;operand1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;operand2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Aquí es donde se ve de forma clara cómo encapsulamos cada operación en las distintas instancias de Operation
-dentro del método &lt;code&gt;perform&lt;/code&gt;, que a nivel de clase está declarado como método abstracto (ya que se implementa en cada 
-uno de los enumerados). También exponemos un atributo, &lt;code&gt;operator&lt;/code&gt;, que no es más que el símbolo que identifica a cada
- operación, aunque en el ejemplo no se utiliza.&lt;/p&gt;
+&lt;p&gt;Aquí es donde se ve de forma clara cómo encapsulamos cada operación en las distintas instancias de Operation dentro del método &lt;code&gt;perform&lt;/code&gt;, que a nivel de clase está declarado como método abstracto (ya que se implementa en cada uno de los enumerados). También exponemos un atributo, &lt;code&gt;operator&lt;/code&gt;, que no es más que el símbolo que identifica a cada operación, aunque en el ejemplo no se utiliza.&lt;/p&gt;
 
-&lt;p&gt;El método &lt;code&gt;perform&lt;/code&gt; podría haber contenido una implementación por defecto, de forma que si luego no la sobrescribimos
- en las instancias sería la ejecutada por el compilador:&lt;/p&gt;
+&lt;p&gt;El método &lt;code&gt;perform&lt;/code&gt; podría haber contenido una implementación por defecto, de forma que si luego no la sobrescribimos en las instancias sería la ejecutada por el compilador:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Operation&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
    &lt;span class=&quot;c1&quot;&gt;//....&lt;/span&gt;
@@ -216,8 +205,7 @@ uno de los enumerados). También exponemos un atributo, &lt;code&gt;operator&lt;
    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;En este ejemplo podemos declarar una operación y no implementarla de momento, mientras que con la primera versión no
-  sería posible.&lt;/p&gt;
+&lt;p&gt;En este ejemplo podemos declarar una operación y no implementarla de momento, mientras que con la primera versión no sería posible.&lt;/p&gt;
 
 &lt;p&gt;Como es de esperar la calculadora funciona según lo esperado:&lt;/p&gt;
 
@@ -231,8 +219,7 @@ uno de los enumerados). También exponemos un atributo, &lt;code&gt;operator&lt;
 
 &lt;h3 id=&quot;estados-asociados&quot;&gt;Estados asociados&lt;/h3&gt;
 
-&lt;p&gt;Siguiendo con el patrón State, es posible asociar estados de la misma enumeración entre sí, con la única condición de
- que no es posible referenciar un valor del enumerado que aún no ha sido declarado:&lt;/p&gt;
+&lt;p&gt;Siguiendo con el patrón State, es posible asociar estados de la misma enumeración entre sí, con la única condición de que no es posible referenciar un valor del enumerado que aún no ha sido declarado:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;enum&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OvenState&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
@@ -263,9 +250,7 @@ uno de los enumerados). También exponemos un atributo, &lt;code&gt;operator&lt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;En el ejemplo defino estados de un horno imaginario, de forma que cada estado contiene una referencia de su estado 
- siguiente. Debido a la restricción comentada más arriba, no es posible declarar los estados como sería más natural, 
- de BEGIN a END, porque en tal caso el compilador se quejaría.&lt;/p&gt;
+&lt;p&gt;En el ejemplo defino estados de un horno imaginario, de forma que cada estado contiene una referencia de su estado siguiente. Debido a la restricción comentada más arriba, no es posible declarar los estados como sería más natural, de BEGIN a END, porque en tal caso el compilador se quejaría.&lt;/p&gt;
 
 &lt;p&gt;La implementación del horno con su estado quedaría:&lt;/p&gt;
 
@@ -298,8 +283,7 @@ uno de los enumerados). También exponemos un atributo, &lt;code&gt;operator&lt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;De nuevo el horno no tiene ni idea de todos los estados por los que pasa, solo sabe que hay un estado inicial, y que 
-existe un estado final según el valor devuelto por &lt;code&gt;hasFinished&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;De nuevo el horno no tiene ni idea de todos los estados por los que pasa, solo sabe que hay un estado inicial, y que existe un estado final según el valor devuelto por &lt;code&gt;hasFinished&lt;/code&gt;.&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;Oven&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;oven&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Oven&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;assertThat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;oven&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isEqualTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Oven is starting&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
@@ -328,8 +312,7 @@ existe un estado final según el valor devuelto por &lt;code&gt;hasFinished&lt;/
 &lt;span class=&quot;n&quot;&gt;oven&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;reset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;assertThat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;oven&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isEqualTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Oven is starting&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Siguiendo con mi manía de desacoplar al máximo, ¡el horno ni siquiera tendría por qué saber el valor del estado 
-inicial! Para eso habría que declarar un método estátido en OvenState:&lt;/p&gt;
+&lt;p&gt;Siguiendo con mi manía de desacoplar al máximo, ¡el horno ni siquiera tendría por qué saber el valor del estado inicial! Para eso habría que declarar un método estátido en OvenState:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;OvenState&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getInitialState&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;BEGIN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
@@ -345,9 +328,7 @@ inicial! Para eso habría que declarar un método estátido en OvenState:&lt;/p&
 
 &lt;h3 id=&quot;enums-como-parametrizaciones&quot;&gt;Enums como parametrizaciones&lt;/h3&gt;
 
-&lt;p&gt;Imaginemos un sistema que contiene una serie de parámetros de configuración a persistir en una base de datos o 
-similar. Dichos parámetros pueden contener diversos tipos de datos, pero en la tabla el tipo del
-valor será un String para dar flexibilidad, es decir, tendremos algo como:&lt;/p&gt;
+&lt;p&gt;Imaginemos un sistema que contiene una serie de parámetros de configuración a persistir en una base de datos o similar. Dichos parámetros pueden contener diversos tipos de datos, pero en la tabla el tipo del valor será un String para dar flexibilidad, es decir, tendremos algo como:&lt;/p&gt;
 
 &lt;table&gt;
     &lt;thead&gt;
@@ -380,10 +361,7 @@ valor será un String para dar flexibilidad, es decir, tendremos algo como:&lt;/
     &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;Aunque el tipo de PARAM_VALUE sea un String, es evidente que cada parámetro tiene una naturaleza muy concreta 
-(podemos tener fechas, enteros, cadenas, etc). Nos gustaría que nuestra clase DAO que persiste esta información 
-chequeara el tipo de los datos antes de almacenarlos. Además queremos que los nombres de los parámetros estuvieran 
-acotados a una serie muy concreta.&lt;/p&gt;
+&lt;p&gt;Aunque el tipo de PARAM_VALUE sea un String, es evidente que cada parámetro tiene una naturaleza muy concreta (podemos tener fechas, enteros, cadenas, etc). Nos gustaría que nuestra clase DAO que persiste esta información chequeara el tipo de los datos antes de almacenarlos. Además queremos que los nombres de los parámetros estuvieran acotados a una serie muy concreta.&lt;/p&gt;
 
 &lt;p&gt;Diría que no hay mejor forma de hacer esto que utilizando un enumerado:&lt;/p&gt;
 
@@ -417,8 +395,7 @@ acotados a una serie muy concreta.&lt;/p&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Como vemos, cada instancia contiene el nombre del parámetro a persistir, y la clase del valor. El propio enumerado 
-expone un método que chequea si un objeto en concreto contiene un valor válido para el parámetro.&lt;/p&gt;
+&lt;p&gt;Como vemos, cada instancia contiene el nombre del parámetro a persistir, y la clase del valor. El propio enumerado expone un método que chequea si un objeto en concreto contiene un valor válido para el parámetro.&lt;/p&gt;
 
 &lt;p&gt;La clase DAO, por tanto, delegaría toda la lógica al valor del enumerado que quiera almacenar el cliente:&lt;/p&gt;
 
@@ -427,7 +404,7 @@ expone un método que chequea si un objeto en concreto contiene un valor válido
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
 &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;abstract&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AbstractConfigDAO&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ConfigDAO&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    
+
     &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
     &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ConfigParam&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;n&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
@@ -451,9 +428,7 @@ expone un método que chequea si un objeto en concreto contiene un valor válido
     &lt;span class=&quot;kd&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;abstract&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;doSave&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;paramName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;La clase &lt;code&gt;AbstractConfigDAO&lt;/code&gt; es una implementación del &lt;a href=&quot;http://en.wikipedia.org/wiki/Template_method_pattern&quot;&gt;Template method pattern&lt;/a&gt;, y sería necesario completar el “algoritmo” con una implementación concreta del 
-método &lt;code&gt;doSave&lt;/code&gt;. En el código para este ejemplo me olvido por completo de almacenar nada (el cometido de este post no
- es hablar de persistencia de datos en Java :) ),por lo que he creado una implementación Dummy:&lt;/p&gt;
+&lt;p&gt;La clase &lt;code&gt;AbstractConfigDAO&lt;/code&gt; es una implementación del &lt;a href=&quot;http://en.wikipedia.org/wiki/Template_method_pattern&quot;&gt;Template method pattern&lt;/a&gt;, y sería necesario completar el “algoritmo” con una implementación concreta del método &lt;code&gt;doSave&lt;/code&gt;. En el código para este ejemplo me olvido por completo de almacenar nada (el cometido de este post no es hablar de persistencia de datos en Java :) ),por lo que he creado una implementación Dummy:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DummyConfigDAO&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AbstractConfigDAO&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 
@@ -482,10 +457,7 @@ método &lt;code&gt;doSave&lt;/code&gt;. En el código para este ejemplo me olvi
 
 &lt;h3 id=&quot;conclusin&quot;&gt;Conclusión&lt;/h3&gt;
 
-&lt;p&gt;Espero que con este post haya quedado demostradada la flexibilidad de los enumerados en Java, y la claridad que dan al
-código si se usan convenientemente. Me he dejado algún uso en el tintero, como puede ser la implementación del patrón
- Singleton, &lt;a href=&quot;http://javarevisited.blogspot.co.uk/2012/07/why-enum-singleton-are-better-in-java.html&quot;&gt;pero este tema ya está cubierto de sobra.&lt;/a&gt;&lt;/p&gt;
-
+&lt;p&gt;Espero que con este post haya quedado demostradada la flexibilidad de los enumerados en Java, y la claridad que dan al código si se usan convenientemente. Me he dejado algún uso en el tintero, como puede ser la implementación del patrón Singleton, &lt;a href=&quot;http://javarevisited.blogspot.co.uk/2012/07/why-enum-singleton-are-better-in-java.html&quot;&gt;pero este tema ya está cubierto de sobra.&lt;/a&gt;&lt;/p&gt;
 </content>
  </entry>
  
@@ -494,9 +466,7 @@ código si se usan convenientemente. Me he dejado algún uso en el tintero, como
    <link href="http://www.raulavila.com/2015/02/fowler-refactoring-3"/>
    <updated>2015-02-14T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/02/fowler-refactoring-3</id>
-   <content type="html">&lt;p&gt;Termino con este post mi repaso a los “puntos mejorables” en el libro de Fowler. Insisto en mi consideración a esta 
-obra como una referencia indiscutible, de hecho en casi 400 páginas sólo he encontrado unos pocos puntos dignos de 
-discusión. Además si algún lector considera que he desbarrado en algún aspecto, admitiré encantado cualquier comentario.&lt;/p&gt;
+   <content type="html">&lt;p&gt;Termino con este post mi repaso a los “puntos mejorables” en el libro de Fowler. Insisto en mi consideración a esta obra como una referencia indiscutible, de hecho en casi 400 páginas sólo he encontrado unos pocos puntos dignos de discusión. Además si algún lector considera que he desbarrado en algún aspecto, admitiré encantado cualquier comentario.&lt;/p&gt;
 
 &lt;!--break--&gt;
 
@@ -511,24 +481,16 @@ discusión. Además si algún lector considera que he desbarrado en algún aspec
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;anOrder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;basePrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;No diría que este refactoring es un gran error “per se”, pero la experiencia me ha enseñado que siempre es mejor 
-almacenar el retorno de un método en una variable temporal &lt;strong&gt;para facilitar los procesos de debugging&lt;/strong&gt;. En efecto, 
-si en algún momento necesitamos depurar y leer el valor de retorno del método basePrice, con la primera versión del 
-código bastaría con ubicar un breakpoint en la sentencia return, mientras que en la segunda versión necesitamos 
-navegar dentro del método basePrice (y si por cualquier motivo este método no utilizara variables temporales 
-estaríamos en las mismas).&lt;/p&gt;
+&lt;p&gt;No diría que este refactoring es un gran error “per se”, pero la experiencia me ha enseñado que siempre es mejor almacenar el retorno de un método en una variable temporal &lt;strong&gt;para facilitar los procesos de debugging&lt;/strong&gt;. En efecto, si en algún momento necesitamos depurar y leer el valor de retorno del método basePrice, con la primera versión del código bastaría con ubicar un breakpoint en la sentencia return, mientras que en la segunda versión necesitamos navegar dentro del método basePrice (y si por cualquier motivo este método no utilizara variables temporales estaríamos en las mismas).&lt;/p&gt;
 
-&lt;p&gt;En resumen, no creo que la se obtenga un gran beneficio. Quizás podría discutirse que estamos creando una variable 
-temporal “poco útil”, pero la deuda técnica de no utilizarla es un potencial incremento en el tiempo de depuración.
-Otro peligro es la reutilización de variables temporales, pero esto es fácil de evitar utilizando el modificador final:&lt;/p&gt;
+&lt;p&gt;En resumen, no creo que la se obtenga un gran beneficio. Quizás podría discutirse que estamos creando una variable temporal “poco útil”, pero la deuda técnica de no utilizarla es un potencial incremento en el tiempo de depuración. Otro peligro es la reutilización de variables temporales, pero esto es fácil de evitar utilizando el modificador final:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;basePrice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;anOrder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;basePrice&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;basePrice&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;replace-subclass-with-fields-pg-232&quot;&gt;Replace Subclass with Fields (pág. 232)&lt;/h3&gt;
 
-&lt;p&gt;Este refactoring, &lt;a href=&quot;http://refactoring.com/catalog/replaceSubclassWithFields.html&quot;&gt;descrito en la web de Fowler&lt;/a&gt;, 
-pretende eliminar jerarquías innecesarias, pero no diría que el resultado es especiamente brillante:&lt;/p&gt;
+&lt;p&gt;Este refactoring, &lt;a href=&quot;http://refactoring.com/catalog/replaceSubclassWithFields.html&quot;&gt;descrito en la web de Fowler&lt;/a&gt;, pretende eliminar jerarquías innecesarias, pero no diría que el resultado es especiamente brillante:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;male&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
@@ -556,13 +518,11 @@ pretende eliminar jerarquías innecesarias, pero no diría que el resultado es e
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Disculpemos el uso de un char para indicar el sexo de la persona, debido a la no existencia de enums en aquel 
-entonces. Aún así, sigue habiendo dos claros errores de diseño:&lt;/p&gt;
+&lt;p&gt;Disculpemos el uso de un char para indicar el sexo de la persona, debido a la no existencia de enums en aquel entonces. Aún así, sigue habiendo dos claros errores de diseño:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;El atributo male es totalmente redundante, pudiéndose extraer como code == ‘M’. Recordemos, &lt;a href=&quot;http://en.wikipedia.org/wiki/Don%27t_repeat_yourself&quot;&gt;Don’t repeat yourself&lt;/a&gt;.&lt;/li&gt;
-  &lt;li&gt;De nuevo vuelve a utilizar métodos factory estáticos en la propia clase. En este caso diría que no es tan grave 
-&lt;a href=&quot;/2015/02/fowler-refactoring-2&quot;&gt;como en el ejemplo del artículo anterior&lt;/a&gt;, pero sigue sin gustarme. &lt;/li&gt;
+  &lt;li&gt;De nuevo vuelve a utilizar métodos factory estáticos en la propia clase. En este caso diría que no es tan grave &lt;a href=&quot;/2015/02/fowler-refactoring-2&quot;&gt;como en el ejemplo del artículo anterior&lt;/a&gt;, pero sigue sin gustarme.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Mi propuesta de mejora contiene una enumeración y una clase Factory:&lt;/p&gt;
@@ -572,7 +532,7 @@ entonces. Aún así, sigue habiendo dos claros errores de diseño:&lt;/p&gt;
     &lt;span class=&quot;n&quot;&gt;FEMALE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sc&quot;&gt;&amp;#39;F&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 
     &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    
+
     &lt;span class=&quot;n&quot;&gt;Gender&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
         &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
@@ -609,17 +569,13 @@ entonces. Aún así, sigue habiendo dos claros errores de diseño:&lt;/p&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Mantengo el código de tipo char, ya que los clientes pueden seguir necesitando dicho identificador, pero en esta 
-ocasión lo encapsulo dentro de un enumerado. El enumerado es de ámbito package, por lo que fuera de la factoria y la 
-clase Person no puede ser utilizado.&lt;/p&gt;
+&lt;p&gt;Mantengo el código de tipo char, ya que los clientes pueden seguir necesitando dicho identificador, pero en esta ocasión lo encapsulo dentro de un enumerado. El enumerado es de ámbito package, por lo que fuera de la factoria y la clase Person no puede ser utilizado.&lt;/p&gt;
 
-&lt;p&gt;( &lt;a href=&quot;https://github
-.com/raulavila/fowlers-refactoring-errors&quot;&gt;El código de este apartado está subido en mi repositorio de GitHub&lt;/a&gt; )&lt;/p&gt;
+&lt;p&gt;( &lt;a href=&quot;https://github.com/raulavila/fowlers-refactoring-errors&quot;&gt;El código de este apartado está subido en mi repositorio de GitHub&lt;/a&gt; )&lt;/p&gt;
 
 &lt;h3 id=&quot;classforname&quot;&gt;Class.forName&lt;/h3&gt;
 
-&lt;p&gt;En el refactoring “Replace Constructor with Factory Method” (pág 304), se crea un método factory genérico de la 
-siguiente forma:&lt;/p&gt;
+&lt;p&gt;En el refactoring “Replace Constructor with Factory Method” (pág 304), se crea un método factory genérico de la siguiente forma:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Employee&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
@@ -633,35 +589,21 @@ siguiente forma:&lt;/p&gt;
    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Engineer&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;//....&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Esta forma de crear instancias es totalmente inadecuada, porque se pierde seguridad de tipos (&lt;a href=&quot;http://en.wikipedia.org/wiki/Type_safety&quot;&gt;type safety&lt;/a&gt;). Lo mejor del caso es que el propio Fowler lo reconoce nada más plantear la alternativa. Bajo
- mi punto de vista, esta forma de instanciar objetos solo estaría justificada si el parámetro del método create está 
- configurado fuera del ámbito de la aplicación (por ejemplo, en una base de datos). En tal caso, sería imprescindible
-  cubrir con tests dicha configuración para evitar errores en tiempo de ejecución.&lt;/p&gt;
+&lt;p&gt;Esta forma de crear instancias es totalmente inadecuada, porque se pierde seguridad de tipos (&lt;a href=&quot;http://en.wikipedia.org/wiki/Type_safety&quot;&gt;type safety&lt;/a&gt;). Lo mejor del caso es que el propio Fowler lo reconoce nada más plantear la alternativa. Bajo mi punto de vista, esta forma de instanciar objetos solo estaría justificada si el parámetro del método create está configurado fuera del ámbito de la aplicación (por ejemplo, en una base de datos). En tal caso, sería imprescindible cubrir con tests dicha configuración para evitar errores en tiempo de ejecución.&lt;/p&gt;
 
 &lt;h3 id=&quot;conclusiones&quot;&gt;Conclusiones&lt;/h3&gt;
 
-&lt;p&gt;Y aquí termino mi repaso a este gran libro. Me dejo algunas cosas en el tintero, pero que creo que ya han sido 
-discutidas sobradamente en la comunidad, como por ejemplo:&lt;/p&gt;
+&lt;p&gt;Y aquí termino mi repaso a este gran libro. Me dejo algunas cosas en el tintero, pero que creo que ya han sido discutidas sobradamente en la comunidad, como por ejemplo:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;El uso de &lt;a href=&quot;http://stackoverflow.com/questions/6115896/java-checked-vs-unchecked-exception-explanation&quot;&gt;Checked Exceptions vs Unchecked Exceptions&lt;/a&gt; (yo apenas utilizo Checked Exceptions de un tiempo a esta parte)&lt;/li&gt;
   &lt;li&gt;Extender una clase mediante herencia o con un wrapper (&lt;a href=&quot;http://stackoverflow.com/questions/2150273/java-extend-or-wrap-a-class-to-add-extra-functionality&quot;&gt;Inheritance vs. Composition&lt;/a&gt;)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Concluyo citando el propio libro. En referencia a la importancia de refactorizar en un proyecto corporativo, donde
- las fechas de entrega añaden una presión difícil de soportar en ocasiones, y cuando los managers no entienden la
- importancia del Refactoring, el consejo de Fowler en estas ocasiones es claro e implacable: “No digas que 
- refactorizas”.&lt;/p&gt;
+&lt;p&gt;Concluyo citando el propio libro. En referencia a la importancia de refactorizar en un proyecto corporativo, donde las fechas de entrega añaden una presión difícil de soportar en ocasiones, y cuando los managers no entienden la importancia del Refactoring, el consejo de Fowler en estas ocasiones es claro e implacable: “No digas que refactorizas”.&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;“Of course, many people say they are driven by quality but are more driven by schedule. In these
- cases I give my more controversial advice: Don’t tell! Subversive? I don’t think so. Software developers are professionals. Our job is to build effective
- software as rapidly as we can. My experience is that refactoring is a big aid to building software
- quickly. If I need to add a new function and the design does not suit the change, I find it’s quicker
- to refactor first and then add the function. If I need to fix a bug, I need to understand how the
- software works—and I find refactoring is the fastest way to do this. A schedule-driven manager
- wants me to do things the fastest way I can; how I do it is my business. The fastest way is to
- refactor; therefore I refactor”&lt;/p&gt;
+  &lt;p&gt;“Of course, many people say they are driven by quality but are more driven by schedule. In these cases I give my more controversial advice: Don’t tell! Subversive? I don’t think so. Software developers are professionals. Our job is to build effective software as rapidly as we can. My experience is that refactoring is a big aid to building software quickly. If I need to add a new function and the design does not suit the change, I find it’s quicker to refactor first and then add the function. If I need to fix a bug, I need to understand how the software works—and I find refactoring is the fastest way to do this. A schedule-driven manager wants me to do things the fastest way I can; how I do it is my business. The fastest way is to refactor; therefore I refactor”&lt;/p&gt;
 &lt;/blockquote&gt;
 </content>
  </entry>

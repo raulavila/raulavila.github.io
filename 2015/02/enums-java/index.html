@@ -62,9 +62,7 @@
     data-count="none"
     href="https://twitter.com/share">Tweet</a>
   </div>  
-  <p><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Enum.html">Los tipos enumerados de Java</a> (<code>enum</code>) fueron añadidos en la versión 5 del lenguaje. Su uso más inmediato fue el de
-“contenedores de constantes”, y me temo que gran parte de los desarrolladores desconocen la flexibilidad que permiten
- más allá de este típico uso:</p>
+  <p><a href="http://docs.oracle.com/javase/7/docs/api/java/lang/Enum.html">Los tipos enumerados de Java</a> (<code>enum</code>) fueron añadidos en la versión 5 del lenguaje. Su uso más inmediato fue el de “contenedores de constantes”, y me temo que gran parte de los desarrolladores desconocen la flexibilidad que permiten más allá de este típico uso:</p>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">enum</span> <span class="n">EmployeeType</span> <span class="o">{</span>
     <span class="n">ENGINEER</span><span class="o">,</span>
@@ -98,19 +96,15 @@
     <span class="o">}</span>
 <span class="o">}</span></code></pre></div>
 
-<p>En el ejemplo se asigna un nombre “para mostrar” (<code>toString()</code> por defecto sacaría el valor del enumerado tal cual, 
-en letras mayúsculas) y un salario a cada tipo de empleado.</p>
+<p>En el ejemplo se asigna un nombre “para mostrar” (<code>toString()</code> por defecto sacaría el valor del enumerado tal cual, en letras mayúsculas) y un salario a cada tipo de empleado.</p>
 
-<p>Mi intención con este post es dar a conocer usos más avanzados de los enumerados, que yo personalmente utilizo 
-bastante a menudo y de formas quizás menos ortodoxas.</p>
+<p>Mi intención con este post es dar a conocer usos más avanzados de los enumerados, que yo personalmente utilizo bastante a menudo y de formas quizás menos ortodoxas.</p>
 
 <p>(<a href="https://github.com/raulavila/enums-examples">Como siempre el código está en GitHub</a>)</p>
 
 <h3 id="enums-como-estados-con-comportamiento-asociado">Enums como estados con comportamiento asociado</h3>
 
-<p>Los enumerados me parecen una de las formas más claras y elegantes de implementar <a href="http://en.wikipedia.org/wiki/State_pattern">el patrón State</a>. En el siguiente ejemplo creamos una clase <em>Calculator</em> de una sola operación, y que expone
- dos métodos, <code>setOperation</code>, para cambiar la operación (el estado) de la calculadora, y <code>performOperation</code>, que 
- recibe dos números y devuelve el resultado de aplicar la operación:</p>
+<p>Los enumerados me parecen una de las formas más claras y elegantes de implementar <a href="http://en.wikipedia.org/wiki/State_pattern">el patrón State</a>. En el siguiente ejemplo creamos una clase <em>Calculator</em> de una sola operación, y que expone dos métodos, <code>setOperation</code>, para cambiar la operación (el estado) de la calculadora, y <code>performOperation</code>, que recibe dos números y devuelve el resultado de aplicar la operación:</p>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Calculator</span> <span class="o">{</span>
 
@@ -131,8 +125,7 @@ bastante a menudo y de formas quizás menos ortodoxas.</p>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></div>
 
-<p>Como vemos, la clase no tiene ni idea de como se implementan las operaciones, delegando su ejecución a la instancia
-   de Operation:</p>
+<p>Como vemos, la clase no tiene ni idea de como se implementan las operaciones, delegando su ejecución a la instancia de Operation:</p>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">enum</span> <span class="n">Operation</span> <span class="o">{</span>
     <span class="n">ADD</span><span class="o">(</span><span class="s">&quot;+&quot;</span><span class="o">)</span> <span class="o">{</span>
@@ -173,13 +166,9 @@ bastante a menudo y de formas quizás menos ortodoxas.</p>
     <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">int</span> <span class="nf">perform</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">);</span>
 <span class="o">}</span></code></pre></div>
 
-<p>Aquí es donde se ve de forma clara cómo encapsulamos cada operación en las distintas instancias de Operation
-dentro del método <code>perform</code>, que a nivel de clase está declarado como método abstracto (ya que se implementa en cada 
-uno de los enumerados). También exponemos un atributo, <code>operator</code>, que no es más que el símbolo que identifica a cada
- operación, aunque en el ejemplo no se utiliza.</p>
+<p>Aquí es donde se ve de forma clara cómo encapsulamos cada operación en las distintas instancias de Operation dentro del método <code>perform</code>, que a nivel de clase está declarado como método abstracto (ya que se implementa en cada uno de los enumerados). También exponemos un atributo, <code>operator</code>, que no es más que el símbolo que identifica a cada operación, aunque en el ejemplo no se utiliza.</p>
 
-<p>El método <code>perform</code> podría haber contenido una implementación por defecto, de forma que si luego no la sobrescribimos
- en las instancias sería la ejecutada por el compilador:</p>
+<p>El método <code>perform</code> podría haber contenido una implementación por defecto, de forma que si luego no la sobrescribimos en las instancias sería la ejecutada por el compilador:</p>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">enum</span> <span class="n">Operation</span> <span class="o">{</span>
    <span class="c1">//....</span>
@@ -190,8 +179,7 @@ uno de los enumerados). También exponemos un atributo, <code>operator</code>, q
    <span class="o">}</span>
 <span class="o">}</span></code></pre></div>
 
-<p>En este ejemplo podemos declarar una operación y no implementarla de momento, mientras que con la primera versión no
-  sería posible.</p>
+<p>En este ejemplo podemos declarar una operación y no implementarla de momento, mientras que con la primera versión no sería posible.</p>
 
 <p>Como es de esperar la calculadora funciona según lo esperado:</p>
 
@@ -205,8 +193,7 @@ uno de los enumerados). También exponemos un atributo, <code>operator</code>, q
 
 <h3 id="estados-asociados">Estados asociados</h3>
 
-<p>Siguiendo con el patrón State, es posible asociar estados de la misma enumeración entre sí, con la única condición de
- que no es posible referenciar un valor del enumerado que aún no ha sido declarado:</p>
+<p>Siguiendo con el patrón State, es posible asociar estados de la misma enumeración entre sí, con la única condición de que no es posible referenciar un valor del enumerado que aún no ha sido declarado:</p>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">enum</span> <span class="n">OvenState</span> <span class="o">{</span>
 
@@ -237,9 +224,7 @@ uno de los enumerados). También exponemos un atributo, <code>operator</code>, q
     <span class="o">}</span>
 <span class="o">}</span></code></pre></div>
 
-<p>En el ejemplo defino estados de un horno imaginario, de forma que cada estado contiene una referencia de su estado 
- siguiente. Debido a la restricción comentada más arriba, no es posible declarar los estados como sería más natural, 
- de BEGIN a END, porque en tal caso el compilador se quejaría.</p>
+<p>En el ejemplo defino estados de un horno imaginario, de forma que cada estado contiene una referencia de su estado siguiente. Debido a la restricción comentada más arriba, no es posible declarar los estados como sería más natural, de BEGIN a END, porque en tal caso el compilador se quejaría.</p>
 
 <p>La implementación del horno con su estado quedaría:</p>
 
@@ -272,8 +257,7 @@ uno de los enumerados). También exponemos un atributo, <code>operator</code>, q
     <span class="o">}</span>
 <span class="o">}</span></code></pre></div>
 
-<p>De nuevo el horno no tiene ni idea de todos los estados por los que pasa, solo sabe que hay un estado inicial, y que 
-existe un estado final según el valor devuelto por <code>hasFinished</code>.</p>
+<p>De nuevo el horno no tiene ni idea de todos los estados por los que pasa, solo sabe que hay un estado inicial, y que existe un estado final según el valor devuelto por <code>hasFinished</code>.</p>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Oven</span> <span class="n">oven</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Oven</span><span class="o">();</span>
 <span class="n">assertThat</span><span class="o">(</span><span class="n">oven</span><span class="o">.</span><span class="na">getState</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="s">&quot;Oven is starting&quot;</span><span class="o">);</span>
@@ -302,8 +286,7 @@ existe un estado final según el valor devuelto por <code>hasFinished</code>.</p
 <span class="n">oven</span><span class="o">.</span><span class="na">reset</span><span class="o">();</span>
 <span class="n">assertThat</span><span class="o">(</span><span class="n">oven</span><span class="o">.</span><span class="na">getState</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="s">&quot;Oven is starting&quot;</span><span class="o">);</span></code></pre></div>
 
-<p>Siguiendo con mi manía de desacoplar al máximo, ¡el horno ni siquiera tendría por qué saber el valor del estado 
-inicial! Para eso habría que declarar un método estátido en OvenState:</p>
+<p>Siguiendo con mi manía de desacoplar al máximo, ¡el horno ni siquiera tendría por qué saber el valor del estado inicial! Para eso habría que declarar un método estátido en OvenState:</p>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="n">OvenState</span> <span class="nf">getInitialState</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">BEGIN</span><span class="o">;</span>
@@ -319,9 +302,7 @@ inicial! Para eso habría que declarar un método estátido en OvenState:</p>
 
 <h3 id="enums-como-parametrizaciones">Enums como parametrizaciones</h3>
 
-<p>Imaginemos un sistema que contiene una serie de parámetros de configuración a persistir en una base de datos o 
-similar. Dichos parámetros pueden contener diversos tipos de datos, pero en la tabla el tipo del
-valor será un String para dar flexibilidad, es decir, tendremos algo como:</p>
+<p>Imaginemos un sistema que contiene una serie de parámetros de configuración a persistir en una base de datos o similar. Dichos parámetros pueden contener diversos tipos de datos, pero en la tabla el tipo del valor será un String para dar flexibilidad, es decir, tendremos algo como:</p>
 
 <table>
     <thead>
@@ -354,10 +335,7 @@ valor será un String para dar flexibilidad, es decir, tendremos algo como:</p>
     </tbody>
 </table>
 
-<p>Aunque el tipo de PARAM_VALUE sea un String, es evidente que cada parámetro tiene una naturaleza muy concreta 
-(podemos tener fechas, enteros, cadenas, etc). Nos gustaría que nuestra clase DAO que persiste esta información 
-chequeara el tipo de los datos antes de almacenarlos. Además queremos que los nombres de los parámetros estuvieran 
-acotados a una serie muy concreta.</p>
+<p>Aunque el tipo de PARAM_VALUE sea un String, es evidente que cada parámetro tiene una naturaleza muy concreta (podemos tener fechas, enteros, cadenas, etc). Nos gustaría que nuestra clase DAO que persiste esta información chequeara el tipo de los datos antes de almacenarlos. Además queremos que los nombres de los parámetros estuvieran acotados a una serie muy concreta.</p>
 
 <p>Diría que no hay mejor forma de hacer esto que utilizando un enumerado:</p>
 
@@ -391,8 +369,7 @@ acotados a una serie muy concreta.</p>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></div>
 
-<p>Como vemos, cada instancia contiene el nombre del parámetro a persistir, y la clase del valor. El propio enumerado 
-expone un método que chequea si un objeto en concreto contiene un valor válido para el parámetro.</p>
+<p>Como vemos, cada instancia contiene el nombre del parámetro a persistir, y la clase del valor. El propio enumerado expone un método que chequea si un objeto en concreto contiene un valor válido para el parámetro.</p>
 
 <p>La clase DAO, por tanto, delegaría toda la lógica al valor del enumerado que quiera almacenar el cliente:</p>
 
@@ -401,7 +378,7 @@ expone un método que chequea si un objeto en concreto contiene un valor válido
 <span class="o">}</span>
 
 <span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">AbstractConfigDAO</span> <span class="kd">implements</span> <span class="n">ConfigDAO</span> <span class="o">{</span>
-    
+
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">save</span><span class="o">(</span><span class="n">ConfigParam</span> <span class="n">param</span><span class="o">,</span> <span class="n">Object</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">validate</span><span class="o">(</span><span class="n">param</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
@@ -425,9 +402,7 @@ expone un método que chequea si un objeto en concreto contiene un valor válido
     <span class="kd">protected</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">doSave</span><span class="o">(</span><span class="n">String</span> <span class="n">paramName</span><span class="o">,</span> <span class="n">Object</span> <span class="n">value</span><span class="o">);</span>
 <span class="o">}</span></code></pre></div>
 
-<p>La clase <code>AbstractConfigDAO</code> es una implementación del <a href="http://en.wikipedia.org/wiki/Template_method_pattern">Template method pattern</a>, y sería necesario completar el “algoritmo” con una implementación concreta del 
-método <code>doSave</code>. En el código para este ejemplo me olvido por completo de almacenar nada (el cometido de este post no
- es hablar de persistencia de datos en Java :) ),por lo que he creado una implementación Dummy:</p>
+<p>La clase <code>AbstractConfigDAO</code> es una implementación del <a href="http://en.wikipedia.org/wiki/Template_method_pattern">Template method pattern</a>, y sería necesario completar el “algoritmo” con una implementación concreta del método <code>doSave</code>. En el código para este ejemplo me olvido por completo de almacenar nada (el cometido de este post no es hablar de persistencia de datos en Java :) ),por lo que he creado una implementación Dummy:</p>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DummyConfigDAO</span> <span class="kd">extends</span> <span class="n">AbstractConfigDAO</span> <span class="o">{</span>
 
@@ -456,10 +431,7 @@ método <code>doSave</code>. En el código para este ejemplo me olvido por compl
 
 <h3 id="conclusin">Conclusión</h3>
 
-<p>Espero que con este post haya quedado demostradada la flexibilidad de los enumerados en Java, y la claridad que dan al
-código si se usan convenientemente. Me he dejado algún uso en el tintero, como puede ser la implementación del patrón
- Singleton, <a href="http://javarevisited.blogspot.co.uk/2012/07/why-enum-singleton-are-better-in-java.html">pero este tema ya está cubierto de sobra.</a></p>
-
+<p>Espero que con este post haya quedado demostradada la flexibilidad de los enumerados en Java, y la claridad que dan al código si se usan convenientemente. Me he dejado algún uso en el tintero, como puede ser la implementación del patrón Singleton, <a href="http://javarevisited.blogspot.co.uk/2012/07/why-enum-singleton-are-better-in-java.html">pero este tema ya está cubierto de sobra.</a></p>
 
 </article>
 
