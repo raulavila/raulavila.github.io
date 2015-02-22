@@ -4,13 +4,84 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-02-18T21:48:52+00:00</updated>
+ <updated>2015-02-22T19:12:45+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>International Developers in London Conference</title>
+   <link href="http://www.raulavila.com/2015/02/idinlondon-conference"/>
+   <updated>2015-02-22T00:00:00+00:00</updated>
+   <id>http://www.raulavila.com/2015/02/idinlondon-conference</id>
+   <content type="html">&lt;p&gt;El pasado sábado asistí a la “International Developers in London Conference”. Esta conferencia forma parte de los diferentes eventos englobados en los meetups &lt;a href=&quot;http://www.idinlondon.co.uk/#home&quot;&gt;International Developers in London&lt;/a&gt; (valga la redundancia), organizados por un recruiter llamado &lt;a href=&quot;https://twitter.com/Adam__Bolton&quot;&gt;Adam Bolton&lt;/a&gt;. Los recruiters de esta ciudad no son conocidos precisamente por su profesionalidad y buenas formas, pero este en cuestión entraría dentro de la categoría de “buenos recruiters”.&lt;/p&gt;
+
+&lt;p&gt;Cuando digo “en los meetups”, es porque se trata realmente de diferentes grupos enfocados a desarrolladores que tienen en común dos cosas, ser extranjeros en UK, y su país de origen (sea Italia, Francia, España, etc). Se trata de una iniciativa bastante interesante, porque propone realizar presentaciones ante personas que no son nativos, por lo que el factor vergüenza al tener que utilizar una segunda lengua disminuye considerablemente. De hecho, no descarto proponer una charla algún día, cuando considere que tengo algo realmente interesante que contar.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;La conferencia no giró en torno a tecnologías en concreto, como sí pueda ocurrir con otras a las que he asistido, pero siempre se pueden sacar lecciones de provecho. Resumiré en este post lo que me pareció más interesante, y que puede que me resulte de utilidad en un futuro más o menos cercano.&lt;/p&gt;
+
+&lt;h3 id=&quot;high-performance-web-platform-martin-beebyhttpstwittercomthebeebs&quot;&gt;High performance web platform (&lt;a href=&quot;https://twitter.com/thebeebs&quot;&gt;Martin Beeby&lt;/a&gt;)&lt;/h3&gt;
+
+&lt;p&gt;Con la implantación definitiva de dispositivos móviles, la denominada como &lt;a href=&quot;http://es.wikipedia.org/wiki/Experiencia_de_usuario&quot;&gt;experiencia de usuario&lt;/a&gt; resulta cada vez más importante, y aquí es donde estamos los programadores para optimizar el rendimiento de las aplicaciones Web.&lt;/p&gt;
+
+&lt;p&gt;Me resultó muy interesante la diferenciación entre &lt;strong&gt;“Performance”&lt;/strong&gt; y &lt;strong&gt;“Perceived Performance” / “Time to Glass”&lt;/strong&gt;. Pido disculpas por la no traducción de determinados conceptos, pero considero que castellanizar algunas expresiones en informática sencillamente carece de sentido (léase TDD vs Diseño dirigido por tests). Diríamos que time to glass es el tiempo que tarda el usuario en ver la pantalla que espera, lo cual no significa que todos los recursos estén cargados. Podemos encontrarnos que este tiempo es inferior en un factor 3X o 4X del tiempo real de carga de todos los recursos, y es necesario minimizarlo al máximo. ¿Tiene sentido, verdad? Creo que a todos nos resulta muy molesto estar esperando con la pantalla en blanco a ver algo cuando introducimos una URL en nuestro navegador.&lt;/p&gt;
+
+&lt;p&gt;Por otro lado, es importante no perder de vista el consumo de batería si queremos enfocar nuestras webs a dispositivos móviles. Sobre este asunto se habló de la importancia de priorizar “Target Devices”, mediante herramientas como &lt;a href=&quot;http://www.google.com/analytics/&quot;&gt;Google Analytics&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Otas consideraciones importantes en lo referente al rendimiento web son:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Minimizar el tamaño de las imágenes. No interesa alojar png’s de la máxima calidad cuando luego serán reprocesados en el cliente. Conviene priorizar además el formato jpg sobre el png&lt;/li&gt;
+  &lt;li&gt;Usar &lt;a href=&quot;http://www.w3schools.com/css/css_image_sprites.asp&quot;&gt;Image Sprites&lt;/a&gt; para cargar conjuntos de iconos, en lugar de iconos individuales. Así reducimos drásticamente las peticiones HTTP gracias a la caché de los navegadores&lt;/li&gt;
+  &lt;li&gt;Alojar los recursos en &lt;a href=&quot;http://en.wikipedia.org/wiki/Content_delivery_network&quot;&gt;Content Delivery Networks (CDN)&lt;/a&gt;. Personalmente fue la primera vez que escuché hablar de estos sistemas, pero por lo visto en la presentación la mejora es sustancial&lt;/li&gt;
+  &lt;li&gt;Incluir los ficheros Javascript al final de nuestras páginas HTML, para posponer su carga. Esto está muy relacionado con el “time to glass” comentado previamente&lt;/li&gt;
+  &lt;li&gt;Minimizar los ficheros Javascript y CSS en las versiones de producción&lt;/li&gt;
+  &lt;li&gt;Reducir el número de frameworks utilizados en el Front-End. Queda muy bien listar 10 frameworks diferentes para estar a la última (jQuery + jQuery UI + Bootstrap, + AngularJS +…), pero prestad atención a la siguiente comparativa mostrada en la presentación (cortesía de Martin Beeby)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/frontend-frameworks.png&quot; alt=&quot;Comparativa frameworks frontend&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Por último aquí van una serie de recursos web interesantes para mejorar el rendimiento de nuestras aplicaciones web:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://webdevchecklist.com/&quot;&gt;http://webdevchecklist.com/&lt;/a&gt;: Checklist para desarrollo web&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://yslow.org/&quot;&gt;Yahoo YSlow&lt;/a&gt;: analiza posibles causas de un bajo rendimiento&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://developers.google.com/speed/pagespeed/insights/?hl=es&quot;&gt;Google PageSpeed Insights&lt;/a&gt;: herramienta similar, esta de Google&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Para finalizar con el resumen de esta charla un dato: un descenso en la latencia de 100ms le supone a Amazon una pérdida en ventas del 1%, equivalente a 2.000.000$ &lt;strong&gt;AL DÍA&lt;/strong&gt;. UX matters, que diría aquel.&lt;/p&gt;
+
+&lt;h3 id=&quot;escalabilidad&quot;&gt;Escalabilidad&lt;/h3&gt;
+
+&lt;p&gt;Hubo dos charlas interesantes al respecto, “Designing distributed, scalable and reliable systems” por &lt;a href=&quot;https://twitter.com/mauroservienti&quot;&gt;Mauro Servienti&lt;/a&gt;, y “Just queue it!” por &lt;a href=&quot;https://twitter.com/marcos_placona&quot;&gt;Marcos Placona&lt;/a&gt;. La escalabilidad es un tema muy recurrente en los últimos tiempos, y parecer ser que todos los sistemas deben diseñarse para ser lo más escalable posible, pero expertos en el tema dejaron claro que a veces “las hojas no te dejan ver el bosque”. Veamos por qué.&lt;/p&gt;
+
+&lt;p&gt;Pensemos en una aplicación que recibe al día 25.000 visitantes, y cada uno de ellos consulta una media de 6 páginas. Además sabemos que estas visitas se distribuyen de forma más o menos uniforme a lo largo de 11 horas. Esta cifra nos podría hacer pensar en escalar el sistema a lo ancho (Scale out), es decir, añadiendo nodos/servidores, en lugar de añadir recursos a nuestro único servidor (Scale up). Pero, ¿son estas cifras tan elevadas? Veamos:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;25.000 * 6 = 150.000 páginas/día&lt;/li&gt;
+  &lt;li&gt;150.000 / 11 = 13.636 páginas/hora&lt;/li&gt;
+  &lt;li&gt;13.636 / 60 = 227 páginas/minuto&lt;/li&gt;
+  &lt;li&gt;227 / 60 = 3.7 páginas/segundo&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;La conclusión es que si nuestra aplicación tiene problemas para servir 4 páginas por segundo es que tenemos un problema (escalabilidad aparte), y deberíamos intentar buscar cuellos de botella (bottlenecks) que puedan estar causando incidencias. Si las visitas aumentan, pero no de forma drástica, en primera instancia siempre será más sencillo añadir recursos que pensar en escalar a lo ancho (Scaling out).&lt;/p&gt;
+
+&lt;p&gt;Una vez nos encontremos con que ya es inevitable pensar en soluciones distribuidas, debemos olvidarnos de la típica arquitectura “Request/Response”, que en este tipo de arquitecturas está considera un anti-pattern, y orientarnos más bien a un diseño &lt;a href=&quot;http://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern&quot;&gt;Publish-subscribe&lt;/a&gt;. Este patrón de diseño es a grandes rasgos una evolución del &lt;a href=&quot;http://en.wikipedia.org/wiki/Observer_pattern&quot;&gt;patrón Observer&lt;/a&gt;, en el que los sistemas implicados están totalmente desacoplados mediante el uso de colas de mensajes (Queues).&lt;/p&gt;
+
+&lt;p&gt;Las tecnologías que gestionan colas de mensajes son variadas. Algunas de ellas requieren que todos los sistemas implicados compartan infraestructura (por ejemplo, &lt;a href=&quot;http://activemq.apache.org/&quot;&gt;ActiveMQ&lt;/a&gt; nos obliga a que todas las partes estén desarrolladas en Java, o al menos corran sobre la JVM), mientras que otros no imponen obligaciones en este aspecto y pueden estar más recomendados cuando desconocemos cuales serán los ecosistemas involucrados a priori (en este grupo tenemos &lt;a href=&quot;http://www.rabbitmq.com/&quot;&gt;RabbitMQ&lt;/a&gt; o &lt;a href=&quot;http://www.iron.io/mq&quot;&gt;IronMQ&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;Personalmente he trabajado durante los últimos diez meses en un sistema con esta filosofía (concretemente en un ecosistema &lt;a href=&quot;http://www.jboss.org/products/fuse/overview/&quot;&gt;JBoss Fuse&lt;/a&gt;, que utiliza ActiveMQ o &lt;a href=&quot;http://camel.apache.org/&quot;&gt;Apache Camel&lt;/a&gt; entre otros), por lo que es más que seguro que volveré a hablar de todo esto más adelante.&lt;/p&gt;
+
+&lt;h3 id=&quot;otras-charlas&quot;&gt;Otras charlas&lt;/h3&gt;
+
+&lt;p&gt;Se hablaron de otras cosas, como la importancia de seleccionar las palabras claves para aplicaciones subidas a la App Store de Apple a la hora de ganar visibilidad, las virguerías que se pueden hacer con &lt;a href=&quot;http://www.arduino.cc/&quot;&gt;Arduino&lt;/a&gt;, la plataforma &lt;a href=&quot;http://www.telerik.com/nativescript&quot;&gt;Native Script&lt;/a&gt;, para desarrollo Cross platform de aplicaciones móviles, o una introducción a la metodología &lt;a href=&quot;http://es.wikipedia.org/wiki/Scrum&quot;&gt;SCRUM&lt;/a&gt;. Fue un día bastante provechoso, y repetiría sin dudarlo.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Uso avanzado de enumerados</title>
