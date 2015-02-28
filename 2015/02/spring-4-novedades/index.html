@@ -150,33 +150,33 @@
 
 <p>En Spring 3 era posible inyectar una seria de beans que implementaran una interfaz en particular, pero no era posible garantizar el orden de la inyección:</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MessageService</span> <span class="o">{</span>
-    <span class="n">String</span> <span class="nf">getMessage</span><span class="o">();</span>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">GreetingService</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="nf">getGreeting</span><span class="o">();</span>
 <span class="o">}</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MultiMessagePrinter</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MultiGreetingPrinter</span> <span class="o">{</span>
 
     <span class="nd">@Autowired</span>
-    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">MessageService</span><span class="o">&gt;</span> <span class="n">messageServices</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">GreetingService</span><span class="o">&gt;</span> <span class="n">greetingServices</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printMessage</span><span class="o">()</span> <span class="o">{</span>
-    	<span class="k">for</span><span class="o">(</span><span class="n">MessageService</span> <span class="nl">messageService:</span> <span class="n">messageServices</span><span class="o">)</span> <span class="o">{</span>
-    		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">messageService</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">printGreeting</span><span class="o">()</span> <span class="o">{</span>
+    	<span class="k">for</span><span class="o">(</span><span class="n">GreetingService</span> <span class="nl">greetingService:</span> <span class="n">greetingServices</span><span class="o">)</span> <span class="o">{</span>
+    		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">greetingService</span><span class="o">.</span><span class="na">getGreeting</span><span class="o">());</span>
     	<span class="o">}</span>
 
     <span class="o">}</span>
 
 <span class="o">}</span></code></pre></div>
 
-<p>En el ejemplo, si tenemos varios objetos de diferentes clases que implementan la interfaz MessageService en el contexto de Spring, todos ellos serán inyectadas en la lista, pero si queremos establecer prioridades en el orden en que dichas instancias serán invocadas (por ejemplo, para implementar el patrón <a href="http://en.wikipedia.org/wiki/Chain-of-responsibility_pattern">Chain of Responsibility</a>) no había forma de hacerlo. Esto se ha solucionado en Spring 4 añadiendo la interfaz <code>Ordered</code> que solo expone un método, <code>getOrder</code>:</p>
+<p>En el ejemplo, si tenemos varios objetos de diferentes clases que implementan la interfaz GreetingService en el contexto de Spring, todos ellos serán inyectadas en la lista, pero si queremos establecer prioridades en el orden en que dichas instancias serán invocadas (por ejemplo, para implementar el patrón <a href="http://en.wikipedia.org/wiki/Chain-of-responsibility_pattern">Chain of Responsibility</a>) no había forma de hacerlo. Esto se ha solucionado en Spring 4 añadiendo la interfaz <code>Ordered</code> que solo expone un método, <code>getOrder</code>:</p>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Ordered</span> <span class="o">{</span>
     <span class="kt">int</span> <span class="nf">getOrder</span><span class="o">();</span>
 <span class="o">}</span></code></pre></div>
 
-<p>Nuestras implementaciones de MessageService deberán implementar también la interfaz Ordered, y los objetos serán inyectados siguiendo el orden dictado por <code>getOrder</code>:</p>
+<p>Nuestras implementaciones de GreetingService deberán implementar también la interfaz Ordered, y los objetos serán inyectados siguiendo el orden dictado por <code>getOrder</code>:</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PersonGreeting</span> <span class="kd">implements</span> <span class="n">MessageService</span><span class="o">,</span> <span class="n">Ordered</span> <span class="o">{</span>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PersonGreeting</span> <span class="kd">implements</span> <span class="n">GreetingService</span><span class="o">,</span> <span class="n">Ordered</span> <span class="o">{</span>
     <span class="cm">/*..*/</span>
 
     <span class="kd">private</span> <span class="kt">int</span> <span class="n">order</span><span class="o">;</span>
@@ -193,7 +193,7 @@
 
 <p>De esta forma podemos crear los beans en el contexto estableciendo su orden:</p>
 
-<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;personGreeting&quot;</span> <span class="na">class=</span><span class="s">&quot;com.raulavila.spring.messages.PersonGreeting&quot;</span><span class="nt">&gt;</span>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;personGreeting&quot;</span> <span class="na">class=</span><span class="s">&quot;com.raulavila.spring.greeting.PersonGreeting&quot;</span><span class="nt">&gt;</span>
 	<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;personName&quot;</span> <span class="na">value=</span><span class="s">&quot;Raul&quot;</span> <span class="nt">/&gt;</span>
 	<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;order&quot;</span> <span class="na">value=</span><span class="s">&quot;2&quot;</span> <span class="nt">/&gt;</span>
 <span class="nt">&lt;/bean&gt;</span></code></pre></div>
@@ -215,11 +215,11 @@
 	<span class="o">}</span>
 
 	<span class="nd">@Bean</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;helloWorld&quot;</span><span class="o">)</span>
-	<span class="nd">@Conditional</span><span class="o">(</span><span class="n">NoMessageServiceDefined</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-	<span class="kd">public</span> <span class="n">MessageService</span> <span class="nf">createMessageService</span><span class="o">(){</span>
-		<span class="k">return</span> <span class="k">new</span> <span class="nf">MessageService</span><span class="o">()</span> <span class="o">{</span>
+	<span class="nd">@Conditional</span><span class="o">(</span><span class="n">NoGreetingServiceDefined</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+	<span class="kd">public</span> <span class="n">GreetingService</span> <span class="nf">createGreetingService</span><span class="o">(){</span>
+		<span class="k">return</span> <span class="k">new</span> <span class="nf">GreetingService</span><span class="o">()</span> <span class="o">{</span>
 			<span class="nd">@Override</span>
-			<span class="kd">public</span> <span class="n">String</span> <span class="nf">getMessage</span><span class="o">()</span> <span class="o">{</span>
+			<span class="kd">public</span> <span class="n">String</span> <span class="nf">getGreeting</span><span class="o">()</span> <span class="o">{</span>
 				<span class="k">return</span> <span class="s">&quot;Hello world!!&quot;</span><span class="o">;</span>
 			<span class="o">}</span>
 		<span class="o">};</span>
@@ -237,20 +237,20 @@
 
 <p>Opción bastante interesante, como su propio nombre indica condiciona la creación del bean al resultado (booleano, claro) devuelto por la clase indicada en la anotación, y que debe implementar la interfaz <code>Condition</code>:</p>
 
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">NoMessageServiceDefined</span> <span class="kd">implements</span> <span class="n">Condition</span><span class="o">{</span>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">NoGreetingServiceDefined</span> <span class="kd">implements</span> <span class="n">Condition</span><span class="o">{</span>
 
 	<span class="nd">@Override</span>
 	<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">matches</span><span class="o">(</span><span class="n">ConditionContext</span> <span class="n">context</span><span class="o">,</span>
 			<span class="n">AnnotatedTypeMetadata</span> <span class="n">metadata</span><span class="o">)</span> <span class="o">{</span>
 
 		<span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="na">getBeanFactory</span><span class="o">()</span>
-						<span class="o">.</span><span class="na">getBeansOfType</span><span class="o">(</span><span class="n">MessageService</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+						<span class="o">.</span><span class="na">getBeansOfType</span><span class="o">(</span><span class="n">GreetingService</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
 						<span class="o">.</span><span class="na">isEmpty</span><span class="o">();</span>
 	<span class="o">}</span>
 
 <span class="o">}</span></code></pre></div>
 
-<p>En este ejemplo se revisa el contexto para comprobar si ya existe algún bean de la clase MessageService, y en tal caso se evitaría la creación de uno nuevo. Bastante útil cuando tenemos la configuración repartida en diferentes ficheros y pueden existir duplicidades.</p>
+<p>En este ejemplo se revisa el contexto para comprobar si ya existe algún bean de la clase GreetingService, y en tal caso se evitaría la creación de uno nuevo. Bastante útil cuando tenemos la configuración repartida en diferentes ficheros y pueden existir duplicidades.</p>
 
 <h3 id="configuracin-del-contexto-mediante-groovy-dsl">Configuración del contexto mediante Groovy DSL</h3>
 
