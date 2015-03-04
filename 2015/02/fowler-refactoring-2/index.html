@@ -145,13 +145,13 @@
 
 <h3 id="mejorando-la-propuesta-fuera-switch">Mejorando la propuesta. Fuera switch.</h3>
 
-<p>En general, las sentencias switch (o en su defecto, una serie de ifs encadenados), suelen ser un <a href="http://en.wikipedia.org/wiki/Code_smell">“code smell”</a>, ya que entre otras cosas, aumentan la <a href="http://es.wikipedia.org/wiki/Complejidad_ciclom%C3%A1tica">complejidad ciclomática</a>. Me atrevería a decir que en un 95% de los casos es posible encontrar mejores soluciones que el uso de una sentencia switch. </p>
+<p>En general, las sentencias switch (o en su defecto, una serie de ifs encadenados), suelen ser un <a href="http://en.wikipedia.org/wiki/Code_smell">“code smell”</a>, ya que entre otras cosas, aumentan la <a href="http://es.wikipedia.org/wiki/Complejidad_ciclom%C3%A1tica">complejidad ciclomática</a>. Me atrevería a decir que en un 95% de los casos es posible encontrar mejores soluciones que el uso de una sentencia switch.</p>
 
 <p>En este caso, tenemos que el método create genera instancias de clases derivadas de Employee, basándose en el valor de una enumeración…diría que esto puede representarse en un Map EmployeeType =&gt; Class, y generando las instancias mediante el método newInstance de la clase Class. Veamos el resultado:</p>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">enum</span> <span class="n">EmployeeFactory</span> <span class="o">{</span>
     <span class="n">INSTANCE</span><span class="o">;</span>
-    
+
     <span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">EmployeeType</span><span class="o">,</span> <span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Employee</span><span class="o">&gt;&gt;</span> <span class="n">typeClassMap</span> <span class="o">=</span>
                 <span class="k">new</span> <span class="n">ImmutableMap</span><span class="o">.</span><span class="na">Builder</span><span class="o">&lt;</span><span class="n">EmployeeType</span><span class="o">,</span> <span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Employee</span><span class="o">&gt;&gt;()</span>
                     <span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">EmployeeType</span><span class="o">.</span><span class="na">ENGINEER</span><span class="o">,</span> <span class="n">Engineer</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
@@ -239,7 +239,7 @@
                         <span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">EmployeeType</span><span class="o">.</span><span class="na">SALESMAN</span><span class="o">,</span> <span class="n">Salesman</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
                         <span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">EmployeeType</span><span class="o">.</span><span class="na">MANAGER</span><span class="o">,</span> <span class="n">Manager</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
                         <span class="o">.</span><span class="na">build</span><span class="o">();</span>
-        
+
         <span class="n">employeeFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">EmployeeFactoryConfigurable</span><span class="o">(</span><span class="n">typeClassMap</span><span class="o">);</span>
     <span class="o">}</span>
 
@@ -256,13 +256,7 @@
         <span class="n">assertThat</span><span class="o">(</span><span class="n">salesman</span><span class="o">.</span><span class="na">getType</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">EmployeeType</span><span class="o">.</span><span class="na">SALESMAN</span><span class="o">);</span>
     <span class="o">}</span></code></pre></div>
 
-<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;&quot;</span> 
-            <span class="na">class=</span><span class="s">&quot;&quot;</span><span class="nt">&gt;</span>
-            
-<span class="nt">&lt;/bean&gt;</span></code></pre></div>
-
 <p>Como siempre, los ejemplos los dejo subidos <a href="https://github.com/raulavila/fowlers-refactoring-errors">en mi repositorio de GitHub</a>.</p>
-
 
 </article>
 
