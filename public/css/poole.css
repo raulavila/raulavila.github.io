@@ -240,7 +240,7 @@ blockquote p:last-child {
   }
 }
 
-img {
+img, iframe.youtube {
   display: block;
   max-width: 100%;
   margin: 0 auto;
@@ -377,7 +377,7 @@ tbody tr:nth-child(odd) th {
   padding-left: 20px;
   background-image: url("../pictures/icons/tag.png");
   background-repeat: no-repeat;
-  background-position: left; 
+  background-position: left;
   background-size: 15px 15px;
 }
 
