@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-03-08T19:06:12+00:00</updated>
+ <updated>2015-03-08T19:14:06+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -19,7 +19,7 @@
    <id>http://www.raulavila.com/2015/03/spring-4-novedades-2</id>
    <content type="html">&lt;p&gt;Continuamos con el repaso a las novedades de la versión 4 de Spring, en esta ocasión más centrados en las relativas al desarrollo web, servicios REST, etc.&lt;/p&gt;
 
-&lt;p&gt;Cómo ya comenté en &lt;a href=&quot;/2015/02/spring-4-novedades&quot;&gt;la primera parte&lt;/a&gt;, probablemente el proyecto más popular de Spring sea Spring MVC, y su mayor baza la claridad con la que podemos crear controladores web, bien sea manejando peticiones &lt;a href=&quot;http://es.wikipedia.org/wiki/AJAX&quot;&gt;Ajax&lt;/a&gt; o con un estilo más tradicional, redirigiendo a vistas JSP, etc. Es posible incluso configurar fácilmente y para la misma petición diferentes formatos de respuesta (JSON, XML, vista tradicional, CSV, lo que se) mediante el uso de &lt;a href=&quot;http://examples.javacodegeeks.com/enterprise-java/spring/mvc/spring-mvc-view-resolver-example/&quot;&gt;view resolvers&lt;/a&gt;, y se integra muy bien con librerías de plantillas como &lt;a href=&quot;https://tiles.apache.org/&quot;&gt;Apache Tiles&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Cómo ya comenté en &lt;a href=&quot;/2015/02/spring-4-novedades&quot;&gt;la primera parte&lt;/a&gt;, probablemente el proyecto más popular de Spring sea Spring MVC, y su mayor baza la claridad con la que podemos crear controladores web, bien sea manejando peticiones &lt;a href=&quot;http://es.wikipedia.org/wiki/AJAX&quot;&gt;Ajax&lt;/a&gt; o con un estilo más tradicional, redirigiendo a vistas JSP, etc. Es posible incluso configurar fácilmente y para la misma petición diferentes formatos de respuesta (JSON, XML, vista tradicional, CSV, lo que sea) mediante el uso de &lt;a href=&quot;http://examples.javacodegeeks.com/enterprise-java/spring/mvc/spring-mvc-view-resolver-example/&quot;&gt;view resolvers&lt;/a&gt;, y se integra muy bien con librerías de plantillas como &lt;a href=&quot;https://tiles.apache.org/&quot;&gt;Apache Tiles&lt;/a&gt;.&lt;/p&gt;
 
 &lt;!--break--&gt;
 
@@ -101,9 +101,7 @@
 
 &lt;p&gt;El problema de este cliente es que es síncrono, por lo que las llamadas son bloqueantes, y dificulta en gran medida el desarrollo de aplicaciones multithreading, más que nada porque nos obliga a desarrollar un wrapper asíncrono. Supongo que muchos desarrolladores se quejaron a la comunidad Spring de este asunto, porque la versión 4 viene con su propio cliente asíncrono, &lt;code&gt;AsynRestTemplate&lt;/code&gt;. A grandes rasgos podemos utilizar este cliente de dos formas diferentes:&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;Bloqueando el thread mientras esperamos la respuesta:&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;1- Bloqueando el thread mientras esperamos la respuesta:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;AsyncRestTemplate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;restTemplate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;AsyncRestTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
 
@@ -126,9 +124,7 @@
 
 &lt;p&gt;La llamada a &lt;code&gt;futureEntity.get()&lt;/code&gt; suspenderá el thread que ejecuta la petición REST hasta recibir la respuesta, por lo que otros threads se podrán seguir ejecutando mientras este está suspendido. Es decir, eliminamos esperas activas y  optimizamos recursos.&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;Configurando funciones callback:&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;2- Configurando funciones callback:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;AsyncRestTemplate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;restTemplate&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;AsyncRestTemplate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
 
@@ -259,7 +255,7 @@
 &lt;ul&gt;
   &lt;li&gt;Es necesario incluir las librerías JS &lt;code&gt;sock-js&lt;/code&gt; y &lt;code&gt;stomp&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;En el método &lt;code&gt;connect&lt;/code&gt; vemos cómo hay que suscribirse a un topic, siendo necesario configurar el nombre completo del topic y la función callback cuando recibamos un mensaje publicado por el broker&lt;/li&gt;
-  &lt;li&gt;En el método &lt;code&gt;sendName&lt;/code&gt; mandamos un mensaje al endpoint “/app/hello”, que será manejado en el controlador. Nótese como en este ejemplo recibimos el mensaje de vuelta desde el broker en el mismo cliente, pero no tiene que ser así&lt;/li&gt;
+  &lt;li&gt;En el método &lt;code&gt;sendName&lt;/code&gt; mandamos un mensaje al endpoint “/app/hello”, que será manejado en el controlador. Nótese como en este ejemplo recibimos el mensaje de vuelta desde el broker en el mismo cliente, pero no tiene por qué ser así&lt;/li&gt;
   &lt;li&gt;En el método disconnect eliminamos la suscripción al topic&lt;/li&gt;
 &lt;/ul&gt;
 

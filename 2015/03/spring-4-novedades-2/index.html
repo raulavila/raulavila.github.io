@@ -64,7 +64,7 @@
   </div>  
   <p>Continuamos con el repaso a las novedades de la versión 4 de Spring, en esta ocasión más centrados en las relativas al desarrollo web, servicios REST, etc.</p>
 
-<p>Cómo ya comenté en <a href="/2015/02/spring-4-novedades">la primera parte</a>, probablemente el proyecto más popular de Spring sea Spring MVC, y su mayor baza la claridad con la que podemos crear controladores web, bien sea manejando peticiones <a href="http://es.wikipedia.org/wiki/AJAX">Ajax</a> o con un estilo más tradicional, redirigiendo a vistas JSP, etc. Es posible incluso configurar fácilmente y para la misma petición diferentes formatos de respuesta (JSON, XML, vista tradicional, CSV, lo que se) mediante el uso de <a href="http://examples.javacodegeeks.com/enterprise-java/spring/mvc/spring-mvc-view-resolver-example/">view resolvers</a>, y se integra muy bien con librerías de plantillas como <a href="https://tiles.apache.org/">Apache Tiles</a>.</p>
+<p>Cómo ya comenté en <a href="/2015/02/spring-4-novedades">la primera parte</a>, probablemente el proyecto más popular de Spring sea Spring MVC, y su mayor baza la claridad con la que podemos crear controladores web, bien sea manejando peticiones <a href="http://es.wikipedia.org/wiki/AJAX">Ajax</a> o con un estilo más tradicional, redirigiendo a vistas JSP, etc. Es posible incluso configurar fácilmente y para la misma petición diferentes formatos de respuesta (JSON, XML, vista tradicional, CSV, lo que sea) mediante el uso de <a href="http://examples.javacodegeeks.com/enterprise-java/spring/mvc/spring-mvc-view-resolver-example/">view resolvers</a>, y se integra muy bien con librerías de plantillas como <a href="https://tiles.apache.org/">Apache Tiles</a>.</p>
 
 <!--break-->
 
@@ -146,9 +146,7 @@
 
 <p>El problema de este cliente es que es síncrono, por lo que las llamadas son bloqueantes, y dificulta en gran medida el desarrollo de aplicaciones multithreading, más que nada porque nos obliga a desarrollar un wrapper asíncrono. Supongo que muchos desarrolladores se quejaron a la comunidad Spring de este asunto, porque la versión 4 viene con su propio cliente asíncrono, <code>AsynRestTemplate</code>. A grandes rasgos podemos utilizar este cliente de dos formas diferentes:</p>
 
-<ul>
-  <li>Bloqueando el thread mientras esperamos la respuesta:</li>
-</ul>
+<p>1- Bloqueando el thread mientras esperamos la respuesta:</p>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">AsyncRestTemplate</span> <span class="n">restTemplate</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">AsyncRestTemplate</span><span class="o">();</span>
 
@@ -171,9 +169,7 @@
 
 <p>La llamada a <code>futureEntity.get()</code> suspenderá el thread que ejecuta la petición REST hasta recibir la respuesta, por lo que otros threads se podrán seguir ejecutando mientras este está suspendido. Es decir, eliminamos esperas activas y  optimizamos recursos.</p>
 
-<ul>
-  <li>Configurando funciones callback:</li>
-</ul>
+<p>2- Configurando funciones callback:</p>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">AsyncRestTemplate</span> <span class="n">restTemplate</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">AsyncRestTemplate</span><span class="o">();</span>
 
@@ -304,7 +300,7 @@
 <ul>
   <li>Es necesario incluir las librerías JS <code>sock-js</code> y <code>stomp</code></li>
   <li>En el método <code>connect</code> vemos cómo hay que suscribirse a un topic, siendo necesario configurar el nombre completo del topic y la función callback cuando recibamos un mensaje publicado por el broker</li>
-  <li>En el método <code>sendName</code> mandamos un mensaje al endpoint “/app/hello”, que será manejado en el controlador. Nótese como en este ejemplo recibimos el mensaje de vuelta desde el broker en el mismo cliente, pero no tiene que ser así</li>
+  <li>En el método <code>sendName</code> mandamos un mensaje al endpoint “/app/hello”, que será manejado en el controlador. Nótese como en este ejemplo recibimos el mensaje de vuelta desde el broker en el mismo cliente, pero no tiene por qué ser así</li>
   <li>En el método disconnect eliminamos la suscripción al topic</li>
 </ul>
 
