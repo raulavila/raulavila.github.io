@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-03-22T17:39:32+00:00</updated>
+ <updated>2015-03-26T17:19:57+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -13,9 +13,100 @@
 
  
  <entry>
+   <title>Code Reviews (revisiones de código)</title>
+   <link href="http://www.raulavila.com/2015/03/code-reviews"/>
+   <updated>2015-03-26T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2015/03/code-reviews</id>
+   <content type="html">&lt;p&gt;¿Son necesarias las revisiones de código? ¿No revisamos ya el código al mismo tiempo que desarrollamos? Si ya utilizo el refactoring como práctica habitual, ¿qué sentido tiene revisar el código de nuevo?&lt;/p&gt;
+
+&lt;p&gt;Son muchas las preguntas que pueden surgir en un equipo de desarrolladores en referencia a las revisiones de código. Pero peor aún que las preguntas son las inquietudes o recelos (¡si se revisa mi código tirarán por tierra mi trabajo!). Antes de nada, empezaremos definiendo que es una revisión de código (&lt;em&gt;Code review&lt;/em&gt;).&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;h2 id=&quot;definicin-de-code-review&quot;&gt;Definición de Code Review&lt;/h2&gt;
+
+&lt;p&gt;Partamos de un escenario en el que trabajamos en un &lt;a href=&quot;http://es.wikipedia.org/wiki/Desarrollo_%C3%A1gil_de_software&quot;&gt;marco ágil&lt;/a&gt;, y dentro de las diferentes opciones, elijamos &lt;a href=&quot;http://es.wikipedia.org/wiki/Scrum&quot;&gt;Scrum&lt;/a&gt;. No es el objetivo de este post profundizar en el funcionamiento de estas metodologías. Aunque es posible que en un futuro hable más sobre ellas, Internet está plagado de información al respecto; yo concretamente recomiendo el blog de &lt;a href=&quot;http://javiergarzas.com/&quot;&gt;Javier Garzás&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Es necesario establecer un marco inicial para ubicar la forma en que afrontamos nuestro desarrollo de software. En Scrum la “unidad de desarrollo” es la &lt;a href=&quot;http://es.wikipedia.org/wiki/Historias_de_usuario&quot;&gt;historia de usuario&lt;/a&gt;, y la unidad de tiempo el &lt;a href=&quot;http://searchsoftwarequality.techtarget.com/definition/Scrum-sprint&quot;&gt;sprint&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Imaginemos pues, que un equipo de 4 desarrolladores tiene que repartirse el desarrollo de varias historias de usuario a lo largo de un sprint. Imaginemos que a un desarrollador en solitario (llamémosle Luis) se le asigna la historia de usuario X (por ejemplo, “Creación de capa de persistencia de datos”).&lt;/p&gt;
+
+&lt;p&gt;Una revisión de código es el proceso mediante el cual, el resto del equipo revisa en conjunto la implementación de Luis para esa historia de usuario, aportando ideas sobre como mejorarlo, quizás refactorizarlo, descubriendo posibles bugs, errores de arquitectura, falta de cobertura de tests para determinados casos, y un sinfín de cosas más que puedan surgir.&lt;/p&gt;
+
+&lt;h4 id=&quot;reticencias&quot;&gt;Reticencias…&lt;/h4&gt;
+
+&lt;p&gt;Seamos directos: en nuestra profesión abundan los perfiles “complicados”. Sin entrar en demasiados detalles, determinados desarrolladores no están abiertos a crítica, y mucho menos a modificar un código que han finalizado y está, en teoría, funcionando. Si alguno de los lectores pertenece a este grupo yo le lanzaría las siguientes preguntas:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;¿Tú código es fácil de entender por otra persona que no seas tú?&lt;/li&gt;
+  &lt;li&gt;¿Tú mismo serías capaz de entender ese código de aquí a un par de años?&lt;/li&gt;
+  &lt;li&gt;¿Has tenido en cuenta todos los factores que afectan o pueden afectar al sistema a la hora de desarrollar tu código?&lt;/li&gt;
+  &lt;li&gt;¿Si tú descubrieras un error flagrante en el código de otro no crees que es tu responsabilidad como profesional arreglarlo? En tal caso, ¿no es mejor detectar ese tipo de errores cuanto antes?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;colectividad-del-codigo-el-cdigo-no-es-mo&quot;&gt;Colectividad del codigo. El código no es mío.&lt;/h4&gt;
+
+&lt;p&gt;Efectivamente, cuando trabajamos en un proyecto empresarial, estamos programando código que seguirá siendo desarrollado, mejorado y mantenido por un buen puñado de desarrolladores en el futuro. Creo que en semejante ámbito no tiene ningún sentido hablar de propiedad individual del código, más bien todo lo contrario.&lt;/p&gt;
+
+&lt;p&gt;La propiedad colectiva del código fomenta que un equipo ágil asuma la responsabilidad del funcionamiento de absolutamente todo el sistema entregado. Nada de apuntar con el dedo a culpables cuando algo no funciona, o sugerir que “yo no he sido” o “yo no estaba allí”. Diría que algo así es evidente…pero no lo es en absoluto.&lt;/p&gt;
+
+&lt;p&gt;La experiencia me ha enseñado que las revisiones de código son la manera más efectiva de alcanzar ese ideal.&lt;/p&gt;
+
+&lt;h2 id=&quot;el-proceso&quot;&gt;El proceso&lt;/h2&gt;
+
+&lt;p&gt;El proceso de una revisión de código comienza cuando un desarrollador va a subir, o ya ha subido, al repositorio central (damos por hecho que estamos utilizando Git o herramienta de control de versiones similar) todos los cambios asociados con la implementación de la historia de usuario asignada.&lt;/p&gt;
+
+&lt;p&gt;El resto del equipo (en nuestro ejemplo, los otros tres desarrolladores), o más de un 50% restante al menos (en el ejemplo, un mínimo de 2) repasarán todos los cambios en el código que serán añadidos al sistema, y mediante comentarios en un entorno amistoso e informal transmitirán sus dudas respecto a ciertas decisiones, propuestas de mejora, y por supuesto “thumbs up” ante ideas que les puedan resultar brillantes o especialmente acertadas. Estos comentarios deberán ir enfocados a cubrir varias de las cuestiones que he ido plateando en este post, y los beneficios son varios y evidentes:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Descubrir herramientas, API’s, maneras de afrontar un problema…que desconocíamos&lt;/li&gt;
+  &lt;li&gt;Obtener un conocimiento global del sistema (no sólo de las partes que YO desarrollo)&lt;/li&gt;
+  &lt;li&gt;Aportar puntos de vista externos, y sacar a relucir cuestiones que se le pueden haber pasado por alto al desarrollador principal&lt;/li&gt;
+  &lt;li&gt;Mejorar la calidad. En ocasiones el funcionamiento de un fragmento de código que puede resultar muy evidente a su creador no lo es tanto para otros&lt;/li&gt;
+  &lt;li&gt;Conseguir la tan ansiada “colectividad del código”&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Por supuesto, no todos los comentarios del resto del equipo pueden resultar acertados, y es tarea de &lt;strong&gt;todo el equipo&lt;/strong&gt; alcanzar un consenso sobre las acciones que hay que llevar a cabo una vez finalizada la revisión. En general, siempre surgirán cambios a aplicar. En mi actual empresa damos por hecho que tras la “Revisión de código” siempre habrá una tarea de “Cambios tras revisión de código”, y siempre añadimos una estimación de estas tareas al conjunto de la historia de usuario. De hecho, nunca damos por cerrada (&lt;strong&gt;done&lt;/strong&gt;) una historia de usuario hasta que ha pasado por la revisión de código.&lt;/p&gt;
+
+&lt;p&gt;Conviene dejar los egos aparcados a la hora de realizar una revisión de código. No estamos en un concurso para encontrar al programador más brillante, sólo buscamos que nuestro producto sea de la máxima calidad.&lt;/p&gt;
+
+&lt;h2 id=&quot;el-resultado&quot;&gt;El resultado&lt;/h2&gt;
+
+&lt;p&gt;Me gusta mucho esta fórmula (la descubrí en un vídeo de Atlassian que no he conseguido localizar de nuevo):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/code_review_formula.png&quot; alt=&quot;Formula Code Review&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;G: nivel de culpabilidad individual de un bug encontrado en producción&lt;/li&gt;
+  &lt;li&gt;R: número de personas que revisaron el código afectado&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Deducimos por tanto que si un código no es revisado por nadie, &lt;strong&gt;solamente una persona&lt;/strong&gt; será responsable de un fallo en producción. Mientras que si todo el equipo revisa el código, la culpabilidad se reparte entre todo el equipo. ¿No hemos conseguido esa “propiedad colectiva del código” buscada?&lt;/p&gt;
+
+&lt;h2 id=&quot;herramientas&quot;&gt;Herramientas&lt;/h2&gt;
+
+&lt;p&gt;La revisión de código puede hacerse reuniendo al equipo en una sala o utilizando una herramienta creada con ese cometido. Existen varias en el mercado, tanto Open Source como comerciales, para conducir Code Reviews. En &lt;a href=&quot;http://en.wikipedia.org/wiki/List_of_tools_for_code_review&quot;&gt;este link&lt;/a&gt; se listan varias de ellas. Personalmente he trabajado con &lt;a href=&quot;https://www.atlassian.com/software/crucible/overview&quot;&gt;Crucible&lt;/a&gt; de &lt;a href=&quot;https://www.atlassian.com/&quot;&gt;Atlassian&lt;/a&gt;, que se integra estupendamente con el resto de la suite Atlassian (JIRA para gestión de tareas, Stash como repositorio de código Git, etc), y permite iniciar conversaciones a partir de una línea de código, bloque, añadir comentarios generales, etc (imagen descargada de la propia web de Atlassian):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/code-review-hero.png&quot; alt=&quot;Crucible&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;mi-experiencia-personal&quot;&gt;Mi experiencia personal&lt;/h2&gt;
+
+&lt;p&gt;Me atrevería afirmar que soy mucho mejor profesional desde que formo parte de un equipo que utiliza de forma constante las revisiones de código. No solamente por todo lo que se aprende cuando tu código es puesto a prueba o cuando te toca revisar el código de otros, haciéndote desarrollar un espíritu crítico y analítico que no utilizaríamos de forma tan clara en otras circunstancias.&lt;/p&gt;
+
+&lt;p&gt;Hay otro factor más “incómodo” de decir, y es que, sabiendo de antemano que tu código va a ser revisado programamos mejor :). Ciertos vicios o prácticas adquiridas, que sabemos fehacientemente que no están bien, pero que da algo de pereza esquivar son definitivamente arrinconados cuando tenemos una revisión de código en el horizonte.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusiones&quot;&gt;Conclusiones&lt;/h2&gt;
+
+&lt;p&gt;Ayer mismo terminé un proyecto en el que he estado trabajando durante 11 meses (de hecho hoy estoy iniciando mis vacaciones :)), habiendo completado 75 revisiones de código a lo largo de este tiempo. Creo que es con diferencia, el producto de mayor calidad que he entregada hasta ahora, y pondría totalmente la mano en el fuego por él. Seguro que el resto de desarrolladores del proyecto piensan exactamente lo mismo que yo. Sin “Code Reviews” jamás habríamos conseguido estándares tan altos ni por asomo.&lt;/p&gt;
+
+&lt;p&gt;Dadle una oportunidad a las revisiones de código, nunca volveréis atrás.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
    <title>Dependency Inversion vs Dependency Injection</title>
    <link href="http://www.raulavila.com/2015/03/principios-dependencias"/>
-   <updated>2015-03-22T00:00:00+00:00</updated>
+   <updated>2015-03-22T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/03/principios-dependencias</id>
    <content type="html">&lt;p&gt;Mi intención con este post es dar un poco de luz a toda la confusión que parece que existe en torno a dos conceptos/principios:&lt;/p&gt;
 
@@ -403,7 +494,7 @@
  <entry>
    <title>Eliminando dependencias estáticas en legacy code</title>
    <link href="http://www.raulavila.com/2015/03/refactoring-legacy-static"/>
-   <updated>2015-03-15T00:00:00+00:00</updated>
+   <updated>2015-03-15T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/03/refactoring-legacy-static</id>
    <content type="html">&lt;p&gt;Modificar un sistema legacy es, quizás, una de las labores más desagradables de nuestra profesión, sobre todo cuando nos es completamente ajeno. El motivo es, sin discusión, &lt;strong&gt;la ausencia de tests&lt;/strong&gt;.&lt;/p&gt;
 
@@ -797,7 +888,7 @@
  <entry>
    <title>Novedades en Spring 4 (y 2)</title>
    <link href="http://www.raulavila.com/2015/03/spring-4-novedades-2"/>
-   <updated>2015-03-08T00:00:00+00:00</updated>
+   <updated>2015-03-08T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/03/spring-4-novedades-2</id>
    <content type="html">&lt;p&gt;Continuamos con el repaso a las novedades de la versión 4 de Spring, en esta ocasión más centrados en las relativas al desarrollo web, servicios REST, etc.&lt;/p&gt;
 
@@ -1054,7 +1145,7 @@
  <entry>
    <title>Novedades en Spring 4 (parte 1)</title>
    <link href="http://www.raulavila.com/2015/02/spring-4-novedades"/>
-   <updated>2015-02-28T00:00:00+00:00</updated>
+   <updated>2015-02-28T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/02/spring-4-novedades</id>
    <content type="html">&lt;p&gt;De todos los frameworks que existen dentro del mundo Java, posiblemente Spring sea el más popular. Rara es la oferta de trabajo en la que busquen Desarrolladores Java y Spring no aparezca en el stack requerido para el puesto.&lt;/p&gt;
 
@@ -1267,7 +1358,7 @@
  <entry>
    <title>International Developers in London Conference</title>
    <link href="http://www.raulavila.com/2015/02/idinlondon-conference"/>
-   <updated>2015-02-22T00:00:00+00:00</updated>
+   <updated>2015-02-22T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/02/idinlondon-conference</id>
    <content type="html">&lt;p&gt;El pasado sábado asistí a la “International Developers in London Conference”. Esta conferencia forma parte de los diferentes eventos englobados en los meetups &lt;a href=&quot;http://www.idinlondon.co.uk/#home&quot;&gt;International Developers in London&lt;/a&gt; (valga la redundancia), organizados por un recruiter llamado &lt;a href=&quot;https://twitter.com/Adam__Bolton&quot;&gt;Adam Bolton&lt;/a&gt;. Los recruiters de esta ciudad no son conocidos precisamente por su profesionalidad y buenas formas, pero este en cuestión entraría dentro de la categoría de “buenos recruiters”.&lt;/p&gt;
 
@@ -1342,7 +1433,7 @@
  <entry>
    <title>Uso avanzado de enumerados</title>
    <link href="http://www.raulavila.com/2015/02/enums-java"/>
-   <updated>2015-02-18T00:00:00+00:00</updated>
+   <updated>2015-02-18T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/02/enums-java</id>
    <content type="html">&lt;p&gt;&lt;a href=&quot;http://docs.oracle.com/javase/7/docs/api/java/lang/Enum.html&quot;&gt;Los tipos enumerados de Java&lt;/a&gt; (&lt;code&gt;enum&lt;/code&gt;) fueron añadidos en la versión 5 del lenguaje. Su uso más inmediato fue el de “contenedores de constantes”, y me temo que gran parte de los desarrolladores desconocen la flexibilidad que permiten más allá de este típico uso:&lt;/p&gt;
 
@@ -1720,7 +1811,7 @@
  <entry>
    <title>Desgranando Fowler's Refactoring (y 3)</title>
    <link href="http://www.raulavila.com/2015/02/fowler-refactoring-3"/>
-   <updated>2015-02-14T00:00:00+00:00</updated>
+   <updated>2015-02-14T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/02/fowler-refactoring-3</id>
    <content type="html">&lt;p&gt;Termino con este post mi repaso a los “puntos mejorables” en el libro de Fowler. Insisto en mi consideración a esta obra como una referencia indiscutible, de hecho en casi 400 páginas sólo he encontrado unos pocos puntos dignos de discusión. Además si algún lector considera que he desbarrado en algún aspecto, admitiré encantado cualquier comentario.&lt;/p&gt;
 
@@ -1867,7 +1958,7 @@
  <entry>
    <title>Desgranando Fowler's Refactoring (parte 2)</title>
    <link href="http://www.raulavila.com/2015/02/fowler-refactoring-2"/>
-   <updated>2015-02-10T00:00:00+00:00</updated>
+   <updated>2015-02-10T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/02/fowler-refactoring-2</id>
    <content type="html">&lt;p&gt;Continúo la serie de artículos sobre “Refactoring”. En esta ocasión la víctima de mi bisturí será lo que, a mi parecer, es un claro error de diseño cometido en la página 225, cuando se desgrana el refactoring “Replace type code with subclasses”. El resultado final de este refactoring está representado en el siguiente diagrama UML:&lt;/p&gt;
 
@@ -2072,7 +2163,7 @@
  <entry>
    <title>Desgranando Fowler's Refactoring (parte 1)</title>
    <link href="http://www.raulavila.com/2015/02/fowler-refactoring-1"/>
-   <updated>2015-02-08T00:00:00+00:00</updated>
+   <updated>2015-02-08T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/02/fowler-refactoring</id>
    <content type="html">&lt;p&gt;&lt;img src=&quot;/public/pictures/refactoring_fowler.jpg&quot; alt=&quot;Refactoring, el libro&quot; /&gt;&lt;/p&gt;
 
@@ -2187,7 +2278,7 @@
  <entry>
    <title>Atajos de teclado en IDE's</title>
    <link href="http://www.raulavila.com/2015/02/atajos-teclado-ide"/>
-   <updated>2015-02-01T00:00:00+00:00</updated>
+   <updated>2015-02-01T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/02/atajos-teclado-ide</id>
    <content type="html">&lt;p&gt;En mi &lt;a href=&quot;/2015/01/entornos-integrados-desarrollo&quot;&gt;anterior post&lt;/a&gt; hablé de IDE’s y las diferentes alternativas que hay en el mercado. Mi intención inicial con ese post era hablar de atajos de teclado, pero me extendí demasiado con la introducción y preferí terminar ese hilo para hablar de ello más adelante.&lt;/p&gt;
 
@@ -2944,7 +3035,7 @@
  <entry>
    <title>Entornos integrados de desarrollo (IDE)</title>
    <link href="http://www.raulavila.com/2015/01/entornos-integrados-desarrollo"/>
-   <updated>2015-01-31T00:00:00+00:00</updated>
+   <updated>2015-01-31T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/01/entornos-integrados-desarrollo</id>
    <content type="html">&lt;p&gt;&lt;img src=&quot;/public/pictures/screenshot_intellij.png&quot; alt=&quot;IntelliJ Idea&quot; /&gt;&lt;/p&gt;
 
@@ -2980,7 +3071,7 @@
  <entry>
    <title>Cómo hice el blog</title>
    <link href="http://www.raulavila.com/2015/01/como-hice-el-blog"/>
-   <updated>2015-01-26T00:00:00+00:00</updated>
+   <updated>2015-01-26T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/01/como-hice-el-blog</id>
    <content type="html">&lt;p&gt;&lt;img src=&quot;/public/pictures/jekyll-github.png&quot; alt=&quot;Jekyll y GitHub&quot; /&gt;&lt;/p&gt;
 
@@ -3044,7 +3135,7 @@
  <entry>
    <title>Hello World!</title>
    <link href="http://www.raulavila.com/2015/01/hello-world"/>
-   <updated>2015-01-25T00:00:00+00:00</updated>
+   <updated>2015-01-25T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/01/hello-world</id>
    <content type="html">&lt;p&gt;Desde hace tiempo me lleva rondando por la cabeza la idea de tener una página personal / blog. La verdad es que hasta hace poco consideraba que no tenía demasiadas cosas que aportar a la comunidad, pero me he dado cuenta de que &lt;a href=&quot;/sobre-mi&quot;&gt;cualquiera&lt;/a&gt; en este mundillo tiene algo que decir.&lt;/p&gt;
 
