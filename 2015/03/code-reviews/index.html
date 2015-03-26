@@ -64,7 +64,7 @@
   </div>  
   <p>¿Son necesarias las revisiones de código? ¿No revisamos ya el código al mismo tiempo que desarrollamos? Si ya utilizo el refactoring como práctica habitual, ¿qué sentido tiene revisar el código de nuevo?</p>
 
-<p>Son muchas las preguntas que pueden surgir en un equipo de desarrolladores en referencia a las revisiones de código. Pero peor aún que las preguntas son las inquietudes o recelos (¡si se revisa mi código tirarán por tierra mi trabajo!). Antes de nada, empezaremos definiendo que es una revisión de código (<em>Code review</em>).</p>
+<p>Son muchas las preguntas que pueden surgir en un equipo de desarrolladores en referencia a las revisiones de código. Pero peor aún que las preguntas son las inquietudes o recelos (“¡si se revisa mi código tirarán por tierra mi trabajo!”). Antes de nada, empezaremos definiendo qué es una revisión de código (<em>Code review</em>).</p>
 
 <!--break-->
 
@@ -85,11 +85,11 @@
 <ul>
   <li>¿Tú código es fácil de entender por otra persona que no seas tú?</li>
   <li>¿Tú mismo serías capaz de entender ese código de aquí a un par de años?</li>
-  <li>¿Has tenido en cuenta todos los factores que afectan o pueden afectar al sistema a la hora de desarrollar tu código?</li>
+  <li>¿Has tenido en cuenta TODOS los factores que afectan o pueden afectar al sistema a la hora de desarrollar tu código?</li>
   <li>¿Si tú descubrieras un error flagrante en el código de otro no crees que es tu responsabilidad como profesional arreglarlo? En tal caso, ¿no es mejor detectar ese tipo de errores cuanto antes?</li>
 </ul>
 
-<h4 id="colectividad-del-codigo-el-cdigo-no-es-mo">Colectividad del codigo. El código no es mío.</h4>
+<h4 id="colectividad-del-codigo-el-cdigo-no-es-mo">Colectividad del codigo. El código no es mío</h4>
 
 <p>Efectivamente, cuando trabajamos en un proyecto empresarial, estamos programando código que seguirá siendo desarrollado, mejorado y mantenido por un buen puñado de desarrolladores en el futuro. Creo que en semejante ámbito no tiene ningún sentido hablar de propiedad individual del código, más bien todo lo contrario.</p>
 
@@ -107,7 +107,7 @@
   <li>Descubrir herramientas, API’s, maneras de afrontar un problema…que desconocíamos</li>
   <li>Obtener un conocimiento global del sistema (no sólo de las partes que YO desarrollo)</li>
   <li>Aportar puntos de vista externos, y sacar a relucir cuestiones que se le pueden haber pasado por alto al desarrollador principal</li>
-  <li>Mejorar la calidad. En ocasiones el funcionamiento de un fragmento de código que puede resultar muy evidente a su creador no lo es tanto para otros</li>
+  <li>Mejorar la calidad y legibilidad. En ocasiones el funcionamiento de un fragmento de código que puede resultar muy evidente a su creador no lo es tanto para otros</li>
   <li>Conseguir la tan ansiada “colectividad del código”</li>
 </ol>
 
@@ -130,9 +130,13 @@
 
 <h2 id="herramientas">Herramientas</h2>
 
-<p>La revisión de código puede hacerse reuniendo al equipo en una sala o utilizando una herramienta creada con ese cometido. Existen varias en el mercado, tanto Open Source como comerciales, para conducir Code Reviews. En <a href="http://en.wikipedia.org/wiki/List_of_tools_for_code_review">este link</a> se listan varias de ellas. Personalmente he trabajado con <a href="https://www.atlassian.com/software/crucible/overview">Crucible</a> de <a href="https://www.atlassian.com/">Atlassian</a>, que se integra estupendamente con el resto de la suite Atlassian (JIRA para gestión de tareas, Stash como repositorio de código Git, etc), y permite iniciar conversaciones a partir de una línea de código, bloque, añadir comentarios generales, etc (imagen descargada de la propia web de Atlassian):</p>
+<p>La revisión de código puede hacerse reuniendo al equipo en una sala o utilizando una herramienta creada con ese cometido. Existen varias en el mercado, tanto Open Source como comerciales, para conducir Code Reviews. En <a href="http://en.wikipedia.org/wiki/List_of_tools_for_code_review">este link</a> se listan varias de ellas. Personalmente he trabajado con <a href="https://www.atlassian.com/software/crucible/overview">Crucible</a> de <a href="https://www.atlassian.com/">Atlassian</a>, que se integra estupendamente con el resto de la suite Atlassian (JIRA para gestión de tareas, Stash como repositorio de código Git, etc), y permite iniciar conversaciones a partir de una línea de código, bloque, añadir comentarios generales, etc:</p>
 
 <p><img src="/public/pictures/code-review-hero.png" alt="Crucible" /></p>
+
+<div class="font-small" style="text-align:center;">
+(imagen descargada de la propia web de Atlassian)
+</div>
 
 <h2 id="mi-experiencia-personal">Mi experiencia personal</h2>
 
@@ -142,7 +146,7 @@
 
 <h2 id="conclusiones">Conclusiones</h2>
 
-<p>Ayer mismo terminé un proyecto en el que he estado trabajando durante 11 meses (de hecho hoy estoy iniciando mis vacaciones :)), habiendo completado 75 revisiones de código a lo largo de este tiempo. Creo que es con diferencia, el producto de mayor calidad que he entregada hasta ahora, y pondría totalmente la mano en el fuego por él. Seguro que el resto de desarrolladores del proyecto piensan exactamente lo mismo que yo. Sin “Code Reviews” jamás habríamos conseguido estándares tan altos ni por asomo.</p>
+<p>Ayer mismo terminé un proyecto en el que he estado trabajando durante 11 meses (de hecho hoy estoy iniciando mis vacaciones :)), habiendo completado 75 revisiones de código a lo largo de este tiempo. Creo que es, con diferencia, el producto de mayor calidad que he entregada hasta ahora, y pondría totalmente la mano en el fuego por él. Seguro que el resto de desarrolladores del proyecto piensan exactamente lo mismo que yo. Sin “Code Reviews” jamás habríamos conseguido estándares tan altos ni por asomo.</p>
 
 <p>Dadle una oportunidad a las revisiones de código, nunca volveréis atrás.</p>
 
