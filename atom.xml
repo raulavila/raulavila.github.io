@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-04-05T18:07:22+02:00</updated>
+ <updated>2015-04-11T13:46:42+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -13,9 +13,313 @@
 
  
  <entry>
+   <title>El patrón Composite en la práctica</title>
+   <link href="http://www.raulavila.com/2015/04/patron-composite"/>
+   <updated>2015-04-11T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2015/04/patron-composite</id>
+   <content type="html">&lt;p&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Design_Patterns&quot;&gt;Los patrones de diseño del Gang of Four&lt;/a&gt; son una de las piedras angulares en el desarrollo de software. Algunos de ellos tan importantes que han sido absorbidos por implementaciones nativas en los lenguajes de programación y los damos como algo dado sin darnos cuenta del patrón que reside detrás (caso de &lt;a href=&quot;http://en.wikipedia.org/wiki/Iterator_pattern&quot;&gt;Iterator&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;Para aprender el funcionamiento de estos patrones se suele remitir al &lt;a href=&quot;http://www.amazon.es/gp/product/0201633612/ref=s9_wsim_gw_p14_d2_i4?pf_rd_m=A1AT7YVPFBWXBL&amp;amp;pf_rd_s=desktop-1&amp;amp;pf_rd_r=0DXGS5AC1TE8GW0JYVCB&amp;amp;pf_rd_t=36701&amp;amp;pf_rd_p=579624687&amp;amp;pf_rd_i=desktop&quot;&gt;libro original&lt;/a&gt;, aunque en mi caso los aprendí con el magnífico &lt;a href=&quot;http://www.amazon.es/Head-First-Design-Patterns-Freeman-ebook/dp/B00AA36RZY/ref=sr_1_1?s=foreign-books&amp;amp;ie=UTF8&amp;amp;qid=1428747139&amp;amp;sr=1-1&amp;amp;keywords=Head+First+Design+Patterns&quot;&gt;Head First Design Patterns&lt;/a&gt;. Internet está lleno de referencias y explicaciones, por supuesto, y yo aportaré mi granito de arena con ejemplos prácticos de uso de algunos de ellos.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;h2 id=&quot;composite&quot;&gt;Composite&lt;/h2&gt;
+
+&lt;p&gt;Este patrón es, a mi parecer, uno de los más útiles para conseguir un código dividido en &lt;strong&gt;pequeñas&lt;/strong&gt; piezas reusables y testeables, que respetan al máximo el &lt;a href=&quot;http://en.wikipedia.org/wiki/Single_responsibility_principle&quot;&gt;Single Responsibility Principle&lt;/a&gt;. Esto significa que una vez tenemos desarrollada cierta funcionalidad dentro de una clase, en pocas ocasiones tendremos un motivo para cambiar dicha clase en el futuro. Lo veremos más claro con el ejemplo.&lt;/p&gt;
+
+&lt;p&gt;La definición “oficial” del patrón la podemos encontrar en &lt;a href=&quot;http://en.wikipedia.org/wiki/Composite_pattern&quot;&gt;Wikipedia&lt;/a&gt;, traducido sería:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;En Ingeniería del Software, el patrón Composite es un patrón de diseño utilizado para particionar. El patrón Composite describe un grupo de objetos que serán tratados de la misma forma como una instancia única de un objeto. La intención del patrón es “componer” objetos en estructuras de árboles para representar jerarquías. Implementar el patrón Composite permite a los clientes tratar objetos individuales y composiciones uniformemente.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Y el diagrama UML (en el mismo sitio) es:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/composite-wiki.png&quot; alt=&quot;Composite Official&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Por tanto tenemos que:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Existe una interfaz &lt;code&gt;Component&lt;/code&gt; que define una operación&lt;/li&gt;
+  &lt;li&gt;Dicha interfaz es implementada por dos clases, &lt;code&gt;Leaf&lt;/code&gt; y  &lt;code&gt;Composite&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;La clase &lt;code&gt;Leaf&lt;/code&gt; contiene una implementación específica de la operación&lt;/li&gt;
+  &lt;li&gt;La clase &lt;code&gt;Composite&lt;/code&gt; contiene un número variable de referencias (children) a instancias de la interfaz &lt;code&gt;Component&lt;/code&gt;. Dichas instancias pueden ser &lt;code&gt;Leaf&lt;/code&gt; o, de nuevo &lt;code&gt;Composite&lt;/code&gt;, permitiendo generar las estructuras en forma de árbol que se mencionan en la definición&lt;/li&gt;
+  &lt;li&gt;La implementación de la operación en &lt;code&gt;Composite&lt;/code&gt; delegará en la operación de cada una de las instancias “child”&lt;/li&gt;
+  &lt;li&gt;Las instancias de &lt;code&gt;Composite&lt;/code&gt; están “vivas”, es decir, mediante sus operaciones &lt;code&gt;add&lt;/code&gt; y &lt;code&gt;remove&lt;/code&gt; permiten configurar la jerarquía que contiene&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Es este último punto precisamente el que supone un pequeño hándicap para este patrón de diseño. En el libro de la serie “Head First” se discute bastante sobre este asunto, el problema es que estas operaciones al ser específicas de la clase Composite no pertenecen a la interfaz, por lo que, en cierta medida, los clientes han de ser conscientes de las implementaciones que existen de la interfaz (y hacer &lt;a href=&quot;http://stackoverflow.com/questions/380813/downcasting-in-java&quot;&gt;downcasting&lt;/a&gt;), rompiendo el principio &lt;a href=&quot;http://www.fatagnus.com/program-to-an-interface-not-an-implementation/&quot;&gt;Program to an interface, not an implementation&lt;/a&gt;. Otra posible solución sería elevar las operaciones a la interfaz, y lanzando una excepción si las invocamos desde &lt;code&gt;Leaf&lt;/code&gt;, pero esa solución me parece igualmente mala.&lt;/p&gt;
+
+&lt;h3 id=&quot;la-versin-inmutable&quot;&gt;La versión inmutable&lt;/h3&gt;
+
+&lt;p&gt;En general, el típico ejemplo para explicar el patrón Composite es una aplicación de dibujo en la que a partir de formas geométricas básicas (círculo, cuadrado…) creamos formas más complejas que se van agrupando. En este caso sí que tiene sentido el carácter vivo de la clase Composite.&lt;/p&gt;
+
+&lt;p&gt;Sin embargo, el mayor uso que yo he ido encontrando para este patrón es bastante diferente, y guarda relación con lo que mencionaba al principio de este artículo. Cuando nos enfrentamos al desarrollo de aplicaciones de gran dimensión, es muy frecuente que determinadas clases que tienen como objetivo realizar tareas repetitivas en pasos sucesivos vayan creciendo y creciendo debido a nuevos requerimientos.&lt;/p&gt;
+
+&lt;p&gt;Lo que ocurre a largo plazo es que un determinado módulo o clase se vuelve inmanejable, y cada vez más difícil de testear. La consecuencia más directa suele ser que se dejan de mantener los tests, lo cual es terrible, y la segunda consecuencia es que cada vez es más difícil de mantener.&lt;/p&gt;
+
+&lt;p&gt;En gran medida, estos problemas pueden evitarse con lo que yo llamo la versión inmutable del patrón Composite. Es inmutable porque se inicializa una sola vez y no permite modificar su estrucutra, es decir, nos cargamos las operaciones &lt;code&gt;add&lt;/code&gt; y &lt;code&gt;remove&lt;/code&gt; de la versión vista más arriba. Veámoslo con un ejemplo concreto.&lt;/p&gt;
+
+&lt;h3 id=&quot;una-implementacin-de-ejemplo&quot;&gt;Una implementación de ejemplo&lt;/h3&gt;
+
+&lt;p&gt;Imaginemos un escenario en el que tenemos que validar una estructura de datos utilizada para dar de alta un nuevo usuario en un sistema.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;NewUserInfo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;surname&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Address&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//...&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;line2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;county&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;city&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postcode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//...&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Los datos pueden provenir de un servicio web, un formulario HTML…no es demasiado importante para el ejemplo.&lt;/p&gt;
+
+&lt;p&gt;Lo que queremos es crear un clase &lt;code&gt;Validator&lt;/code&gt; que reciba la instancia de &lt;code&gt;NewUserInfo&lt;/code&gt; y devuelva una lista de Strings con todos los errores encontrados (campos sin rellenar, password insegura, menor de edad…). Es decir, queremos esto:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Validator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;La interfaz es genérica, ya que así podríamos reutilizarla para otras estrucuturas de datos.&lt;/p&gt;
+
+&lt;p&gt;Sin el patrón Composite, lo normal sería crear una implementación, &lt;code&gt;NewUserInfoValidator&lt;/code&gt;, que fuera validando de forma sucesiva todos y cada uno de los campos, con la complejidad añadida de que cada campo requiere de validaciones diferentes. Por mucho que intentemos seguir las prácticas de Clean Code, lo más normal es que esa clase crezca a varios cientos de líneas, y que además requiera de mantenimiento posterior cada vez que necesitemos añadir un nuevo campo a la estructura de datos o una nueva validación a uno de los campos existentes. Por no hablar de lo monstruosos que pueden llegar a ser los tests.&lt;/p&gt;
+
+&lt;p&gt;Vamos, por tanto, a utilizar el patrón Composite para separar la validación en piezas, a partir del siguiente diagrama UML:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/composite.jpg&quot; alt=&quot;Composite inmutable&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;la-clase-compositevalidator&quot;&gt;La clase CompositeValidator&lt;/h4&gt;
+
+&lt;p&gt;La implementación de la clase Composite sería:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CompositeValidator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Validator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Validator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validators&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;CompositeValidator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Validator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validators&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;validators&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validators&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Lists&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;newArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Validator&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validators&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addAll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;validator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Como vemos, no hace más que delegar la validación a cada uno de sus “hijos” y recopilar los resultados. Lo bueno de esta estructura, es que ¡los hijos pueden ser tanto implementaciones concretas como nuevos Composites!&lt;/p&gt;
+
+&lt;h4 id=&quot;las-implementaciones-concretas&quot;&gt;Las implementaciones “concretas”&lt;/h4&gt;
+
+&lt;p&gt;La idea es dividir las validaciones de los diferentes campos (o grupos de campos asociados) en sus propias clases Validator. Veamos un par de ejemplos:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;NameValidator&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Validator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NewUserInfo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NewUserInfo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Lists&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;newArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;surname&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getSurname&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;StringUtils&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isEmpty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Name must be populated&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;StringUtils&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isEmpty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;surname&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Surname must be populated&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AgeValidator&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Validator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NewUserInfo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NewUserInfo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Lists&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;newArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+        &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAge&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;age&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;18&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Age must be &amp;gt;= 18&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;(&lt;a href=&quot;https://github.com/raulavila/blog-examples/tree/master/src/main/java/com/raulavila/patterns/composite&quot;&gt;El resto de clases Validator están en el código subido a GitHub&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;Creo que queda bastante claro de qué forma se simplifica el código en pequeñas piezas reutilizables. Un posible temor ante esta situación es encontrarnos ante un montón de clases por mantener, pero yo diría que es mucho más fácil mantener pequeñas clases fáciles de entender y localizar que una clase gigantesca en la que hay que bucear para encontrar el código a modificar. Y por último reducimos los potenciales motivos para modificar una clase determinada.&lt;/p&gt;
+
+&lt;p&gt;¿Cuántas veces en el futuro creéis que será necesario modificar la clase &lt;code&gt;AgeValidator&lt;/code&gt; o &lt;code&gt;CompositeValidator&lt;/code&gt;? Diría que el cambio es altamente improbable. Por otro lado, si un nuevo campo es añadido a la estructura de datos, lo único que deberíamos hacer sería crear una nueva clase para validar ese nuevo campo y agregarla a la jerarquía.&lt;/p&gt;
+
+&lt;h4 id=&quot;juntando-las-piezas&quot;&gt;Juntando las piezas&lt;/h4&gt;
+
+&lt;p&gt;La agregación de las diferentes piezas la haremos en el fichero XML para configurar el contexto de Spring. De esta forma podemos establecer la configuración de nuestro validador sin tocar para nada las clases.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;bean&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;newUserInfoValidator&amp;quot;&lt;/span&gt;
+          &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;com.raulavila.patterns.composite.CompositeValidator&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;constructor-arg&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;list&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;ref&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bean=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;nameAndAddressValidator&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;ref&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bean=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;ageValidator&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;ref&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bean=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;passwordValidator&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/list&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/constructor-arg&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/bean&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;bean&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;nameAndAddressValidator&amp;quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;com.raulavila.patterns.composite.CompositeValidator&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;constructor-arg&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;list&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;ref&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bean=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;nameValidator&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;ref&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;bean=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;addressValidator&amp;quot;&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/list&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/constructor-arg&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/bean&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;bean&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;nameValidator&amp;quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;com.raulavila.patterns.composite.NameValidator&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;bean&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;addressValidator&amp;quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;com.raulavila.patterns.composite.AddressValidator&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;bean&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;ageValidator&amp;quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;com.raulavila.patterns.composite.AgeValidator&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;
+
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;bean&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;id=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;passwordValidator&amp;quot;&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;class=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;com.raulavila.patterns.composite.PasswordValidator&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;/&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Es un poco forzado el segundo nivel creado con &lt;code&gt;nameAndAddressValidator&lt;/code&gt;, que he añadido a efectos de demostración. En proyectos más reales se utilizarían los diferentes niveles en la jerarquía para agrupar validaciones de campos relacionados, o agrupar diferentes tipos de validaciones en el mismo campo (por ejemplo, separar una validación básica con otra más compleja que necesitara comunicarse con un sistema externo, por ejemplo).&lt;/p&gt;
+
+&lt;p&gt;Veamos un ejemplo del funcionamiento de nuestro validador:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;n&quot;&gt;ApplicationContext&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;ClassPathXmlApplicationContext&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&amp;quot;spring-beans-composite.xml&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@SuppressWarnings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;unchecked&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;Validator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NewUserInfo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newInfoUserValidator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getBean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;newUserInfoValidator&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Validator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;NewUserInfo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newUserInfo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;NewUserInfo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newInfoUserValidator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;newUserInfo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;La salida de esta pequeña aplicación, dado que estamos validando una instancia sin rellenar (por lo que contiene los valores por defecto) sería una lista con los siguientes mensajes:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&amp;quot;Name must be populated&amp;quot;,
+&amp;quot;Surname must be populated&amp;quot;,
+&amp;quot;Address can&amp;#39;t be null&amp;quot;,
+&amp;quot;Age must be &amp;gt;= 18&amp;quot;,       //age contiene el valor por defecto para int =&amp;gt; 0
+&amp;quot;Password field must be populated&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;los-tests&quot;&gt;Los tests&lt;/h4&gt;
+
+&lt;p&gt;Veamos por último lo sencillos que quedarían algunos de los tests. Empecemos con el test de la clase &lt;code&gt;CompositeValidator&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;CompositeValidatorTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CompositeValidator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;compositeValidator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Mock&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Validator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validator1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;@Mock&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Validator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validator2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Mock&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Before&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setUp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;MockitoAnnotations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;initMocks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Validator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validators&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;Lists&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;newArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;validator1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validator2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;compositeValidator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CompositeValidator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;validators&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;validator1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;thenReturn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Lists&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;newArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;error1&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;validator2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;thenReturn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Lists&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;newArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;error2&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;testComposite&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;compositeValidator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;verify&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;validator1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;verify&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;validator2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;assertThat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;containsExactly&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;error1&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;error2&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Se comprueba que la clase Composite delega en sus hijos, como es de esperar.&lt;/p&gt;
+
+&lt;p&gt;Cada una de las clases Validator en particular tendría su propia clase específica de test, en el caso de &lt;code&gt;AgeValidator&lt;/code&gt; sería algo como:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;AgeValidatorTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AgeValidator&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ageValidator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;AgeValidator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Mock&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NewUserInfo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;newUserInfo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Before&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setUp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;MockitoAnnotations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;initMocks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;testAdult&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;newUserInfo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAge&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;thenReturn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ageValidator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;newUserInfo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;assertThat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isEmpty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;testChild&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Exception&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;newUserInfo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAge&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;thenReturn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ageValidator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;newUserInfo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;assertThat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;hasSize&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;assertThat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;contains&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Age must be &amp;gt;= 18&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Imaginad cuál sería el aspecto de los tests si una sola clase fuera la encargada de validar todos y cada uno de los campos :)&lt;/p&gt;
+
+&lt;p&gt;Con esto termino mi repaso a este enfoque inmutable del patrón Composite, que yo personalmente he encontrado de extrema utilidad para varios proyectos en los que he trabajado.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
    <title>Cómo encontré trabajo de informático en Londres</title>
    <link href="http://www.raulavila.com/2015/04/trabajo-londres"/>
-   <updated>2015-04-05T00:00:00+02:00</updated>
+   <updated>2015-04-05T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/04/trabajo-londres</id>
    <content type="html">&lt;p&gt;Tenía este tema en mi lista de pendientes desde que inicié el blog. Y dado que en breve cumpliré un año viviendo en Londres, creo que ahora es un buen momento para contar el proceso que seguí a la hora de buscar trabajo aquí &lt;strong&gt;desde España&lt;/strong&gt;.&lt;/p&gt;
 
@@ -166,7 +470,7 @@
  <entry>
    <title>Las reuniones en proyectos de desarrollo</title>
    <link href="http://www.raulavila.com/2015/04/reuniones"/>
-   <updated>2015-04-02T00:00:00+02:00</updated>
+   <updated>2015-04-02T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/04/reuniones</id>
    <content type="html">&lt;p&gt;Vamos a abordar un tema polémico. ¿Son necesarias las reuniones? ¿Tienen un claro ROI (&lt;a href=&quot;http://es.wikipedia.org/wiki/Retorno_de_la_inversi%C3%B3n&quot;&gt;retorno de la inversión&lt;/a&gt;) o son el mayor ladrón de tiempo para un desarrollador de software? ¿Podemos rechazar alegremente una convocatoria de reunión si la consideramos innecesaria?&lt;/p&gt;
 
@@ -226,7 +530,7 @@
  <entry>
    <title>Code Reviews (revisiones de código)</title>
    <link href="http://www.raulavila.com/2015/03/code-reviews"/>
-   <updated>2015-03-26T00:00:00+01:00</updated>
+   <updated>2015-03-26T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/03/code-reviews</id>
    <content type="html">&lt;p&gt;¿Son necesarias las revisiones de código? ¿No revisamos ya el código al mismo tiempo que desarrollamos? Si ya utilizo el refactoring como práctica habitual, ¿qué sentido tiene revisar el código de nuevo?&lt;/p&gt;
 
@@ -321,7 +625,7 @@
  <entry>
    <title>Dependency Inversion vs Dependency Injection</title>
    <link href="http://www.raulavila.com/2015/03/principios-dependencias"/>
-   <updated>2015-03-22T00:00:00+01:00</updated>
+   <updated>2015-03-22T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/03/principios-dependencias</id>
    <content type="html">&lt;p&gt;Mi intención con este post es dar un poco de luz a toda la confusión que parece que existe en torno a dos conceptos/principios:&lt;/p&gt;
 
@@ -709,7 +1013,7 @@
  <entry>
    <title>Eliminando dependencias estáticas en legacy code</title>
    <link href="http://www.raulavila.com/2015/03/refactoring-legacy-static"/>
-   <updated>2015-03-15T00:00:00+01:00</updated>
+   <updated>2015-03-15T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/03/refactoring-legacy-static</id>
    <content type="html">&lt;p&gt;Modificar un sistema legacy es, quizás, una de las labores más desagradables de nuestra profesión, sobre todo cuando nos es completamente ajeno. El motivo es, sin discusión, &lt;strong&gt;la ausencia de tests&lt;/strong&gt;.&lt;/p&gt;
 
@@ -1103,7 +1407,7 @@
  <entry>
    <title>Novedades en Spring 4 (y 2)</title>
    <link href="http://www.raulavila.com/2015/03/spring-4-novedades-2"/>
-   <updated>2015-03-08T00:00:00+01:00</updated>
+   <updated>2015-03-08T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/03/spring-4-novedades-2</id>
    <content type="html">&lt;p&gt;Continuamos con el repaso a las novedades de la versión 4 de Spring, en esta ocasión más centrados en las relativas al desarrollo web, servicios REST, etc.&lt;/p&gt;
 
@@ -1360,7 +1664,7 @@
  <entry>
    <title>Novedades en Spring 4 (parte 1)</title>
    <link href="http://www.raulavila.com/2015/02/spring-4-novedades"/>
-   <updated>2015-02-28T00:00:00+01:00</updated>
+   <updated>2015-02-28T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/02/spring-4-novedades</id>
    <content type="html">&lt;p&gt;De todos los frameworks que existen dentro del mundo Java, posiblemente Spring sea el más popular. Rara es la oferta de trabajo en la que busquen Desarrolladores Java y Spring no aparezca en el stack requerido para el puesto.&lt;/p&gt;
 
@@ -1573,7 +1877,7 @@
  <entry>
    <title>International Developers in London Conference</title>
    <link href="http://www.raulavila.com/2015/02/idinlondon-conference"/>
-   <updated>2015-02-22T00:00:00+01:00</updated>
+   <updated>2015-02-22T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/02/idinlondon-conference</id>
    <content type="html">&lt;p&gt;El pasado sábado asistí a la “International Developers in London Conference”. Esta conferencia forma parte de los diferentes eventos englobados en los meetups &lt;a href=&quot;http://www.idinlondon.co.uk/#home&quot;&gt;International Developers in London&lt;/a&gt; (valga la redundancia), organizados por un recruiter llamado &lt;a href=&quot;https://twitter.com/Adam__Bolton&quot;&gt;Adam Bolton&lt;/a&gt;. Los recruiters de esta ciudad no son conocidos precisamente por su profesionalidad y buenas formas, pero este en cuestión entraría dentro de la categoría de “buenos recruiters”.&lt;/p&gt;
 
@@ -1648,7 +1952,7 @@
  <entry>
    <title>Uso avanzado de enumerados</title>
    <link href="http://www.raulavila.com/2015/02/enums-java"/>
-   <updated>2015-02-18T00:00:00+01:00</updated>
+   <updated>2015-02-18T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/02/enums-java</id>
    <content type="html">&lt;p&gt;&lt;a href=&quot;http://docs.oracle.com/javase/7/docs/api/java/lang/Enum.html&quot;&gt;Los tipos enumerados de Java&lt;/a&gt; (&lt;code&gt;enum&lt;/code&gt;) fueron añadidos en la versión 5 del lenguaje. Su uso más inmediato fue el de “contenedores de constantes”, y me temo que gran parte de los desarrolladores desconocen la flexibilidad que permiten más allá de este típico uso:&lt;/p&gt;
 
@@ -2026,7 +2330,7 @@
  <entry>
    <title>Desgranando Fowler's Refactoring (y 3)</title>
    <link href="http://www.raulavila.com/2015/02/fowler-refactoring-3"/>
-   <updated>2015-02-14T00:00:00+01:00</updated>
+   <updated>2015-02-14T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/02/fowler-refactoring-3</id>
    <content type="html">&lt;p&gt;Termino con este post mi repaso a los “puntos mejorables” en el libro de Fowler. Insisto en mi consideración a esta obra como una referencia indiscutible, de hecho en casi 400 páginas sólo he encontrado unos pocos puntos dignos de discusión. Además si algún lector considera que he desbarrado en algún aspecto, admitiré encantado cualquier comentario.&lt;/p&gt;
 
@@ -2173,7 +2477,7 @@
  <entry>
    <title>Desgranando Fowler's Refactoring (parte 2)</title>
    <link href="http://www.raulavila.com/2015/02/fowler-refactoring-2"/>
-   <updated>2015-02-10T00:00:00+01:00</updated>
+   <updated>2015-02-10T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/02/fowler-refactoring-2</id>
    <content type="html">&lt;p&gt;Continúo la serie de artículos sobre “Refactoring”. En esta ocasión la víctima de mi bisturí será lo que, a mi parecer, es un claro error de diseño cometido en la página 225, cuando se desgrana el refactoring “Replace type code with subclasses”. El resultado final de este refactoring está representado en el siguiente diagrama UML:&lt;/p&gt;
 
@@ -2378,7 +2682,7 @@
  <entry>
    <title>Desgranando Fowler's Refactoring (parte 1)</title>
    <link href="http://www.raulavila.com/2015/02/fowler-refactoring-1"/>
-   <updated>2015-02-08T00:00:00+01:00</updated>
+   <updated>2015-02-08T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/02/fowler-refactoring</id>
    <content type="html">&lt;p&gt;&lt;img src=&quot;/public/pictures/refactoring_fowler.jpg&quot; alt=&quot;Refactoring, el libro&quot; /&gt;&lt;/p&gt;
 
@@ -2493,7 +2797,7 @@
  <entry>
    <title>Atajos de teclado en IDE's</title>
    <link href="http://www.raulavila.com/2015/02/atajos-teclado-ide"/>
-   <updated>2015-02-01T00:00:00+01:00</updated>
+   <updated>2015-02-01T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/02/atajos-teclado-ide</id>
    <content type="html">&lt;p&gt;En mi &lt;a href=&quot;/2015/01/entornos-integrados-desarrollo&quot;&gt;anterior post&lt;/a&gt; hablé de IDE’s y las diferentes alternativas que hay en el mercado. Mi intención inicial con ese post era hablar de atajos de teclado, pero me extendí demasiado con la introducción y preferí terminar ese hilo para hablar de ello más adelante.&lt;/p&gt;
 
@@ -3250,7 +3554,7 @@
  <entry>
    <title>Entornos integrados de desarrollo (IDE)</title>
    <link href="http://www.raulavila.com/2015/01/entornos-integrados-desarrollo"/>
-   <updated>2015-01-31T00:00:00+01:00</updated>
+   <updated>2015-01-31T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/01/entornos-integrados-desarrollo</id>
    <content type="html">&lt;p&gt;&lt;img src=&quot;/public/pictures/screenshot_intellij.png&quot; alt=&quot;IntelliJ Idea&quot; /&gt;&lt;/p&gt;
 
@@ -3286,7 +3590,7 @@
  <entry>
    <title>Cómo hice el blog</title>
    <link href="http://www.raulavila.com/2015/01/como-hice-el-blog"/>
-   <updated>2015-01-26T00:00:00+01:00</updated>
+   <updated>2015-01-26T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/01/como-hice-el-blog</id>
    <content type="html">&lt;p&gt;&lt;img src=&quot;/public/pictures/jekyll-github.png&quot; alt=&quot;Jekyll y GitHub&quot; /&gt;&lt;/p&gt;
 
@@ -3350,7 +3654,7 @@
  <entry>
    <title>Hello World!</title>
    <link href="http://www.raulavila.com/2015/01/hello-world"/>
-   <updated>2015-01-25T00:00:00+01:00</updated>
+   <updated>2015-01-25T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/01/hello-world</id>
    <content type="html">&lt;p&gt;Desde hace tiempo me lleva rondando por la cabeza la idea de tener una página personal / blog. La verdad es que hasta hace poco consideraba que no tenía demasiadas cosas que aportar a la comunidad, pero me he dado cuenta de que &lt;a href=&quot;/sobre-mi&quot;&gt;cualquiera&lt;/a&gt; en este mundillo tiene algo que decir.&lt;/p&gt;
 
