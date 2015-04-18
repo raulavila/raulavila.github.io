@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Optimizando el patrón Producer-Consumer con TransferQueue
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Raúl Ávila" href="/atom.xml">
+
+</head>
+
+
+  <body>
+
+    <div class="container content">
+      <header class="masthead">
+        <h1 class="masthead-title">
+          <a href="/" title="Home">Raúl Ávila</a>
+        </h1>
+
+            <small><a href="/sobre-mi">Sobre mí</a></small>
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/archivos">Archivos</a></small>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title">Optimizando el patrón Producer-Consumer con TransferQueue</h1>
+  <time datetime="2015-04-18T00:00:00+01:00" class="post-date">18/04/2015</time>
+  <div class="post-tags">
+    
+    | <a href="/tag/desarrollo">desarrollo</a> |
+    
+    | <a href="/tag/multithreading">multithreading</a> |
+    
+    | <a href="/tag/patrones">patrones</a> |
+    
+  </div>  
+  <div class="post-share">
+    <a class="twitter-share-button" 
+    data-via="ravila80"
+    data-count="none"
+    href="https://twitter.com/share">Tweet</a>
+  </div>  
+  <p>El multithreading es quizás el área más peliaguda del desarrollo software. No es mi intención en este post desgranar todos los problemas que nos podemos encontrar al diseñar e implementar un sistema con máxima concurrencia, pero seguramente os suenen conceptos como <a href="http://en.wikipedia.org/wiki/Deadlock">deadlocks</a>, liveness, etc, que son increíblemente difíciles de depurar debido al indeterminismo de este tipo de aplicaciones.</p>
+
+<p>Como en cualquier ámbito de ingeniería, el uso de patrones facilita enormemente el desarrollo de sistemas concurrentes. En concreto, el patrón Producer-Consumer, además de ser extremadamente sencillo, permite optimizar y ajustar el rendimiento de nuestros sistemas dinámicamente jugando con el número de threads afectados.  Veamos en qué consiste.</p>
+
+<!--break-->
+
+<h2 id="producer-consumer">Producer consumer</h2>
+
+<p>Los cuatro conceptos a tener en cuenta para implementar este patrón son:</p>
+
+<ul>
+  <li>Ítems: el objeto que es procesado</li>
+  <li>Actores: quienes procesan los ítems. Los procesos a realizar sobre los ítems pueden ser creación, cambio de estado o consumo. Los actores correrán en threads diferentes</li>
+  <li>Unidades de trabajo: encapsula los ítems para su transferencia entre los actores</li>
+  <li>Buffer: es una estructura de datos compartida por los diferentes actores, y que se utiliza para transferir las unidades de trabajo entre ellos utilizando acceso <a href="http://es.wikipedia.org/wiki/First_in,_first_out">FIFO</a> (First in First out). Podemos verlo también como una “bandeja de transferencia”</li>
+</ul>
+
+<p>Consideraciones a tener en cuenta:</p>
+
+<ul>
+  <li>La idea de utilizar una unidad de trabajo en lugar del ítem para depositar en el buffer es que de esta forma podemos asociar metadatos e información adicional al proceso. Lo veremos mejor en el ejemplo.</li>
+  <li>Un actor es considerado productor cuando deposita una unidad de trabajo en el buffer, independientemente de la acción que realice. Es decir, no solo el actor responsable de crear los ítems es considerado productor</li>
+  <li>Consumidor es el actor que extrae una unidad de trabajo del buffer para hacer algo con ella. Una vez consumida esta unidad de trabajo por el actor deja de estar disponible para otros consumidores (desaparece del buffer por tanto)</li>
+  <li>Un actor puede ser a la vez productor y consumidor, pero en tal caso debe consumir de un buffer y producir en otro</li>
+  <li>El buffer ha de estar diseñado para soportar su uso concurrente de forma óptima</li>
+</ul>
+
+<p><img src="/public/pictures/producer-consumer.jpg" alt="Producer-consumer" /></p>
+
+<h3 id="implementacin-del-buffer">Implementación del buffer</h3>
+<p>Es el factor más importante para que este patrón funcione como es debido. Al ejecutarse los actores en diferentes threads, dependiendo de la acción que realicen sobre el ítem los ritmos de trabajo pueden ser bastante diferentes. De cara a la configuración del buffer esto implica que:</p>
+
+<ul>
+  <li>Si el buffer es de capacidad limitada puede llenarse demasiado rápido, condicionando a los productores</li>
+  <li>Si el buffer es de capacidad ilimitada y los productores trabajan mucho más rápido que los consumidores podemos sobrepasar nuestro límite de memoria de la aplicación</li>
+</ul>
+
+<p>Dejando de lado estas consideraciones, lo que en ningún momento queremos es un actor en <a href="http://es.wikipedia.org/wiki/Espera_activa">espera activa</a> y consumiendo recursos intentando depositar una unidad de trabajo en el buffer o tratando de leerla.</p>
+
+<p>La API concurrency de Java contiene varias implementaciones de Queue que solventan la mayoría de estos problemas mencionados. La ventaja más importante es que un thread queda suspendido a la espera de que el buffer esté en el estado deseado para ejecutar la acción requerida, es decir:</p>
+
+<ul>
+  <li>Si intentamos leer un ítem y el buffer está vacío, el thread queda suspendido</li>
+  <li>Si intentamos depositar un ítem y el buffer está lleno, el thread queda suspendido</li>
+</ul>
+
+<p>Una vez asimilados todos los precedentes, pasemos a ver las diferentes posibilidades de implementación que tenemos a nuestra disposición en Java.</p>
+
+<h4 id="blockingqueue">BlockingQueue</h4>
+
+<p>Esta API es una interfaz que extiende a <code>Queue</code> añadiendo operaciones bloqueantes. Es decir, implementa las características que acabamos de comentar. Sin ánimo de profundizar en <a href="http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/BlockingQueue.html">todas sus operaciones</a>, las que realmente importan son:</p>
+
+<ul>
+  <li><code>put</code> deposita un elemento en la cola. Operación bloqueante si la cola está llena</li>
+  <li><code>take</code> toma un elemento de la cola. Operación bloqueante si la cola está vacía</li>
+</ul>
+
+<p>Las dos principales implementaciones de <code>BlockingQueue</code> son:</p>
+
+<ul>
+  <li><code>ArrayBlockingQueue</code>: respaldada por un array, ha de ser configurada para almacenar hasta un máximo de elementos</li>
+  <li><code>LinkedBlockingQueue</code>: respaldada por una lista enlazada, no tiene capacidad máxima</li>
+</ul>
+
+<p>Aunque ya lo hemos mencionado previamente, cualquiera de estas dos alternativas presenta un hándicap importante:</p>
+
+<ul>
+  <li>Si el buffer es ilimitado en espacio, y un productor procesa a mucho mayor ritmo que el posterior consumidor podemos desbordar la memoria</li>
+  <li>Si limitamos el espacio del buffer podemos crear un cuello de botella entre los diferentes actores, generando más esperas activas de las deseadas.</li>
+</ul>
+
+<p>Para solventar estos problemas, Java 7 introdujo una nueva modalidad de cola bloqueante, <code>TransferQueue</code>.</p>
+
+<h4 id="transferqueue">TransferQueue</h4>
+
+<p>Básicamente,  <code>TransferQueue</code> es una <code>BlockingQueue</code> con una operación adicional, <code>transfer</code>. Este operación se utilizaría como alternativa a <code>put</code>, y viene a decir “transfiere este elemento a un consumidor, y bloquéate si no existe ningún consumidor disponible”. La única implementación de <code>TransferQueue</code> es <code>LinkedTransferQueue</code>, y se trata de una cola de capacidad ilimitada, lo cual es perfectamente lógico, ya que un productor no podrá insertar elementos en la cola a discreción si no existe un consumidor en el otro lado.</p>
+
+<h2 id="ejemplo-completo">Ejemplo completo</h2>
+
+<p>Vamos a crear un ejemplo completo con todos los conceptos que hemos ido revisando. El caso de uso es una “factoría” de platos (<code>Dish</code>), con 3 actores:</p>
+
+<ul>
+  <li><code>Creator</code>: crea las instancia de <code>Dish</code> y las deposita en un buffer “createdDishes”. Actúa, por tanto, de productor</li>
+  <li><code>Washer</code>: lava los platos recién creados y los deposita en el buffer “washedDishes”. Actúa, por tanto, de productor de un buffer y de consumidor de otro</li>
+  <li><code>Dryer</code>: seca los platos lavados, finalizando el proceso. Actúa, por tanto, de consumidor</li>
+</ul>
+
+<p>Pueden existir varias instancias de cada actor, mientras todas ellas compartan el buffer. Además, cada uno de los actores requiere un tiempo determinado para realizar su acción, generando posibles cuellos de botella. En el siguiente diagrama tenemos una vista general del sistema:</p>
+
+<p><img src="/public/pictures/producer-consumer-dishes.jpg" alt="Dishes system" /></p>
+
+<p>Pasemos a ver la implementación. Para poder realizar una comparativa del funcionamiento de las diferentes API’s de Java expuestas más arriba, hemos abstraído el buffer en nuestra propia interfaz:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Buffer</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">put</span><span class="o">(</span><span class="n">E</span> <span class="n">element</span><span class="o">);</span>
+    <span class="n">E</span> <span class="nf">take</span><span class="o">();</span>
+<span class="o">}</span></code></pre></div>
+
+<p>Con dos implementaciones, la primera respaldada por una <code>BlockingQueue</code>:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BlockingQueueBuffer</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">Buffer</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">BlockingQueue</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">queue</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">BlockingQueueBuffer</span><span class="o">(</span><span class="n">BlockingQueue</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">queue</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">queue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">put</span><span class="o">(</span><span class="n">E</span> <span class="n">element</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">queue</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">element</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">E</span> <span class="nf">take</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">E</span> <span class="n">element</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="na">take</span><span class="o">();</span>
+            <span class="k">return</span> <span class="n">element</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+<p>Y la segunda respaldada por <code>TransferQueue</code>:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TransferQueueBuffer</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">Buffer</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">TransferQueue</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">queue</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">TransferQueueBuffer</span><span class="o">(</span><span class="n">TransferQueue</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">queue</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">queue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">put</span><span class="o">(</span><span class="n">E</span> <span class="n">element</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">queue</span><span class="o">.</span><span class="na">transfer</span><span class="o">(</span><span class="n">element</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">E</span> <span class="nf">take</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">E</span> <span class="n">element</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="na">take</span><span class="o">();</span>
+            <span class="k">return</span> <span class="n">element</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+<p>Vemos que encapsulamos <code>InterruptedException</code> en una unchecked exception por comodidad en la nueva API. La diferencia entre ambas implementaciones no es muy grande, aparte de la interfaz que las respalda. La única diferencia de hecho es que el método put de <code>TransferQueueBuffer</code> utiliza el método <code>transfer</code> en lugar de <code>put</code>.</p>
+
+<p>El modelo del sistema sería:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Dish</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">enum</span> <span class="n">State</span> <span class="o">{</span><span class="n">CREATED</span><span class="o">,</span> <span class="n">WET</span><span class="o">,</span> <span class="n">DRY</span><span class="o">;</span> <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">State</span> <span class="n">state</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Dish</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="n">State</span><span class="o">.</span><span class="na">CREATED</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">id</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">State</span> <span class="nf">getState</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">state</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setState</span><span class="o">(</span><span class="n">State</span> <span class="n">state</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">state</span> <span class="o">=</span> <span class="n">state</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+<p>El plato irá cambiando de estado según sea procesado por los diferentes actores.</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UnitOfWork</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">T</span> <span class="n">item</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kt">long</span> <span class="n">threadId</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">UnitOfWork</span><span class="o">(</span><span class="n">T</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">item</span> <span class="o">=</span> <span class="n">item</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">T</span> <span class="nf">getItem</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">item</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setItem</span><span class="o">(</span><span class="n">T</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">item</span> <span class="o">=</span> <span class="n">item</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">getThreadId</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">threadId</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setThreadId</span><span class="o">(</span><span class="kt">long</span> <span class="n">threadId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">threadId</span> <span class="o">=</span> <span class="n">threadId</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+<p><code>UnitOfWork</code> es una clase genérica, ya que podrá ser utilizada en sistemas similares con otros modelos de datos. Además del ítem, vemos cómo hemos añadido el campo <code>threadId</code>, que indica el identificador del último thread que ha procesado el ítem. Sirva a ejemplo de metadatos asociados a la unidad de trabajo. Gracias a este patrón separamos el objeto a procesar del proceso en sí.</p>
+
+<p>La implementación de los actores sería:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Creator</span> <span class="kd">implements</span> <span class="n">Runnable</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">AtomicInteger</span> <span class="n">sequence</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">AtomicInteger</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+
+    <span class="kd">private</span> <span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">createdDishesBuffer</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Creator</span><span class="o">(</span><span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">createdDishesBuffer</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">createdDishesBuffer</span> <span class="o">=</span> <span class="n">createdDishesBuffer</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Creator: creating dish...&quot;</span><span class="o">);</span>
+
+            <span class="n">Dish</span> <span class="n">dish</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Dish</span><span class="o">(</span><span class="n">sequence</span><span class="o">.</span><span class="na">getAndIncrement</span><span class="o">());</span>
+
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Creator: dish &quot;</span> <span class="o">+</span>
+                                <span class="n">dish</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">+</span>
+                                <span class="s">&quot; - putting into buffer...&quot;</span><span class="o">);</span>
+
+            <span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;</span> <span class="n">unitOfWork</span> <span class="o">=</span> <span class="k">new</span> <span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;(</span><span class="n">dish</span><span class="o">);</span>
+            <span class="n">unitOfWork</span><span class="o">.</span><span class="na">setThreadId</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+
+            <span class="n">createdDishesBuffer</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">unitOfWork</span><span class="o">);</span>
+
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Creator: Dish &quot;</span> <span class="o">+</span>
+                                <span class="n">dish</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">+</span>
+                                <span class="s">&quot; put into buffer&quot;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Washer</span> <span class="kd">implements</span> <span class="n">Runnable</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">createdDishesBuffer</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">washedDishesBuffer</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Washer</span><span class="o">(</span><span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">createdDishesBuffer</span><span class="o">,</span>
+                  <span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">washedDishesBuffer</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">createdDishesBuffer</span> <span class="o">=</span> <span class="n">createdDishesBuffer</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">washedDishesBuffer</span> <span class="o">=</span> <span class="n">washedDishesBuffer</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Washer: waiting to take dish&quot;</span><span class="o">);</span>
+
+                <span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;</span> <span class="n">unitOfWork</span> <span class="o">=</span> <span class="n">createdDishesBuffer</span><span class="o">.</span><span class="na">take</span><span class="o">();</span>
+
+                <span class="n">Dish</span> <span class="n">dish</span> <span class="o">=</span> <span class="n">unitOfWork</span><span class="o">.</span><span class="na">getItem</span><span class="o">();</span>
+
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Washer: took dish &quot;</span> <span class="o">+</span>
+                                    <span class="n">dish</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">+</span>
+                                    <span class="s">&quot; - washing...&quot;</span><span class="o">);</span>
+
+                <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">5000</span><span class="o">);</span>
+                <span class="n">dish</span><span class="o">.</span><span class="na">setState</span><span class="o">(</span><span class="n">Dish</span><span class="o">.</span><span class="na">State</span><span class="o">.</span><span class="na">WET</span><span class="o">);</span>
+
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Washer: putting washed dish &quot;</span> <span class="o">+</span>
+                                    <span class="n">dish</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">+</span>
+                                    <span class="s">&quot; into buffer&quot;</span><span class="o">);</span>
+
+                <span class="n">unitOfWork</span><span class="o">.</span><span class="na">setThreadId</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+                <span class="n">washedDishesBuffer</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">unitOfWork</span><span class="o">);</span>
+
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Washer: dish &quot;</span> <span class="o">+</span>
+                                    <span class="n">dish</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">+</span>
+                                    <span class="s">&quot; put into buffer&quot;</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+<span class="o">}</span></code></pre></div>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Dryer</span> <span class="kd">implements</span> <span class="n">Runnable</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">washedDishesBuffer</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Dryer</span><span class="o">(</span><span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">washedDishesBuffer</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">washedDishesBuffer</span> <span class="o">=</span> <span class="n">washedDishesBuffer</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Dryer: waiting to take dish&quot;</span><span class="o">);</span>
+
+                <span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;</span> <span class="n">unitOfWork</span> <span class="o">=</span> <span class="n">washedDishesBuffer</span><span class="o">.</span><span class="na">take</span><span class="o">();</span>
+
+                <span class="n">Dish</span> <span class="n">dish</span> <span class="o">=</span> <span class="n">unitOfWork</span><span class="o">.</span><span class="na">getItem</span><span class="o">();</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Dryer: took dish &quot;</span> <span class="o">+</span>
+                                    <span class="n">dish</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">+</span>
+                                    <span class="s">&quot; - drying...&quot;</span><span class="o">);</span>
+
+                <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">2000</span><span class="o">);</span>
+                <span class="n">dish</span><span class="o">.</span><span class="na">setState</span><span class="o">(</span><span class="n">Dish</span><span class="o">.</span><span class="na">State</span><span class="o">.</span><span class="na">DRY</span><span class="o">);</span>
+
+                <span class="n">unitOfWork</span><span class="o">.</span><span class="na">setThreadId</span><span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">getId</span><span class="o">());</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Dryer: dish &quot;</span> <span class="o">+</span>
+                                    <span class="n">dish</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">+</span>
+                                    <span class="s">&quot; is dry (done)&quot;</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+<span class="o">}</span></code></pre></div>
+
+<p>Todos correrán en un thread de forma indefinida (bucle infinito), y dependiendo de su naturaleza consumirán del buffer, almacenarán en el buffer, o ambas (caso de <code>Washer</code>). Vemos también como los tiempos necesario para cada una de las acciones varían bastante:</p>
+
+<ul>
+  <li><code>Creator</code>: crea instancias sin retardo alguno</li>
+  <li><code>Washer</code>: añade un retardo de 5 segundos antes de finalizar su acción</li>
+  <li><code>Dryer</code>: añade un retardo de 2 segundos</li>
+</ul>
+
+<p>Veamos ahora que ocurre cuando utilizamos las diferentes API’s expuestas por Java y levantamos el sistema:</p>
+
+<h3 id="caso-1-utilizando-arrayblockingqueue">Caso 1: utilizando ArrayBlockingQueue</h3>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">createdDishesQueue</span> <span class="o">=</span>
+          <span class="k">new</span> <span class="n">BlockingQueueBuffer</span><span class="o">&lt;&gt;(</span>
+                  <span class="k">new</span> <span class="n">ArrayBlockingQueue</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;(</span><span class="mi">2</span><span class="o">));</span>
+
+    <span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">washedDishesQueue</span> <span class="o">=</span>
+          <span class="k">new</span> <span class="n">BlockingQueueBuffer</span><span class="o">&lt;&gt;(</span>
+                  <span class="k">new</span> <span class="n">ArrayBlockingQueue</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;(</span><span class="mi">2</span><span class="o">));</span>
+
+    <span class="n">Creator</span> <span class="n">creator</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Creator</span><span class="o">(</span><span class="n">createdDishesQueue</span><span class="o">);</span>
+    <span class="n">Washer</span> <span class="n">washer</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Washer</span><span class="o">(</span><span class="n">createdDishesQueue</span><span class="o">,</span> <span class="n">washedDishesQueue</span><span class="o">);</span>
+    <span class="n">Dryer</span> <span class="n">dryer</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Dryer</span><span class="o">(</span><span class="n">washedDishesQueue</span><span class="o">);</span>
+
+    <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">creator</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+    <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">washer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+    <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">dryer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="o">}</span></code></pre></div>
+
+<p>Hemos limitado el tamaño de los buffer a dos unidades. Cuando ejecutamos esta aplicación el resultado es:</p>
+
+<div class="highlight"><pre><code class="language-text" data-lang="text">Creator: creating dish...
+Washer: waiting to take dish
+Dryer: waiting to take dish
+Creator: dish 1 - putting into buffer...
+Creator: Dish 1 put into buffer
+Creator: creating dish...
+Creator: dish 2 - putting into buffer...
+Creator: Dish 2 put into buffer
+Creator: creating dish...
+Creator: dish 3 - putting into buffer...
+Washer: took dish 1 - washing...
+Creator: Dish 3 put into buffer
+Creator: creating dish...
+Creator: dish 4 - putting into buffer...
+
+(...bottleneck...)
+
+Washer: putting washed dish 1 into buffer
+Washer: dish 1 put into buffer
+Washer: waiting to take dish
+Dryer: took dish 1 - drying...
+Creator: Dish 4 put into buffer
+Creator: creating dish...
+Washer: took dish 2 - washing...
+Creator: dish 5 - putting into buffer...
+Dryer: dish 0 is dry (done)</code></pre></div>
+
+<p>He añadido artificialmente el lugar donde se crea un cuello de botella. Una vez <code>Washer</code> comienza a procesar su primer ítem, <code>Creator</code> queda bloqueado tras crear el cuarto ítem, ya que son necesarios 5 segundos para lavar el plato, y <code>Dryer</code> siquiera ha entrado en juego. Este cuello de botella existirá en todo momento, y una posible solución podría ser instanciar varios washers:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Creator</span> <span class="n">creator</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Creator</span><span class="o">(</span><span class="n">createdDishesQueue</span><span class="o">);</span>
+<span class="n">Washer</span> <span class="n">washer1</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Washer</span><span class="o">(</span><span class="n">createdDishesQueue</span><span class="o">,</span> <span class="n">washedDishesQueue</span><span class="o">);</span>
+<span class="n">Washer</span> <span class="n">washer2</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Washer</span><span class="o">(</span><span class="n">createdDishesQueue</span><span class="o">,</span> <span class="n">washedDishesQueue</span><span class="o">);</span>
+<span class="n">Dryer</span> <span class="n">dryer</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Dryer</span><span class="o">(</span><span class="n">washedDishesQueue</span><span class="o">);</span>
+
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">creator</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">washer1</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">washer2</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">dryer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span></code></pre></div>
+
+<p>Sin embargo, no parece resultar una solución óptima del todo, de hecho al arrancar el sistema <code>Creator</code> queda bloqueado varios segundos de nuevo tras crear el ítem 5 en esta ocasión (ya que el 1 y 2 son consumidos inmediatamente por los dos threads “washer”). Por supuesto, deberíamos incrementar el tamaño del buffer (2 es una medida escasa, utilizada sólo a modo de ejemplo), pero en tal caso deberemos jugar también con el número de instancias de los actores, y la optimización es compleja.</p>
+
+<h3 id="caso-2-utilizando-linkedblockingqueue">Caso 2: utilizando LinkedBlockingQueue</h3>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">createdDishesQueue</span> <span class="o">=</span>
+        <span class="k">new</span> <span class="n">BlockingQueueBuffer</span><span class="o">&lt;&gt;(</span>
+                <span class="k">new</span> <span class="n">LinkedBlockingQueue</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;());</span>
+
+<span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">washedDishesQueue</span> <span class="o">=</span>
+        <span class="k">new</span> <span class="n">BlockingQueueBuffer</span><span class="o">&lt;&gt;(</span>
+                <span class="k">new</span> <span class="n">LinkedBlockingQueue</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;());</span>
+
+<span class="n">Creator</span> <span class="n">creator</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Creator</span><span class="o">(</span><span class="n">createdDishesQueue</span><span class="o">);</span>
+<span class="n">Washer</span> <span class="n">washer</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Washer</span><span class="o">(</span><span class="n">createdDishesQueue</span><span class="o">,</span> <span class="n">washedDishesQueue</span><span class="o">);</span>
+<span class="n">Dryer</span> <span class="n">dryer</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Dryer</span><span class="o">(</span><span class="n">washedDishesQueue</span><span class="o">);</span>
+
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">creator</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">washer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">dryer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span></code></pre></div>
+
+<p>En este caso los buffer son de tamaño ilimitado, y ¡las consecuencias son desastrosas! Debido a que la creación de ítems por parte de <code>Creator</code> es casi inmediata, antes de que que se termine de procesar el primer ítem por <code>Washer</code>, ¡se llegan a crear cientos de miles de ítems! De hecho, la salida por consola es irreproducible en este post debido a su magnitud. Mal asunto.</p>
+
+<p>Diría que, en general, el uso de esta implementación de <code>BlockingQueue</code> no es nada recomendable para utilizar el patrón Producer-Consumer, ya que nos obliga a crear otros mecanismos de sincronización si no queremos desbordar la memoria. Y no se trata de eso, ¡sino de delegar la gestión de la concurrencia lo máximo posible!</p>
+
+<h3 id="caso-3-utilizando-linkedtransferqueue">Caso 3: utilizando LinkedTransferQueue</h3>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">createdDishesQueue</span> <span class="o">=</span>
+            <span class="k">new</span> <span class="n">TransferQueueBuffer</span><span class="o">&lt;&gt;(</span>
+                    <span class="k">new</span> <span class="n">LinkedTransferQueue</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;());</span>
+
+    <span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">washedDishesQueue</span> <span class="o">=</span>
+            <span class="k">new</span> <span class="n">TransferQueueBuffer</span><span class="o">&lt;&gt;(</span>
+                    <span class="k">new</span> <span class="n">LinkedTransferQueue</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;());</span>
+
+    <span class="n">Creator</span> <span class="n">creator</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Creator</span><span class="o">(</span><span class="n">createdDishesQueue</span><span class="o">);</span>
+    <span class="n">Washer</span> <span class="n">washer</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Washer</span><span class="o">(</span><span class="n">createdDishesQueue</span><span class="o">,</span> <span class="n">washedDishesQueue</span><span class="o">);</span>
+    <span class="n">Dryer</span> <span class="n">dryer</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Dryer</span><span class="o">(</span><span class="n">washedDishesQueue</span><span class="o">);</span>
+
+    <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">creator</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+    <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">washer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+    <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">dryer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="o">}</span></code></pre></div>
+
+<p>Esta es la salida de consola obtenida al ejecutar esta aplicación:</p>
+
+<div class="highlight"><pre><code class="language-text" data-lang="text">Creator: creating dish...
+Creator: dish 1 - putting into buffer...
+Washer: waiting to take dish
+Dryer: waiting to take dish
+Creator: Dish 1 put into buffer
+Creator: creating dish...
+Creator: dish 2 - putting into buffer...
+Washer: took dish 1 - washing...
+
+(bottleneck)
+
+Washer: putting washed dish 1 into buffer
+Washer: dish 1 put into buffer
+Washer: waiting to take dish
+Washer: took dish 2 - washing...
+Creator: Dish 2 put into buffer
+Creator: creating dish...
+Dryer: took dish 1 - drying...
+Creator: dish 3 - putting into buffer...
+Dryer: dish 1 is dry (done)</code></pre></div>
+
+<p>En este último caso también se crea un cuello de botella, pero hay una diferencia significativa respecto al primer caso. En efecto, <code>Creator</code> queda bloqueado para depositar en la cola la segunda instancia creada, y no la cuarta. Esto es porque la ejecución del thread no continúa hasta encontrar un consumidor disponible para la unidad de trabajo. Hay que tener en cuenta que si el buffer del caso 1 hubiera tenido un tamaño de 1.000 unidades, se habría creado todo ese número de ítems antes incluso de que el primero de ellos fuera procesado por <code>Washer</code>.</p>
+
+<p>Hemos conseguido, por tanto, balancear la carga de trabajo de forma significativa entre los diferentes actores, para no hacerlos procesar “en balde”. A la hora de optimizar este sistema, debemos preocuparnos tan solo del número de instancias de cada actor a crear, y no del tamaño del buffer, lo cual resta bastante complejidad al proceso.</p>
+
+<p>Podríamos crear, por ejemplo, cuatro instancias de <code>Washer</code>, cosa que habría sido algo inútil en el primer caso sin ampliar el buffer:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Creator</span> <span class="n">creator</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Creator</span><span class="o">(</span><span class="n">createdDishesQueue</span><span class="o">);</span>
+<span class="n">Washer</span> <span class="n">washer1</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Washer</span><span class="o">(</span><span class="n">createdDishesQueue</span><span class="o">,</span> <span class="n">washedDishesQueue</span><span class="o">);</span>
+<span class="n">Washer</span> <span class="n">washer2</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Washer</span><span class="o">(</span><span class="n">createdDishesQueue</span><span class="o">,</span> <span class="n">washedDishesQueue</span><span class="o">);</span>
+<span class="n">Washer</span> <span class="n">washer3</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Washer</span><span class="o">(</span><span class="n">createdDishesQueue</span><span class="o">,</span> <span class="n">washedDishesQueue</span><span class="o">);</span>
+<span class="n">Washer</span> <span class="n">washer4</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Washer</span><span class="o">(</span><span class="n">createdDishesQueue</span><span class="o">,</span> <span class="n">washedDishesQueue</span><span class="o">);</span>
+<span class="n">Dryer</span> <span class="n">dryer</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">Dryer</span><span class="o">(</span><span class="n">washedDishesQueue</span><span class="o">);</span>
+
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">creator</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">washer1</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">washer2</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">washer3</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">washer4</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">dryer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span></code></pre></div>
+
+<h3 id="conclusin">Conclusión</h3>
+
+<p>La API concurrency de Java ofrece diversas alternativas para resolver los problemas tradicionales de multithreading, lo cual no quita que sigan siendo extraordinariamente complejos en ocasiones. Nunca es tarea fácil analizar y mejorar el rendimiento de este tipo de aplicaciones, pero cuanto menor sea el número de puntos a los que hay que prestar atención más sencilla será esta optimización.</p>
+
+<p>Dentro del patrón “Producer-Consumer”, <code>TransferQueue</code> nos permite centrarnos en la configuración de los actores y no en la del buffer, por lo que es una muy buena opción a tener en cuenta.</p>
+
+</article>
+
+<aside class="related">
+  <h2>Posts relacionados</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2015/04/patron-composite">
+            El patrón Composite en la práctica
+            <small><time datetime="2015-04-11T00:00:00+01:00">11/04/2015</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/04/trabajo-londres">
+            Cómo encontré trabajo de informático en Londres
+            <small><time datetime="2015-04-05T00:00:00+01:00">05/04/2015</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/04/reuniones">
+            Las reuniones en proyectos de desarrollo
+            <small><time datetime="2015-04-02T00:00:00+01:00">02/04/2015</time></small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</aside>
+
+        
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'raulavila'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </main>
+
+      <footer class="footer">
+        <small>
+          &copy; <time datetime="2015">2015</time> Raúl Ávila. Blog creado con <a href="http://jekyllrb.com">Jekyll</a>.
+          Plantilla basada en <a href="http://getpoole.com">Poole</a>.
+          <a href="/atom.xml">Atom Feed</a></a>.
+          <br>
+        </small>
+      </footer>
+    </div>
+
+  <script>
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58942569-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>
