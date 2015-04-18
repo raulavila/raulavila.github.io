@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-04-18T13:03:46+01:00</updated>
+ <updated>2015-04-18T20:00:51+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -512,6 +512,8 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;La API concurrency de Java ofrece diversas alternativas para resolver los problemas tradicionales de multithreading, lo cual no quita que sigan siendo extraordinariamente complejos en ocasiones. Nunca es tarea fácil analizar y mejorar el rendimiento de este tipo de aplicaciones, pero cuanto menor sea el número de puntos a los que hay que prestar atención más sencilla será esta optimización.&lt;/p&gt;
 
 &lt;p&gt;Dentro del patrón “Producer-Consumer”, &lt;code&gt;TransferQueue&lt;/code&gt; nos permite centrarnos en la configuración de los actores y no en la del buffer, por lo que es una muy buena opción a tener en cuenta.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/raulavila/blog-examples/tree/master/src/main/java/com/raulavila/multithreading&quot;&gt;Click aquí para ver o descargar el código en Github&lt;/a&gt;&lt;/p&gt;
 </content>
  </entry>
  
