@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Complejidad esencial vs Complejidad accidental
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Raúl Ávila" href="/atom.xml">
+
+</head>
+
+
+  <body>
+
+    <div class="container content">
+      <header class="masthead">
+        <h1 class="masthead-title">
+          <a href="/" title="Home">Raúl Ávila</a>
+        </h1>
+
+            <small><a href="/sobre-mi">Sobre mí</a></small>
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/archivos">Archivos</a></small>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title">Complejidad esencial vs Complejidad accidental</h1>
+  <time datetime="2015-05-01T00:00:00+01:00" class="post-date">01/05/2015</time>
+  <div class="post-tags">
+    
+    | <a href="/tag/buenas-practicas">buenas-practicas</a> |
+    
+  </div>  
+  <div class="post-share">
+    <a class="twitter-share-button" 
+    data-via="ravila80"
+    data-count="none"
+    href="https://twitter.com/share">Tweet</a>
+  </div>  
+  <p>“¿Complejidad qué? ¿De qué demonios hablas?”, pensarán muchos lectores (o al menos un porcentaje de los que me leen :)). Trataré en este post de aclarar estos conceptos, que, siendo algo omnipresente en nuestro día a día como desarrolladores de software, seguramente el hacerlos patentes nos haga reflexionar más sobre nuestas decisiones en el futuro.</p>
+
+<!--break-->
+
+<h2 id="complejidad-esencial">Complejidad esencial</h2>
+
+<p>Nuestra profesión es resolver problemas. Así de simple. No es analizar requisitos, diseñar sistemas, implementar código, resolver incidencias, etc. Bueno, por supuesto que es todo eso y más, pero si hubiera que resumirlo en dos palabras, diría que “resolver problemas” es la mejor forma de hacerlo.</p>
+
+<p>Cuando el cliente nos pide que le entreguemos un sistema contable antes del inicio del próximo año, nos está planteando un problema que habremos de saber resolver (por la cuenta que nos trae). Cuanto nosotros, como expertos tecnológicos, tenemos que poner límites a los requisitos que nos quieren exigir, también estamos resolviendo un problema. Cuando tenemos que implementar un front-end basándonos en unas bonitas pantallas creadas con Photoshop por un diseñador, idem. Cuando hay que liarse la manta a la cabeza para poner en marcha un ciclo de integración continua lo mismo…</p>
+
+<p>Podría seguir hasta el infinito. Bien, la complejidad esencial es aquella que va inherente al problema que tenemos que resolver, ni más ni menos. Por tanto, básandonos en el párrafo anterior, la complejidad esencial de cada problema residiría en:</p>
+
+<ul>
+  <li>Facilitar la comunicación con el cliente para la toma de requisitos</li>
+  <li>Estimar el tiempo de desarrollo lo más acertadamente posible para poder negociar de forma conveniente las historias de usuario a filtrar</li>
+  <li>Pelearnos con nuestras queridas hojas de estilo CSS para montar el prototipo del front-end</li>
+  <li>Configurar las herramientas de integración continua que vayamos a utilizar, los build plans, los plugins de maven, etc</li>
+</ul>
+
+<h2 id="complejidad-accidental">Complejidad accidental</h2>
+
+<p>Al grano: complejidad accidental es aquella que añadimos nosotros mismos sobre la marcha al trabajo que estamos realizando para resolver el problema esencial, complicando su ejecución.</p>
+
+<p>Podemos pensar, si queremos, que nadie va a tirarse piedras sobre su propio tejado. Esto es así “en teoría”, y como diría <a href="http://es.wikipedia.org/wiki/Homer_Simpson">Homer Simpson</a>, “en teoría funciona hasta el comunismo”. Coñas aparte, la experiencia nos ha dictado que es extremadamente sencillo que las cosas se compliquen solas debido a todos los factores que influyen tanto en la toma de decisiones como en el trabajo que plasmamos a diario.</p>
+
+<p>Siguiendo con el ejemplo, listemos varias formas de añadir complejidad accidental a nuestros problemas de inicio:</p>
+
+<ul>
+  <li>Dar lugar a reuniones improductivas, de forma que, llegado el momento crítico, no se hayan definido correctamente los requisitos y se desperdicie trabajo desarrollando funcionalidades de escasa importancia, por ejemplo. Ya comenté lo que opino sobre las reuniones <a href="http://raulavila.com/2015/04/reuniones/">en otro post</a></li>
+  <li>Estimaciones incorrectas (generalmente por debajo). En inglés se utiliza bastante el concepto de <a href="http://en.wikipedia.org/wiki/Wishful_thinking">wishful thinking</a> como anti-patrón. No por pensar que algo va a salir bien saldrá bien. He vivido situaciones en las que casi todo el mundo sabía que no se llegaría a tiempo a una entrega, pero nadie tenía el valor de plantearlo de manera formal. El desastre a largo plazo está garantizado</li>
+  <li>Intentar implementar los estilos CSS desde cero en lugar de utilizar algún framework. A otro nivel, malgastar horas-hombre de un programador senior peleándose con CSS cuando sería mucho más eficiente subcontratar a un experto que nos lo implementara en un par de semanas. Puede parecer un mayor desembolso inicial, pero diría que a medio plazo saldremos ganando</li>
+  <li>Crear un build plan demasiado sencillo para no “perder tiempo en algo improductivo”, sin darnos cuenta de que tomando esa decisión estamos acumulando una <a href="http://es.wikipedia.org/wiki/Deuda_t%C3%A9cnica">deuda técnia</a> que pagaremos seguramente en fases avanzadas del desarrollo cuando haya varios programadores apresurados subiendo código constantemente al repositorio de control de versiones</li>
+</ul>
+
+<p>En fin, podríamos seguir hasta el infinito. Como asumo que casi todos aquí somos programadores, voy a poner un último ejemplo. El problema consiste en implementar un método que sume todos los números de un array de enteros, devolviendo el resultado. Fácil, ¿verdad? Muchos harían algo así:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">long</span> <span class="nf">sum</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">long</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">number</span> <span class="o">:</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">+</span> <span class="n">number</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span></code></pre></div>
+
+<p>Pero otra forma de hacerlo sería esta:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">long</span> <span class="nf">sum</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nf">sum</span><span class="o">(</span><span class="n">numbers</span><span class="o">,</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kt">long</span> <span class="nf">sum</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">,</span> <span class="kt">int</span> <span class="n">length</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">length</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">numbers</span><span class="o">[</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">]</span> <span class="o">+</span> <span class="n">sum</span><span class="o">(</span><span class="n">numbers</span><span class="o">,</span> <span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+
+<p>Creo que no es necesario mencionar qué solución ha añadido mayor complejidad accidental, ¿verdad? Diréis que nadie implementaría este algoritmo así…y mi respuesta es que durante años desarrollando software me he encontrado con compañeros que entregaban código absolutamente enrevesado para solucionar problemas muy sencillos. En su libro <a href="http://www.amazon.co.uk/The-Clean-Coder-Professional-Programmers/dp/0137081073">The Clean Coder</a> (creo recordar), Uncle Bob decía que nuestra profesión está llena de personas dispuestas a demostrar cada día que tienen un cerebro del tamaño de un planeta, y yo me he encontrado con varios casos así, por no hablar de vérmelas con código de este estilo:</p>
+
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">long</span> <span class="nf">sum</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">a</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">long</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">b</span> <span class="o">:</span> <span class="n">a</span><span class="o">)</span> <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">b</span><span class="o">;</span>
+
+    <span class="k">return</span> <span class="n">i</span><span class="o">;</span>
+<span class="o">}</span></code></pre></div>
+
+<p>Que, efectivamente, hace exactamente lo mismo que el primer método, pero es mucho más difícil de mantener a nada que el código vaya creciendo.</p>
+
+<h2 id="minimizando-la-complejidad-accidental">Minimizando la complejidad accidental</h2>
+
+<p>Igual que al principio del post afirmaba que “resolver problemas” es la mejor forma de definir nuestro trabajo, creo que también puedo plasmar en dos palabras la mejor forma de reducir la complejidad accidental: “ser valiente”.</p>
+
+<p>En efecto, hay que perder el miedo a plantear nuestras dudas a jefes o clientes, a protestar cuando se toman decisiones que sabemos son incorrectas, a desafiar la forma de hacer las cosas en nuestra empresa, a plantarnos en una estimación, justificando nuestros motivos, cuando se nos intente forzar a reducirla…A otros niveles, cuando un miembro del equipo demuestra de forma palpable su voluntad de ir por libre, no deberíamos dudar ni un ápice en hablar con él para dejar constancia de lo incorrecto de su actitud, y de las consecuencias negativas que tiene para el equipo, el proyecto, y para él mismo.</p>
+
+<p>Seguramente estéis pensando que “esto mejor dicho que hecho”. Y bueno, es posible que no sea tan sencillo llevarlo a la práctica, pero creedme, si no lo intentamos, entonces sí que no será posible. En muchas más ocasiones de las que creemos, los que están al otro lado son más receptivos de lo que creemos.</p>
+
+</article>
+
+<aside class="related">
+  <h2>Posts relacionados</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2015/04/method-handles">
+            MethodHandles como alternativa a Reflection
+            <small><time datetime="2015-04-25T00:00:00+01:00">25/04/2015</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/04/producer-consumer-transferqueue">
+            Optimizando el patrón Producer-Consumer con TransferQueue
+            <small><time datetime="2015-04-18T00:00:00+01:00">18/04/2015</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/04/patron-composite">
+            El patrón Composite en la práctica
+            <small><time datetime="2015-04-11T00:00:00+01:00">11/04/2015</time></small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</aside>
+
+        
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'raulavila'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </main>
+
+      <footer class="footer">
+        <small>
+          &copy; <time datetime="2015">2015</time> Raúl Ávila. Blog creado con <a href="http://jekyllrb.com">Jekyll</a>.
+          Plantilla basada en <a href="http://getpoole.com">Poole</a>.
+          <a href="/atom.xml">Atom Feed</a></a>.
+          <br>
+        </small>
+      </footer>
+    </div>
+
+  <script>
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58942569-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>
