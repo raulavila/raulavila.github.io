@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-05-01T20:49:21+01:00</updated>
+ <updated>2015-05-02T17:51:48+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -48,7 +48,7 @@
   &lt;li&gt;Dar lugar a reuniones improductivas, de forma que, llegado el momento crítico, no se hayan definido correctamente los requisitos y se desperdicie trabajo desarrollando funcionalidades de escasa importancia, por ejemplo. Ya comenté lo que opino sobre las reuniones &lt;a href=&quot;http://raulavila.com/2015/04/reuniones/&quot;&gt;en otro post&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Estimaciones incorrectas (generalmente por debajo). En inglés se utiliza bastante el concepto de &lt;a href=&quot;http://en.wikipedia.org/wiki/Wishful_thinking&quot;&gt;wishful thinking&lt;/a&gt; como anti-patrón. No por pensar que algo va a salir bien saldrá bien. He vivido situaciones en las que casi todo el mundo sabía que no se llegaría a tiempo a una entrega, pero nadie tenía el valor de plantearlo de manera formal. El desastre a largo plazo está garantizado&lt;/li&gt;
   &lt;li&gt;Intentar implementar los estilos CSS desde cero en lugar de utilizar algún framework. A otro nivel, malgastar horas-hombre de un programador senior peleándose con CSS cuando sería mucho más eficiente subcontratar a un experto que nos lo implementara en un par de semanas. Puede parecer un mayor desembolso inicial, pero diría que a medio plazo saldremos ganando&lt;/li&gt;
-  &lt;li&gt;Crear un build plan demasiado sencillo para no “perder tiempo en algo improductivo”, sin darnos cuenta de que tomando esa decisión estamos acumulando una &lt;a href=&quot;http://es.wikipedia.org/wiki/Deuda_t%C3%A9cnica&quot;&gt;deuda técnia&lt;/a&gt; que pagaremos seguramente en fases avanzadas del desarrollo cuando haya varios programadores apresurados subiendo código constantemente al repositorio de control de versiones&lt;/li&gt;
+  &lt;li&gt;Crear un build plan demasiado sencillo para no “perder tiempo en algo improductivo”, sin darnos cuenta de que tomando esa decisión estamos acumulando una &lt;a href=&quot;http://es.wikipedia.org/wiki/Deuda_t%C3%A9cnica&quot;&gt;deuda técnica&lt;/a&gt; que pagaremos seguramente en fases avanzadas del desarrollo cuando haya varios programadores apresurados subiendo código constantemente al repositorio de control de versiones&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;En fin, podríamos seguir hasta el infinito. Como asumo que casi todos aquí somos programadores, voy a poner un último ejemplo. El problema consiste en implementar un método que sume todos los números de un array de enteros, devolviendo el resultado. Fácil, ¿verdad? Muchos harían algo así:&lt;/p&gt;
@@ -95,7 +95,7 @@
 
 &lt;p&gt;En efecto, hay que perder el miedo a plantear nuestras dudas a jefes o clientes, a protestar cuando se toman decisiones que sabemos son incorrectas, a desafiar la forma de hacer las cosas en nuestra empresa, a plantarnos en una estimación, justificando nuestros motivos, cuando se nos intente forzar a reducirla…A otros niveles, cuando un miembro del equipo demuestra de forma palpable su voluntad de ir por libre, no deberíamos dudar ni un ápice en hablar con él para dejar constancia de lo incorrecto de su actitud, y de las consecuencias negativas que tiene para el equipo, el proyecto, y para él mismo.&lt;/p&gt;
 
-&lt;p&gt;Seguramente estéis pensando que “esto mejor dicho que hecho”. Y bueno, es posible que no sea tan sencillo llevarlo a la práctica, pero creedme, si no lo intentamos, entonces sí que no será posible. En muchas más ocasiones de las que creemos, los que están al otro lado son más receptivos de lo que creemos.&lt;/p&gt;
+&lt;p&gt;Seguramente estéis pensando que “esto mejor dicho que hecho”. Y bueno, es posible que no sea tan sencillo llevarlo a la práctica, pero creedme, si no lo intentamos, entonces sí que no será posible. En muchas más ocasiones de las que creemos, los que están al otro lado son más receptivos de lo que pensamos.&lt;/p&gt;
 </content>
  </entry>
  
