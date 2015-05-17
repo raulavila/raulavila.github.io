@@ -4,13 +4,231 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-05-10T16:53:31+01:00</updated>
+ <updated>2015-05-17T18:04:26+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Explorando Vagrant</title>
+   <link href="http://www.raulavila.com/2015/05/explorando-vagrant"/>
+   <updated>2015-05-17T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2015/05/explorando-vagrant</id>
+   <content type="html">&lt;p&gt;La configuración de los entornos de desarrollo, y los problemas derivados de la incompatibilidad entre diferentes versiones, ha sido, desde siempre, uno de los grandes problemas que hay que afrontar durante el curso de un proyecto.&lt;/p&gt;
+
+&lt;p&gt;Es bien sabido que la primera tarea que debemos realizar al incorporarnos a un equipo es configurar nuestro equipo con las múltiples herramientas que son necesarias para poder compilar, desplegar, testear, depurar, etc, a saber:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;JDK&lt;/li&gt;
+  &lt;li&gt;Maven&lt;/li&gt;
+  &lt;li&gt;Base de datos (PostgreSQL, MySQL…)&lt;/li&gt;
+  &lt;li&gt;Tomcat&lt;/li&gt;
+  &lt;li&gt;etc&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;En general la instalación de todo el entorno no es trivial, siendo necesaria la configuración de puertos, usuarios, directorios de log…sumemos a esto el enorme catálogo de versiones que cada herramienta proporciona. Todo esto deriva en los siguientes inconvenientes, que además tienen un coste asociado:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Tiempo necesario por cada programador para configurar su entorno&lt;/li&gt;
+  &lt;li&gt;Bugs surgidos del uso de diferentes versiones, por ejemplo, versiones de plugins de Maven para desplegar ficheros WAR que no funcionan de la misma forma con diferentes versiones de Tomcat&lt;/li&gt;
+  &lt;li&gt;Disaster recovery: un error en el entorno puede llevarnos a desconocer el origen y tener que instalarlo todo de cero&lt;/li&gt;
+  &lt;li&gt;Portabilidad: no es inmediato llevarse el entorno a otro equipo (por ejemplo, si trabajamos con un fijo y tenemos que ir a una presentación)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;En fin, creo que todos nos hemos peleado en algún momento con alguna de estas cosas. Por otra parte, a más programadores por proyecto mayor es el coste generado por esta complejidad adicional.&lt;/p&gt;
+
+&lt;p&gt;El uso de máquinas virtuales vino en parte a paliar parte de estos dolores de cabeza. Nos permitían empaquetar en un archivo todo un sistema operativo con las aplicaciones que necesitáramos, y levantar la máquina con proveedores como &lt;a href=&quot;http://www.vmware.com/&quot;&gt;VMWare&lt;/a&gt; o &lt;a href=&quot;https://www.virtualbox.org/&quot;&gt;VirtualBox&lt;/a&gt;. El gran hándicap de estas soluciones es que los ficheros que empaquetaban estas máquinas virtuales tienen un tamaño considerable, y la instancia de referencia debe estar alojada en algún lugar accesible a todos los miembros del equipo. Además, esta instancia debía ser configurda desde cero, y sin posibilidad de volver atrás a su configuración básica (en plan rollback).&lt;/p&gt;
+
+&lt;h2 id=&quot;vagrant&quot;&gt;Vagrant&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.vagrantup.com/&quot;&gt;Vagrant&lt;/a&gt; es una herramienta que mitiga prácticamente todos los problemas que acabo de describir. Es una utilidad para generar, levantar, provisionar y compartir entornos de desarrollo de manera extremadamente sencilla. A diferencia de las máquinas virtuales al uso, lo único que una desarrollador necesita para levantar una instancia local es tener instalado Vagrant, un proveedor (como &lt;a href=&quot;https://www.virtualbox.org/&quot;&gt;VirtualBox&lt;/a&gt;), y un fichero de nombre Vagrantfile donde queda descrita la máquina virtual que debe iniciarse. Este fichero no es más que texto plano, y por tanto puede subirse junto con el código del proyecto a un repositorio de control de versiones. Veamos el contenido de uno de estos ficheros:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Vagrant.configure(2) do |config|
+  config.vm.box = &amp;quot;troii/java7&amp;quot;
+  config.vm.provision :shell, path: &amp;quot;bootstrap.sh&amp;quot;
+  config.vm.network :forwarded_port, host: 4567, guest: 8080
+end&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;¿Sencillo, verdad? Este fichero será el que utilice en un ejemplo que desarrollaré a continuación. Por tanto nosotros como desarrolladores, lo único que deberemos hacer el día que nos incorporemos a un proyecto o deseemos replicar el entorno es:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Instalar Vagrant y un proveedor (VirtualBox)&lt;/li&gt;
+  &lt;li&gt;Instalar Git (u otro sistema de control de versiones)&lt;/li&gt;
+  &lt;li&gt;Descargar el proyecto del repositorio&lt;/li&gt;
+  &lt;li&gt;Lanzar el comando &lt;code&gt;vagrant up&lt;/code&gt; desde el directorio donde se encuentra el proyecto (y el fichero Vagrantfile)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Para comprender mejor como funciona todo, crearemos un “Hello World” desde cero.&lt;/p&gt;
+
+&lt;h2 id=&quot;hello-world&quot;&gt;Hello World!&lt;/h2&gt;
+
+&lt;p&gt;Lo primero que tendremos que hacer es seguir las instrucciones de la &lt;a href=&quot;https://docs.vagrantup.com/v2/installation/index.html&quot;&gt;documentación oficial de Vagrant&lt;/a&gt;, para preparar nuestro equipo. Es muy sencillo, yo al menos no tuve ningún problema&lt;/p&gt;
+
+&lt;p&gt;En segundo lugar tenemos que seleccionar una box de referencia dentro del catálogo que existe en &lt;a href=&quot;https://atlas.hashicorp.com/boxes/search&quot;&gt;esta web&lt;/a&gt;. Aquí podremos localizar desde sistemas operativos con lo más básico (por ejemplo, el Ubuntu que se utiliza en la documentación, “hashicorp/precise32”), hasta otros con todo tipo de utilidades instaladas. De hecho nosotros mismos podemos empaquetar una box y subirla al catálogo para uso público o privado.&lt;/p&gt;
+
+&lt;p&gt;En nuestro ejemplo vamos a utilizar como referencia la máquina “troii/java7”, que contiene instalados por defecto Java 7, Tomcat 7, y Maven 3.&lt;/p&gt;
+
+&lt;p&gt;Una vez localizada la box de partida, debemos inicializarla de forma local (creando un clon), lo cual se hace con el siguiente comando:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+vagrant init troii/java7
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Que nos devuelve este mensaje&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;A &lt;code&gt;Vagrantfile&lt;/code&gt; has been placed in this directory. You are now ready to &lt;code&gt;vagrant up&lt;/code&gt; your first virtual environment! Please read the comments in the Vagrantfile as well as documentation on &lt;code&gt;vagrantup.com&lt;/code&gt; for more information on using Vagrant.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;En efecto, lo único que ha hecho Vagrant ha sido crear un fichero &lt;code&gt;Vagrantfile&lt;/code&gt; a modo de plantilla para configurar una nueva box. Lo bueno de esto es que este fichero, ¡ya es totalmente válido! Si quisiéramos podríamos arrancar la máquina virtual mediante este comando:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+vagrant up
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Y tendríamos un Ubuntu “up and running”. No lo vamos a hacer de momento, porque queremos tunear un poco la configuración de esta máquina para alojar y desplegar nuestra aplicación “Hello World”.&lt;/p&gt;
+
+&lt;h3 id=&quot;el-fichero-vagrantfile&quot;&gt;El fichero Vagrantfile&lt;/h3&gt;
+
+&lt;p&gt;El fichero Vagrantfile creado por defecto esta lleno de comentarios sobre cómo configurarlo, y os animo a echarle un ojo. Pero, en realidad, el único contenido de utilidad es el siguiente:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Vagrant.configure(2) do |config|
+    config.vm.box = &amp;quot;troii/java7&amp;quot;
+end&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;En efecto, el fichero indica a Vagrant qué box utilizar como base para arrancar la instancia virtual y poco más. Como lo que queremos es compilar y desplegar una aplicación web en un Tomcat, vamos a añadir configuración adicional al fichero para dejar todo preparado una vez iniciemos la instancia.&lt;/p&gt;
+
+&lt;p&gt;En primer lugar, vamos a redireccionar un puerto de nuestra máquina local para que redirija el tráfico al puerto 8080 de Tomcat. De esta forma conseguimos poder abrir desde el explorador de nuestro equipo las aplicaciones web desplegadas en el Tomcat de la máquina virtual:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;config.vm.network :forwarded_port, host: 4567, guest: 8080&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;De esta forma conseguiremos que accediendo a la dirección &lt;code&gt;http://localhost:4567&lt;/code&gt; estemos accediendo al Tomcat en ejecución dentro de la máquina virtual de Vagrant.&lt;/p&gt;
+
+&lt;h3 id=&quot;provisionamiento&quot;&gt;Provisionamiento&lt;/h3&gt;
+
+&lt;p&gt;O provisioning, es el proceso mediante el cual preparamos mediante configuración adicional la instancia básica, y en ocasiones le añadimos software que no viene instalado por defecto. &lt;a href=&quot;https://docs.vagrantup.com/v2/provisioning/index.html&quot;&gt;Vagrant permite trabajar con herramientas&lt;/a&gt; como &lt;a href=&quot;https://learn.chef.io/&quot;&gt;Chef&lt;/a&gt; o &lt;a href=&quot;https://puppetlabs.com/&quot;&gt;Puppet&lt;/a&gt;, pero para tareas básicas nos basta con utilizar shell scripts, como haremos en el ejemplo.&lt;/p&gt;
+
+&lt;p&gt;En primer lugar añadiremos la siguiente línea al fichero Vagrantfile:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;config.vm.provision :shell, path: &amp;quot;bootstrap.sh&amp;quot;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;En el mismo nivel que Vagrantfile crearemos un script de nombre bootstrap.sh, con el siguiente contenido:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/usr/bin/env bash&lt;/span&gt;
+
+cp /vagrant/bootstrap-conf/tomcat-users.xml /usr/local/apache-tomcat-7.0.54/conf
+/usr/local/apache-tomcat-7.0.54/bin/startup.sh&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Vemos que contiene dos instrucciones, la primera copia un fichero &lt;code&gt;tomcat-users.xml&lt;/code&gt; en el directorio de configuración de Tomcat, sobrescribiendo el que exista. Esto lo hacemos porque, por defecto, Tomcat no expone usuarios de administración, que serán necesarios para desplegar automáticamente desde maven. El contenido del fichero lo podéis ver en mi repositorio de GitHub, pero a grandes rasgos crea un usuario &lt;em&gt;admin&lt;/em&gt; sin password.&lt;/p&gt;
+
+&lt;p&gt;En segundo lugar arranca la instancia de Tomcat en el momento de iniciar la máquina virtual.&lt;/p&gt;
+
+&lt;p&gt;Seguramente os estéis preguntando dónde se encuentra la carpeta /vagrant/bootstrap-conf, la respuesta es…&lt;/p&gt;
+
+&lt;h3 id=&quot;carpetas-sincronizadas&quot;&gt;Carpetas sincronizadas&lt;/h3&gt;
+
+&lt;p&gt;Una de las principales utilidades de Vagrant es el uso de &lt;a href=&quot;https://docs.vagrantup.com/v2/getting-started/synced_folders.html&quot;&gt;carpetas sincronizadas&lt;/a&gt;. Por defecto, la carpeta donde se encuentra el fichero Vagrantfile se sincroniza de forma automática con la carpeta &lt;code&gt;/vagrant/&lt;/code&gt; de la instancia virtual, y cualquier cambio en esos ficheros se refleja en ambos sentidos. Esto es muy útil porque, en general, trabajaremos con un IDE de nuestro ordenador, mientras que desplegaremos en la máquina virtual. En breve crearemos un proyecto Maven para verlo todo en funcionamiento.&lt;/p&gt;
+
+&lt;p&gt;En el punto anterior copiamos mediante un shell script el fichero tomcat-users, que realmente se encuentra en una subcarpeta /bootstrap-conf del proyecto Vagrant, y pasará a estar disponible para la máquina virtual tan pronto como ésta arranque (de hecho lo utilizamos para provisionarla).&lt;/p&gt;
+
+&lt;h3 id=&quot;arrancando-la-instancia&quot;&gt;Arrancando la instancia&lt;/h3&gt;
+
+&lt;p&gt;Vamos a arrancar la instancia, ejecutando desde el directorio donde se encuentra el fichero Vagrantfile:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+vagrant up
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;El proceso puede llevar unos minutos, sobre todo la primera vez que iniciamos la máquina:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/vagrant/vagrant1.png&quot; alt=&quot;Vagrant up&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Podemos ver en el log generado que también se ha iniciado la instancia de Tomcat de acuerdo a las instrucciones del fichero &lt;code&gt;bootstrap.sh&lt;/code&gt;, perfecto. Si nos conectamos mediante nuestro explorador a la dirección &lt;code&gt;http://localhost:4567/&lt;/code&gt; podremos confirmar que está operativo.&lt;/p&gt;
+
+&lt;p&gt;Vamos a conectarnos por SSH a la máquina virtual, algo tan sencillo como ejecutar la siguiente instrucción:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+vagrant ssh
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Si vamos a la carpeta &lt;code&gt;/vagrant&lt;/code&gt;, veremos los ficheros sincronizados con nuestra máquina:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/vagrant/vagrant2.png&quot; alt=&quot;Vagrant sync&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;creando-la-aplicacin-hello-world&quot;&gt;Creando la aplicación Hello World&lt;/h3&gt;
+
+&lt;p&gt;Dentro de la instancia virtual, vamos a crear una aplicación web “Hello World” utilizando arquetipos de Maven. Para ello invocamos el goal &lt;code&gt;mvn archetype:generate&lt;/code&gt;. De todo el catálogo disponible yo seleccioné para el ejemplo el arquetipo &lt;code&gt;co.ntier:spring-mvc-archetype&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Si todo funciona correctamente, se habrá creado una nueva carpeta con el proyecto dentro de la carpeta vagrant sincronizada. Tan solo nos quedaría añadir el plugin de Tomcat para realizar despliegues automáticamente, al fichero &lt;code&gt;pom.xml&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.apache.tomcat.maven&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;tomcat7-maven-plugin&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2.2&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;configuration&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;url&amp;gt;&lt;/span&gt;http://localhost:8080/manager/text&lt;span class=&quot;nt&quot;&gt;&amp;lt;/url&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/configuration&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;La configuración por defecto de este plugin asume la existencia de un usuario &lt;code&gt;admin&lt;/code&gt; y sin contraseña (algo acorde a la configuración de nuestro Tomcat).&lt;/p&gt;
+
+&lt;p&gt;Ya lo tenemos todo. La ejecución de la siguiente instrucción Maven&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+mvn clean install tomcat7:deploy
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;compilará, empaquetará y desplegará el proyecto dentro del Tomcat en ejecución dentro de la máquina virtual. Pero lo mejor de todo es que si vamos en el explorador de nuestro equipo a la dirección &lt;code&gt;http://localhost:4567/spring-mvc/&lt;/code&gt;, ¡¡se abrirá la apliación desplegada!!&lt;/p&gt;
+
+&lt;p&gt;Tenemos por tanto un proyecto que podremos subir a un repositorio de control de versiones de forma que, cualquier persona que se sume al proyecto solo tendrá que ejecutar los pasos descritos al principio de este artículo para tener un entorno totalmente operativo (cosa que no debería llevar más de 10 minutos). Los repetiré de nuevo :)&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Instalar Vagrant y un proveedor (VirtualBox)&lt;/li&gt;
+  &lt;li&gt;Instalar Git (u otro sistema de control de versiones)&lt;/li&gt;
+  &lt;li&gt;Descargar el proyecto del repositorio&lt;/li&gt;
+  &lt;li&gt;Lanzar el comando &lt;code&gt;vagrant up&lt;/code&gt; desde el directorio donde se encuentra el proyecto (y el fichero Vagrantfile)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;compartiendo-entornos-vagrant-de-forma-pblica&quot;&gt;Compartiendo entornos Vagrant de forma pública&lt;/h3&gt;
+
+&lt;p&gt;Si os parece que todo esto es genial, aún queda alguna sorpresa. ¿Alguna vez habéis pasado una tarde entera pasando la última versión de una aplicación a un servidor público de pruebas para mostrarla en una presentación? Suele ser una tarea bastante desagradecida en ocasiones, y en general, el único cometido es discutir nuevos aspectos de la funcionalidad con el cliente.&lt;/p&gt;
+
+&lt;p&gt;Con Vagrant, es posible compartir el entorno en internet mediante una URL pública. Así, el contenido de nuestra máquina virtual pasa a estar disponible para todo el mundo mediante una URL proporcionada por la herramienta. Veamos los pasos a dar:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Registrarse (de forma gratuita) en &lt;a href=&quot;https://atlas.hashicorp.com/&quot;&gt;https://atlas.hashicorp.com/&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Ejecutar &lt;code&gt;vagrant login&lt;/code&gt;, introducir username y password&lt;/li&gt;
+  &lt;li&gt;Ejecutar &lt;code&gt;vagrant share&lt;/code&gt;, donde se nos confirmará la URL pública&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/vagrant/vagrant3.png&quot; alt=&quot;Vagrant share&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;En el ejemplo vemos como se está compartiendo la máquina en la URL &lt;a href=&quot;http://greedy-impala-2134.vagrantshare.com&quot;&gt;http://greedy-impala-2134.vagrantshare.com&lt;/a&gt;, de forma que para acceder a nuestro Hello World deberíamos ir a &lt;a href=&quot;http://greedy-impala-2134.vagrantshare.com/spring-mvc/&quot;&gt;http://greedy-impala-2134.vagrantshare.com/spring-mvc/&lt;/a&gt;, y ¡ya está!&lt;/p&gt;
+
+&lt;p&gt;No sé vosotros, pero yo habría ahorrado muchísimo tiempo en el pasado de haber tenido a mi disposición una herramienta como ésta.&lt;/p&gt;
+
+&lt;h3 id=&quot;otros-comandos-tiles&quot;&gt;Otros comandos útiles&lt;/h3&gt;
+
+&lt;p&gt;Por supuesto, la máquina virtual puede suspenderse en cualquier momento, o incluso resetearla a su estado inicial, de forma que al levantarla de nuevo esté como nueva. Todo esto viene explicado muy bien en &lt;a href=&quot;https://docs.vagrantup.com/v2/getting-started/teardown.html&quot;&gt;la documentación&lt;/a&gt;, y no es el cometido de este post profudizar demasiado en ello.&lt;/p&gt;
+
+&lt;p&gt;Por último, es posible empaquetar una instancia de referencia a partir del estado actual de nuestra máquina virtual. Es decir, que si arrancamos una instancia, la provisionamos, la instalamos distintas aplicaciones manualmente, etc, y queremos guardar la box en ese estado, bastaría con ejecutar este comando&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;
+vagrant package
+&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;para tener listo un clon que podrán utilizar otros usuarios. Las opciones de package están explicadas &lt;a href=&quot;http://docs.vagrantup.com/v2/cli/package.html&quot;&gt;aquí&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;conclusiones&quot;&gt;Conclusiones&lt;/h3&gt;
+
+&lt;p&gt;Las posibilidades de Vagrant son muy amplias, pero espero haber dado una buena visión general. &lt;a href=&quot;https://github.com/raulavila/vagrant-hw&quot;&gt;En mi repositorio de GitHub&lt;/a&gt; está el proyecto completo, por si queréis tomarlo como punto de partida. Ya sabéis: &lt;code&gt;vagrant up&lt;/code&gt;, ¡y a correr!&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Mutation testing&#58; tests de máxima calidad</title>
