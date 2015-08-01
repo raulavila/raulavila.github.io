@@ -4,13 +4,88 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-07-19T16:13:22+01:00</updated>
+ <updated>2015-08-01T15:08:17+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Mi primera experiencia con TDD</title>
+   <link href="http://www.raulavila.com/2015/08/primera-experiencia-tdd"/>
+   <updated>2015-08-01T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2015/08/primera-experiencia-tdd</id>
+   <content type="html">&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Test-driven_development&quot;&gt;Test Driven Development&lt;/a&gt;, más conocido como TDD, es una metodología de desarrollo de software que en la última década ha ido cobrando más vigencia cada año. Inicialmente “inventado” por &lt;a href=&quot;https://twitter.com/KentBeck&quot;&gt;Kent Beck&lt;/a&gt;, una de las figuras más importantes de este mundillo, adoptado por una parte importante del mundo &lt;a href=&quot;http://agilemethodology.org/&quot;&gt;Agile&lt;/a&gt;, y especialmente por el movimiento &lt;a href=&quot;http://manifesto.softwarecraftsmanship.org/&quot;&gt;Software Craftsmanship&lt;/a&gt;, a nivel personal mi acercamiento hasta hace nada había sido puramente teórico.&lt;/p&gt;
+
+&lt;p&gt;En efecto, puedo contar por decenas el número de ocasiones en que he visto vídeos, leído posts, capítulos de libros, asistido a conferencias, etc, introduciendo el tema. Pero nunca hasta esta semana había experimentado de primera mano lo que es desarrollar utilizándolo y los desafíos que plantea.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;El último año mi interés por el TDD ha ido en aumento. El factor que más me ha despertado la curiosidad es comprobar el entusiasmo con que los defensores del TDD hablan de ello, a pesar de que siempre reconocen la dificultad que entraña dominarlo (“no pain no gain” que dirían los ingleses). Por otro lado está claro que, sin ser un experto en absoluto, veo pocas pegas al uso de esta metodología. En ocasiones, cuando se evalúan los pros y contras de utilizar cualquier cosa (herramienta, framework, proceso de desarrollo, etc), siempre cuesta decidirse, porque hay contras claros que deben venir compensados por los pros. Pero en el caso de TDD, el único punto flaco que le veo es su curva de aprendizaje. ¿Debería ser esto una excusa para dejarlo de lado? ¡Por supuesto que no!&lt;/p&gt;
+
+&lt;h3 id=&quot;breve-descripcin-del-proceso-y-referencias&quot;&gt;Breve descripción del proceso y referencias&lt;/h3&gt;
+
+&lt;p&gt;No es mi intención explicar en profundidad en qué consiste TDD, como ya he mencionado estoy en fase de aprendizaje, e internet está plagado de recursos. Pero sería imposible hablar de TDD sin mencionar los pasos básicos del famoso proceso red-green-blue:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Escribir un test fallido, un código no compilable se considera un test fallido (red)&lt;/li&gt;
+  &lt;li&gt;Implementar el código de producción que haga ejecutar el test de forma exitosa (green)&lt;/li&gt;
+  &lt;li&gt;Refactorizar (blue)&lt;/li&gt;
+  &lt;li&gt;Volver al punto 1&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Lo más chocante de todo la primera vez que se ve una demostración de este proceso es el extremo al que se lleva el punto 2, y que puedo resultar incluso poco intuitivo. Pongamos por ejemplo lo que tendríamos que hacer, siguiendo la metodología TDD, para hacer pasar este test:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;nd&quot;&gt;@Test&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;shouldReturn2_when1and1Added&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Calculator&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;calculator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;Calculator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;calculator&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;assertThat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isEqualTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;En primer lugar me gustaría resaltar que para este test estaríamos en una segunda iteración, porque la primera sería la que nos llevaría a crear la clase &lt;code&gt;Calculator&lt;/code&gt; (sin métodos de momento), ya que la primera línea de nuestro test no compilaría (por tanto se considera un test fallido en el punto 1).&lt;/p&gt;
+
+&lt;p&gt;Pues bien, para hacer pasar este test, el código a implementar sería:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Calculator&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;¿A que choca? Bien, a mí también me pasó, pero una vez que se entienden los beneficios del TDD todo cobra sentido. Será en posteriores ciclos del proceso cuando vayamos refinando el método para que funcione correctamente con cualquier combinación de operadores.&lt;/p&gt;
+
+&lt;p&gt;Dejo la descripción del proceso aquí, pero si queréis seguir profundizando unos links básicos serían:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.amazon.es/Driven-Development-Example-Addison-Wesley-Signature/dp/0321146530/ref=sr_1_1?ie=UTF8&amp;amp;qid=1438434705&amp;amp;sr=8-1&amp;amp;keywords=Kent+Beck&quot;&gt;El libro de Kent Beck&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;El &lt;a href=&quot;https://www.youtube.com/watch?v=rklz35GWtrQ&quot;&gt;Bowling Game Kata&lt;/a&gt; de &lt;a href=&quot;https://twitter.com/unclebobmartin&quot;&gt;Uncle Bob&lt;/a&gt;. En su libro &lt;a href=&quot;http://www.amazon.es/Clean-Coder-Conduct-Professional-Programmers/dp/0137081073/ref=sr_1_1?ie=UTF8&amp;amp;qid=1438436471&amp;amp;sr=8-1&amp;amp;keywords=Clean+Coder&quot;&gt;Clean Coder&lt;/a&gt;, Uncle Bob cuenta como Kent Beck le presentó personalmente el proceso, su estupor inicial, y su conversión ferviente :). La implementación de este Kata es quizás uno de los mejores ejemplos que existen para entender qué es TDD y por qué es tan beneficioso.&lt;/li&gt;
+  &lt;li&gt;El libro &lt;a href=&quot;http://www.carlosble.com/libro-tdd/&quot;&gt;Diseño Ágil con TDD&lt;/a&gt; de &lt;a href=&quot;https://twitter.com/carlosble&quot;&gt;Carlos Blé&lt;/a&gt;, uno de los máximos exponentes de TDD en España. Los ejemplos están en C#, pero se entiende muy bien sin importar el background de cada uno. Aunque existen muchos libros en inglés, creo que este está a la altura de las mejoras obras publicadas sobre el tema.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;mi-primera-experiencia-prctica-conclusiones&quot;&gt;Mi primera experiencia práctica. Conclusiones&lt;/h3&gt;
+
+&lt;p&gt;El pasado miércoles asistí a un Meetup de la &lt;a href=&quot;http://www.meetup.com/es/london-software-craftsmanship/&quot;&gt;London Software Craftsmanship Community&lt;/a&gt;. Fundada por &lt;a href=&quot;https://twitter.com/sandromancuso&quot;&gt;Sandro Mancuso&lt;/a&gt; (un tío de lo más pasional, autor de &lt;a href=&quot;http://www.amazon.co.uk/books/dp/0134052501/ref=sr_1_1?ie=UTF8&amp;amp;qid=1438436878&amp;amp;sr=8-1&amp;amp;keywords=the+software+craftsman&quot;&gt;The Software Craftsman&lt;/a&gt;), esta comunidad organiza eventos con mucha frecuencia en los que se fomenta el uso de buenas prácticas, con TDD a la cabeza.&lt;/p&gt;
+
+&lt;p&gt;En dicha sesión había que implementar la solución a un problema determinado utilizando TDD y programando por parejas. Yo tuve la suerte de que mi compañero tuviera más experiencia que yo en el tema, y fue una jornada bastante enriquecedora. Tras dos horas programando, se abrió un debate sobre los beneficios del uso de TDD.&lt;/p&gt;
+
+&lt;p&gt;Las conclusiones a las que llegué son:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;TDD es más que una metología de desarrollo de software, es una metodología de &lt;strong&gt;diseño&lt;/strong&gt; de software. Puede que el nombre lleve a confusión en este sentido, y por eso me parece muy acertado el título del libro de Carlos Blé&lt;/li&gt;
+  &lt;li&gt;El mayor beneficio que obtenemos de su uso es el &lt;strong&gt;descubrimiento progresivo de los requisitos de nuestra aplicación&lt;/strong&gt;. En el desarrollo tradicional tendemos al &lt;a href=&quot;https://en.wikipedia.org/wiki/Big_Design_Up_Front&quot;&gt;Big Design Up Front&lt;/a&gt;, de manera que diseñamos mucho antes de tirar una línea de código, y esto nos lleva a estructuras de clases complejas que en ocasiones reflejan la realidad del problema, pero dificultan la implementación. En TDD la implementación va por delante del problema real, y es posible que en ocasiones no necesitemos representar actores que sí existen en la realidad porque el software soluciona el problema igualmente sin hacerse eco de ellos&lt;/li&gt;
+  &lt;li&gt;La curva de aprendizaje es elevada. Hablé con un español que lleva 7 años trabajando con TDD y me confirmó mis impresiones, ya que aunque él nunca abandonaría el TDD actualmente me reconoció que le llevó años dominarlo&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;En los próximos meses tengo intención de seguir aprendiendo TDD por mi cuenta, y quién sabe si en el futuro se me planteará la posibilidad de utilizarlo en un entorno profesional. Espero dejar cuenta de mis progresos y futuras impresiones en el blog.&lt;/p&gt;
+
+&lt;h3 id=&quot;una-ltima-reflexin&quot;&gt;Una última reflexión&lt;/h3&gt;
+
+&lt;p&gt;Es a menudo curiosa la forma en que muchas empresas (especialmente en UK) presumen del uso de TDD en ofertas de trabajo. Parece que da cierto caché atreverse a afirmar tal cosa, aunque luego no se utilice en realidad. Esto, además de absurdo, es contraproducente, porque puede llevar a situaciones de confusión bastante desagradables si un desarrollador especialmente cualificado en TDD (y por tanto, entusiasta del tema) entra a trabajar en una empresa para descubrir de inmediato que las prácticas en el día a día siguen siendo las de siempre. Habría que tener mucho cuidado con esto, yo aún no entiendo qué lleva a las compañías a requerir “skills” que luego no utilizan en sus proyectos.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>La revolución Docker</title>
