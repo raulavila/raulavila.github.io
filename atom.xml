@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-08-01T15:08:17+01:00</updated>
+ <updated>2015-08-03T18:21:22+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -5766,7 +5766,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
    <id>http://www.raulavila.com/2015/02/atajos-teclado-ide</id>
    <content type="html">&lt;p&gt;En mi &lt;a href=&quot;/2015/01/entornos-integrados-desarrollo&quot;&gt;anterior post&lt;/a&gt; hablé de IDE’s y las diferentes alternativas que hay en el mercado. Mi intención inicial con ese post era hablar de atajos de teclado, pero me extendí demasiado con la introducción y preferí terminar ese hilo para hablar de ello más adelante.&lt;/p&gt;
 
-&lt;p&gt;En mi opinión, ningún desarrollador profesional puede proclamarse como tal si no domina al menos una gran parte de los atajos de teclado que detallaré a continuación. El desarrollo de software debe estar centrado en producir una buena arquitectura y un código mantenible y modular. Un código con estas características no es generado a la primera, requiriendo de un proceso sucesivo de depuración y refactorización. Las herramientas ofrecidas por los IDE’s facilitan muchísimo esta labor, y me atrevería a decir que no conocerlas dificulta el proceso a seguir para llevar a cabo las acciones necesarias que nos llevarán a cumplir con el objetivo de entregar un código &lt;a href=&quot;http://es.wikipedia.org/wiki/SOLID_%28object-oriented_design%29&quot;&gt;SOLID&lt;/a&gt;. &lt;/p&gt;
+&lt;p&gt;En mi opinión, ningún desarrollador profesional puede proclamarse como tal si no domina al menos una gran parte de los atajos de teclado que detallaré a continuación. El desarrollo de software debe estar centrado en producir una buena arquitectura y un código mantenible y modular. Un código con estas características no es generado a la primera, requiriendo de un proceso sucesivo de depuración y refactorización. Las herramientas ofrecidas por los IDE’s facilitan muchísimo esta labor, y me atrevería a decir que no conocerlas dificulta el proceso a seguir para llevar a cabo las acciones necesarias que nos llevarán a cumplir con el objetivo de entregar un código &lt;a href=&quot;http://es.wikipedia.org/wiki/SOLID_%28object-oriented_design%29&quot;&gt;SOLID&lt;/a&gt;.&lt;/p&gt;
 
 &lt;!--break--&gt;
 
@@ -5810,7 +5810,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 				Eclipse: modificada sobre el default
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -5824,7 +5824,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -5838,7 +5838,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -5852,11 +5852,11 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
-				Ver ficheros editados recientemente
+				Ver ficheros abiertos recientemente
 			&lt;/td&gt;
 			&lt;td&gt;
 				Ctrl + E
@@ -5866,7 +5866,21 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Ver ficheros editados recientemente
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + E
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Shift + E
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -5880,7 +5894,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -5894,7 +5908,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -5904,25 +5918,67 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 				Ctrl + G
 			&lt;/td&gt;
 			&lt;td&gt;
-				Cmd + Shift + G
+				Cmd + G
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
 				Abrir definición en popup
 			&lt;/td&gt;
 			&lt;td&gt;
-				Alt + Space
+				Ctrl + Shift + I
 			&lt;/td&gt;
 			&lt;td&gt;
 				Alt + Space
 			&lt;/td&gt;
 			&lt;td&gt;
 				No existe en Eclipse
-			&lt;/td&gt;		
+			&lt;/td&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Navegar en la historia del cursor
+			&lt;/td&gt;
+			&lt;td&gt;
+				Alt + Left/Right
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Alt + Left/Right
+			&lt;/td&gt;
+			&lt;td&gt;
+				-
+			&lt;/td&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Ir al inicio/final del fichero
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Home/End
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Up/Down
+			&lt;/td&gt;
+			&lt;td&gt;
+				-
+			&lt;/td&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Mover cursor al final/inicio de bloque ({})
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + P
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + P
+			&lt;/td&gt;
+			&lt;td&gt;
+				-
+			&lt;/td&gt;
 		&lt;/tr&gt;
 	&lt;/tbody&gt;
 &lt;/table&gt;
@@ -5961,7 +6017,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -5975,7 +6031,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -5989,7 +6045,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6003,7 +6059,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 				No existe en Eclipse
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6017,7 +6073,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6031,7 +6087,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6045,11 +6101,11 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 				Eclipse: no hay shortcut por defecto
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
-				Borrar línea 	
+				Borrar línea
 			&lt;/td&gt;
 			&lt;td&gt;
 				Ctrl + D
@@ -6059,7 +6115,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6073,7 +6129,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 				No existe en Eclipse
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6083,11 +6139,11 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 				Ctrl + 1, Alt + Enter
 			&lt;/td&gt;
 			&lt;td&gt;
-				Cmd + 1
+				Cmd + 1, Cmd + Enter
 			&lt;/td&gt;
 			&lt;td&gt;
 				-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6101,11 +6157,25 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 				-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
-				Generar código 
+				Sugerencias incluyendo static
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Alt + Space
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Alt + Space
+			&lt;/td&gt;
+			&lt;td&gt;
+				-
+			&lt;/td&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Generar código
 			&lt;/td&gt;
 			&lt;td&gt;
 				Alt + Insert
@@ -6115,12 +6185,26 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 				-
-			&lt;/td&gt;		
+			&lt;/td&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Rodear con (try/catch, if, etc)
+			&lt;/td&gt;
+			&lt;td&gt;
+				Alt + Shift + Z
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Shift + Z
+			&lt;/td&gt;
+			&lt;td&gt;
+				-
+			&lt;/td&gt;
 		&lt;/tr&gt;
 	&lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;p&gt;Las opciones reflejadas en esta tabla son, sin duda, las que mayor repercusión tienen en el incremento de la productividad. Veamos con detalle las más complejas: &lt;/p&gt;
+&lt;p&gt;Las opciones reflejadas en esta tabla son, sin duda, las que mayor repercusión tienen en el incremento de la productividad. Veamos con detalle las más complejas:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;“Pegar de la historia”, en IntelliJ, guarda un histórico del portapapeles, y permite seleccionar el fragmento a pegar de una lista. Es bastante interesante.&lt;/li&gt;
@@ -6163,7 +6247,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 				IntelliJ: no hay shortcut por defecto (increíblemente)
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6177,7 +6261,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 				IntelliJ: no hay shortcut por defecto (increíblemente)
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6191,7 +6275,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6205,7 +6289,21 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Buscar símbolo
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + S
+			&lt;/td&gt;
+			&lt;td&gt;
+				Cmd + Shift + S
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6219,7 +6317,21 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 				IntelliJ: no hay shortcut por defecto
-			&lt;/td&gt;		
+			&lt;/td&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Buscar en todas partes
+			&lt;/td&gt;
+			&lt;td&gt;
+				Double Shift
+			&lt;/td&gt;
+			&lt;td&gt;
+				Double Shift
+			&lt;/td&gt;
+			&lt;td&gt;
+				-
+			&lt;/td&gt;
 		&lt;/tr&gt;
 	&lt;/tbody&gt;
 &lt;/table&gt;
@@ -6256,7 +6368,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6266,25 +6378,25 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 				Alt + Shift + M
 			&lt;/td&gt;
 			&lt;td&gt;
-				Cmd + Alt + M
+				Alt + Shift + M, Cmd + Alt + M
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
 				Extraer variable
 			&lt;/td&gt;
 			&lt;td&gt;
-				Alt + Shift + L 
+				Alt + Shift + L
 			&lt;/td&gt;
 			&lt;td&gt;
-				Cmd + Alt + L 
+				Alt + Shift + L, Cmd + Alt + L
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6298,7 +6410,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 				No hay shortcut por defecto
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6312,7 +6424,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6326,7 +6438,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 	&lt;/tbody&gt;
 &lt;/table&gt;
@@ -6363,7 +6475,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6377,7 +6489,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6391,7 +6503,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 	&lt;/tbody&gt;
 &lt;/table&gt;
@@ -6430,7 +6542,21 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Insertar nueva línea después de la actual
+			&lt;/td&gt;
+			&lt;td&gt;
+				Shift + Enter
+			&lt;/td&gt;
+			&lt;td&gt;
+				Shift + Enter
+			&lt;/td&gt;
+			&lt;td&gt;
+			-
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6444,7 +6570,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6458,7 +6584,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 			-
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6472,7 +6598,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 				No es el shortcut por defecto de IntelliJ
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6486,7 +6612,49 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 				Eclipse: estas no son las opciones por defecto
-			&lt;/td&gt;		
+			&lt;/td&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Debug clase / tests
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + F11
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + F11
+			&lt;/td&gt;
+			&lt;td&gt;
+				-
+			&lt;/td&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Seleccionar ejecución
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + F8
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + F8
+			&lt;/td&gt;
+			&lt;td&gt;
+				-
+			&lt;/td&gt;
+		&lt;/tr&gt;
+		&lt;tr&gt;
+			&lt;td&gt;
+				Seleccionar ejecución (debug)
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + F9
+			&lt;/td&gt;
+			&lt;td&gt;
+				Ctrl + Shift + F9
+			&lt;/td&gt;
+			&lt;td&gt;
+				-
+			&lt;/td&gt;
 		&lt;/tr&gt;
 		&lt;tr&gt;
 			&lt;td&gt;
@@ -6500,7 +6668,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 			&lt;/td&gt;
 			&lt;td&gt;
 				No es el shortcut por defecto en OS X
-			&lt;/td&gt;		
+			&lt;/td&gt;
 		&lt;/tr&gt;
 	&lt;/tbody&gt;
 &lt;/table&gt;
@@ -6512,7 +6680,6 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Una buena forma de aprender estos atajos de teclado es introducirlos de manera progresiva en la dinámica de trabajo. No es posible dominar más de cuarenta shortcuts en un par de días, pero aprender tres o cuatro por semana es perfectamente posible, y seguramente ya conozcáis muchos de ellos. De hecho me daría por contento si gracias a este post os he dado a conocer dos o tres atajos que os resulten útiles de ahora en adelante.&lt;/p&gt;
 
 &lt;p&gt;Personalmente, mi intención con este artículo ha sido más la de recolectar de forma ordenada los diferentes shortcuts que utilizo para que me sirva de recordatorio si algún día tengo que configurar de cero el Keymap en una nueva instalación.&lt;/p&gt;
-
 </content>
  </entry>
  
