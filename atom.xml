@@ -4,13 +4,175 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-08-03T18:21:22+01:00</updated>
+ <updated>2015-08-16T12:13:21+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Características de Maven que (quizás) no conocías</title>
+   <link href="http://www.raulavila.com/2015/08/caracteristicas-maven"/>
+   <updated>2015-08-16T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2015/08/caracteristicas-maven</id>
+   <content type="html">&lt;p&gt;&lt;a href=&quot;https://maven.apache.org/&quot;&gt;Maven&lt;/a&gt; es, de facto, la herramienta Java para construir y gestionar proyectos de desarrollo. En su día ocupó el lugar de &lt;a href=&quot;http://ant.apache.org/&quot;&gt;Apache Ant&lt;/a&gt;, debido sobre todo a su modelo “convention over configuration”. La gran diferencia que aportaba sobre aquella es la facilidad para configurar un proyecto basándonos en estándares, que si no queríamos sobrescribir facilitaba enormemente el proceso de puesta en marcha inicial. Actualmente, &lt;a href=&quot;https://gradle.org/&quot;&gt;Gradle&lt;/a&gt; va ganando popularidad, y aunque personalmente le veo potencial, su flexibilidad (que remite a Ant) puede llegar a ser un hándicap a la hora de comprender una configuración determinada. Maven sigue siendo, por tanto, un must si desarrollas con Java.&lt;/p&gt;
+
+&lt;p&gt;En los últimos días he profundizado un poco en la documentación oficial y algún libro (estrenando mi flamante suscripción a &lt;a href=&quot;https://www.safaribooksonline.com&quot;&gt;Safari Books Online&lt;/a&gt;), que me ha hecho descubrir algunas características de Maven que desconocía y me parecen bastante útiles. Las voy a recoger en este post a modo de recopilación, aunque puede que no descubra nada extraordinario.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;h3 id=&quot;modo-offline&quot;&gt;Modo offline&lt;/h3&gt;
+
+&lt;p&gt;Esto me ha parecido toda una revelación. Bien es sabido por todos que Maven “se descarga todo Internet” la primera vez que lo ejecutamos en un proyecto. Yo pensaba que tener conexión internet era totalmente imprescindible para trabajar con Maven, y aunque en la práctica lo es, si configuramos nuestro fichero POM con todas sus dependencias es posible trabajar en modo offline, evitando que en cada build se chequeen posibles actualizaciones de dependencias, por ejemplo. Esto puede ser muy útil para trabajar fuera de casa, en un avión, por ejemplo. Las opciones que debemos conocer para utilizar este modo son dos:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Pasar a modo online: &lt;code&gt;mvn dependency:go-offline&lt;/code&gt;. Descarga todas las dependencias del proyecto a nuestro repositorio local&lt;/li&gt;
+  &lt;li&gt;Ejecutar goals o phases en modo offline: &lt;code&gt;mvn -o phase&lt;/code&gt;, por ejemplo &lt;code&gt;mvn -o package&lt;/code&gt;. Con esta opción utilizaremos exclusivamente las dependencias instaladas localmente&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;informacin-del-proyecto&quot;&gt;Información del proyecto&lt;/h3&gt;
+
+&lt;p&gt;El fichero &lt;code&gt;pom.xml&lt;/code&gt;, centraliza toda la configuración de nuestro proyecto. A grandes rasgos, lo que todo el mundo ha de considerar es:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Nombre del proyecto (groupId, artifactId, version)&lt;/li&gt;
+  &lt;li&gt;Modalidad de empaquetado (jar, war, ear, etc)&lt;/li&gt;
+  &lt;li&gt;Dependencias (junit, spring…)&lt;/li&gt;
+  &lt;li&gt;Plugins a utilizar en la construcción (Java compiler, para configurar la versión del JDK, por ejemplo)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;La idea de los creadores de Maven es que fuera una herramienta de gestión integral de proyectos software, y para ello añadieron otro tipo de configuraciones al esquema del fichero POM que nos permiten añadir información importante, como los desarrolladores implicados con sus datos de contacto (muy práctico si se trabaja de forma descentralizada), colaboradores (importante en proyectos Open Source), links a herramientas de integración continua y gestores de incidencias, etc. De esta forma, descargándonos el proyecto tendremos todos los datos importantes relacionados con él en un solo sitio. Veamos un ejemplo:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;project&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;xmlns=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://maven.apache.org/POM/4.0.0&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;xmlns:xsi=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;xsi:schemaLocation=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&amp;quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;modelVersion&amp;gt;&lt;/span&gt;4.0.0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/modelVersion&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;com.raulavila&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;maven-features&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;1.0-SNAPSHOT&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;packaging&amp;gt;&lt;/span&gt;jar&lt;span class=&quot;nt&quot;&gt;&amp;lt;/packaging&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;name&amp;gt;&lt;/span&gt;maven-features&lt;span class=&quot;nt&quot;&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;url&amp;gt;&lt;/span&gt;www.raulavila.com&lt;span class=&quot;nt&quot;&gt;&amp;lt;/url&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;developers&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;developer&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;name&amp;gt;&lt;/span&gt;Raul Avila&lt;span class=&quot;nt&quot;&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;email&amp;gt;&lt;/span&gt;email@email.com&lt;span class=&quot;nt&quot;&gt;&amp;lt;/email&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;roles&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;role&amp;gt;&lt;/span&gt;Developer&lt;span class=&quot;nt&quot;&gt;&amp;lt;/role&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;/roles&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;timezone&amp;gt;&lt;/span&gt;UTC+1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/timezone&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/developer&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/developers&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;contributors&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;contributor&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;name&amp;gt;&lt;/span&gt;Pepe Perez&lt;span class=&quot;nt&quot;&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;email&amp;gt;&lt;/span&gt;email@email.com&lt;span class=&quot;nt&quot;&gt;&amp;lt;/email&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;roles&amp;gt;&lt;/span&gt;
+                &lt;span class=&quot;nt&quot;&gt;&amp;lt;role&amp;gt;&lt;/span&gt;Developer&lt;span class=&quot;nt&quot;&gt;&amp;lt;/role&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;/roles&amp;gt;&lt;/span&gt;
+            &lt;span class=&quot;nt&quot;&gt;&amp;lt;timezone&amp;gt;&lt;/span&gt;UTC+1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/timezone&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;/contributor&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/contributors&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;issueManagement&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;system&amp;gt;&lt;/span&gt;JIRA&lt;span class=&quot;nt&quot;&gt;&amp;lt;/system&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;url&amp;gt;&lt;/span&gt;jira.raulavila.com&lt;span class=&quot;nt&quot;&gt;&amp;lt;/url&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/issueManagement&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;ciManagement&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;system&amp;gt;&lt;/span&gt;Jenkins&lt;span class=&quot;nt&quot;&gt;&amp;lt;/system&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;url&amp;gt;&lt;/span&gt;jenkins.raulavila.com&lt;span class=&quot;nt&quot;&gt;&amp;lt;/url&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/ciManagement&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;properties&amp;gt;&lt;/span&gt;
+        &lt;span class=&quot;nt&quot;&gt;&amp;lt;project.build.sourceEncoding&amp;gt;&lt;/span&gt;UTF-8&lt;span class=&quot;nt&quot;&gt;&amp;lt;/project.build.sourceEncoding&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/properties&amp;gt;&lt;/span&gt;
+
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependencies&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;c&quot;&gt;&amp;lt;!-- ---------&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;        rest of the file&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;    --&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/project&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;maven-sites&quot;&gt;Maven sites&lt;/h3&gt;
+
+&lt;p&gt;Hasta ahora no me había dado cuenta de que las páginas web de los proyectos Apache que tanto nos facilitan la vida estaban construidas con Maven. En efecto, si os fijáis en la parte inferior del menú de la izquierda en, por ejemplo, &lt;a href=&quot;https://maven.apache.org/&quot;&gt;la propia web de Maven&lt;/a&gt;, se puede leer “Built by Maven”.&lt;/p&gt;
+
+&lt;p&gt;Todos conocemos las fases más importantes del ciclo de vida de un proyecto Maven: clean, test, verify, package, install, etc. Pero, ¿sabiáis que existe una fase &lt;code&gt;site&lt;/code&gt;? Probemos a invocar &lt;code&gt;mvn site&lt;/code&gt;, y veremos que en la carpeta &lt;code&gt;target&lt;/code&gt; se ha creado una subcarpeta &lt;code&gt;site&lt;/code&gt;, con una web, que si abrimos tiene el siguiente aspecto:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/maven/maven1.jpg&quot; alt=&quot;Maven site&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Este site ha sido generado a partir de un proyecto totalmente simple, añadiendo al fichero POM la información que detallé en el punto anterior. Sólo con esto se han añadido las correspondientes secciones al site, como podéis ver en el menú (Continous Integration, Issue Tracking, Project Team, etc). Veamos, por ejemplo, como queda la sección “Project Team”:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/maven/maven2.jpg&quot; alt=&quot;Project team&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Siguiendo con la filosofía “convention over configurarion” el texto introductorio de esta página viene pre-configurado, aunque es posible modificarlo, así como otros aspectos del site (encabezados, layout…). Todo esto está &lt;a href=&quot;https://maven.apache.org/plugins/maven-site-plugin/&quot;&gt;perfectamente documentado&lt;/a&gt;, y no es mi intención aquí profundizar en ello.&lt;/p&gt;
+
+&lt;p&gt;Maven incluso permite levantar el site en un servidor de manera local mediante &lt;code&gt;mvn site:run&lt;/code&gt; (y sería accesible desde http://localhost:8080).&lt;/p&gt;
+
+&lt;h4 id=&quot;aadiendo-reportes-a-nuestro-site&quot;&gt;Añadiendo reportes a nuestro site&lt;/h4&gt;
+
+&lt;p&gt;El fichero POM tiene un elemento, &lt;code&gt;&amp;lt;reporting&amp;gt;&lt;/code&gt;, al que podemos añadir diferentes plugins que generarán páginas adicionales dentro de nuestro site. Las opciones son bastante amplias, por lo que vamos a ver un ejemplo combinando varias de ellas:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-xml&quot; data-lang=&quot;xml&quot;&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;reporting&amp;gt;&lt;/span&gt;
+     &lt;span class=&quot;nt&quot;&gt;&amp;lt;plugins&amp;gt;&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
+             &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.apache.maven.plugins&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+             &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;maven-javadoc-plugin&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+             &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2.10.3&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
+             &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.apache.maven.plugins&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+             &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;maven-checkstyle-plugin&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+             &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2.6&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
+             &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.codehaus.mojo&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+             &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;cobertura-maven-plugin&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+             &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;2.7&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;lt;plugin&amp;gt;&lt;/span&gt;
+             &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.codehaus.mojo&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+             &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;dashboard-maven-plugin&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+             &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;1.0.0-beta-1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;lt;/plugin&amp;gt;&lt;/span&gt;
+     &lt;span class=&quot;nt&quot;&gt;&amp;lt;/plugins&amp;gt;&lt;/span&gt;
+ &lt;span class=&quot;nt&quot;&gt;&amp;lt;/reporting&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Hemos añadido cuatro plugins:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Javadoc, fácil de deducir, generará la página Javadoc con la documentación de toda nuestra aplicación&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://checkstyle.sourceforge.net/&quot;&gt;Checkstyle&lt;/a&gt;, herramienta de análisis estático de código, que revisa el estilo del código para ajustarlo a estándares&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://cobertura.github.io/cobertura/&quot;&gt;Cobertura&lt;/a&gt;, que genera informes de cobertura de tests&lt;/li&gt;
+  &lt;li&gt;Dashboard: interesante plugin que genera una única página recogiendo un informe global de todas las herramientas de análisis estático, cobertura, etc.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Estas páginas serán generadas dentro del submenú “Project reports”:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/maven/maven3.jpg&quot; alt=&quot;Project reports&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Todos conocemos el aspecto de una página Javadoc, veamos cómo sería el informe generado por el plugin Cobertura:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/maven/maven4.jpg&quot; alt=&quot;Cobertura&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Por último, un detalle del informe creado por el plugin Dashboard:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/maven/maven5.jpg&quot; alt=&quot;Dashboard&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Aunque muchos de estos informes coincidirán con los de una herramienta como &lt;a href=&quot;http://www.sonarqube.org/&quot;&gt;SonarQube&lt;/a&gt;, la gran ventaja es que no necesitaríamos instalar herramientas adicionales, por lo que Maven centralizaría todo el proceso, además de que un desarrollador podría echar un vistazo a estos informes de forma local antes de subir código al repositorio, etc.&lt;/p&gt;
+
+&lt;p&gt;(Como siempre, el código &lt;a href=&quot;https://github.com/raulavila/maven-features&quot;&gt;está en GitHub&lt;/a&gt;, aunque en este caso no hay mucho en lo que profundizar :))&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Mi primera experiencia con TDD</title>
