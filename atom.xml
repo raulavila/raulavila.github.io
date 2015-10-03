@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-09-26T14:05:33+01:00</updated>
+ <updated>2015-10-03T13:54:56+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -423,7 +423,7 @@
 
 &lt;p&gt;La respuesta es que ninguna de las dos herramientas es ideal, por lo que deberemos considerar las características de nuestro proyecto antes de decantarnos por una u otra. Gradle ofrece flexibilidad ilimitada, y esto puede ser contraproducente si no tenemos la disciplina adecuada, mientras que Maven en ocasiones es extremadamente rígido, pero gracias a esa rigidez es muy sencillo asimilar rápidamente la estructura de un proyecto.&lt;/p&gt;
 
-&lt;p&gt;Además, Gradle es una herramienta que aún sigue madurando y tiene algunos puntos flacos. En concreto hay uno, la resolución de dependencias, que no me convence en absoluto para proyectos corporativos, y que comentaré en mi siguiente post.&lt;/p&gt;
+&lt;p&gt;Además, Gradle es una herramienta que aún sigue madurando y tiene algunos puntos flacos. En concreto hay uno, la resolución de dependencias, que no me convence en absoluto para proyectos corporativos, y que comentaré &lt;a href=&quot;/2015/09/gradle-dependencias&quot;&gt;en mi siguiente post&lt;/a&gt;.&lt;/p&gt;
 </content>
  </entry>
  
@@ -1889,7 +1889,7 @@ Game finished!&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;El código es algo más complejo, pero creo que se entiende bien. Tan sólo cambiando la constante podremos escalar el juego todo lo que queramos, y la concurrencia nos garantizará los turnos perfectamente :)&lt;/p&gt;
 
-&lt;p&gt;En la siguiente entrega de la serie nos centraremos en la creación y gestión de threads, de forma que la clase &lt;code&gt;Game&lt;/code&gt; sea mucho menos críptica de lo que es en esta última versión.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;/2015/06/multithreading-3&quot;&gt;En la siguiente entrega de la serie&lt;/a&gt; nos centraremos en la creación y gestión de threads, de forma que la clase &lt;code&gt;Game&lt;/code&gt; sea mucho menos críptica de lo que es en esta última versión.&lt;/p&gt;
 </content>
  </entry>
  
@@ -2282,7 +2282,7 @@ ping&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;En general, hemos de ser muy cuidadosos a la hora de manejar &lt;code&gt;InterruptedException&lt;/code&gt;. Otra estrategia recomendada, que implicaría modificar la lógica de nuestro método &lt;code&gt;run&lt;/code&gt;, es volver a lanzar la excepción para que sea manejada en algún otro lugar. En ningún caso &lt;strong&gt;nunca&lt;/strong&gt; debemos tragarnos la excepción sin más.&lt;/p&gt;
 
-&lt;p&gt;Quedan muchas mejoras por llevar a cabo, la aplicación está lejos de ser óptima (empezando por esa horrenda espera activa). En el siguiente post añadiremos mejoras para optimizar el uso de la CPU mediante el uso de locks y condiciones.&lt;/p&gt;
+&lt;p&gt;Quedan muchas mejoras por llevar a cabo, la aplicación está lejos de ser óptima (empezando por esa horrenda espera activa). &lt;a href=&quot;/2015/06/multithreading-2&quot;&gt;En el siguiente post&lt;/a&gt; añadiremos mejoras para optimizar el uso de la CPU mediante el uso de locks y condiciones.&lt;/p&gt;
 
 &lt;p&gt;(El código, como siempre, &lt;a href=&quot;https://github.com/raulavila/blog-examples/tree/master/src/main/java/com/raulavila/pingpong&quot;&gt;en Github&lt;/a&gt;).&lt;/p&gt;
 </content>
@@ -5457,7 +5457,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Cada línea dentro del scope beans define un bean mediante los parámetros “name tipo parámetros_del_constructor”. La verdad es que Groovy aporta una gran flexbilidad, pero yo siempre he sido más de tipado estático, lo siento :). &lt;a href=&quot;http://spring.io/blog/2014/03/03/groovy-bean-configuration-in-spring-framework-4&quot;&gt;Más información aquí&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;Terminamos aquí el repaso a las mejoras del core. En el próximo post hablaré de las mejoras introducidas a nivel de desarrollo Web.&lt;/p&gt;
+&lt;p&gt;Terminamos aquí el repaso a las mejoras del core. &lt;a href=&quot;/2015/03/spring-4-novedades-2&quot;&gt;En el próximo post&lt;/a&gt; hablaré de las mejoras introducidas a nivel de desarrollo Web.&lt;/p&gt;
 </content>
  </entry>
  
@@ -6262,7 +6262,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
         &lt;span class=&quot;n&quot;&gt;assertThat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;salesman&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isEqualTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;EmployeeType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SALESMAN&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
     &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Como siempre, los ejemplos los dejo subidos &lt;a href=&quot;https://github.com/raulavila/fowlers-refactoring-errors&quot;&gt;en mi repositorio de GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Como siempre, los ejemplos los dejo subidos &lt;a href=&quot;https://github.com/raulavila/fowlers-refactoring-errors&quot;&gt;en mi repositorio de GitHub&lt;/a&gt;. Seguiré desgranando este libro &lt;a href=&quot;/2015/02/fowler-refactoring-3&quot;&gt;en mi siguiente post&lt;/a&gt;.&lt;/p&gt;
 </content>
  </entry>
  
@@ -6290,7 +6290,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;En el refactoring “Introduce parameter object” (pág 295) aparece un ejemplo muy desafortunado de &lt;a href=&quot;http://howtodoinjava.com/2012/10/28/how-to-make-a-java-class-immutable/&quot;&gt;clase inmutable&lt;/a&gt;:&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DateRange&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    
+
     &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
     &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
 
@@ -6318,12 +6318,12 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
     &lt;span class=&quot;n&quot;&gt;DateRange&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;range&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;DateRange&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 
     &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dateAux&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getEnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    
+
     &lt;span class=&quot;c1&quot;&gt;//Modifies end date!&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;dateAux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;123123&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
 
     &lt;span class=&quot;n&quot;&gt;assertThat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getStart&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isEqualTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;2001-01-01&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    
+
     &lt;span class=&quot;c1&quot;&gt;//End date of the range modified!&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;assertThat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getEnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isNotEqualTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;2001-01-02&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -6374,10 +6374,9 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
     &lt;span class=&quot;n&quot;&gt;assertThat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getEnd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isEqualTo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;2001-01-02&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Prefiero dejarlo aquí por hoy. Me he dado cuenta de que explicar cada ejemplo con detalle lleva su tiempo, así que iré desgranando los diferentes puntos en posteriores artículos.&lt;/p&gt;
+&lt;p&gt;Prefiero dejarlo aquí por hoy. Me he dado cuenta de que explicar cada ejemplo con detalle lleva su tiempo, así que iré desgranando los diferentes puntos &lt;a href=&quot;/2015/02/fowler-refactoring-2&quot;&gt;en posteriores artículos&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Subiré todos los ejemplos en &lt;a href=&quot;https://github.com/raulavila/fowlers-refactoring-errors&quot;&gt;este repositorio de GitHub&lt;/a&gt;.&lt;/p&gt;
-
 </content>
  </entry>
  
@@ -7326,9 +7325,9 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Durante la mayor parte de mi carrera profesional trabajé con Eclipse, y para un par de proyectos utilicé NetBeans, en parte por imposiciones del proyecto (aunque no sea necesario, en ciertos equipos de trabajo interesa que todos los desarrolladores utilicen el mismo IDE). Nunca me gustó excesivamente NetBeans, aunque siendo honesto, hará cuatro años que no lo utilizo, así que quizás ha evolucionado hasta ponerse a la altura. Su principal problema era el excesivo consumo de recursos, y la escasa fluidez en el funcionamiento.&lt;/p&gt;
 
-&lt;p&gt;Eclipse, por tanto, fue siempre mi opción favorita. Cuenta además con una cantidad ingente de plugins que permiten ampliar su funcionalidad e incrementar su potencial, muchos de ellos se van incluyendo por defecto en posteriores versiones de la aplicación si su aceptación es grande (por ejemplo el plugin de Maven, &lt;a href=&quot;http://eclipse.org/m2e/&quot;&gt;M2Eclipse&lt;/a&gt;). &lt;/p&gt;
+&lt;p&gt;Eclipse, por tanto, fue siempre mi opción favorita. Cuenta además con una cantidad ingente de plugins que permiten ampliar su funcionalidad e incrementar su potencial, muchos de ellos se van incluyendo por defecto en posteriores versiones de la aplicación si su aceptación es grande (por ejemplo el plugin de Maven, &lt;a href=&quot;http://eclipse.org/m2e/&quot;&gt;M2Eclipse&lt;/a&gt;).&lt;/p&gt;
 
-&lt;p&gt;IntelliJ nunca fue opción debido a su naturaleza comercial. Ya sabemos que la mayoría de empresas en España piensas más en términos de gasto que de inversión, y existiendo opciones libres no le ven sentido a gastar en licencias. Aunque bien es verdad que existe una &lt;a href=&quot;http://www.jetbrains.org/pages/viewpage.action?pageId=983211&quot;&gt;versión libre&lt;/a&gt;, carece de demasiadas herramientas que son imprescindibles a nivel empresarial (como la integración con Tomcat). &lt;/p&gt;
+&lt;p&gt;IntelliJ nunca fue opción debido a su naturaleza comercial. Ya sabemos que la mayoría de empresas en España piensas más en términos de gasto que de inversión, y existiendo opciones libres no le ven sentido a gastar en licencias. Aunque bien es verdad que existe una &lt;a href=&quot;http://www.jetbrains.org/pages/viewpage.action?pageId=983211&quot;&gt;versión libre&lt;/a&gt;, carece de demasiadas herramientas que son imprescindibles a nivel empresarial (como la integración con Tomcat).&lt;/p&gt;
 
 &lt;p&gt;Mi mudanza a Londres cambió esta perspectiva, ya que aquí IntelliJ es el número 1. Al principio mostré reticencias a dar el salto, mis primeras semanas en la empresa fueron un bombardeo de información en un idioma que estaba empezando a dominar, y no me apetecía aprender una herramienta nueva cuando con Eclipse me manejaba como pez en el agua. Pero la llegada a mi empresa de un brillante developer con las ideas muy claras prácticamente me obligó a cambiar. Sencillamente, no entendía cómo era posible que no utilizara IntelliJ, y se tomó convencerme para usarlo como algo personal.&lt;/p&gt;
 
@@ -7336,8 +7335,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;Dadle a una oportunidad a IntelliJ, la Community Edition es suficiente para trastear en casa. Eso sí, luego no querréis volver a Eclipse, como me ha pasado a mí, aunque para evitar el efecto regresión sigo utilizando los mismos atajos de teclado, no sea que algún día en una futura empresa haya que volver a Eclipse.&lt;/p&gt;
 
-&lt;p&gt;Atajos de teclado…precisamente en este post quería hablar de atajos de teclado, pero me he extendido tanto que creo que será mejor hacerlo más adelante :).&lt;/p&gt;
-
+&lt;p&gt;Atajos de teclado…precisamente en este post quería hablar de atajos de teclado, pero me he extendido tanto que creo que será mejor &lt;a href=&quot;/2015/02/atajos-teclado-ide&quot;&gt;hacerlo más adelante&lt;/a&gt; :).&lt;/p&gt;
 </content>
  </entry>
  

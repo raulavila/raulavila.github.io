@@ -444,7 +444,7 @@ ping</code></pre></div>
 
 <p>En general, hemos de ser muy cuidadosos a la hora de manejar <code>InterruptedException</code>. Otra estrategia recomendada, que implicaría modificar la lógica de nuestro método <code>run</code>, es volver a lanzar la excepción para que sea manejada en algún otro lugar. En ningún caso <strong>nunca</strong> debemos tragarnos la excepción sin más.</p>
 
-<p>Quedan muchas mejoras por llevar a cabo, la aplicación está lejos de ser óptima (empezando por esa horrenda espera activa). En el siguiente post añadiremos mejoras para optimizar el uso de la CPU mediante el uso de locks y condiciones.</p>
+<p>Quedan muchas mejoras por llevar a cabo, la aplicación está lejos de ser óptima (empezando por esa horrenda espera activa). <a href="/2015/06/multithreading-2">En el siguiente post</a> añadiremos mejoras para optimizar el uso de la CPU mediante el uso de locks y condiciones.</p>
 
 <p>(El código, como siempre, <a href="https://github.com/raulavila/blog-examples/tree/master/src/main/java/com/raulavila/pingpong">en Github</a>).</p>
 

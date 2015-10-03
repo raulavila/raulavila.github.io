@@ -77,7 +77,7 @@
 <p>En el refactoring “Introduce parameter object” (pág 295) aparece un ejemplo muy desafortunado de <a href="http://howtodoinjava.com/2012/10/28/how-to-make-a-java-class-immutable/">clase inmutable</a>:</p>
 
 <div class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DateRange</span> <span class="o">{</span>
-    
+
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">Date</span> <span class="n">start</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">Date</span> <span class="n">end</span><span class="o">;</span>
 
@@ -105,12 +105,12 @@
     <span class="n">DateRange</span> <span class="n">range</span> <span class="o">=</span> <span class="k">new</span> <span class="nf">DateRange</span><span class="o">(</span><span class="n">start</span><span class="o">,</span> <span class="n">end</span><span class="o">);</span>
 
     <span class="n">Date</span> <span class="n">dateAux</span> <span class="o">=</span> <span class="n">range</span><span class="o">.</span><span class="na">getEnd</span><span class="o">();</span>
-    
+
     <span class="c1">//Modifies end date!</span>
     <span class="n">dateAux</span><span class="o">.</span><span class="na">setTime</span><span class="o">(</span><span class="mi">123123</span><span class="o">);</span>
 
     <span class="n">assertThat</span><span class="o">(</span><span class="n">range</span><span class="o">.</span><span class="na">getStart</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">parse</span><span class="o">(</span><span class="s">&quot;2001-01-01&quot;</span><span class="o">))</span> <span class="o">;</span>
-    
+
     <span class="c1">//End date of the range modified!</span>
     <span class="n">assertThat</span><span class="o">(</span><span class="n">range</span><span class="o">.</span><span class="na">getEnd</span><span class="o">()).</span><span class="na">isNotEqualTo</span><span class="o">(</span><span class="n">parse</span><span class="o">(</span><span class="s">&quot;2001-01-02&quot;</span><span class="o">));</span>
 <span class="o">}</span></code></pre></div>
@@ -161,10 +161,9 @@
     <span class="n">assertThat</span><span class="o">(</span><span class="n">range</span><span class="o">.</span><span class="na">getEnd</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">parse</span><span class="o">(</span><span class="s">&quot;2001-01-02&quot;</span><span class="o">));</span>
 <span class="o">}</span></code></pre></div>
 
-<p>Prefiero dejarlo aquí por hoy. Me he dado cuenta de que explicar cada ejemplo con detalle lleva su tiempo, así que iré desgranando los diferentes puntos en posteriores artículos.</p>
+<p>Prefiero dejarlo aquí por hoy. Me he dado cuenta de que explicar cada ejemplo con detalle lleva su tiempo, así que iré desgranando los diferentes puntos <a href="/2015/02/fowler-refactoring-2">en posteriores artículos</a>.</p>
 
 <p>Subiré todos los ejemplos en <a href="https://github.com/raulavila/fowlers-refactoring-errors">este repositorio de GitHub</a>.</p>
-
 
 </article>
 
