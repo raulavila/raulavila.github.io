@@ -462,3 +462,7 @@ a.pagination-item:hover {
     border-bottom-right-radius: 4px;
   }
 }
+
+.cv p, .cv li {
+    font-size:18px;
+}
