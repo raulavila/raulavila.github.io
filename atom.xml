@@ -4,13 +4,92 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-10-07T21:21:01+01:00</updated>
+ <updated>2015-10-10T11:50:39+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Patterns of Enterprise Application Architecture (y 2)</title>
+   <link href="http://www.raulavila.com/2015/10/patterns-eaa-1"/>
+   <updated>2015-10-10T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2015/10/patterns-eaa-2</id>
+   <content type="html">&lt;p&gt;Continuamos con el repaso a &lt;a href=&quot;http://www.amazon.es/Enterprise-Application-Architecture-Addison-Wesley-Signature/dp/0321127420/ref=sr_1_1?ie=UTF8&amp;amp;qid=1443261882&amp;amp;sr=8-1&amp;amp;keywords=patterns+of+enterprise+application+architecture&quot;&gt;la obra de Fowler&lt;/a&gt;. &lt;a href=&quot;/2015/09/patterns-eaa-1&quot;&gt;En la primera entrega&lt;/a&gt; nos centramos en describir qué es una aplicación empresarial, pasar lista a una serie de métricas de rendimiento, y destacar algunos de los patrones descritos en la primera parte del libro. En este nuevo post, que espero no quede demasiado farragoso, intentaré resumir los que considero los patrones más interesantes de la segunda parte.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;h2 id=&quot;web-presentation-patterns&quot;&gt;Web Presentation Patterns&lt;/h2&gt;
+
+&lt;p&gt;La mayoría de estos patrones tenían más sentido cuando fue escrito el libro, es decir, antes de que se existieran todos los frameworks web que nos hacen la vida tan fácil ahora (&lt;a href=&quot;http://docs.spring.io/spring-framework/docs/current/spring-framework-reference/html/mvc.html&quot;&gt;Spring MVC&lt;/a&gt;, &lt;a href=&quot;https://es.wikipedia.org/wiki/JavaServer_Faces&quot;&gt;Java Server Faces&lt;/a&gt;). No obstante, creo que merece la pena destacar alguno:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/eaaCatalog/modelViewController.html&quot;&gt;Model View Controller&lt;/a&gt;: el clásico de los clásicos, la rockstar de los patrones, diría yo. No creo que se acuñara en este libro (aunque no estoy seguro), y no seré yo quien lo explique de nuevo en el blog, ya que internet está lleno &lt;a href=&quot;https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller&quot;&gt;de referencias&lt;/a&gt;, &lt;a href=&quot;https://www.youtube.com/watch?v=qXRcVhWxuaU&quot;&gt;video tutoriales&lt;/a&gt;, e ¡incluso tiene &lt;a href=&quot;https://www.youtube.com/watch?v=YYvOGPMLVDo&quot;&gt;su propia canción&lt;/a&gt;!&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/eaaCatalog/frontController.html&quot;&gt;Front Controller&lt;/a&gt;: se trata de un controlador que maneja todas las peticiones (requests) de una aplicación web, algo que recuerda sospechosamente al &lt;a href=&quot;http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/servlet/DispatcherServlet.html&quot;&gt;DispatcherServlet&lt;/a&gt; de Spring MVC :). Su contrapunto es el patrón &lt;a href=&quot;http://martinfowler.com/eaaCatalog/pageController.html&quot;&gt;Page Controller&lt;/a&gt;, que encapsula en un objeto toda la lógica que recoge las peticiones para una página determinada, y que, volviendo de nuevo a Spring, podríamos decir que la anotación &lt;code&gt;@Controller&lt;/code&gt; debidamente utilizada nos permite implementar este patrón. De hecho, yo diría que Spring MVC es, entre otras muchas cosas una implementación de estos dos patrones&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/eaaCatalog/applicationController.html&quot;&gt;Application Controller&lt;/a&gt;, patrón similar a Front Controller, pero que además maneja el flujo de la navegación en nuestra aplicación, es decir, conoce de antemano cuál será la siguiente página que hay que mostrar al usuario al finalizar la acción en curso, y en base a ciertas condiciones. &lt;a href=&quot;http://projects.spring.io/spring-webflow/&quot;&gt;Spring WebFlow&lt;/a&gt; es el módulo de Spring que implementa este patrón&lt;/li&gt;
+  &lt;li&gt;Patrones de presentación: a destacar el que más ha sobrevivido el paso del tiempo, &lt;a href=&quot;http://martinfowler.com/eaaCatalog/templateView.html&quot;&gt;Template View&lt;/a&gt;. Es, como indica su nombre, una plantilla HTML a rellenar (lo que alguna vez hemos hecho todos con JSP o &lt;a href=&quot;http://freemarker.org/&quot;&gt;FreeMarker&lt;/a&gt;, vaya)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;distribution-patterns&quot;&gt;Distribution Patterns&lt;/h2&gt;
+
+&lt;p&gt;Las llamadas remotas a sistemas o procesos ubicados en diferentes servidores siempre serán costosas, por mucho que evolucione el hardware o las velocidades de conexión. Para minimizar el impacto de estas llamadas tenemos dos patrones:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/eaaCatalog/remoteFacade.html&quot;&gt;Remote Facade&lt;/a&gt;: es una fachada remota pesada que encapsula llamadas a una API más ligera. El objetivo es minimizar el número de conexiones / peticiones. Así, en el ejemplo del link (y del libro), para actualizar una dirección, tarea que en la API original requeriría de varias llamadas a los métodos &lt;code&gt;setStreet&lt;/code&gt;, &lt;code&gt;setCity&lt;/code&gt;, etc, en la fachada lo dejamos como un solo método, &lt;code&gt;setAddress(street, city, zip)&lt;/code&gt;, que recibirá todos los parámetros&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/eaaCatalog/dataTransferObject.html&quot;&gt;Data Transfer Object&lt;/a&gt;: como su propio nombre bien indica, encapsula un conjunto de datos para su transferencia. Viene a ser el complemento a Remote Facade cuando necesitamos devolver un conjunto de datos, de forma que en lugar de invocar varios getters, hacemos una sola llamada que nos traerá de vuelta toda la información&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;offline-concurrency-patterns&quot;&gt;Offline Concurrency Patterns&lt;/h2&gt;
+
+&lt;p&gt;La concurrencia es uno de los temas más complicados de comprender y utilizar correctamente en el desarrollo software. En este modesto blog &lt;a href=&quot;/2015/05/multithreading-1&quot;&gt;ya hablamos de ello&lt;/a&gt; desde un punto de vista más o menos práctico, pero a más bajo nivel.&lt;/p&gt;
+
+&lt;p&gt;Haciendo una pequeña digresión, una de las preguntas más típicas en las entrevistas de trabajo (al menos en Londres) es la diferencia entre “Optimistic Locking” y “Pessimistic Locking”. El libro de Fowler utiliza un ejemplo que me parece totalmente perfecto para entender las diferencias, y es el trabajo en un equipo de desarrollo utilizando control de versiones. En este contexto, “Pessimistic Locking” sería una estrategia en la que una persona bloquea el fichero que va a modificar, y hasta que no lo libere, nadie puede modificarlo a la vez, y “Optimistic Locking” es la estrategia utilizada con herramientas como SVN o Git, donde tu modificas un fichero, y a la hora de hacer commit (o push en Git), si otra persona ha modificado las mismas líneas surge un &lt;strong&gt;conflicto&lt;/strong&gt;, que rechaza el commit y hay que resolver, mientras que si otra persona ha modificado el mismo fichero en diferentes líneas no pasa nada. Otra forma de denominar estas dos estrategias es “detección de conflicto” (optimistic) y “prevención de conflicto” (pessimistic). Con esta base tenemos los siguientes patrones de concurrencia en el libro:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/eaaCatalog/optimisticOfflineLock.html&quot;&gt;Optimistic Offline Lock&lt;/a&gt;: lo dicho, si una transacción genera un conflicto con otra que ha tenido lugar en el mismo tiempo, este patrón detecta el conflicto y hace rollback a la transaccción que intenta completarse más tarde. Para implementar este patrón en una base de datos es necesario añadir una columna de versión que se incrementa por cada transacción realizada, de forma que la transacción sabe cuál fue el número de versión original, y si este cambia al ejecutar el commit es porque ha habido modificación concurrente&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/eaaCatalog/pessimisticOfflineLock.html&quot;&gt;Pessimistic Offline Lock&lt;/a&gt;: implementa la estrategia de pessimistic locking. Necesita para ello un Lock Manager que controle y bloquee el acceso concurrente a información que ya está siendo utilizada. Dentro de este patrón existen una estrategia más ligera (read/write lock) que permite el acceso concurrente para lectura, pero si alguien adquiere el lock de escritura se bloquean todos los accesos posteriores. En general este patrón es menos recomendado que el anterior, porque crea una alta contención (usuarios peleando por recursos) y reduce muchísimo la concurrencia&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Aunque este tema es muy complejo de implementar correctamente, tenemos la suerte de que &lt;a href=&quot;https://blogs.oracle.com/carolmcdonald/entry/jpa_2_0_concurrency_and&quot;&gt;JPA lo ha definido en su estándar&lt;/a&gt;, por lo que cualquier framework que implementa JPA expone en su API el uso de estas estrategias. Aunque eso no quita que tengamos que seguir siendo extremadamente cuidadosos para evitar deadlocks y demás&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/eaaCatalog/coarseGrainedLock.html&quot;&gt;Coarse-Grained Lock&lt;/a&gt;: se trata de utilizar un lock común para un grupo de objetos que deben ser tratados como unidad (o aggregate). Así por ejemplo, si un objeto &lt;code&gt;Person&lt;/code&gt; tiene un objeto &lt;code&gt;Address&lt;/code&gt; asociado, aunque solo queramos modificar la dirección vamos a bloquear también a la persona. Esta estrategia puede implementarse de forma pesimista u optimista&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/eaaCatalog/implicitLock.html&quot;&gt;Implicit Lock&lt;/a&gt;: encapsula la estrategia de locking en un objeto determinado, haciéndolo transparente para los objetos que lo usan. Si entendemos el concepto de Thread Safe, esto viene a ser lo mismo pero ampliado al ámbito de una transacción de negocio. De nuevo, hay que ser muy cuidadosos para implementar esta estrategia&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;session-state-patterns&quot;&gt;Session State Patterns&lt;/h2&gt;
+
+&lt;p&gt;A la hora de plantearnos la escalabilidad de un sistema que desarrollemos, el mayor impedimento será siempre el mantenimiento del estado de las sesiones de usuario. Los tres patrones descritos en esta sección responden a la pregunta, ¿dónde guardo el estado de las sesiones?&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/eaaCatalog/clientSessionState.html&quot;&gt;Client Session State&lt;/a&gt;: almacena el estado completo de la sesión en cliente, haciendo al servidor totalmente stateless. Los problemas de esta estrategia es que las opciones para guardar información en cliente no son demasiadas (cookies, parámetros en la URL, hidden fields), y la información a almacenar ha de ser limitada. También tenemos consideraciones de seguridad, tanto desde el punto de vista de protección de datos de nuestros clientes, como seguridad en nuestro propio servidor al recibir información desde el cliente (cosa que obliga a validar esta información en cada request). Lo bueno de esta estrategia es que la escalabilidad es ilimitada&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/eaaCatalog/serverSessionState.html&quot;&gt;Server Session State&lt;/a&gt;: pues eso, almacenar la sesión en el servidor. Conviene resaltar que, utilizando esta estrategia necesitaremos al menos almacenar una mínima información en cliente debido a la naturaleza stateless del protocolo HTTP (la famosa cookie JSESSIONID en Java, por ejemplo). A grandes rasgos, esta cookie sería la clave en un mapa que localiza los datos de la sesión para un usuario determinado a lo largo de una transacción que comprende varias requests. El mayor problema de este patrón es la escalabilidad, que se resuelve con estrategias como &lt;a href=&quot;http://stackoverflow.com/questions/10494431/sticky-and-non-sticky-sessions&quot;&gt;sticky sessions&lt;/a&gt; (en base a la IP, por ejemplo, todas las requests de un usuario irían a parar al mismo nodo), o migración de datos de sesión entre nodos del cluster (si se detecta que una petición de una transacción en curso va a parar a otro nodo)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/eaaCatalog/databaseSessionState.html&quot;&gt;Database Session State&lt;/a&gt;: es una modalidad de Server Session State que mantiene la información de sesión en base de datos. Más fácilmente escalable, debido a la naturaleza centralizada de una base de datos, un problema a considerar es la limpieza de sesiones longevas (para lo que necesitaríamos un demonio que lo compruebe a determinados intervalos). Otro problema es que su rendimiento respecto a Server Session State es menor, al introducir las conexiones a BDD en la ecuación&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;base-patterns&quot;&gt;Base Patterns&lt;/h2&gt;
+
+&lt;p&gt;La última sección del libro describe una serie de patrones más genéricos, y relativamente sencillos (sobre todo tras asimilar todo lo que venía antes). Los más importantes son:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/eaaCatalog/gateway.html&quot;&gt;Gateway&lt;/a&gt;: es un objeto que encapsula el acceso a un sistema o recurso externo. La diferencia con el patrón Remote Facade mencionado anteriormente es que Gateway es implementado por el cliente para simplificar el acceso a un sistema, mientras que Remote Facade es expuesto por el sistema para reducir el número de llamadas de los clientes que lo utilicen&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/eaaCatalog/separatedInterface.html&quot;&gt;Separated Interface&lt;/a&gt;: define una interfaz en un paquete diferente al de la implementación. Esta patrón está estrechamente relacionado con el &lt;a href=&quot;/2015/03/principios-dependencias&quot;&gt;Dependency Inversion Principle&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/eaaCatalog/registry.html&quot;&gt;Registry&lt;/a&gt;: viene a ser un punto de acceso para localizar servicios u objetos de uso general. Su implementación más común es mediante métodos estáticos, y el propio Fowler desaconseja su uso. Las dependencias estáticas no son nada recomendables para desarrollar tests unitarios solidos, y en estos días de frameworks de inyeccción de dependencias seguro que encontramos mejores alternativas. Así que básicamente, cito este patrón como anti-pattern :)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/eaaCatalog/money.html&quot;&gt;Money&lt;/a&gt;: representa un valor monetario y permite realizar cálculos con dinero (encapsulando toda la lógica de esos cálculos, el redondeo, etc)&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/eaaCatalog/specialCase.html&quot;&gt;Special Case&lt;/a&gt;: es una clase que implementa un caso especial de uso y que nos evita plagar nuestro código de comprobaciones para ese caso especial. Un buen ejemplo sería el &lt;a href=&quot;https://sourcemaking.com/design_patterns/null_object&quot;&gt;Null Object Pattern&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/eaaCatalog/plugin.html&quot;&gt;Plugin&lt;/a&gt;: otro patrón relacionado con el Dependency Inversion Principle. Viene a decir que el linkado de las clases se realiza en tiempo de configuración en lugar de en tiempo de compilación. O en otras palabras: programa con interfaces y utiliza inyección de dependencias&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/eaaCatalog/serviceStub.html&quot;&gt;Service Stub&lt;/a&gt;: encapsula el acceso a un servicio externo mediante una interfaz para facilitar los tests unitarios, mediante mocks de dicha interfaz. Nada que las buenas prácticas y los &lt;a href=&quot;https://en.wikipedia.org/wiki/SOLID_(object-oriented_design)&quot;&gt;principios SOLID&lt;/a&gt; no nos dicten, vamos&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;conclusin&quot;&gt;Conclusión&lt;/h2&gt;
+
+&lt;p&gt;Este libro es un obra monumental, de importancia capital para entender el desarrollo software tal y como lo entendemos hoy día. Aunque el tiempo siempre pasa factura a este tipo de libros, debido al ritmo de evolución de nuestra industria, me atrevería a decir que sigue siendo vigente, con la excepción de algunos patrones, que más que haber perdido vigencia han perdido visibilidad gracias a los frameworks que todos conocemos.&lt;/p&gt;
+
+&lt;p&gt;Espero que estos dos posts empujen a alguien a profundizar en el libro, o que al menos sirvan como referencia para considerar el uso de patrones que antes eran más desconocidos.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Patterns of Enterprise Application Architecture (1)</title>
@@ -100,7 +179,7 @@
 
 &lt;p&gt;Otro tipo de patrones mencionados en el libro tratan temas como la creación de una clave única para nuestros objetos (&lt;a href=&quot;http://martinfowler.com/eaaCatalog/identityField.html&quot;&gt;Identity Field&lt;/a&gt;), la creación de asociaciones entre objetos (&lt;a href=&quot;http://martinfowler.com/eaaCatalog/foreignKeyMapping.html&quot;&gt;Foreign Key Mapping&lt;/a&gt;, &lt;a href=&quot;http://martinfowler.com/eaaCatalog/associationTableMapping.html&quot;&gt;Association Table Mapping&lt;/a&gt;, &lt;a href=&quot;http://martinfowler.com/eaaCatalog/dependentMapping.html&quot;&gt;Dependent Mapping&lt;/a&gt;…), o las diferentes estrategias para modelar un grupo de objetos de dominio y sus tablas asociadas cuando existe herencia en los objetos de dominio. Todos estos patrones es mejor extrapolarlos a la tecnología de acceso a dato concreta que utilicemos, y utilizar las soluciones expuestas en cada framework. Además, sería demasiado farragoso profundizar en todos los detalles en un modesto blog :).&lt;/p&gt;
 
-&lt;p&gt;Lo dejamos aquí por hoy. En el siguiente post resumiré los patrones detallados en la segunda parte del libro.&lt;/p&gt;
+&lt;p&gt;Lo dejamos aquí por hoy. &lt;a href=&quot;/2015/10/patterns-eaa-1&quot;&gt;En el siguiente post&lt;/a&gt; resumiré los patrones detallados en la segunda parte del libro.&lt;/p&gt;
 </content>
  </entry>
  
