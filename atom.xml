@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-10-10T11:50:39+01:00</updated>
+ <updated>2015-10-13T18:34:32+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -14,7 +14,7 @@
  
  <entry>
    <title>Patterns of Enterprise Application Architecture (y 2)</title>
-   <link href="http://www.raulavila.com/2015/10/patterns-eaa-1"/>
+   <link href="http://www.raulavila.com/2015/10/patterns-eaa-2"/>
    <updated>2015-10-10T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/10/patterns-eaa-2</id>
    <content type="html">&lt;p&gt;Continuamos con el repaso a &lt;a href=&quot;http://www.amazon.es/Enterprise-Application-Architecture-Addison-Wesley-Signature/dp/0321127420/ref=sr_1_1?ie=UTF8&amp;amp;qid=1443261882&amp;amp;sr=8-1&amp;amp;keywords=patterns+of+enterprise+application+architecture&quot;&gt;la obra de Fowler&lt;/a&gt;. &lt;a href=&quot;/2015/09/patterns-eaa-1&quot;&gt;En la primera entrega&lt;/a&gt; nos centramos en describir qué es una aplicación empresarial, pasar lista a una serie de métricas de rendimiento, y destacar algunos de los patrones descritos en la primera parte del libro. En este nuevo post, que espero no quede demasiado farragoso, intentaré resumir los que considero los patrones más interesantes de la segunda parte.&lt;/p&gt;
