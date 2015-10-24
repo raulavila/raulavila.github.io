@@ -4,13 +4,69 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-10-13T18:34:32+01:00</updated>
+ <updated>2015-10-24T17:07:52+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Estar al día</title>
+   <link href="http://www.raulavila.com/2015/10/estar-al-dia"/>
+   <updated>2015-10-24T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2015/10/estar-al-dia</id>
+   <content type="html">&lt;p&gt;En su charla &lt;a href=&quot;https://www.youtube.com/watch?v=7rMM6BqNEq4&quot;&gt;“Políticamente Incorrecto”&lt;/a&gt;, &lt;a href=&quot;https://twitter.com/david_bonilla&quot;&gt;David Bonilla&lt;/a&gt; comentaba, entre las risas de los presentes, que abandonó la carrera de Derecho para estudiar Informática debido a que le resultaba agotador pensar que siendo abogado debería estar toda su vida estudiando.&lt;/p&gt;
+
+&lt;p&gt;La verdad es que hemos elegido una carrera donde no queda otra que reciclarse continuamente, y dedicar gran parte de nuestro tiempo libre a mantenerse actualizado. Eso siempre y cuando nos consideremos verdaderos profesionales, y no personas que han decidido trabajar de programadores para ganarse el pan sin más. Esta última opción me parece totalmente respetable, siempre y cuando no se termine en quejas continuas de lo mal que esta la profesión o de las pocas subidas de sueldo que se obtienen.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;Si algo tengo claro, como ya comenté en &lt;a href=&quot;/2015/08/10-years&quot;&gt;mi post de los 10 años&lt;/a&gt;, es que somos afortunados de trabajar en el sector de las tecnologías. Los sueldos son bastante razonables (&lt;a href=&quot;/2015/04/trabajo-londres&quot;&gt;aunque más o menos dependiendo del país en que se trabaje&lt;/a&gt;), pero yo siempre he pensado que uno de los motivos de que obtengamos un jornal respetable es que en él va también el tiempo que tenemos que dedicar fuera de la oficina para estar al día.&lt;/p&gt;
+
+&lt;p&gt;Y no me parece mal en absoluto. Quien de verdad disfrute el desarrollo software no debería tener ningún problema en leer libros, artículos, blogs, ver tutoriales, etc. ¿O sí? Además me parece increíblemente excitante vivir en primera persona la increíble evolución de la tecnología en los últimos años: la revolución ágil, contenedores virtuales (como &lt;a href=&quot;/2015/07/revolucion-docker&quot;&gt;Docker&lt;/a&gt;), Cloud Computing (PaaS, SaaS…), la programación funcional encontrando un hueco real en el mundo empresarial (Scala, Clojure, Java 8), etc. En fin, buenos tiempos, que diría aquel.&lt;/p&gt;
+
+&lt;p&gt;En este post pretendo recopilar las fuentes que utilizo de forma relativamente frecuente para estar al tanto de todas las innovaciones a nivel tecnológico y metodológico en el mundo IT. La mayoría de ellas, evidentemente, están en inglés. No creo que sea necesario reseñar la importancia del inglés en nuestro sector, ¿verdad? Bien, empecemos.&lt;/p&gt;
+
+&lt;h2 id=&quot;twitter&quot;&gt;Twitter&lt;/h2&gt;
+
+&lt;p&gt;Me atrevería a afirmar que hoy día no se puede entender Internet sin Twitter. El problema de Twitter es su inmensidad, que puede llegar a agobiar en ocasiones. Pero nada como seguir a las personas adecuadas, tirar un poco de la cuerda, y montaremos una lista de referencia que nos hará imposible vivir de espaldas a la realidad. No querría sobrecargar el post con una ristra interminable de “influencers”, pero si os interesa, &lt;a href=&quot;https://twitter.com/ravila80/following&quot;&gt;aquí dejo mi lista de gente a la que sigo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;newsletters--listas-de-correo&quot;&gt;Newsletters / Listas de correo&lt;/h2&gt;
+
+&lt;p&gt;Las newsletters a las que estoy suscrito son:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://bonillaware.us2.list-manage.com/subscribe?u=374c664073e1a1fa3deca53b4&amp;amp;id=e67967d43f&quot;&gt;Bonilista&lt;/a&gt;: de forma semanal y con puntualidad británica, David Bonilla nos cuenta sus impresiones sobre cualquier cosa que le pase por la cabeza. No es para nada técnica, pero me parece extremadamente interesante. En los últimos tiempos nos está permitiendo vivir de primera mano la evolución de su startup, &lt;a href=&quot;http://www.otogami.com/&quot;&gt;Otogami&lt;/a&gt;, y la forma en que se está partiendo los cuernos por ella. También habla mucho sobre legislación en torno al Software y monetización.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.baeldung.com/category/weekly-review/&quot;&gt;Baeldung Weekly Review&lt;/a&gt;: rebautizada recientemente como “Java Web Weekly”, este señor nos recopila cada viernes los artículos más interesantes publicados durante la semana en el mundillo Java. Siendo honestos, nunca encuentro el tiempo de leerme ni la mitad, pero es genial que alguien publique contenidos filtrados de forma tan brillante. Además de la lista de correo, &lt;a href=&quot;http://www.baeldung.com/&quot;&gt;su web&lt;/a&gt; está llena de tutoriales muy interesantes, con Spring como eje&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://simpleprogrammer.com/about-simple-programmer/&quot;&gt;Simple Programmer&lt;/a&gt;: artículos sobre temas más genéricos (Soft Skills que llaman) para mejorar y crecer como profesionales. Pongo este link un poco en cuarentena, ya que recientemente John Somnez, su autor, ha publicado que dejará de escribir por un tiempo. Más que una newsletter, en su correo semanal encontrábamos los links de los artículos publicados en la web, y de vez en cuando mandaba algún artículo interesante solo para suscriptores. Es una pena que lo deje temporalmente, aunque entiendo su posición después de haber hecho un montón de dinero con sus múltiples cursos y &lt;a href=&quot;http://www.amazon.co.uk/Soft-Skills-software-developers-manual/dp/1617292397/ref=sr_1_1?ie=UTF8&amp;amp;qid=1445699801&amp;amp;sr=8-1&amp;amp;keywords=Soft+Skills&quot;&gt;su libro&lt;/a&gt;. Parece ser que otros autores seguirán manteniendo la llama, veremos.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.javaspecialists.eu/&quot;&gt;Java Specialists&lt;/a&gt;: la he descubierto hace muy poco tiempo, pero promete bastante. Correo mensual sobre temas Java muy específicos, que tratan de explotar la Java API al máximo&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;agregadores-de-contenidos&quot;&gt;Agregadores de contenidos&lt;/h2&gt;
+
+&lt;p&gt;Son tres webs que se dedican a recopilar artículos destacados en blogs y páginas varias, con artículos de cosecha propia en ocasiones. Todas ellas tienen su modelo de suscripción, donde envían de forma periódica un correo resumen o contenidos más exclusivos.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://dzone.com/&quot;&gt;DZone&lt;/a&gt;: monstruosa web dividida por secciones. Envían una cantidad algo excesiva de correos en mi opinión, pero siempre se encuentran joyas a considerar. Personalmente, me gustan mucho sus &lt;a href=&quot;https://dzone.com/refcardz&quot;&gt;Refcardz&lt;/a&gt;, documentos de unas 6 páginas sintentizando un tema concreto (sea Apache Camel, Doman Driven Design o Java Caching), ideal para iniciarse en una tecnología desconocida o tenerla a mano para un proyecto específico&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.javacodegeeks.com/&quot;&gt;Java Code Geeks&lt;/a&gt;: la referencia indiscutible en Java. En los últimos tiempos han crecido bastante, y llegaron a ofrecer cursos de pago, que ahora han liberado. También tienen publicados una seria de minilibros bastante interesante. Imprescindible suscribirse a su lista de correo&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.infoq.com/&quot;&gt;InfoQ&lt;/a&gt;: web similar a DZone, su mayor fuerte, en mi opinión, son los vídeos grabados en conferencias que publican. Sus correos son bastante menos periódicos que los de las dos webs anteriores (pero mucho más densos), cosa que se agradece&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;web-personales--tutoriales--blogs&quot;&gt;Web personales / Tutoriales / Blogs&lt;/h2&gt;
+
+&lt;p&gt;Podría estar hasta el final del año listando blogs y páginas que en algún momento u otro resultan imprescindibles, bien por la forma en que marcan tendencia, o por la utilidad de los cursos o tutoriales que publican. Pero intentaré reducir la lista en un top 3 (dejando aparte las páginas escritas por los autores de las newsletters mencionadas más arriba).&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://martinfowler.com/&quot;&gt;Martin Fowler&lt;/a&gt;: una de las tres personalidades más importantes del desarrollo software. Ya &lt;a href=&quot;/2015/09/patterns-eaa-1&quot;&gt;hemos hablado de él en el blog&lt;/a&gt;, &lt;a href=&quot;/2015/02/fowler-refactoring-1&quot;&gt;y en varias ocasiones&lt;/a&gt;. Su web contiene artículos seminales, como puede ser el de &lt;a href=&quot;http://martinfowler.com/articles/injection.html&quot;&gt;Dependency Injection&lt;/a&gt;, o el de &lt;a href=&quot;http://martinfowler.com/articles/microservices.html&quot;&gt;Microservices&lt;/a&gt;. Descubridlo por vosotros mismos&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://tutorials.jenkov.com/&quot;&gt;Jenkov Tutorials&lt;/a&gt;: todos ellos escritos por &lt;a href=&quot;https://twitter.com/jjenkov&quot;&gt;Jakob Jenkov&lt;/a&gt;, sus tutoriales condensan excepcionalmente bien el tema del que traten. Parece que le está yendo muy bien, porque en los últimos dos años el número de tutoriales ha crecido de forma exponencial, pasando de ser una web bastante especializada en Java, a tocar temas de arquitectura, front-end, e incluso &lt;a href=&quot;http://tutorials.jenkov.com/software-as-career/index.html&quot;&gt;Career Progression&lt;/a&gt;. Me alegro mucho por él&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.petrikainulainen.net/&quot;&gt;Petri Kainulainen&lt;/a&gt;: otro crack que publica semanalmente artículos y tutoriales con Java y Spring como tema principal. Además, a diferencia de Jenkov, este señor tiene su trabajo de 9 a 6. La verdad es que no entiendo de donde saca el tiempo la gente, pero bravo por ellos&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Lo dejo aquí. No suelo pedir comentarios a menudo, pero en este caso se agradecerán las contribuciones más que nunca si conocéis alguna página destacada que merezca la pena mencionar.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Patterns of Enterprise Application Architecture (y 2)</title>
