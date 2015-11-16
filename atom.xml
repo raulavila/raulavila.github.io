@@ -4,13 +4,48 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2015-11-08T13:38:44+00:00</updated>
+ <updated>2015-11-16T19:49:04+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Global Day of Code Retreat (2015)</title>
+   <link href="http://www.raulavila.com/2015/11/code-retreat-2015"/>
+   <updated>2015-11-16T00:00:00+00:00</updated>
+   <id>http://www.raulavila.com/2015/11/code-retreat-2015</id>
+   <content type="html">&lt;p&gt;La semana pasada tuvo lugar el &lt;a href=&quot;http://globalday.coderetreat.org/&quot;&gt;“Global Day of Code Retreat”&lt;/a&gt;. Se trata de un acontecimiento a nivel mundial, donde programadores de cualquier experiencia y bagaje se juntan durante un día para mejorar sus habilidades.&lt;/p&gt;
+
+&lt;p&gt;Aunque se lleva celebrando varios años no fue hasta este que me enteré de su existencia, gracias a la &lt;a href=&quot;http://www.meetup.com/london-software-craftsmanship/&quot;&gt;LSCC&lt;/a&gt;. Me consta que muchísimas ciudades españolas se unen al evento cada año, así que mea culpa si nunca asistí durante todos los años que vivía en Madrid, seguramente era bastante menos inquieto de lo que soy ahora.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;La jornada se desarrolló un sábado comenzando a las 8:30 de la mañana. Personalmente creo que esta circunstancia crea un filtro excelente que hace que todos los que asisten estén realmente interesados, porque ¿alguien madrugaría un sábado más que un día de diario para hacer algo en lo que realmente no tiene interés?&lt;/p&gt;
+
+&lt;p&gt;En Londres, fueron varias las empresas que alojaron a diferentes grupos de desarrolladores dispuestos a compartir sus conocimientos y aprender juntos. Yo me decidí por &lt;a href=&quot;http://pivotal.io/&quot;&gt;Pivotal&lt;/a&gt;, que era la que más cerca de casa estaba. Siempre es de agradecer que haya empresas punteras que cedan sus instalaciones para estas historias, y dice mucho a favor de ellas.&lt;/p&gt;
+
+&lt;p&gt;Sin tener ni la más remota idea de lo que allí ocurriría, después de un desayuno patrocinado por los anfitriones, que ríete tú del de los hoteles, y después de una breve presentación a cargo de uno de los organizadores (empleado de &lt;a href=&quot;http://codurance.com/&quot;&gt;Codurance&lt;/a&gt;, una empresa de referencia dentro del movimiento &lt;a href=&quot;http://manifesto.softwarecraftsmanship.org/&quot;&gt;Software Craftmanship&lt;/a&gt;), se inició una serie de seis sesiones “hands-on”, donde, programando por parejas, había que intentar resolver el ejercicio &lt;a href=&quot;https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life&quot;&gt;Conway’s Game of Life&lt;/a&gt; una y otra vez. Además, al final de cada sesión (de 45 minutos cada una) era obligatorio borrar el código desarrollado.&lt;/p&gt;
+
+&lt;p&gt;Habéis leído bien, el día consistía en resolver el mismo problema desde cero, rotando parejas, seguramente lenguajes, a lo que además añado era prácticamente obligatorio utilizar &lt;a href=&quot;/2015/08/primera-experiencia-tdd/&quot;&gt;TDD&lt;/a&gt; para dirigir nuestro desarrollo.&lt;/p&gt;
+
+&lt;p&gt;¿Y dónde está la gracia de hacer lo mismo una y otra vez? Pues en que cada sesión imponía determinadas restricciones que había que respetar, a saber:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Mute Pair Programming: un programador escribe el test fallido y se lo pasa al otro para que codifique el código de producción que haga pasar el test. ¡No se puede hablar!&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://williamdurand.fr/2013/06/03/object-calisthenics/&quot;&gt;Object Calisthenics&lt;/a&gt;: se trata de seguir una serie de restricciones en nuestro código, que limitan el rango de actuación. Por ejemplo, un solo punto por línea de código, no utilizar &lt;code&gt;else&lt;/code&gt;, etc. En el link podéis profundizar en el tema si estáis interesados&lt;/li&gt;
+  &lt;li&gt;Otro tipo de restricciones como: utilizar solo objetos inmutables, sin ni siquiera getters (¡no sabéis lo complicado que es esto!)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Adicionalmente, cuando buscabas tu pareja era posible elegir un lenguaje que no supieras, lo cual se reveló como algo realmente enriquecedor. Gracias a esto aprendí el framework &lt;a href=&quot;https://mochajs.org/&quot;&gt;Mocha&lt;/a&gt; para implementar tests en Javascript.&lt;/p&gt;
+
+&lt;p&gt;Tras cada sesión hacíamos una retrospectiva conjunta en la que comentábamos los desafíos que encontrábamos, como intentamos superarlos, etc. Me resultó muy curioso comprobar cómo la forma de acercarse al mismo problema variaba según la pareja que tuvieras, y cómo en cada sesión íbamos obteniendo un código más depurado (y eso que siempre lo empezábamos desde cero).&lt;/p&gt;
+
+&lt;p&gt;No tengo la menor duda que en el futuro repetiré, encontré esta jornada realmente útil (y agotadora, todo sea dicho). El evento se celebra siempre a finales de Noviembre, ¡así que permaneced atentos para el próximo año!&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Tests de contrato</title>
