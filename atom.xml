@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2016-01-26T22:07:08+00:00</updated>
+ <updated>2016-01-27T19:41:56+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -29,7 +29,7 @@
 
 &lt;h3 id=&quot;primer-paso-el-libro-de-kent-beck&quot;&gt;Primer paso: El libro de Kent Beck&lt;/h3&gt;
 
-&lt;p&gt;&lt;a href=&quot;(http://www.amazon.es/Driven-Development-Example-Addison-Wesley-Signature/dp/0321146530/ref=sr_1_1?ie=UTF8&amp;amp;qid=1438434705&amp;amp;sr=8-1&amp;amp;keywords=Kent+Beck)&quot;&gt;Test Driven Development by Example&lt;/a&gt; es considerado la obra fundamental por los “TDD practicioners”. Tras haberla leído, diría que el libro se queda un poco a medias, pero su primera parte es &lt;strong&gt;imprescindible&lt;/strong&gt;. Es en esta primera parte donde se desarrolla paso a paso un sistema específico (para realizar operaciones monetarias, básicamente) mediante el famoso proceso “Red-Green-Refactor”. Este sería el primer ejemplo que yo recomendaría implementar a un completo novato en la materia para “romper el cascarón”. Si os interesa echar un vistazo, &lt;a href=&quot;https://github.com/raulavila/tdd-kent-beck&quot;&gt;aquí está mi implementación&lt;/a&gt;, aunque no os servirá de nada si no lo hacéis por vosotros mismos.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.amazon.es/Driven-Development-Example-Addison-Wesley-Signature/dp/0321146530/ref=sr_1_1?ie=UTF8&amp;amp;qid=1438434705&amp;amp;sr=8-1&amp;amp;keywords=Kent+Beck&quot;&gt;Test Driven Development by Example&lt;/a&gt; es considerado la obra fundamental por los “TDD practicioners”. Tras haberla leído, diría que el libro se queda un poco a medias, pero su primera parte es &lt;strong&gt;imprescindible&lt;/strong&gt;. Es en esta primera parte donde se desarrolla paso a paso un sistema específico (para realizar operaciones monetarias, básicamente) mediante el famoso proceso “Red-Green-Refactor”. Este sería el primer ejemplo que yo recomendaría implementar a un completo novato en la materia para “romper el cascarón”. Si os interesa echar un vistazo, &lt;a href=&quot;https://github.com/raulavila/tdd-kent-beck&quot;&gt;aquí está mi implementación&lt;/a&gt;, aunque no os servirá de nada si no lo hacéis por vosotros mismos.&lt;/p&gt;
 
 &lt;p&gt;La segunda parte del libro peca un poco de ser algo teórica. Dejando de lado un segundo ejemplo donde se implementa un framework xUnit utilizando TDD (algo así como meta-TDD), y que personalmente creo que es algo confuso y no aporta conocimiento “de trincheras”, el libro entra en varios capítulos donde se describen patrones de diseño y refactorings de forma demasiado teórica (sin código de por medio). A mi parecer, es complicado seguir algunas explicaciones sin ejemplos claros. Es algo que me costó a mí, incluso conociendo casi todos los patrones y refactorings (varios de los refactorings provienen del &lt;a href=&quot;/2015/02/fowler-refactoring-1&quot;&gt;libro de Fowler&lt;/a&gt;), así que imagino será mucho más confuso para programadores más noveles.&lt;/p&gt;
 
