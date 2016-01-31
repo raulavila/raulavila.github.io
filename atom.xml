@@ -4,13 +4,42 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2016-01-27T19:41:56+00:00</updated>
+ <updated>2016-01-31T11:42:03+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Un año de blog</title>
+   <link href="http://www.raulavila.com/2016/primer-aniversario"/>
+   <updated>2016-01-31T00:00:00+00:00</updated>
+   <id>http://www.raulavila.com/2016/primer-aniversario</id>
+   <content type="html">&lt;p&gt;Pues como quien no quiere la cosa ya hace un año que inicié mi aventura con este blog :). Concretamente el 25 de Enero de 2015 publiqué el inevitable &lt;a href=&quot;/2015/01/hello-world&quot;&gt;Hello World&lt;/a&gt;, y las dos semanas previas a esa fecha las pasé configurando todo para la puesta en marcha, &lt;a href=&quot;/2015/01/como-hice-el-blog&quot;&gt;tal y como expliqué en mi segundo post&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;En concreto, me pareció una experiencia muy interesante la investigación que llevé a cabo de las diferentes plataformas disponibles para publicar mi web, y que finalmente me llevó a utilizar &lt;a href=&quot;https://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt; y alojarlo en &lt;a href=&quot;https://github.com/&quot;&gt;GitHub&lt;/a&gt;, una opción barata y muy conveniente para blogs enfocados al desarrollo y demás.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;Durante estos doce meses he publicado un total de 38 posts, número que no llega al objetivo de 50 (más o menos uno por semana) que me marqué. Si algo he aprendido es que es realmente complicado (al menos para mí) escribir un artículo cada siete días manteniendo una calidad suficiente, lo cual me hace valorar en su justa medida a populares bloggers que escriben dos o más veces cada semana.&lt;/p&gt;
+
+&lt;p&gt;Los artículos de los que me siente más orgulloso sin ninguna duda son &lt;a href=&quot;/2015/05/multithreading-1&quot;&gt;mi serie de Multithreading&lt;/a&gt;. No serán los más populares a nivel de visitas, pero creo que me quedaron tres posts muy chulos para no expertos en la materia.&lt;/p&gt;
+
+&lt;p&gt;La otra cara de la moneda es mi artículo sobre &lt;a href=&quot;/2015/02/atajos-teclado-ide&quot;&gt;atajos de teclado en IDEs&lt;/a&gt;. Debido a que yo no utilizo los atajos estándar en IntelliJ IDEA (cosa que creo remediaré este año) creí adecuado reseñar en las tablas los que yo utilizo (que viene a ser la versión Eclipse Keymap con pequeñas variaciones). Creo que esto es bastante confuso para los lectores, y seguramente actualice el post durante este año con los atajos estándar.&lt;/p&gt;
+
+&lt;p&gt;El post que ha recibido más visitas, y con diferencia, es &lt;a href=&quot;/2015/04/trabajo-londres&quot;&gt;Cómo encontré trabajo de informático en Londres&lt;/a&gt;, hasta el punto de que si buscas en Google “trabajo informático Londres”, el post aparece en segundo lugar (!!!). Es curioso que uno de los artículos que menos tiempo me llevó escribir sea el que más visitas atrae. No hay día que no sea el primero, y aunque los motivos para ellos son evidentes, nunca imaginé que tendría tanto “éxito”. Curiosamente el segundo post más visitado es el de los atajos de teclado, lo cual hace que me resulte algo embarazoso la confusión que puede crear a quién lo lea.&lt;/p&gt;
+
+&lt;p&gt;En todo este año, cuatro personas me han contactado a través del blog. Tres de ellas interesándose en profundizar algo más en el funcionamiento del mercado laboral en Londres, requisitos necesarios para dar el salto, o incluso mandándome directamente el CV…Una cuarta fue un extraño correo que recibí de una pequeña empresa de Barcelona buscando a un informático que les ayudara con una web a medias que dejó un ex-empleado (!!).&lt;/p&gt;
+
+&lt;p&gt;A nivel personal, diría que la experiencia está siendo más que satisfactoria. Es genial dar forma a un post durante una mañana, y comprobar que eres capaz de explicar ideas con relativa claridad. La satisfacción es doble cuando compruebas en Google Analytics que le está sirviendo a otras personas.&lt;/p&gt;
+
+&lt;p&gt;Veremos qué depara el segundo año. Tengo muchísimos temas para hablar en la recámara, pero a nivel personal 2016 va a ser muy importante a nivel profesional y no sé cómo andaré de tiempo. En concreto mañana me incorporo a mi nueva empresa, y no podría estar más excitado (y nervioso a la vez). Entre otras cosas, gracias a este cambio continuaré profundizando en el &lt;a href=&quot;/2015/08/primera-experiencia-tdd&quot;&gt;TDD&lt;/a&gt;, y por supuesto seguiré hablando de ello.&lt;/p&gt;
+
+&lt;p&gt;Gracias por leerme.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Aprendiendo TDD</title>
