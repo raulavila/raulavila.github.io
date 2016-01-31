@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2016-01-31T11:42:03+00:00</updated>
+ <updated>2016-01-31T11:44:20+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -14,9 +14,9 @@
  
  <entry>
    <title>Un año de blog</title>
-   <link href="http://www.raulavila.com/2016/primer-aniversario"/>
+   <link href="http://www.raulavila.com/2016/01/primer-aniversario"/>
    <updated>2016-01-31T00:00:00+00:00</updated>
-   <id>http://www.raulavila.com/2016/primer-aniversario</id>
+   <id>http://www.raulavila.com/2016/01/primer-aniversario</id>
    <content type="html">&lt;p&gt;Pues como quien no quiere la cosa ya hace un año que inicié mi aventura con este blog :). Concretamente el 25 de Enero de 2015 publiqué el inevitable &lt;a href=&quot;/2015/01/hello-world&quot;&gt;Hello World&lt;/a&gt;, y las dos semanas previas a esa fecha las pasé configurando todo para la puesta en marcha, &lt;a href=&quot;/2015/01/como-hice-el-blog&quot;&gt;tal y como expliqué en mi segundo post&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;En concreto, me pareció una experiencia muy interesante la investigación que llevé a cabo de las diferentes plataformas disponibles para publicar mi web, y que finalmente me llevó a utilizar &lt;a href=&quot;https://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt; y alojarlo en &lt;a href=&quot;https://github.com/&quot;&gt;GitHub&lt;/a&gt;, una opción barata y muy conveniente para blogs enfocados al desarrollo y demás.&lt;/p&gt;
