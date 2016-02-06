@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Gradle desde Maven
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Raúl Ávila" href="/atom.xml">
+
+</head>
+
+
+  <body>
+
+    <div class="container content">
+      <header class="masthead">
+        <h1 class="masthead-title">
+          <a href="/" title="Home">Raúl Ávila</a>
+        </h1>
+
+            <small><a href="/sobre-mi">Sobre mí</a></small>
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/archivos">Archivos</a></small>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title">Gradle desde Maven</h1>
+  <time datetime="2015-09-05T00:00:00+01:00" class="post-date">05/09/2015</time>
+  <div class="post-tags">
+    
+    | <a href="/tag/desarrollo">desarrollo</a> |
+    
+    | <a href="/tag/herramientas">herramientas</a> |
+    
+  </div>
+  <div class="post-share">
+    <a class="twitter-share-button"
+    data-via="_Raul_Avila"
+    data-count="none"
+    href="https://twitter.com/share">Tweet</a>
+  </div>
+  <p>Tras hablar de <a href="/2015/08/caracteristicas-maven/">Maven</a> hace un par de posts, he pensado que sería interesante realizar una introducción a <a href="https://gradle.org/">Gradle</a>, una alternativa con sus orígenes en proyectos basados en el lenguaje <a href="http://www.groovy-lang.org/">Groovy</a>. Groovy, al ser un lenguaje ejecutable en la JVM, convive perfectamente con Java, y de esta compatibilidad surgen interesantes aplicaciones (entre las que, a mi parecer, destaca el framework de testing <a href="https://github.com/spockframework/">Spock</a>, del que hablaremos muy pronto).</p>
+
+<p>Gradle, aunque pensado inicialmente para construir proyectos Groovy, se aprovecha de esta compatibilidad con Java, permitiendo gestionar proyectos en dicho lenguaje sin ningún problema. Aprender Gradle es sencillo, pero hay que realizar un pequeño esfuerzo para obviar el modelo Maven al tomar contacto con la herramienta. Al menos eso es lo que me ocurrió a mí durante las primeras semanas que tuve que utilizarlo. En este post explicaré los conceptos básicos, y los pondré en contraste con sus contrapuntos en Maven.</p>
+
+<!--break-->
+
+<h3 id="fichero-build">Fichero build</h3>
+
+<p>Tras instalar Gradle en nuestro equipo (os remito a la <a href="https://docs.gradle.org/current/userguide/installation.html">documentación oficial</a>), vamos a construir el típico “Hello World”. Todos conocemos el fichero POM en Maven, se trata de un XML en el que configuramos las características básicas del proceso de construcción, las dependencias, etc. Al ser XML un formato tan verboso, incluso el proyecto más básico requiere de una configuración mínima, o será imposible ejecutar tareas de Maven en el directorio en cuestión.</p>
+
+<p>Esto cambia radicalmente en Gradle. El fichero de build ha de tener por defecto el nombre <code class="highlighter-rouge">build.gradle</code> (aunque se puede cambiar mientras se indique en las opciones del comando gradle…), y, ¡puede estar totalmente vacío! En efecto, veamos qué ocurre si, dentro de un directorio que contenga dicho fichero vacío invocamos el comando <code class="highlighter-rouge">gradle</code>:</p>
+
+<p><img src="/public/pictures/gradle/gradle-1.jpg" alt="Gradle - empty" /></p>
+
+<p>Vemos que, aunque ha ocurrido poca cosa, el build es exitoso. También vemos que nos ofrece algo de ayuda sobre las cosas que podemos hacer, entre las que destaca “ver la lista de tareas disponibles”. Veamos qué ocurre si utilizamos esta opción (<code class="highlighter-rouge">gradle tasks</code>):</p>
+
+<p><img src="/public/pictures/gradle/gradle-2.jpg" alt="Gradle - empty" /></p>
+
+<p>Tenemos por tanto una lista de tareas que podríamos ejecutar, en la forma <code class="highlighter-rouge">gradle &lt;task&gt;</code>, por ejemplo <code class="highlighter-rouge">gradle dependencies</code>. Pero, ¿qué es una tarea?</p>
+
+<h3 id="tareas-tasks">Tareas (tasks)</h3>
+
+<p>La tarea es la unidad básica de trabajo en Gradle. Mientras que en Maven podríamos decir que las unidades de trabajo son las fases y los plugin goals, que son conceptos de más alto nivel, en Gradle se produce una vuelta a la base, utilizando un concepto que guarda mucha relación con algo que los más viejos del lugar conocerán: los targets de <a href="http://ant.apache.org/">Ant</a>. Ant fue la primera herramienta seria para construir proyectos en Java, y que destacaba por su flexibilidad. Maven impuso un modelo más rígido, que tiene sus desventajas, y Gradle ha revertido algo las tornas volviendo a la flexibilidad (que no digo que sea necesariamente buena).</p>
+
+<p>Volviendo a las tareas, el contenido de un fichero build en Gradle se especifica utilizando código Groovy, lo cual nos permite hacer cualquier cosa que se nos pase por la cabeza (¡podemos ejecutar el código fuente que queramos!).</p>
+
+<p>Vamos a crear una tarea muy básica:</p>
+
+<figure class="highlight"><pre><code class="language-groovy" data-lang="groovy"><span class="n">task</span> <span class="n">task1</span> <span class="o">&lt;&lt;</span> <span class="o">{</span>
+    <span class="n">println</span> <span class="s1">'Hello World!'</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Lo que estamos haciendo aquí es, ni más ni menos, que inyectar una nueva tarea, de nombre <code class="highlighter-rouge">task1</code> en el objecto <code class="highlighter-rouge">project</code> (más información abajo), tarea que podremos ver en la lista devuelta por <code class="highlighter-rouge">gradle tasks</code>, y que por supuesto podremos invocar:</p>
+
+<p><img src="/public/pictures/gradle/gradle-3.jpg" alt="Gradle - empty" /></p>
+
+<p>¡Ya hemos creado nuestro primer proyecto Gradle! Y tan sólo con un fichero, sin necesidad de tener un layout para contener fuentes, etc. Quizás estéis algo extrañado por la notación <code class="highlighter-rouge">&lt;&lt;</code>, este operador de Groovy se encarga de inyectar acciones a la tarea, que serán ejecutadas cada vez que la invoquemos. En realidad se trata de un alias del método <code class="highlighter-rouge">doLast</code>, como vemos a continuación:</p>
+
+<figure class="highlight"><pre><code class="language-groovy" data-lang="groovy"><span class="n">task</span> <span class="n">task1</span> <span class="o">{</span>
+    <span class="n">println</span> <span class="s1">'Configuring task'</span>
+
+    <span class="n">doLast</span> <span class="o">{</span>
+        <span class="n">println</span> <span class="s1">'Hello World!'</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>¿Cuál será la salida de <code class="highlighter-rouge">gradle task1</code> ahora?</p>
+
+<p><img src="/public/pictures/gradle/gradle-4.jpg" alt="Gradle - empty" /></p>
+
+<p>Vemos que la ejecución de cada tarea viene precedida por <code class="highlighter-rouge">:task</code>, ¡pero el texto “Configuring task” se ha mostrado antes! En esta ocasión, no hemos utilizado el operador <code class="highlighter-rouge">&lt;&lt;</code>, por lo que el closure pasado a task1 no es un conjunto de acciones, sino lo que se conoce como “configuration closure”, y que viene a ser el equivalente al constructor de la tarea. Dentro de este constructor, mediante el método <code class="highlighter-rouge">doLast</code> podemos ir añadiendo acciones, que serán las que realmente se ejecuten cuando se ejecute la tarea, y todo lo que esté fuera de este método serán comandos ejecutados en tiempo de construcción. Gradle construye las tareas en su fase <code class="highlighter-rouge">init</code> que se ejecuta antes de pasar a cualquier otra cosa (y que podemos ejecutar nosotros mismos para ver lo ocurre, probadlo con <code class="highlighter-rouge">gradle init</code>). Además de <code class="highlighter-rouge">doLast</code>, tenemos el contrapunto <code class="highlighter-rouge">doFirst</code>, aunque es utilizado menos.</p>
+
+<h3 id="proyecto-project">Proyecto (project)</h3>
+
+<p>Gradle genera una instancia de la clase Project, que contendrá la configuración de todo nuestro proyecto, a saber: tareas, propiedades, dependencias, etc. Por defecto, este objeto contiene un montón de propiedades configuradas (que podemos consultar mediante <code class="highlighter-rouge">gradle properties</code>). Nosotros podemos añadir propiedades al gusto mediante el closure <code class="highlighter-rouge">ext</code>, o utilizando un fichero de propiedades (gradle.properties). Veamos como sería en el primer caso:</p>
+
+<figure class="highlight"><pre><code class="language-groovy" data-lang="groovy"><span class="n">ext</span> <span class="o">{</span>
+    <span class="n">myproperty</span> <span class="o">=</span> <span class="s1">'value1'</span>
+<span class="o">}</span>
+<span class="n">task</span> <span class="n">task1</span> <span class="o">&lt;&lt;</span> <span class="o">{</span>
+    <span class="n">println</span> <span class="s1">'myproperty: '</span> <span class="o">+</span> <span class="n">project</span><span class="o">.</span><span class="na">properties</span><span class="o">[</span><span class="s1">'myproperty'</span><span class="o">]</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>De acuerdo a esto, <code class="highlighter-rouge">gradle task1</code> mostraría el texto “myproperty: value1”. La referencia explícita al objecto project está de más, porque Gradle buscará por defecto cualquier referencia ahí dentro :), así que el siguiente build sería equivalente:</p>
+
+<figure class="highlight"><pre><code class="language-groovy" data-lang="groovy"><span class="n">ext</span> <span class="o">{</span>
+    <span class="n">myproperty</span> <span class="o">=</span> <span class="s1">'value1'</span>
+<span class="o">}</span>
+<span class="n">task</span> <span class="n">task1</span> <span class="o">&lt;&lt;</span> <span class="o">{</span>
+    <span class="n">println</span> <span class="s1">'myproperty: '</span> <span class="o">+</span> <span class="n">myproperty</span>
+<span class="o">}</span></code></pre></figure>
+
+<h3 id="ms-sobre-tareas">Más sobre tareas</h3>
+
+<p>Sabiendo ya que las tareas no son más que un fragmento de código que se ejecuta cuando es requerido en el proceso de build, otras características a conocer de las mismas son:</p>
+
+<ul>
+  <li>Las tareas pueden depender de otras tareas (¿recordáis Ant?)</li>
+  <li>Las tareas pueden tener una descripción, que es la que se muestra cuando son listadas por <code class="highlighter-rouge">gradle tasks</code></li>
+  <li>Podemos invocar varias tareas en un comando gradle, y se ejecutarán en orden, por ejemplo <code class="highlighter-rouge">gradle task2 task3</code>. Sin embargo, cada tarea se ejecutará una sola vez en cada build</li>
+  <li>Podemos configurar una tarea por defecto en el fichero build, que será la que se ejecute si invocamos tan solo <code class="highlighter-rouge">gradle</code></li>
+</ul>
+
+<p>En el siguiente ejemplo vemos todo esto plasmado en código:</p>
+
+<figure class="highlight"><pre><code class="language-groovy" data-lang="groovy"><span class="n">defaultTasks</span> <span class="s1">'task1'</span>
+
+<span class="n">task</span> <span class="nf">task1</span><span class="o">(</span><span class="nl">description:</span> <span class="s1">'Description of the task'</span><span class="o">)</span> <span class="o">&lt;&lt;</span> <span class="o">{</span>
+    <span class="n">println</span> <span class="s1">'task1'</span>
+<span class="o">}</span>
+<span class="n">task</span> <span class="nf">task2</span><span class="o">(</span><span class="nl">dependsOn:</span> <span class="n">task1</span><span class="o">)</span> <span class="o">&lt;&lt;</span> <span class="o">{</span>
+    <span class="n">println</span> <span class="s1">'task2'</span>
+<span class="o">}</span>
+<span class="n">task</span> <span class="n">task3</span> <span class="o">&lt;&lt;</span> <span class="o">{</span>
+    <span class="n">println</span> <span class="s1">'task3'</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>A partir de este fichero build, <code class="highlighter-rouge">gradle</code> ejecutaría task1 (que además tiene su descripción…), y <code class="highlighter-rouge">gradle task2</code> ejecutaría task1 primero.</p>
+
+<p>Por último, existen en Gradle unos tipos de tareas base (algo así como tareas abstractas, que en la jerga de Gradle se llaman “enhanced tasks”, y no son más que una clase Groovy), que podemos utilizar para realizar tareas más complejas añadiendo las acciones necesarias en el “configuration closure” (proceso basado en el <a href="https://en.wikipedia.org/wiki/Template_method_pattern">Template Method Pattern</a>). Por ejemplo:</p>
+
+<figure class="highlight"><pre><code class="language-groovy" data-lang="groovy"><span class="n">task</span> <span class="nf">copyTask</span><span class="o">(</span><span class="nl">type:</span> <span class="n">Copy</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">from</span> <span class="s2">"$projectDir/file1.txt"</span>
+      <span class="n">into</span> <span class="s2">"$buildDir"</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Esta tarea copiaría el fichero file1.txt, que se encuentra en el directorio de proyecto (el mismo que contiene el fichero build.gradle) dentro del directorio de build (projectDir/build por defecto). Si no conocéis Groovy, la notación <code class="highlighter-rouge">$property</code> reemplaza en la cadena la referencia a la variable por su contenido (y es una de las características más molonas de Groovy, por otro lado). <code class="highlighter-rouge">projectDir</code> y <code class="highlighter-rouge">buildDir</code> no son más que propiedades del proyecto.</p>
+
+<h3 id="plugins">Plugins</h3>
+
+<p>Vamos a ir poniendo las cosas interesantes. Un plugin en Gradle no es otra cosa que un conjunto de tareas, dependencias, propiedades, etc, que se inyectan al objecto Project. Tan simple como eso.</p>
+
+<figure class="highlight"><pre><code class="language-groovy" data-lang="groovy"><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'&lt;plugin&gt;'</span></code></pre></figure>
+
+<p>En general, la configuración básica de Gradle permite hacer poco, y para proyectos de verdad necesitaremos, como poco, añadir el plugin <code class="highlighter-rouge">groovy</code> o <code class="highlighter-rouge">java</code>, que añaden las tareas que todos esperamos, como se puede ver en la siguiente pantalla (salida de un proyecto que contiene el plugin <code class="highlighter-rouge">java</code>):</p>
+
+<p><img src="/public/pictures/gradle/gradle-5.jpg" alt="Gradle - empty" /></p>
+
+<p>Al fin, ya tenemos algo más consistente, con tareas como <code class="highlighter-rouge">test</code>, <code class="highlighter-rouge">build</code>, <code class="highlighter-rouge">jar</code>, etc, que creo que no hace falta explicar demasiado.</p>
+
+<p>Otra cosa que este tipo de plugins añaden al proyecto es un objecto <code class="highlighter-rouge">Convention</code>, que contiene la configuración de layout por defecto que debería tener nuestro proyecto, y que aunque puede ser sobreescrita, no se recomienda. En el plugin <code class="highlighter-rouge">java</code> es la siguiente (que coincide con la de Maven, por otra parte):</p>
+
+<ul>
+  <li>src/main/java</li>
+  <li>src/main/resources</li>
+  <li>src/test/java</li>
+  <li>src/test/resources</li>
+</ul>
+
+<h3 id="dependencias">Dependencias</h3>
+
+<p>Una vez aplicamos uno de los plugin comentados arriba, podemos añadir dependencias a nuestro proyecto. Además debemos indicar a Gradle donde buscarlas:</p>
+
+<figure class="highlight"><pre><code class="language-groovy" data-lang="groovy"><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'groovy'</span>
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'maven'</span>
+
+<span class="n">repositories</span> <span class="o">{</span>
+    <span class="n">mavenLocal</span><span class="o">()</span>
+    <span class="n">mavenCentral</span><span class="o">()</span>
+    <span class="n">jcenter</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">compile</span> <span class="s2">"org.codehaus.groovy:groovy-all:2.4.4"</span>
+    <span class="n">testCompile</span> <span class="s2">"org.spockframework:spock-core:1.0-groovy-2.4"</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>En esta ocasión hemos añadido el plugin <code class="highlighter-rouge">groovy</code> en lugar de <code class="highlighter-rouge">java</code>, porque vamos a crear un pequeño proyecto utilizando el framework Spock para testing. Spock está desarrollado con Groovy, por lo que es más sencillo añadir el plugin <code class="highlighter-rouge">groovy</code>, ya que Groovy soporta código Java sin problemas.</p>
+
+<p>Lo que vemos en esta configuración es:</p>
+
+<ul>
+  <li>Adicionalmente hemos tenido que añadir el plugin <code class="highlighter-rouge">maven</code>. El principal objeto de este plugin es poder utilizar repositorios maven, destacando el repositorio local (<code class="highlighter-rouge">mavenLocal()</code>). Gradle busca la ubiación de mavenLocal a partir del directorio base de Maven (<code class="highlighter-rouge">M2_HOME</code>), que deberemos tener configurado convenientemente</li>
+  <li>Además de mavenLocal, hemos añadido como repositorios de búsqueda, mavenCentral y jcenter</li>
+  <li>El proyecto tiene dos dependencias, la librería groovy, y el framework Spock. Es fácil de deducir que el formato para referenciar las dependencias es ‘groupId:artifactId:version’</li>
+</ul>
+
+<p>En Maven las dependencias hay que asociarlas a “scopes”. En Gradle tenemos un concepto similar, conocido como “configurations”, y que son añadidas por los plugins. Podemos definir una configuración como un tag que permite agrupar dependencias (u otras entidades) juntas. Una o varias configuraciones específicas son asociadas a una tarea, de forma que todos los contenidos de esas configuraciones pasan a estar disponibles para la tarea. Por ejemplo, la configuración <code class="highlighter-rouge">testCompile</code> se asocia a la tarea <code class="highlighter-rouge">test</code>.</p>
+
+<h3 id="todo-junto">Todo junto</h3>
+
+<p>En mi repositorio de GitHub podéis encontrar <a href="https://github.com/raulavila/gradle-spock-intro">un proyecto</a> muy sencillo, donde se juntan varias de las piezas comentadas en el post. No tiene demasiado misterio, pero en posteriores posts le iré añadiendo más contenido, sobre todo cuando habemos de Spock. El proyecto contiene una clase, y un test, y las tareas básicas que podemos lanzar son:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">gradle clean</code>: elimina el directorio build</li>
+  <li><code class="highlighter-rouge">gradle test</code>: ejecuta las clases de test</li>
+  <li><code class="highlighter-rouge">gradle jar</code>: empaqueta el proyecto</li>
+</ul>
+
+<p>Investigar es sencillo, echad un vistazo a otras tareas disponibles mediante <code class="highlighter-rouge">gradle tasks</code>.</p>
+
+<h3 id="ltimas-consideraciones">Últimas consideraciones</h3>
+
+<p>Antes de terminar, destacar algunas cosas, en plan miscelánea:</p>
+
+<ul>
+  <li>Por defecto tenemos disponible un objeto logger, con diferentes niveles de log (info, debug, warn, lifecycle). Para utilizarlo tan solo debemos añadirlo a nuestras tareas, por ejemplo: <code class="highlighter-rouge">logger.warn "warn message"</code></li>
+  <li>Quizás hayáis notado en los pantallazos que Gradle resalta la existencia de un “daemon” que aceleraría la ejecución de nuestros builds. Este daemon no es más que un proceso arrancado en la JVM que permanece activo entre builds, por lo que ahorramos considerablemente en tiempo de inicialización. Para utilizar este demonio hay que añadir la opción <code class="highlighter-rouge">--dameon</code>, por ejemplo <code class="highlighter-rouge">gradle test --daemon</code>, y para pararlo <code class="highlighter-rouge">gradle --stop</code> (o matar el proceso :)).</li>
+  <li>Mediante el comando <code class="highlighter-rouge">gradle --gui</code> podremos lanzar una ventana para utilizar Gradle mediante una interfaz gráfica. Si utilizamos los tradicionales IDE’s es raro que utilicemos esta opción, pero siempre está bien saberlo para entornos de test o producción, por ejemplo:</li>
+</ul>
+
+<p><img src="/public/pictures/gradle/gradle-6.jpg" alt="Gradle - empty" /></p>
+
+<h4 id="entonces-gradle-es-mejor-que-maven">Entonces, ¿Gradle es mejor que Maven?</h4>
+
+<p>La respuesta es que ninguna de las dos herramientas es ideal, por lo que deberemos considerar las características de nuestro proyecto antes de decantarnos por una u otra. Gradle ofrece flexibilidad ilimitada, y esto puede ser contraproducente si no tenemos la disciplina adecuada, mientras que Maven en ocasiones es extremadamente rígido, pero gracias a esa rigidez es muy sencillo asimilar rápidamente la estructura de un proyecto.</p>
+
+<p>Además, Gradle es una herramienta que aún sigue madurando y tiene algunos puntos flacos. En concreto hay uno, la resolución de dependencias, que no me convence en absoluto para proyectos corporativos, y que comentaré <a href="/2015/09/gradle-dependencias">en mi siguiente post</a>.</p>
+
+</article>
+
+<aside class="related">
+  <h2>Posts relacionados</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2016/01/primer-aniversario">
+            Un año de blog
+            <small><time datetime="2016-01-31T00:00:00+00:00">31/01/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/01/aprendiendo-TDD">
+            Aprendiendo TDD
+            <small><time datetime="2016-01-24T00:00:00+00:00">24/01/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/11/code-retreat-2015">
+            Global Day of Code Retreat (2015)
+            <small><time datetime="2015-11-16T00:00:00+00:00">16/11/2015</time></small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</aside>
+
+        
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'raulavila'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </main>
+
+      <footer class="footer">
+        <small>
+          &copy; <time datetime="2016">2016</time> Raúl Ávila. Blog creado con <a href="http://jekyllrb.com">Jekyll</a>.
+          Plantilla basada en <a href="http://getpoole.com">Poole</a>.
+          <a href="/atom.xml">Atom Feed</a></a>.
+          <br>
+        </small>
+      </footer>
+    </div>
+
+  <script>
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58942569-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>

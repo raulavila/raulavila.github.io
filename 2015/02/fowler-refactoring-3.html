@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Desgranando Fowler's Refactoring (y 3)
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Raúl Ávila" href="/atom.xml">
+
+</head>
+
+
+  <body>
+
+    <div class="container content">
+      <header class="masthead">
+        <h1 class="masthead-title">
+          <a href="/" title="Home">Raúl Ávila</a>
+        </h1>
+
+            <small><a href="/sobre-mi">Sobre mí</a></small>
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/archivos">Archivos</a></small>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title">Desgranando Fowler's Refactoring (y 3)</h1>
+  <time datetime="2015-02-14T00:00:00+00:00" class="post-date">14/02/2015</time>
+  <div class="post-tags">
+    
+    | <a href="/tag/refactoring">refactoring</a> |
+    
+    | <a href="/tag/desarrollo">desarrollo</a> |
+    
+  </div>
+  <div class="post-share">
+    <a class="twitter-share-button"
+    data-via="_Raul_Avila"
+    data-count="none"
+    href="https://twitter.com/share">Tweet</a>
+  </div>
+  <p>Termino con este post mi repaso a los “puntos mejorables” en el libro de Fowler. Insisto en mi consideración a esta obra como una referencia indiscutible, de hecho en casi 400 páginas sólo he encontrado unos pocos puntos dignos de discusión. Además si algún lector considera que he desbarrado en algún aspecto, admitiré encantado cualquier comentario.</p>
+
+<!--break-->
+
+<h3 id="inline-temp-pg-119">Inline Temp (pág. 119)</h3>
+
+<p>Este refactoring es bastante sencillo, en el libro de Fowler se propone reemplazar</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kt">double</span> <span class="n">basePrice</span> <span class="o">=</span> <span class="n">anOrder</span><span class="o">.</span><span class="na">basePrice</span><span class="o">();</span>
+<span class="k">return</span> <span class="o">(</span><span class="n">basePrice</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="o">);</span></code></pre></figure>
+
+<p>por</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="k">return</span> <span class="o">(</span><span class="n">anOrder</span><span class="o">.</span><span class="na">basePrice</span><span class="o">()</span> <span class="o">&gt;</span><span class="mi">1000</span><span class="o">);</span></code></pre></figure>
+
+<p>No diría que este refactoring es un gran error “per se”, pero la experiencia me ha enseñado que siempre es mejor almacenar el retorno de un método en una variable temporal <strong>para facilitar los procesos de debugging</strong>. En efecto, si en algún momento necesitamos depurar y leer el valor de retorno del método basePrice, con la primera versión del código bastaría con ubicar un breakpoint en la sentencia return, mientras que en la segunda versión necesitamos navegar dentro del método basePrice (y si por cualquier motivo este método no utilizara variables temporales estaríamos en las mismas).</p>
+
+<p>En resumen, no creo que la se obtenga un gran beneficio. Quizás podría discutirse que estamos creando una variable temporal “poco útil”, pero la deuda técnica de no utilizarla es un potencial incremento en el tiempo de depuración. Otro peligro es la reutilización de variables temporales, pero esto es fácil de evitar utilizando el modificador final:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">final</span> <span class="kt">double</span> <span class="n">basePrice</span> <span class="o">=</span> <span class="n">anOrder</span><span class="o">.</span><span class="na">basePrice</span><span class="o">();</span>
+<span class="k">return</span> <span class="o">(</span><span class="n">basePrice</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="o">);</span></code></pre></figure>
+
+<h3 id="replace-subclass-with-fields-pg-232">Replace Subclass with Fields (pág. 232)</h3>
+
+<p>Este refactoring, <a href="http://refactoring.com/catalog/replaceSubclassWithFields.html">descrito en la web de Fowler</a>, pretende eliminar jerarquías innecesarias, pero no diría que el resultado es especiamente brillante:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">boolean</span> <span class="n">male</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">char</span> <span class="n">code</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="n">Person</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">male</span><span class="o">,</span> <span class="kt">char</span> <span class="n">code</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">male</span> <span class="o">=</span> <span class="n">male</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">code</span> <span class="o">=</span> <span class="n">code</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="n">createMale</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="kc">true</span><span class="o">,</span> <span class="sc">'M'</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="n">createFemale</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="sc">'F'</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="n">isMale</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">male</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">char</span> <span class="n">getCode</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">code</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Disculpemos el uso de un char para indicar el sexo de la persona, debido a la no existencia de enums en aquel entonces. Aún así, sigue habiendo dos claros errores de diseño:</p>
+
+<ul>
+  <li>El atributo male es totalmente redundante, pudiéndose extraer como code == ‘M’. Recordemos, <a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself">Don’t repeat yourself</a>.</li>
+  <li>De nuevo vuelve a utilizar métodos factory estáticos en la propia clase. En este caso diría que no es tan grave <a href="/2015/02/fowler-refactoring-2">como en el ejemplo del artículo anterior</a>, pero sigue sin gustarme.</li>
+</ul>
+
+<p>Mi propuesta de mejora contiene una enumeración y una clase Factory:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">enum</span> <span class="n">Gender</span> <span class="o">{</span>
+    <span class="n">MALE</span><span class="o">(</span><span class="sc">'M'</span><span class="o">),</span>
+    <span class="n">FEMALE</span><span class="o">(</span><span class="sc">'F'</span><span class="o">);</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">char</span> <span class="n">code</span><span class="o">;</span>
+
+    <span class="n">Gender</span><span class="o">(</span><span class="kt">char</span> <span class="n">code</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">code</span> <span class="o">=</span> <span class="n">code</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">char</span> <span class="n">getCode</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">code</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Gender</span> <span class="n">gender</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">Person</span><span class="o">(</span><span class="n">Gender</span> <span class="n">gender</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">gender</span> <span class="o">=</span> <span class="n">gender</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="n">isMale</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">gender</span> <span class="o">==</span> <span class="n">Gender</span><span class="o">.</span><span class="na">MALE</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">char</span> <span class="n">getCode</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">gender</span><span class="o">.</span><span class="na">getCode</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">PersonFactory</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="n">createMale</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">Gender</span><span class="o">.</span><span class="na">MALE</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="n">createFemale</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">Gender</span><span class="o">.</span><span class="na">FEMALE</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Mantengo el código de tipo char, ya que los clientes pueden seguir necesitando dicho identificador, pero en esta ocasión lo encapsulo dentro de un enumerado. El enumerado es de ámbito package, por lo que fuera de la factoria y la clase Person no puede ser utilizado.</p>
+
+<p>( <a href="https://github.com/raulavila/fowlers-refactoring-errors">El código de este apartado está subido en mi repositorio de GitHub</a> )</p>
+
+<h3 id="classforname">Class.forName</h3>
+
+<p>En el refactoring “Replace Constructor with Factory Method” (pág 304), se crea un método factory genérico de la siguiente forma:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="n">Employee</span> <span class="nf">create</span><span class="p">(</span><span class="n">String</span> <span class="n">name</span><span class="o">){</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">Employee</span><span class="o">)</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">name</span><span class="o">).</span><span class="na">newInstance</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">"Unable to instantiate"</span> <span class="o">+</span> <span class="n">name</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">//....</span>
+   <span class="k">return</span> <span class="n">create</span><span class="o">(</span><span class="s">"Engineer"</span><span class="o">);</span>
+<span class="c1">//....</span></code></pre></figure>
+
+<p>Esta forma de crear instancias es totalmente inadecuada, porque se pierde seguridad de tipos (<a href="http://en.wikipedia.org/wiki/Type_safety">type safety</a>). Lo mejor del caso es que el propio Fowler lo reconoce nada más plantear la alternativa. Bajo mi punto de vista, esta forma de instanciar objetos solo estaría justificada si el parámetro del método create está configurado fuera del ámbito de la aplicación (por ejemplo, en una base de datos). En tal caso, sería imprescindible cubrir con tests dicha configuración para evitar errores en tiempo de ejecución.</p>
+
+<h3 id="conclusiones">Conclusiones</h3>
+
+<p>Y aquí termino mi repaso a este gran libro. Me dejo algunas cosas en el tintero, pero que creo que ya han sido discutidas sobradamente en la comunidad, como por ejemplo:</p>
+
+<ul>
+  <li>El uso de <a href="http://stackoverflow.com/questions/6115896/java-checked-vs-unchecked-exception-explanation">Checked Exceptions vs Unchecked Exceptions</a> (yo apenas utilizo Checked Exceptions de un tiempo a esta parte)</li>
+  <li>Extender una clase mediante herencia o con un wrapper (<a href="http://stackoverflow.com/questions/2150273/java-extend-or-wrap-a-class-to-add-extra-functionality">Inheritance vs. Composition</a>)</li>
+</ul>
+
+<p>Concluyo citando el propio libro. En referencia a la importancia de refactorizar en un proyecto corporativo, donde las fechas de entrega añaden una presión difícil de soportar en ocasiones, y cuando los managers no entienden la importancia del Refactoring, el consejo de Fowler en estas ocasiones es claro e implacable: “No digas que refactorizas”.</p>
+
+<blockquote>
+  <p>“Of course, many people say they are driven by quality but are more driven by schedule. In these cases I give my more controversial advice: Don’t tell! Subversive? I don’t think so. Software developers are professionals. Our job is to build effective software as rapidly as we can. My experience is that refactoring is a big aid to building software quickly. If I need to add a new function and the design does not suit the change, I find it’s quicker to refactor first and then add the function. If I need to fix a bug, I need to understand how the software works—and I find refactoring is the fastest way to do this. A schedule-driven manager wants me to do things the fastest way I can; how I do it is my business. The fastest way is to refactor; therefore I refactor”</p>
+</blockquote>
+
+</article>
+
+<aside class="related">
+  <h2>Posts relacionados</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2016/01/primer-aniversario">
+            Un año de blog
+            <small><time datetime="2016-01-31T00:00:00+00:00">31/01/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/01/aprendiendo-TDD">
+            Aprendiendo TDD
+            <small><time datetime="2016-01-24T00:00:00+00:00">24/01/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/11/code-retreat-2015">
+            Global Day of Code Retreat (2015)
+            <small><time datetime="2015-11-16T00:00:00+00:00">16/11/2015</time></small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</aside>
+
+        
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'raulavila'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </main>
+
+      <footer class="footer">
+        <small>
+          &copy; <time datetime="2016">2016</time> Raúl Ávila. Blog creado con <a href="http://jekyllrb.com">Jekyll</a>.
+          Plantilla basada en <a href="http://getpoole.com">Poole</a>.
+          <a href="/atom.xml">Atom Feed</a></a>.
+          <br>
+        </small>
+      </footer>
+    </div>
+
+  <script>
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58942569-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>

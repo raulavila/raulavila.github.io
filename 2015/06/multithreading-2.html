@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Multithreading para dummies (2)
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Raúl Ávila" href="/atom.xml">
+
+</head>
+
+
+  <body>
+
+    <div class="container content">
+      <header class="masthead">
+        <h1 class="masthead-title">
+          <a href="/" title="Home">Raúl Ávila</a>
+        </h1>
+
+            <small><a href="/sobre-mi">Sobre mí</a></small>
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/archivos">Archivos</a></small>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title">Multithreading para dummies (2)</h1>
+  <time datetime="2015-06-13T00:00:00+01:00" class="post-date">13/06/2015</time>
+  <div class="post-tags">
+    
+    | <a href="/tag/java">java</a> |
+    
+    | <a href="/tag/desarrollo">desarrollo</a> |
+    
+    | <a href="/tag/multithreading">multithreading</a> |
+    
+  </div>
+  <div class="post-share">
+    <a class="twitter-share-button"
+    data-via="_Raul_Avila"
+    data-count="none"
+    href="https://twitter.com/share">Tweet</a>
+  </div>
+  <p>En <a href="/2015/05/multithreading-1/">mi anterior post</a> vimos algunos conceptos básicos de multithreading desde un punto de vista eminentemente práctico. Con el desarrollo de un juego de Ping Pong en mente, continuaremos introduciendo mejoras progresivas que nos servirán para explicar conceptos que todos deberíamos conocer a la hora de implementar aplicaciones concurrentes en Java.</p>
+
+<!--break-->
+
+<p>La base de este post será una de las últimas versiones comentadas en la primera parte:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Player</span> <span class="kd">implements</span> <span class="n">Runnable</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">text</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">mustPlay</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">Player</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">while</span><span class="o">(!</span><span class="n">Thread</span><span class="o">.</span><span class="na">interrupted</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(!</span><span class="n">mustPlay</span><span class="o">);</span>
+
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
+
+            <span class="k">this</span><span class="o">.</span><span class="na">mustPlay</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+            <span class="n">nextPlayer</span><span class="o">.</span><span class="na">mustPlay</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setNextPlayer</span><span class="o">(</span><span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">nextPlayer</span> <span class="o">=</span> <span class="n">nextPlayer</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setMustPlay</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">mustPlay</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">mustPlay</span> <span class="o">=</span> <span class="n">mustPlay</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Versión bastante horrible, por otro lado. En ningún caso está justificado que una aplicación seria haga algo como:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="k">while</span><span class="o">(!</span><span class="n">mustPlay</span><span class="o">);</span></code></pre></figure>
+
+<h4 id="espera-activa">Espera activa</h4>
+
+<p>Esta instrucción es un ejemplo de “espera activa” o <a href="https://en.wikipedia.org/wiki/Busy_waiting">“Busy Waiting”</a>, y no es más que la comprobación infinita de una condición, evitando el progreso de la aplicación hasta que sea cierta. El problema de este enfoque es que nuestro hilo sobrecarga de forma excesiva a la CPU, ya que para el <a href="http://www.javatpoint.com/thread-scheduler-in-java">Thread Scheduler</a> no hay nada que le impida progresar, por lo que siempre que existen recursos lo mantiene en su estado “Running” (<a href="http://www.uml-diagrams.org/examples/java-6-thread-state-machine-diagram-example.html">aquí tenéis un buen diagrama de estados de los threads en Java</a>). El resultado es un uso de recursos excesivo e injustificado.</p>
+
+<p>Os voy a contar una historia curiosa para ilustrar esto que estoy explicando. Cuando desarrollé los ejemplos para la primera parte de este post, dejé mi IDE abierto con la aplicación funcionando (y la espera activa). El resultado es que mi batería, que normalmente dura una 6-8 horas se consumió en menos de dos. Pensemos en las consecuencias de un diseño tan defectuoso en aplicaciones corporativas serias.</p>
+
+<h4 id="locking">Locking</h4>
+
+<p>La forma más fácil de deshacernos de la espera activa es mediante el uso de Locks. En pocas palabras, locking es un mecanismo que permite establecer políticas de exclusión en aplicaciones concurrentes cuando existen instancias cuyo estado puede ser compartido y modificado por diferentes threads.</p>
+
+<p>Este estado susceptible de ser modificado por más de un thread debe protegrese mediante el uso de una sección crítica (<a href="http://www.linuxtopia.org/online_books/programming_books/thinking_in_java/TIJ315_013.htm">critical section</a>). Java ofrece diferentes mecanismos parar implementar secciones críticas, y en este post veremos los más importantes.</p>
+
+<h3 id="versin-3-intrinsic-locking">Versión 3: Intrinsic locking</h3>
+
+<p>El mecanismo más antiguo implementado en Java para la creación de secciones críticas es conocido como <a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/locksync.html">Intrinsic Locking</a>, o Monitor Locking. A grandes rasgos, cada objeto creado en Java tiene asociado un lock (intrinsic lock o monitor lock) que puede ser utilizado con fines de exclusión en nuestros threads mediante el uso de la keyword <code class="highlighter-rouge">synchronized</code>:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">//...</span>
+<span class="n">Object</span> <span class="n">myObject</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+<span class="c1">//...</span>
+<span class="kd">synchronized</span><span class="o">(</span><span class="n">myObject</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">//critical section</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>En este ejemplo utilizamos una instancia de Object como lock, de forma que cada thread que desee acceder a la sección crítica debe obtener el lock, cosa que intenta hacer en la sentencia <code class="highlighter-rouge">synchronized</code>. Si el lock está disponible, el thread se lo queda y no estará disponible para ningún otro thread, que en caso de intentar obtenerlo fracasará y será puesto en estado “Blocked” por el Thread Scheduler.</p>
+
+<p>Internet está plagado de ejemplos sobre el uso de <code class="highlighter-rouge">synchronized</code>, por lo que no entraré aquí sobre las mejores o peores prácticas. Solo añadir algunos puntos a considerar:</p>
+
+<ul>
+  <li>Es habitual sincronizar en <code class="highlighter-rouge">this</code> (<code class="highlighter-rouge">synchronized(this)</code>), con lo que la propia instancia se utiliza a sí misma como lock para proteger a sus clientes de problemas de concurrencia. No obstante, hay que ser muy cuidadosos si hacemos esto porque los clientes podrían sincronizar en la misma instancia resultando en un <a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/deadlock.html">DeadLock</a></li>
+  <li>Personalmente considero mejor práctica utilizar un lock privado (como el utilizado en el fragmento de código tres párrafos arriba), de forma que no exponemos el mecanismo de locking utilizado al exterior encapsulándolo en la propia clase</li>
+  <li><code class="highlighter-rouge">synchronized</code> tiene otro fin además de la exclusión, y es la <em>visibilidad</em>. De la misma forma que la keyword <code class="highlighter-rouge">volatile</code> nos garantiza la visibilidad inmediata de la variable modificada, <code class="highlighter-rouge">synchronized</code> garantiza la visibilidad del estado del objeto utilizado como lock (abarcando más ámbito, pues). Esta visibilidad está garantizada por el <a href="https://en.wikipedia.org/wiki/Java_memory_model">Java Memory Model</a>, del que hablaremos algún día.</li>
+</ul>
+
+<h4 id="mecanismos-de-espera">Mecanismos de espera</h4>
+
+<p>Tan solo con mecanismos de locking no podemos implementar correctamente la eliminación de la espera activa en nuestra aplicación. Necesitamos algo más, y son los mecanismos de espera.</p>
+
+<p>Cada objeto expone un método, <code class="highlighter-rouge">wait()</code>, que al invocarse por un thread hace que el Thread Scheduler lo suspenda, quedando en estado “Waiting”. Es decir:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="c1">//thread state is running</span>
+<span class="n">i</span><span class="o">++</span>
+<span class="n">lock</span><span class="o">.</span><span class="na">wait</span><span class="o">();</span> <span class="c1">// =&gt; thread state changes to Waiting</span></code></pre></figure>
+
+<p>Este ejemplo está algo cogido con pinzas, porque nunca debe invocarse <code class="highlighter-rouge">wait</code> de esta forma. El “idiom” adecuado a la hora de implementar mecanismos de espera es:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">synchronized</span> <span class="o">(</span><span class="n">lock</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="k">while</span> <span class="o">(!</span><span class="n">condition</span><span class="o">)</span>
+            <span class="n">lock</span><span class="o">.</span><span class="na">wait</span><span class="o">();</span>
+
+        <span class="c1">//Excecute code after waiting for condition</span>
+
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">interrupt</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>En el código vemos como:</p>
+
+<ol>
+  <li>Es necesario adquirir el lock sobre el objecto en el que queremos invocar <code class="highlighter-rouge">wait</code></li>
+  <li>Ese <code class="highlighter-rouge">wait</code> implica que esperamos “algo”. Ese algo es una condición (condition predicate) que puede que se cumpla antes de tener que esperar. Por tanto preguntamos por esa condición antes de invocar a <code class="highlighter-rouge">wait</code></li>
+  <li>La espera se realiza en un bucle y no en una sentencia if por varios motivos, pero el más importante de ellos es el conocido como “spurious wakeups”. Por su nombre es fácil de deducir en qué consiste, en ocasiones un thread se despierta del estado “Waiting” sin que nadie se lo haya indicado, por lo que puede que la condición no se esté cumpliendo y deba volver a esperar.</li>
+  <li>Por último, <code class="highlighter-rouge">wait</code> lanza la excepción <code class="highlighter-rouge">InterruptedException</code>, que manejamos de la forma comentada <a href="/2015/05/multithreading-1/">en la primera parte de esta serie</a></li>
+</ol>
+
+<p>Visto esto, tenemos que un thread pasa a estado “Waiting” a la espera de una condición, pero alguien deberá indicar que uno o varios threads en espera deben despertarse, ¿no? Bien, esto se lleva a cabo mediante los métodos <code class="highlighter-rouge">notify</code> y  <code class="highlighter-rouge">notifyAll</code>, que como es fácil de deducir, indican a uno o a todos los threads esperando sobre un lock que se despierten y comprueben la condición. El idiom es:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">synchronized</span><span class="o">(</span><span class="n">lock</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">//....</span>
+    <span class="n">condition</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="n">lock</span><span class="o">.</span><span class="na">notifyAll</span><span class="o">();</span> <span class="c1">//or lock.notify();</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>De nuevo debemos tener el lock en nuestra posesión para poder invocar los métodos sobre el objeto. Sobre el uso de <code class="highlighter-rouge">notify</code> vs <code class="highlighter-rouge">notifyAll</code> <a href="http://stackoverflow.com/questions/37026/java-notify-vs-notifyall-all-over-again">se ha escrito mucho al respecto</a>, y depende de cada aplicación en concreto. Precisamente el uso de <code class="highlighter-rouge">notifyAll</code> es otro de los motivos por los que la espera de la condición se hace en un bucle y no en una condición, en ocasiones solo un thread de todos los que estén en espera puede progresar tras cumplirse el predicado.</p>
+
+<p>Por fin ha llegado el momento de ver cómo quedaría nuestro juego de Ping Pong tras aplicar los conceptos que acabamos de ver:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Player</span> <span class="kd">implements</span> <span class="n">Runnable</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">text</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Object</span> <span class="n">lock</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">play</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">Player</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">,</span>
+                  <span class="n">Object</span> <span class="n">lock</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">lock</span> <span class="o">=</span> <span class="n">lock</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">while</span><span class="o">(!</span><span class="n">Thread</span><span class="o">.</span><span class="na">interrupted</span><span class="o">())</span> <span class="o">{</span>
+            <span class="kd">synchronized</span> <span class="o">(</span><span class="n">lock</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">try</span> <span class="o">{</span>
+                    <span class="k">while</span> <span class="o">(!</span><span class="n">play</span><span class="o">)</span>
+                        <span class="n">lock</span><span class="o">.</span><span class="na">wait</span><span class="o">();</span>
+
+                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
+
+                    <span class="k">this</span><span class="o">.</span><span class="na">play</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+                    <span class="n">nextPlayer</span><span class="o">.</span><span class="na">play</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+                    <span class="n">lock</span><span class="o">.</span><span class="na">notifyAll</span><span class="o">();</span>
+
+                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">interrupt</span><span class="o">();</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setNextPlayer</span><span class="o">(</span><span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">nextPlayer</span> <span class="o">=</span> <span class="n">nextPlayer</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setPlay</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">play</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">play</span> <span class="o">=</span> <span class="n">play</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>El lock en esta aplicación vendría a ser la pelota en juego, que en cada jugada solo puede estar en posesión de un jugador. También vemos que tras imprimir el texto por salida estándar notifica al otro jugador que puede continuar. He utilizado <code class="highlighter-rouge">notifyAll</code>, aunque podría ser <code class="highlighter-rouge">notify</code> sin problemas.</p>
+
+<p>La clase que conduce el juego no varía mucho sobre la última versión de la primera parte de esta serie:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Game</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="n">Object</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
+
+        <span class="n">Player</span> <span class="n">player1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Player</span><span class="o">(</span><span class="s">"ping"</span><span class="o">,</span> <span class="n">lock</span><span class="o">);</span>
+        <span class="n">Player</span> <span class="n">player2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Player</span><span class="o">(</span><span class="s">"pong"</span><span class="o">,</span> <span class="n">lock</span><span class="o">);</span>
+
+        <span class="n">player1</span><span class="o">.</span><span class="na">setNextPlayer</span><span class="o">(</span><span class="n">player2</span><span class="o">);</span>
+        <span class="n">player2</span><span class="o">.</span><span class="na">setNextPlayer</span><span class="o">(</span><span class="n">player1</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Game starting...!"</span><span class="o">);</span>
+
+        <span class="n">player1</span><span class="o">.</span><span class="na">setPlay</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+
+        <span class="n">Thread</span> <span class="n">thread2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="n">player2</span><span class="o">);</span>
+        <span class="n">thread2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="n">Thread</span> <span class="n">thread1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="n">player1</span><span class="o">);</span>
+        <span class="n">thread1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+
+        <span class="c1">//Let the players play!</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+
+        <span class="c1">//Tell the players to stop</span>
+        <span class="n">thread1</span><span class="o">.</span><span class="na">interrupt</span><span class="o">();</span>
+        <span class="n">thread2</span><span class="o">.</span><span class="na">interrupt</span><span class="o">();</span>
+
+        <span class="c1">//Wait until players finish</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">thread1</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+            <span class="n">thread2</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Game finished!"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span></code></pre></figure>
+
+<h3 id="versin-4-locks-explcitos-y-condiciones">Versión 4. Locks explícitos y condiciones</h3>
+
+<p>Java expone en su API concurrency una interfaz, <code class="highlighter-rouge">Lock</code>, que permite implementar los mismos mecanismos de exclusión vistos mediante el uso de intrinsic locks, pero con un acercamiento diferente.</p>
+
+<p>La implementación principal de <code class="highlighter-rouge">Lock</code> es <code class="highlighter-rouge">ReentrantLock</code>. El nombre se debe a que los locks en Java son reentrantes, por lo que una vez adquirido por un thread, si el mismo thread realiza un nuevo intento de adquirirlo este no fracasa. Lo que haremos será implementar los mismos ejemplos vistos más arriba con esta API.</p>
+
+<h4 id="secciones-crticas">Secciones críticas</h4>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Lock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReentrantLock</span><span class="o">();</span>
+<span class="c1">//...</span>
+<span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
+<span class="k">try</span> <span class="o">{</span>
+    <span class="c1">//critical section...</span>
+<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+    <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Fácil, tan sólo tener en cuenta que debemos invocar el método <code class="highlighter-rouge">unlock</code> en la claúsula <code class="highlighter-rouge">finally</code> para garantizar que el lock es liberado incluso en caso de error.</p>
+
+<p>Personalmente no diría que este mecanismo es mejor que el ofrecido por <code class="highlighter-rouge">synchronized</code>, siendo este último más compacto. Las grandes ventajas del uso de <code class="highlighter-rouge">Lock</code> vienen de una serie de métodos que nos dan la posibilidad de desarrollar mecanismos de locking más complejos como:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">tryLock()</code>: intentamos adquirir el lock, pero el thread no se bloquea ni no lo consigue</li>
+  <li>fairness: podemos crear un lock como “fair”. Por defecto los locks en Java no lo son, por lo que un thread en espera puede ser el elegido para adquirir el lock aunque sea el último que ha llegado. Con un fair lock se implementará un locking FIFO</li>
+</ul>
+
+<p>Os recomiendo echar un vistazo completo <a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/ReentrantLock.html">a la API</a> para más detalles.</p>
+
+<h4 id="mecanismos-de-espera-1">Mecanismos de espera</h4>
+
+<p>La implementación de estos mecanismos se realiza mediante el uso de la clase <a href="https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/Condition.html">Condition</a>. La creación de una instancia de <code class="highlighter-rouge">Condition</code> debe hacerse siempre a partir de un <code class="highlighter-rouge">Lock</code>:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Condition</span> <span class="n">condition</span> <span class="o">=</span> <span class="n">lock</span><span class="o">.</span><span class="na">newCondition</span><span class="o">();</span></code></pre></figure>
+
+<p>La clase <code class="highlighter-rouge">Condition</code> expone dos métodos, <code class="highlighter-rouge">await()</code> y <code class="highlighter-rouge">signal()</code> que vienen a ser el equivalente a <code class="highlighter-rouge">wait()</code> y <code class="highlighter-rouge">notify()</code> en los intrinsic locks. Además podemos utilizar otros métodos como:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">await(long time, TimeUnit unit)</code>: espera a una condición no más del tiempo proporcionado por parámetro</li>
+  <li><code class="highlighter-rouge">awaitUninterruptibly()</code>: versión de <code class="highlighter-rouge">await()</code> no interrumpible. Es decir, si el thread que esté suspendido a la espera de una condición es interrumpido, este método no lanzará la conocida <code class="highlighter-rouge">InterruptedException</code>, por lo que solo pasará a estar activa si se invoca <code class="highlighter-rouge">signal()</code>/<code class="highlighter-rouge">signalAll()</code> sobre la condición (spurious wakeups aparte).</li>
+</ul>
+
+<p>En general, para mecanismos de espera diría que el uso de <code class="highlighter-rouge">Condition</code> ofrece una seria de funcionalidades muy interesantes, además de permitir la creación de varias condiciones asociadas al mismo lock, cosa que no es posible (o si lo es su implementación es muy complicada) con intrinsic locks.</p>
+
+<p>Veamos cómo queda nuestra aplicación mediante el uso de <code class="highlighter-rouge">Lock</code> y <code class="highlighter-rouge">Condition</code>:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Player</span> <span class="kd">implements</span> <span class="n">Runnable</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">text</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Lock</span> <span class="n">lock</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Condition</span> <span class="n">myTurn</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Condition</span> <span class="n">nextTurn</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">play</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">Player</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">,</span>
+                  <span class="n">Lock</span> <span class="n">lock</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">lock</span> <span class="o">=</span> <span class="n">lock</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">myTurn</span> <span class="o">=</span> <span class="n">lock</span><span class="o">.</span><span class="na">newCondition</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">run</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">while</span><span class="o">(!</span><span class="n">Thread</span><span class="o">.</span><span class="na">interrupted</span><span class="o">())</span> <span class="o">{</span>
+            <span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
+
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="k">while</span> <span class="o">(!</span><span class="n">play</span><span class="o">)</span>
+                    <span class="n">myTurn</span><span class="o">.</span><span class="na">awaitUninterruptibly</span><span class="o">();</span>
+
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
+
+                <span class="k">this</span><span class="o">.</span><span class="na">play</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+                <span class="n">nextPlayer</span><span class="o">.</span><span class="na">play</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+                <span class="n">nextTurn</span><span class="o">.</span><span class="na">signal</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+                <span class="n">lock</span><span class="o">.</span><span class="na">unlock</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setNextPlayer</span><span class="o">(</span><span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">nextPlayer</span> <span class="o">=</span> <span class="n">nextPlayer</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">nextTurn</span> <span class="o">=</span> <span class="n">nextPlayer</span><span class="o">.</span><span class="na">myTurn</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setPlay</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">play</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">play</span> <span class="o">=</span> <span class="n">play</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Vemos como el uso de <code class="highlighter-rouge">Condition</code> hace más clara la lectura del código. Además, hemos utilizado el método <code class="highlighter-rouge">awaitUninterruptibly</code>, de forma que se garantiza fácilmente la consecución de la última jugada pendiente por parte de cada jugador cuando el hilo principal interrumpe los threads:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Game</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Lock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReentrantLock</span><span class="o">();</span>
+
+        <span class="n">Player</span> <span class="n">player1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Player</span><span class="o">(</span><span class="s">"ping"</span><span class="o">,</span> <span class="n">lock</span><span class="o">);</span>
+        <span class="n">Player</span> <span class="n">player2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Player</span><span class="o">(</span><span class="s">"pong"</span><span class="o">,</span> <span class="n">lock</span><span class="o">);</span>
+
+        <span class="n">player1</span><span class="o">.</span><span class="na">setNextPlayer</span><span class="o">(</span><span class="n">player2</span><span class="o">);</span>
+        <span class="n">player2</span><span class="o">.</span><span class="na">setNextPlayer</span><span class="o">(</span><span class="n">player1</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Game starting...!"</span><span class="o">);</span>
+
+        <span class="n">player1</span><span class="o">.</span><span class="na">setPlay</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+
+        <span class="n">Thread</span> <span class="n">thread2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="n">player2</span><span class="o">);</span>
+        <span class="n">thread2</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="n">Thread</span> <span class="n">thread1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="n">player1</span><span class="o">);</span>
+        <span class="n">thread1</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+
+        <span class="c1">//Let the players play!</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+
+        <span class="c1">//Tell the players to stop</span>
+        <span class="n">thread1</span><span class="o">.</span><span class="na">interrupt</span><span class="o">();</span>
+        <span class="n">thread2</span><span class="o">.</span><span class="na">interrupt</span><span class="o">();</span>
+
+        <span class="c1">//Wait until players finish</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">thread1</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+            <span class="n">thread2</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Game finished!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<h3 id="bonus-escalando-a-n-jugadores">Bonus, escalando a N jugadores</h3>
+
+<p>Vamos a ver de qué forma tan sencilla podemos escalar el juego a varios jugadores, de forma que se vayan pasando la “pelota” entre ellos por orden. Es decir, la salida del programa sería algo como:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Game starting...!
+player0
+player1
+player2
+player3
+player4
+player5
+...
+Game finished!</code></pre></figure>
+
+<p>Resulta que, ¡no necesitamos modificar para nada la clase <code class="highlighter-rouge">Player</code>! En efecto, como cada jugador solo ha de ser consciente del siguiente en el juego, los únicos cambios necesarios tendrán que hacerse en la clase <code class="highlighter-rouge">Game</code>:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GameScale</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">NUM_PLAYERS</span> <span class="o">=</span> <span class="mi">6</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Lock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReentrantLock</span><span class="o">();</span>
+
+        <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">NUM_PLAYERS</span><span class="o">;</span>
+
+        <span class="n">Player</span><span class="o">[]</span> <span class="n">players</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Player</span><span class="o">[</span><span class="n">length</span><span class="o">];</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">Player</span> <span class="n">player</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Player</span><span class="o">(</span><span class="s">"player"</span><span class="o">+</span><span class="n">i</span><span class="o">,</span> <span class="n">lock</span><span class="o">);</span>
+            <span class="n">players</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">player</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">players</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">setNextPlayer</span><span class="o">(</span><span class="n">players</span><span class="o">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">]);</span>
+        <span class="o">}</span>
+        <span class="n">players</span><span class="o">[</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="o">].</span><span class="na">setNextPlayer</span><span class="o">(</span><span class="n">players</span><span class="o">[</span><span class="mi">0</span><span class="o">]);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Game starting...!"</span><span class="o">);</span>
+
+        <span class="n">players</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="na">setPlay</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+
+        <span class="c1">//Threads creation</span>
+        <span class="n">Thread</span><span class="o">[]</span> <span class="n">threads</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">[</span><span class="n">length</span><span class="o">];</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">Thread</span> <span class="n">thread</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="n">players</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+            <span class="n">threads</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">thread</span><span class="o">;</span>
+            <span class="n">thread</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+        <span class="o">}</span>
+
+        <span class="c1">//Let the players play!</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+
+        <span class="c1">//Tell the players to stop</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">Thread</span> <span class="n">thread</span> <span class="o">:</span> <span class="n">threads</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">thread</span><span class="o">.</span><span class="na">interrupt</span><span class="o">();</span>
+        <span class="o">}</span>
+
+        <span class="c1">//Don't progress main thread until all players have finished</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="k">for</span> <span class="o">(</span><span class="n">Thread</span> <span class="n">thread</span> <span class="o">:</span> <span class="n">threads</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">thread</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+            <span class="o">}</span>
+        <span class="o">}</span>  <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Game finished!"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span></code></pre></figure>
+
+<p>El código es algo más complejo, pero creo que se entiende bien. Tan sólo cambiando la constante podremos escalar el juego todo lo que queramos, y la concurrencia nos garantizará los turnos perfectamente :)</p>
+
+<p><a href="/2015/06/multithreading-3">En la siguiente entrega de la serie</a> nos centraremos en la creación y gestión de threads, de forma que la clase <code class="highlighter-rouge">Game</code> sea mucho menos críptica de lo que es en esta última versión.</p>
+
+</article>
+
+<aside class="related">
+  <h2>Posts relacionados</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2016/01/primer-aniversario">
+            Un año de blog
+            <small><time datetime="2016-01-31T00:00:00+00:00">31/01/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/01/aprendiendo-TDD">
+            Aprendiendo TDD
+            <small><time datetime="2016-01-24T00:00:00+00:00">24/01/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/11/code-retreat-2015">
+            Global Day of Code Retreat (2015)
+            <small><time datetime="2015-11-16T00:00:00+00:00">16/11/2015</time></small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</aside>
+
+        
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'raulavila'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </main>
+
+      <footer class="footer">
+        <small>
+          &copy; <time datetime="2016">2016</time> Raúl Ávila. Blog creado con <a href="http://jekyllrb.com">Jekyll</a>.
+          Plantilla basada en <a href="http://getpoole.com">Poole</a>.
+          <a href="/atom.xml">Atom Feed</a></a>.
+          <br>
+        </small>
+      </footer>
+    </div>
+
+  <script>
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58942569-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>

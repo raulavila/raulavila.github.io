@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Resolución de dependencias en Gradle
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Raúl Ávila" href="/atom.xml">
+
+</head>
+
+
+  <body>
+
+    <div class="container content">
+      <header class="masthead">
+        <h1 class="masthead-title">
+          <a href="/" title="Home">Raúl Ávila</a>
+        </h1>
+
+            <small><a href="/sobre-mi">Sobre mí</a></small>
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/archivos">Archivos</a></small>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title">Resolución de dependencias en Gradle</h1>
+  <time datetime="2015-09-13T00:00:00+01:00" class="post-date">13/09/2015</time>
+  <div class="post-tags">
+    
+    | <a href="/tag/desarrollo">desarrollo</a> |
+    
+    | <a href="/tag/herramientas">herramientas</a> |
+    
+    | <a href="/tag/integracion-continua">integracion-continua</a> |
+    
+  </div>
+  <div class="post-share">
+    <a class="twitter-share-button"
+    data-via="_Raul_Avila"
+    data-count="none"
+    href="https://twitter.com/share">Tweet</a>
+  </div>
+  <p>En el <a href="/2015/09/gradle-desde-maven">anterior post</a> introdujimos Gradle como herramienta de desarrollo y gestión de proyectos software. Comentaba al final del artículo que no me convencía demasiado la forma en que se llevaba a cabo la resolución de dependencias, así que intentaré explicar a qué me refiero exactamente.</p>
+
+<!--break-->
+
+<h3 id="dependencias-en-maven">Dependencias en Maven</h3>
+
+<p>Para comprender cuál es el problema en Gradle, primero tenemos que revisar cómo se resuelven las dependencias en Maven. Para ello, en primer lugar es necesario tener bien clara la diferencia entre una versión <code class="highlighter-rouge">SNAPSHOT</code> y una que no lo es.</p>
+
+<p>Supongamos que estamos trabajando con un proyecto Maven que contiene las siguientes dependencias:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.raulavila<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>artifact1<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.0<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.raulavila<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>artifact2<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span></code></pre></figure>
+
+<p>El sufijo <code class="highlighter-rouge">SNAPSHOT</code> básicamente significa “versión en desarrollo”, algo que Maven traduce como “utilizar la versión más reciente de la dependencia”. Esto ocurre con <code class="highlighter-rouge">artifact2</code>, pero no con <code class="highlighter-rouge">artifact1</code>. Con este último, al tratarse de una versión liberada, Maven utilizará la copia de la dependencia que tenga más a mano.</p>
+
+<p>¿Qué significa esto de que tenga más a mano? Maven busca las dependencias en todos los repositorios que tenga configurados, comenzando por el repositorio local de la máquina que esté construyendo el proyecto, siguiendo por el repositorio Maven Central (<a href="http://repo1.maven.org/maven/">http://repo1.maven.org/maven/</a>), y yendo por último a todos los repositorios que nosotros hayamos añadido en la configuración del proyecto (fichero <code class="highlighter-rouge">pom.xml</code>) o el fichero <code class="highlighter-rouge">settings.xml</code> de Maven. El siguiente diagrama representa a nivel general el proceso:</p>
+
+<p><img src="/public/pictures/dependencias/dep-maven-1.jpg" alt="Dependencias Maven 1" /></p>
+
+<p>Si la dependencia no está en el repositorio local, una vez localizada en alguno de los remotos será copiada allí (= cacheada), por lo que en siguientes builds nos ahorraremos ancho de banda utilizando esta copia de la caché. Para versiones liberadas (sin el sufijo <code class="highlighter-rouge">SNAPSHOT</code>) esto es ideal (asumo que nadie va a liberar la misma versión dos veces, ya que aparte de romper la lógica de versionado habría que hacer bastantes triquiñuelas para conseguirlo con Maven). El “problema” surge cuando utilizamos versiones <code class="highlighter-rouge">SNAPSHOT</code>:</p>
+
+<p><img src="/public/pictures/dependencias/dep-maven-2.jpg" alt="Dependencias Maven 2" /></p>
+
+<p>Supongo que habréis notado que uno de nuestros repositorios tiene el nombre “CI internal repository (shared remote repo)”. En general, para proyectos corporativos, y si utilizamos prácticas como integración continua, lo normal es que tengamos configurado un repositorio remoto público a nivel interno (<a href="http://www.jfrog.com/artifactory/">Artifactory</a> o <a href="http://www.sonatype.com/nexus/product-overview">Nexus</a> son dos de las plataformas utilizadas). El cometido de estos repositorios es tanto servir como proxies para repositorios externos, como alojar los módulos desarrollados en el proyecto por los equipos de desarrollo. En el último diagrama, tenemos dos módulos/dependencias diferentes, <code class="highlighter-rouge">Artifact3</code> y <code class="highlighter-rouge">Artifact2</code>. Ambos módulos pueden ser desarrollados perfectamente por equipos diferentes, de forma que el equipo desarrollando <code class="highlighter-rouge">Artifact3</code> dependerá del trabajo realizado en <code class="highlighter-rouge">Artifact2</code>, pero no al revés. Además, necesitaríamos que la versión de <code class="highlighter-rouge">Artifact2</code> utilizada sea siempre la más reciente que exista en en el sistema de control de versiones.</p>
+
+<p>La solución “chapuzas” sería que el equipo trabajando en <code class="highlighter-rouge">Artifact3</code> tenga también una copia local del código de <code class="highlighter-rouge">Artifact2</code> (aunque no trabaje en ella), y antes de construir su proyecto actualice el código del otro, instalando el módulo final en el repositorio local de Maven. Pero nosotros no somos chapuzas, y para abstraernos totalmente del trabajo realizado por el equpo <code class="highlighter-rouge">Artifact2</code>, configuramos el repositorio “CI internal repository” en cada copia local de Maven (y del entorno de integración continúa, claro), para que Maven busque allí la copia más reciente de la versión <code class="highlighter-rouge">1.0-SNAPSHOT</code>. La comprobación de la copia más reciente se hace en base a la fecha y el checksum de los ficheros. ¡Ojo!, que esta copia puede estar en el repositorio local de Maven, y no en uno de los remotos.</p>
+
+<p>Para que este proceso funcione sin fisuras es necesario que nuestra herramienta de integración continua (véase <a href="https://jenkins-ci.org/">Jenkins</a>) publique la versión <code class="highlighter-rouge">SNAPSHOT</code> en <code class="highlighter-rouge">CI repo</code> tan pronto como detecte una nueva versión en el repositorio CVS (véase <a href="https://git-scm.com/">Git</a>). Es por esto que, en el primer diagrama, las flechas entre “Local Maven repository” y “CI internal repository” son bidireccionales, porque la versión de Maven que utilice Jenkins tendrá una tarea encargada de publicar el módulo en dicho repositorio.</p>
+
+<h3 id="dependencias-en-gradle">Dependencias en Gradle</h3>
+
+<p>Tras comprender (o eso espero) la resolución de dependencias en Maven, pasemos a ver cómo funciona Gradle. Primero, y más importante, es que en los proyectos Gradle lo normal ¡será configurar repositorios Maven para buscar las dependencias! Esto es debido es que no existe algo así como “repositorios Gradle”. La otra alternativa es utilizar repositorios <a href="http://ant.apache.org/ivy/history/latest-milestone/tutorial/build-repository.html">Ivy</a>, aunque está menos extendida.</p>
+
+<p>Total, que nuestro fichero <code class="highlighter-rouge">build.gradle</code>, utilizando las pautas dictadas <a href="https://docs.gradle.org/current/userguide/artifact_dependencies_tutorial.html">en su documentación</a> tendrá un aspecto tal que así:</p>
+
+<figure class="highlight"><pre><code class="language-groovy" data-lang="groovy"><span class="c1">//...</span>
+<span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'maven'</span>
+
+<span class="c1">//...</span>
+<span class="n">repositories</span> <span class="o">{</span>
+    <span class="n">mavenLocal</span><span class="o">()</span>  <span class="c1">//Maven installation required in the same machine</span>
+    <span class="n">maven</span> <span class="o">{</span>
+        <span class="n">url</span> <span class="s1">'http://ci-repo'</span>
+    <span class="o">}</span>
+    <span class="n">mavenCentral</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="c1">//...</span>
+<span class="n">dependencies</span> <span class="o">{</span>
+    <span class="c1">//...</span>
+    <span class="n">compile</span> <span class="s2">"com.raulavila:artifact2:1.0-SNAPSHOT"</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>El closure <code class="highlighter-rouge">repositories</code> define todos los repositorios donde buscar dependencias. En Gradle no hay repositorios configurados por defecto, por lo que si no especificamos <code class="highlighter-rouge">mavenLocal()</code> no se buscará allí. Los repositorios se escanean en el orden que aparecen, y gana el primero que contenga la dependencia.</p>
+
+<p>Otra gran novedad es que, de la misma forma que el repositorio local de Maven servía de caché para dependencias externas, en Gradle existe una caché también, propia de la herramienta (y cuya ubicación se puede especificar mediante la variable de entorno <a href="http://blog.james-carr.org/2011/05/04/setting-gradle-cache-to-a-common-location/">GRADLE_USER_HOME</a>). Esta caché, sin embargo, no actúa de fachada para todos los repositorios, sino <strong>solo para los externos</strong>. Esto, traducido, significa que Gradle añadirá las dependencias al classpath del proceso de build que existan en la máquina local, por lo que si una dependencia está en el repositorio local de Maven se añadirá desde allí, y si, en cambio, está en un repositorio remoto, se copiará a la caché de Gradle antes de añadirla al classpath.</p>
+
+<p><img src="/public/pictures/dependencias/dep-gradle-1.jpg" alt="Dependencias Gradle 1" /></p>
+
+<p>Sigamos con más diferencias. En Gradle existen dos tipos de dependencias, dinámicas y estáticas. Una dependencia es marcada como dinámica si lo hacemos nosotros de forma explícita en la configuración de la dependencia:</p>
+
+<figure class="highlight"><pre><code class="language-groovy" data-lang="groovy"><span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">compile</span> <span class="nl">group:</span> <span class="s2">"group"</span><span class="o">,</span> <span class="nl">name:</span> <span class="s2">"projectA"</span><span class="o">,</span> <span class="nl">version:</span> <span class="s2">"1.1-SNAPSHOT"</span><span class="o">,</span> <span class="nl">changing:</span> <span class="kc">true</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Pero Gradle considera por defecto a todas las dependencias <code class="highlighter-rouge">SNAPSHOT</code> como versiones dinámicas. Cuando una dependencia es dinámica vive en la caché de Gradle durante 24 horas por defecto, y durante su tiempo de vida Gradle no chequeará la existencia de nuevas versiones en repositorios remotos. Este comportamiento se puede cambiar, y lo veremos a continuación. Las dependencias estáticas se consideran “fijas” y no deberían dar problemas una vez cacheadas.</p>
+
+<p>Con estas bases, veamos diferentes casos de uso en los que Gradle deberá resolver la dependencia <code class="highlighter-rouge">Artifact2</code>:</p>
+
+<ol>
+  <li>La dependencia está en <code class="highlighter-rouge">mavenLocal</code>. Sencillo, Gradle añade la dependencia al classpath del build desde el repositorio local de Maven, sin copiarla en su propia caché</li>
+  <li>La dependencia no está en <code class="highlighter-rouge">mavenLocal</code>, pero si en el <code class="highlighter-rouge">CI repo</code> (primera vez que ejecutamos el build). En este caso Gradle chequea <code class="highlighter-rouge">mavenLocal</code> primero, y al no encontrar allí la dependencia va a <code class="highlighter-rouge">CI repo</code>. Encuentra allí la dependencia, así que la descarga y copia en la caché, añadiéndola al classpath desde allí</li>
+  <li>Mismo caso que 2 (dependencia no en <code class="highlighter-rouge">mavenLocal</code>, sí en <code class="highlighter-rouge">CI repo</code>), pero en esta ocasión es la segunda vez que ejecutamos el build. Con la configuración por defecto de Gradle, si este segundo build es ejecutado en las siguientes 24 horas después del primero, la dependencia de la caché de Gradle se utilizará en lugar de la que haya en <code class="highlighter-rouge">CI repo</code> (¡aunque esta última sea más reciente!). Si este segundo build se ejecuta tras 24 horas, entonces se descargaría una nueva versión de <code class="highlighter-rouge">CI repo</code></li>
+  <li>Nos descargamos el código de <code class="highlighter-rouge">Artifact2</code> y lo instalamos en <code class="highlighter-rouge">mavenLocal</code> (mediante el comando <code class="highlighter-rouge">gradle clean install</code>). En el siguiente build se dará el caso 1 por tanto</li>
+</ol>
+
+<p>El proceso aparece descrito en el siguiente diagrama:</p>
+
+<p><img src="/public/pictures/dependencias/dep-gradle-2.jpg" alt="Dependencias Gradle 1" /></p>
+
+<h3 id="problemas">Problemas</h3>
+
+<p>Este proceso presenta varios problemas:</p>
+
+<ul>
+  <li>(basado en el punto 3) Supongamos que se publica un cambio en <code class="highlighter-rouge">Artifact2</code> que rompe <code class="highlighter-rouge">Artifact3</code>. Así que un programador de nuestro equipo actualiza <code class="highlighter-rouge">Artifact3</code> para adaptarse al cambio. Tras esta actualización otro programador se baja los cambios de <code class="highlighter-rouge">Artifact3</code>, y construye el proyecto, pero tiene una versión “viva” de <code class="highlighter-rouge">Artifact2</code> en la caché de Gradle. El build fallará. La solución a este problema es modificar la configuración de la caché de Gradle, de forma que el tiempo de vida de los módulos sea 0:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-groovy" data-lang="groovy"><span class="n">configurations</span><span class="o">.</span><span class="na">all</span> <span class="o">{</span>
+    <span class="n">resolutionStrategy</span> <span class="o">{</span>
+        <span class="n">cacheDynamicVersionsFor</span> <span class="mi">0</span><span class="o">,</span> <span class="s2">"seconds"</span>
+        <span class="n">cacheChangingModulesFor</span> <span class="mi">0</span><span class="o">,</span> <span class="s2">"seconds"</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Con esta nueva configuración, cada build chequeará los repositorios externos, y descargará una versión más reciente en caso de que la haya (si no la hay utilizará la de la caché).</p>
+
+<p>Otra opción es utilizar el parámetro <code class="highlighter-rouge">--refresh-dependencies</code> en cada build.</p>
+
+<ul>
+  <li>(basado en el punto 4) Pongamos que me descargo el código de <code class="highlighter-rouge">Artifact2</code> y lo instalo en el repositorio local de Maven. Esto es realmente peliagudo, porque Gradle va a utilizar esa versión SIEMPRE, por lo que si hay nuevos cambios en el código, y no actualizamos el proyecto <code class="highlighter-rouge">Artifact2</code> instalándolo de nuevo en <code class="highlighter-rouge">mavenLocal</code>, el build de <code class="highlighter-rouge">Artifact3</code> fallará.</li>
+</ul>
+
+<p>Este último problema tiene difícil solución. He probado varias configuraciones, y ninguna lo llega a solucionar. Una de ellas, poner <code class="highlighter-rouge">mavenLocal</code> como última opción en el closure <code class="highlighter-rouge">repositories</code> es especialmente mala, ya que se produce el efecto contrario, que si queremos utilizar cambios locales sin subir, sea imposible, ya que siempre se utilizará la versión remota por delante.</p>
+
+<p>Así que no nos queda otra que pelearnos de vez en cuando con este tema. Al menos el primer problema tiene solución, por lo que si no utilizamos dependencias desde la caché de Maven todo funcionará bien, aunque es improbable que no tengamos que hacerlo en algún momento u otro. Raro es el caso en que no necesitamos descargarnos el código de un módulo del que dependemos para arreglar algo, ¿verdad?</p>
+
+<h3 id="conclusiones">Conclusiones</h3>
+
+<p>A pesar de los problemas que he descrito en el post, sigo considerando Gradle como una gran opción para gestionar y construir proyectos, pero siempre es importante conocer los puntos flacos de cualquier cosa que utilicemos. Y en entornos tan distribuidos como los que existen hoy día, estos conflictos pueden dar lugar a situaciones algo enrevesadas. Esperemos que antes o después se modifique esta estrategia para dotar de mayor solidez a la herramienta.</p>
+
+</article>
+
+<aside class="related">
+  <h2>Posts relacionados</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2016/01/primer-aniversario">
+            Un año de blog
+            <small><time datetime="2016-01-31T00:00:00+00:00">31/01/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/01/aprendiendo-TDD">
+            Aprendiendo TDD
+            <small><time datetime="2016-01-24T00:00:00+00:00">24/01/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/11/code-retreat-2015">
+            Global Day of Code Retreat (2015)
+            <small><time datetime="2015-11-16T00:00:00+00:00">16/11/2015</time></small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</aside>
+
+        
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'raulavila'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </main>
+
+      <footer class="footer">
+        <small>
+          &copy; <time datetime="2016">2016</time> Raúl Ávila. Blog creado con <a href="http://jekyllrb.com">Jekyll</a>.
+          Plantilla basada en <a href="http://getpoole.com">Poole</a>.
+          <a href="/atom.xml">Atom Feed</a></a>.
+          <br>
+        </small>
+      </footer>
+    </div>
+
+  <script>
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58942569-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>

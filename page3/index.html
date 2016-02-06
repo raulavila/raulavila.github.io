@@ -116,7 +116,7 @@
     <p>Creo que todos habremos leído más de un artículo o libro en el que, mencionando las buenas prácticas que debemos seguir a la hora de diseñar e implementar nuestras aplicaciones, se hace especial hincapié en dos conceptos:</p>
 
 <ul>
-  <li>Alta cohesión (<a href="http://stackoverflow.com/questions/10830135/what-is-high-cohesion-and-how-to-use-it-make-it">high cohesion</a>): sin ánimo de profundizar, la alta cohesión se consigue cuando una clase hace una labor bien definida, y  no múltiples tareas poco relacionadas. Una medida de alta cohesión podría ser el uso que los diferentes métodos de una clase hacen de las variables de instancia, si todos los métodos utilizan todas las variables de instancia la cohesión es alta. A nivel de módulo voy a poner un contraejemplo bastante significativo, la clase <code>java.util</code>, que contiene tanto las <a href="http://docs.oracle.com/javase/7/docs/api/java/util/Collections.html">Java Collections</a> como clases para manejar fechas y demás. Curioso que algo tan definido como las Collections no tenga su propio paquete, pero evidentemente por motivos históricos y compatibilidad hacia atrás se ha tenido que quedar así</li>
+  <li>Alta cohesión (<a href="http://stackoverflow.com/questions/10830135/what-is-high-cohesion-and-how-to-use-it-make-it">high cohesion</a>): sin ánimo de profundizar, la alta cohesión se consigue cuando una clase hace una labor bien definida, y  no múltiples tareas poco relacionadas. Una medida de alta cohesión podría ser el uso que los diferentes métodos de una clase hacen de las variables de instancia, si todos los métodos utilizan todas las variables de instancia la cohesión es alta. A nivel de módulo voy a poner un contraejemplo bastante significativo, la clase <code class="highlighter-rouge">java.util</code>, que contiene tanto las <a href="http://docs.oracle.com/javase/7/docs/api/java/util/Collections.html">Java Collections</a> como clases para manejar fechas y demás. Curioso que algo tan definido como las Collections no tenga su propio paquete, pero evidentemente por motivos históricos y compatibilidad hacia atrás se ha tenido que quedar así</li>
 </ul>
 
 
@@ -135,7 +135,7 @@
 
     <time datetime="2015-06-28T00:00:00+01:00" class="post-date index-date">28/06/2015</time>    
 
-    <p>Seguimos con la serie de Multithreading. Nuestro juego de Ping Pong <a href="/2015/06/multithreading-2/">lo dejamos</a> en un punto bastante óptimo, con los threads (jugadores) quedando bloqueados a la espera de su turno, y con la posibilidad de escalar al número de jugadores que quisiéramos. Sin embargo, había algo que no era demasiado elegante, y es que la clase <code>Game</code> se encargaba enteramente de la creación, inicio y finalización de threads, así como de sincronizarse con estos para no terminar antes de que los diferentes threads lo hubieran hecho:</p>
+    <p>Seguimos con la serie de Multithreading. Nuestro juego de Ping Pong <a href="/2015/06/multithreading-2/">lo dejamos</a> en un punto bastante óptimo, con los threads (jugadores) quedando bloqueados a la espera de su turno, y con la posibilidad de escalar al número de jugadores que quisiéramos. Sin embargo, había algo que no era demasiado elegante, y es que la clase <code class="highlighter-rouge">Game</code> se encargaba enteramente de la creación, inicio y finalización de threads, así como de sincronizarse con estos para no terminar antes de que los diferentes threads lo hubieran hecho:</p>
 
 
     

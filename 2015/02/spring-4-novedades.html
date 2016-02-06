@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Novedades en Spring 4 (parte 1)
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Raúl Ávila" href="/atom.xml">
+
+</head>
+
+
+  <body>
+
+    <div class="container content">
+      <header class="masthead">
+        <h1 class="masthead-title">
+          <a href="/" title="Home">Raúl Ávila</a>
+        </h1>
+
+            <small><a href="/sobre-mi">Sobre mí</a></small>
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/archivos">Archivos</a></small>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title">Novedades en Spring 4 (parte 1)</h1>
+  <time datetime="2015-02-28T00:00:00+00:00" class="post-date">28/02/2015</time>
+  <div class="post-tags">
+    
+    | <a href="/tag/java">java</a> |
+    
+    | <a href="/tag/spring">spring</a> |
+    
+  </div>
+  <div class="post-share">
+    <a class="twitter-share-button"
+    data-via="_Raul_Avila"
+    data-count="none"
+    href="https://twitter.com/share">Tweet</a>
+  </div>
+  <p>De todos los frameworks que existen dentro del mundo Java, posiblemente Spring sea el más popular. Rara es la oferta de trabajo en la que busquen Desarrolladores Java y Spring no aparezca en el stack requerido para el puesto.</p>
+
+<p>Lo que empezó principalmente como un motor de <a href="http://en.wikipedia.org/wiki/Dependency_injection">inyección de dependencias</a>, ha ido derivando en un ecosistema de diferentes plataformas que facilitan el desarrollo de aplicaciones de todos los tipos imaginables. Entre los módulos más populares de Spring se encuentran:</p>
+
+<!--break-->
+
+<ul>
+  <li><a href="https://spring.io/guides/gs/serving-web-content/">Spring MVC</a>, que facilita la creación de aplicaciones web, API’s REST, etc. Suele ser el punto de entrada a Spring para casi todo el mundo</li>
+  <li><a href="http://projects.spring.io/spring-data/">Spring Data</a>, permite la creación de capas de persistencia de forma extremadamente sencilla, ¡llegando incluso a evitarnos la implementación de los métodos!, que es generada por Spring siguiendo convenciones en la nomenclatura. Personalmente creo que la mayor baza de este módulo es su uso con bases de datos <a href="http://es.wikipedia.org/wiki/NoSQL">NoSQL</a></li>
+  <li><a href="http://projects.spring.io/spring-batch/">Spring Batch</a>, para la creación de, sorpresa, procesos Batch. Trabajé con Spring Batch para un proyecto, y creo que el enfoque que obliga a dar a la arquitectura de estos procesos es perfecto</li>
+  <li><a href="http://projects.spring.io/spring-social/">Spring Social</a>, para generar aplicaciones que se conecten con redes sociales</li>
+  <li><a href="http://projects.spring.io/spring-security/">Spring Security</a>, para añadir sistemas de autenticación (login) y autorización (permisos por roles, etc) a nuestras aplicaciones web</li>
+  <li><a href="http://projects.spring.io/spring-boot/">Spring Boot</a>, proyecto relativamente más reciente, con el que apenas he tomado contacto, hasta que hace poco asistí a un Webcast impartido por <a href="https://twitter.com/starbuxman">Josh Long</a> y quedé gratamente sorprendido. Creo que profundizaré en Spring Boot durante este año, pero en resumen permite el desarrollo rápido de aplicaciones mediante la filosofía <a href="http://en.wikipedia.org/wiki/Convention_over_configuration">convention over configuration</a></li>
+</ul>
+
+<p>La lista podría seguir, pero creo que basta para hacerse una idea de todo lo que Spring abarca.</p>
+
+<h2 id="spring-4">Spring 4</h2>
+
+<p>A primeros de 2014 se liberó la versión 4 de Spring, que introduce varias mejoras sobre la última release dentro de la versión 3 (3.2.13). En este post revisaré las más importantes en el Core de Spring, como siempre con ejemplos prácticos que <a href="https://github.com/raulavila/spring-4-new-features">podéis descargar de GitHub</a>.</p>
+
+<h3 id="expresiones-lambdas">Expresiones Lambdas</h3>
+
+<p>Las <a href="http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html">Lambda Expressions</a> son una de las grandes mejoras de Java 8. Spring 4 por supuesto ha adaptado sus API’s para soportarlas, permitiéndonos ser más concisos en el código. Un ejemplo muy claro de la diferencia entre utilizar y no utilizar expresiones Lambda lo tenemos en el siguiente ejemplo, donde se consulta una base de datos mediante <a href="http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/jdbc/core/JdbcTemplate.html">JdbcTemplate</a> sin y con expresiones lambda:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">queryDB</span><span class="p">(</span><span class="n">JdbcTemplate</span> <span class="n">jdbcTemplate</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Java 7 Querying for customer records "</span> <span class="o">+</span>
+                            <span class="s">"where first_name = 'Bart':"</span><span class="o">);</span>
+
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Customer</span><span class="o">&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">query</span><span class="o">(</span>
+            <span class="s">"select * from customers "</span> <span class="o">+</span>
+                    <span class="s">"where first_name = ?"</span><span class="o">,</span>
+            <span class="k">new</span> <span class="n">Object</span><span class="o">[]</span> <span class="o">{</span> <span class="s">"Bart"</span> <span class="o">},</span>
+            <span class="k">new</span> <span class="n">RowMapper</span><span class="o">&lt;</span><span class="n">Customer</span><span class="o">&gt;()</span> <span class="o">{</span>
+                <span class="nd">@Override</span>
+                <span class="kd">public</span> <span class="n">Customer</span> <span class="n">mapRow</span><span class="o">(</span><span class="n">ResultSet</span> <span class="n">rs</span><span class="o">,</span>
+                                       <span class="kt">int</span> <span class="n">rowNum</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+                    <span class="k">return</span> <span class="k">new</span> <span class="n">Customer</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getLong</span><span class="o">(</span><span class="s">"id"</span><span class="o">),</span>
+                                        <span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"first_name"</span><span class="o">),</span>
+                                        <span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"last_name"</span><span class="o">));</span>
+                <span class="o">}</span>
+            <span class="o">});</span>
+
+    <span class="n">processCustomers</span><span class="o">(</span><span class="n">results</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">queryDB_Java8</span><span class="p">(</span><span class="n">JdbcTemplate</span> <span class="n">jdbcTemplate</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Java 8 Querying for customer records "</span> <span class="o">+</span>
+                            <span class="s">"where first_name = 'Bart':"</span><span class="o">);</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Customer</span><span class="o">&gt;</span> <span class="n">results</span> <span class="o">=</span> <span class="n">jdbcTemplate</span><span class="o">.</span><span class="na">query</span><span class="o">(</span>
+            <span class="s">"select * from customers "</span> <span class="o">+</span>
+                    <span class="s">"where first_name = ?"</span><span class="o">,</span>
+            <span class="k">new</span> <span class="n">Object</span><span class="o">[]</span> <span class="o">{</span> <span class="s">"Bart"</span> <span class="o">},</span>
+            <span class="o">(</span><span class="n">rs</span><span class="o">,</span> <span class="n">rowNum</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">Customer</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getLong</span><span class="o">(</span><span class="s">"id"</span><span class="o">),</span>
+                                    <span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"first_name"</span><span class="o">),</span>
+                                    <span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"last_name"</span><span class="o">)));</span>
+
+    <span class="n">processCustomers</span><span class="o">(</span><span class="n">results</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Hemos eliminado toda la verbosidad que conlleva la creación de una instancia de RowMapper, y la expresión queda mucho más clara. El método query seguirá recibiendo una objeto del tipo RowMapper, pero nos quitamos la responsabilidad de crearlo nosotros (nos quitamos <a href="http://en.wikipedia.org/wiki/Boilerplate_code">boilerplate code</a> vaya).</p>
+
+<h3 id="generics-con-autowired">Generics con @Autowired</h3>
+
+<p>La anotación <code class="highlighter-rouge">@Autowired</code>es omnipresente en proyectos con Spring, y se utiliza para inyectar dependencias de forma automática. Es decir, Spring busca en su contexto un bean que encaje con el tipo del atributo que está asociado a la anotación:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Autowired</span>
+<span class="n">PersonDAO</span> <span class="n">personDAO</span><span class="o">;</span></code></pre></figure>
+
+<p>En el ejemplo, sería necesario que existiera en el contexto un bean del tipo PersonDAO, o Spring fallaría al intentar levantar el contexto. Personalmente considero que en ocasiones es mejor configurar el contexto de Spring con sus dependencias en ficheros XML, pero eso es discusión para otro momento.</p>
+
+<p>Hasta la versión 4 de Spring, si el tipo del campo al que queremos inyectar la dependencia era genérico no podíamos hacerlo:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Store</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span> <span class="cm">/*..*/</span><span class="o">}</span>
+
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">IntStore</span> <span class="kd">implements</span> <span class="n">Store</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="o">{</span> <span class="cm">/*..*/</span><span class="o">}</span>
+
+<span class="nd">@Component</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StringStore</span> <span class="kd">implements</span> <span class="n">Store</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="o">{</span> <span class="cm">/*..*/</span><span class="o">}</span>
+
+<span class="nd">@Autowired</span>
+<span class="kd">private</span> <span class="n">Store</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">store</span><span class="o">;</span></code></pre></figure>
+
+<p>En Spring 3 obtendríamos la excepción “No qualifying bean of type [Store] is defined, expected single matching bean but found 2: stringStore, intStore”, mientras que en Spring 4 esto es perfectamente posible, lo que nos permite desarrollar siguiendo el patrón <a href="http://stackoverflow.com/questions/383947/what-does-it-mean-to-program-to-an-interface">“program to an interface, not an implementation”</a>.</p>
+
+<h3 id="inyeccin-ordenada">Inyección ordenada</h3>
+
+<p>En Spring 3 era posible inyectar una seria de beans que implementaran una interfaz en particular, pero no era posible garantizar el orden de la inyección:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">GreetingService</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">getGreeting</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MultiGreetingPrinter</span> <span class="o">{</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">GreetingService</span><span class="o">&gt;</span> <span class="n">greetingServices</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">printGreeting</span><span class="o">()</span> <span class="o">{</span>
+    	<span class="k">for</span><span class="o">(</span><span class="n">GreetingService</span> <span class="nl">greetingService:</span> <span class="n">greetingServices</span><span class="o">)</span> <span class="o">{</span>
+    		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">greetingService</span><span class="o">.</span><span class="na">getGreeting</span><span class="o">());</span>
+    	<span class="o">}</span>
+
+    <span class="o">}</span>
+
+<span class="o">}</span></code></pre></figure>
+
+<p>En el ejemplo, si tenemos varios objetos de diferentes clases que implementan la interfaz GreetingService en el contexto de Spring, todos ellos serán inyectadas en la lista, pero si queremos establecer prioridades en el orden en que dichas instancias serán invocadas (por ejemplo, para implementar el patrón <a href="http://en.wikipedia.org/wiki/Chain-of-responsibility_pattern">Chain of Responsibility</a>) no había forma de hacerlo. Esto se ha solucionado en Spring 4 añadiendo la interfaz <code class="highlighter-rouge">Ordered</code> que solo expone un método, <code class="highlighter-rouge">getOrder</code>:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Ordered</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">getOrder</span><span class="o">();</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Nuestras implementaciones de GreetingService deberán implementar también la interfaz Ordered, y los objetos serán inyectados siguiendo el orden dictado por <code class="highlighter-rouge">getOrder</code>:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PersonGreeting</span> <span class="kd">implements</span> <span class="n">GreetingService</span><span class="o">,</span> <span class="n">Ordered</span> <span class="o">{</span>
+    <span class="cm">/*..*/</span>
+
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">order</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">getOrder</span><span class="o">()</span> <span class="o">{</span>
+    	<span class="k">return</span> <span class="n">order</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setOrder</span><span class="o">(</span><span class="kt">int</span> <span class="n">order</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">order</span> <span class="o">=</span> <span class="n">order</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>De esta forma podemos crear los beans en el contexto estableciendo su orden:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"personGreeting"</span> <span class="na">class=</span><span class="s">"com.raulavila.spring.greeting.PersonGreeting"</span><span class="nt">&gt;</span>
+	<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"personName"</span> <span class="na">value=</span><span class="s">"Raul"</span> <span class="nt">/&gt;</span>
+	<span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"order"</span> <span class="na">value=</span><span class="s">"2"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/bean&gt;</span></code></pre></figure>
+
+<p>Incluso podemos configurar ese orden por base de datos o un fichero de propiedades, siempre que getOrder retorne el valor correcto.</p>
+
+<h3 id="configuracin-del-contexto">Configuración del contexto</h3>
+
+<p>La configuración del contexto de Spring utilizando ficheros XML ha tenido sus voces críticas, aunque incido en que personalmente la prefiero al uso de anotaciones. No obstante, Spring ha ido introduciendo alternativas a la configuración XML durante los últimos años, y actualmente es posible generar un contexto mediante la configuración establecida en una clase Java anotada con <code class="highlighter-rouge">@Configuration</code> y <code class="highlighter-rouge">@ComponentScan</code>:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
+<span class="nd">@ComponentScan</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyApplicationContext</span> <span class="o">{</span>
+
+	<span class="nd">@Bean</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"intStore"</span><span class="o">)</span>
+	<span class="nd">@Description</span><span class="o">(</span><span class="s">"Description of the bean"</span><span class="o">)</span>
+	<span class="kd">public</span> <span class="n">Store</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">getIntStore</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="k">new</span> <span class="n">IntStore</span><span class="o">();</span>
+	<span class="o">}</span>
+
+	<span class="nd">@Bean</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"helloWorld"</span><span class="o">)</span>
+	<span class="nd">@Conditional</span><span class="o">(</span><span class="n">NoGreetingServiceDefined</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+	<span class="kd">public</span> <span class="n">GreetingService</span> <span class="n">createGreetingService</span><span class="o">(){</span>
+		<span class="k">return</span> <span class="k">new</span> <span class="n">GreetingService</span><span class="o">()</span> <span class="o">{</span>
+			<span class="nd">@Override</span>
+			<span class="kd">public</span> <span class="n">String</span> <span class="n">getGreeting</span><span class="o">()</span> <span class="o">{</span>
+				<span class="k">return</span> <span class="s">"Hello world!!"</span><span class="o">;</span>
+			<span class="o">}</span>
+		<span class="o">};</span>
+	<span class="o">}</span>
+
+<span class="o">}</span></code></pre></figure>
+
+<p>En el ejemplo vemos como la clase contiene dos métodos “factory” que se encargan de instanciar los beans que residirán en el contexto y pueden ser inyectados. Esta clase no supone ninguna novedad en Spring 4, pero sí dos de las anotaciones que aparecen:</p>
+
+<h4 id="description">@Description</h4>
+
+<p>Bastante autoexplicativa, asocia una descripción al Bean. Es especialmente útil cuando los beans son expuestos externamente, utilizando <a href="http://en.wikipedia.org/wiki/Java_Management_Extensions">JMX</a>, por ejemplo, de esta forma podemos proporcionar información adicional a soporte de aplicaciones.</p>
+
+<h4 id="conditional">@Conditional</h4>
+
+<p>Opción bastante interesante, como su propio nombre indica condiciona la creación del bean al resultado (booleano, claro) devuelto por la clase indicada en la anotación, y que debe implementar la interfaz <code class="highlighter-rouge">Condition</code>:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">NoGreetingServiceDefined</span> <span class="kd">implements</span> <span class="n">Condition</span><span class="o">{</span>
+
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="kt">boolean</span> <span class="n">matches</span><span class="o">(</span><span class="n">ConditionContext</span> <span class="n">context</span><span class="o">,</span>
+			<span class="n">AnnotatedTypeMetadata</span> <span class="n">metadata</span><span class="o">)</span> <span class="o">{</span>
+
+		<span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="na">getBeanFactory</span><span class="o">()</span>
+						<span class="o">.</span><span class="na">getBeansOfType</span><span class="o">(</span><span class="n">GreetingService</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+						<span class="o">.</span><span class="na">isEmpty</span><span class="o">();</span>
+	<span class="o">}</span>
+
+<span class="o">}</span></code></pre></figure>
+
+<p>En este ejemplo se revisa el contexto para comprobar si ya existe algún bean de la clase GreetingService, y en tal caso se evitaría la creación de uno nuevo. Bastante útil cuando tenemos la configuración repartida en diferentes ficheros y pueden existir duplicidades.</p>
+
+<h3 id="configuracin-del-contexto-mediante-groovy-dsl">Configuración del contexto mediante Groovy DSL</h3>
+
+<p>No soy un gran fan de <a href="http://groovy-lang.org/">Groovy</a>, y más desde la irrupción de Java 8, pero su auge es evidente. Spring 4 permite la configuraciónd el contexto mediante ficheros de definición Groovy:</p>
+
+<figure class="highlight"><pre><code class="language-groovy" data-lang="groovy"><span class="n">beans</span> <span class="o">{</span>
+    <span class="n">framework</span> <span class="n">String</span><span class="o">,</span> <span class="s1">'Grails'</span>
+    <span class="n">foo</span> <span class="n">String</span><span class="o">,</span> <span class="s1">'hello'</span>
+    <span class="n">bar</span><span class="o">(</span><span class="n">Bar</span><span class="o">,</span><span class="nl">s:</span><span class="s1">'hello'</span><span class="o">,</span><span class="nl">i:</span><span class="mi">123</span><span class="o">)</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Cada línea dentro del scope beans define un bean mediante los parámetros “name tipo parámetros_del_constructor”. La verdad es que Groovy aporta una gran flexbilidad, pero yo siempre he sido más de tipado estático, lo siento :). <a href="http://spring.io/blog/2014/03/03/groovy-bean-configuration-in-spring-framework-4">Más información aquí</a>.</p>
+
+<p>Terminamos aquí el repaso a las mejoras del core. <a href="/2015/03/spring-4-novedades-2">En el próximo post</a> hablaré de las mejoras introducidas a nivel de desarrollo Web.</p>
+
+</article>
+
+<aside class="related">
+  <h2>Posts relacionados</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2016/01/primer-aniversario">
+            Un año de blog
+            <small><time datetime="2016-01-31T00:00:00+00:00">31/01/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/01/aprendiendo-TDD">
+            Aprendiendo TDD
+            <small><time datetime="2016-01-24T00:00:00+00:00">24/01/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/11/code-retreat-2015">
+            Global Day of Code Retreat (2015)
+            <small><time datetime="2015-11-16T00:00:00+00:00">16/11/2015</time></small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</aside>
+
+        
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'raulavila'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </main>
+
+      <footer class="footer">
+        <small>
+          &copy; <time datetime="2016">2016</time> Raúl Ávila. Blog creado con <a href="http://jekyllrb.com">Jekyll</a>.
+          Plantilla basada en <a href="http://getpoole.com">Poole</a>.
+          <a href="/atom.xml">Atom Feed</a></a>.
+          <br>
+        </small>
+      </footer>
+    </div>
+
+  <script>
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58942569-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>
