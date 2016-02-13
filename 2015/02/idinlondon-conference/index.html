@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      International Developers in London Conference
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Raúl Ávila" href="/atom.xml">
+
+</head>
+
+
+  <body>
+
+    <div class="container content">
+      <header class="masthead">
+        <h1 class="masthead-title">
+          <a href="/" title="Home">Raúl Ávila</a>
+        </h1>
+
+            <small><a href="/sobre-mi">Sobre mí</a></small>
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/archivos">Archivos</a></small>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title">International Developers in London Conference</h1>
+  <time datetime="2015-02-22T00:00:00+00:00" class="post-date">22/02/2015</time>
+  <div class="post-tags">
+    
+    | <a href="/tag/London">London</a> |
+    
+    | <a href="/tag/eventos">eventos</a> |
+    
+  </div>
+  <div class="post-share">
+    <a class="twitter-share-button"
+    data-via="_Raul_Avila"
+    data-count="none"
+    href="https://twitter.com/share">Tweet</a>
+  </div>
+  <p>El pasado sábado asistí a la “International Developers in London Conference”. Esta conferencia forma parte de los diferentes eventos englobados en los meetups <a href="http://www.idinlondon.co.uk/#home">International Developers in London</a> (valga la redundancia), organizados por un recruiter llamado <a href="https://twitter.com/Adam__Bolton">Adam Bolton</a>. Los recruiters de esta ciudad no son conocidos precisamente por su profesionalidad y buenas formas, pero este en cuestión entraría dentro de la categoría de “buenos recruiters”.</p>
+
+<p>Cuando digo “en los meetups”, es porque se trata realmente de diferentes grupos enfocados a desarrolladores que tienen en común dos cosas, ser extranjeros en UK, y su país de origen (sea Italia, Francia, España, etc). Se trata de una iniciativa bastante interesante, porque propone realizar presentaciones ante personas que no son nativos, por lo que el factor vergüenza al tener que utilizar una segunda lengua disminuye considerablemente. De hecho, no descarto proponer una charla algún día, cuando considere que tengo algo realmente interesante que contar.</p>
+
+<!--break-->
+
+<p>La conferencia no giró en torno a tecnologías en concreto, como sí pueda ocurrir con otras a las que he asistido, pero siempre se pueden sacar lecciones de provecho. Resumiré en este post lo que me pareció más interesante, y que puede que me resulte de utilidad en un futuro más o menos cercano.</p>
+
+<h3 id="high-performance-web-platform-martin-beebyhttpstwittercomthebeebs">High performance web platform (<a href="https://twitter.com/thebeebs">Martin Beeby</a>)</h3>
+
+<p>Con la implantación definitiva de dispositivos móviles, la denominada como <a href="http://es.wikipedia.org/wiki/Experiencia_de_usuario">experiencia de usuario</a> resulta cada vez más importante, y aquí es donde estamos los programadores para optimizar el rendimiento de las aplicaciones Web.</p>
+
+<p>Me resultó muy interesante la diferenciación entre <strong>“Performance”</strong> y <strong>“Perceived Performance” / “Time to Glass”</strong>. Pido disculpas por la no traducción de determinados conceptos, pero considero que castellanizar algunas expresiones en informática sencillamente carece de sentido (léase TDD vs Diseño dirigido por tests). Diríamos que time to glass es el tiempo que tarda el usuario en ver la pantalla que espera, lo cual no significa que todos los recursos estén cargados. Podemos encontrarnos que este tiempo es inferior en un factor 3X o 4X del tiempo real de carga de todos los recursos, y es necesario minimizarlo al máximo. ¿Tiene sentido, verdad? Creo que a todos nos resulta muy molesto estar esperando con la pantalla en blanco a ver algo cuando introducimos una URL en nuestro navegador.</p>
+
+<p>Por otro lado, es importante no perder de vista el consumo de batería si queremos enfocar nuestras webs a dispositivos móviles. Sobre este asunto se habló de la importancia de priorizar “Target Devices”, mediante herramientas como <a href="http://www.google.com/analytics/">Google Analytics</a>.</p>
+
+<p>Otas consideraciones importantes en lo referente al rendimiento web son:</p>
+
+<ul>
+  <li>Minimizar el tamaño de las imágenes. No interesa alojar png’s de la máxima calidad cuando luego serán reprocesados en el cliente. Conviene priorizar además el formato jpg sobre el png</li>
+  <li>Usar <a href="http://www.w3schools.com/css/css_image_sprites.asp">Image Sprites</a> para cargar conjuntos de iconos, en lugar de iconos individuales. Así reducimos drásticamente las peticiones HTTP gracias a la caché de los navegadores</li>
+  <li>Alojar los recursos en <a href="http://en.wikipedia.org/wiki/Content_delivery_network">Content Delivery Networks (CDN)</a>. Personalmente fue la primera vez que escuché hablar de estos sistemas, pero por lo visto en la presentación la mejora es sustancial</li>
+  <li>Incluir los ficheros Javascript al final de nuestras páginas HTML, para posponer su carga. Esto está muy relacionado con el “time to glass” comentado previamente</li>
+  <li>Minimizar los ficheros Javascript y CSS en las versiones de producción</li>
+  <li>Reducir el número de frameworks utilizados en el Front-End. Queda muy bien listar 10 frameworks diferentes para estar a la última (jQuery + jQuery UI + Bootstrap, + AngularJS +…), pero prestad atención a la siguiente comparativa mostrada en la presentación (cortesía de Martin Beeby)</li>
+</ul>
+
+<p><img src="/public/pictures/frontend-frameworks.png" alt="Comparativa frameworks frontend" /></p>
+
+<p>Por último aquí van una serie de recursos web interesantes para mejorar el rendimiento de nuestras aplicaciones web:</p>
+
+<ul>
+  <li><a href="http://webdevchecklist.com/">http://webdevchecklist.com/</a>: Checklist para desarrollo web</li>
+  <li><a href="http://yslow.org/">Yahoo YSlow</a>: analiza posibles causas de un bajo rendimiento</li>
+  <li><a href="https://developers.google.com/speed/pagespeed/insights/?hl=es">Google PageSpeed Insights</a>: herramienta similar, esta de Google</li>
+</ul>
+
+<p>Para finalizar con el resumen de esta charla un dato: un descenso en la latencia de 100ms le supone a Amazon una pérdida en ventas del 1%, equivalente a 2.000.000$ <strong>AL DÍA</strong>. UX matters, que diría aquel.</p>
+
+<h3 id="escalabilidad">Escalabilidad</h3>
+
+<p>Hubo dos charlas interesantes al respecto, “Designing distributed, scalable and reliable systems” por <a href="https://twitter.com/mauroservienti">Mauro Servienti</a>, y “Just queue it!” por <a href="https://twitter.com/marcos_placona">Marcos Placona</a>. La escalabilidad es un tema muy recurrente en los últimos tiempos, y parecer ser que todos los sistemas deben diseñarse para ser lo más escalable posible, pero expertos en el tema dejaron claro que a veces “las hojas no te dejan ver el bosque”. Veamos por qué.</p>
+
+<p>Pensemos en una aplicación que recibe al día 25.000 visitantes, y cada uno de ellos consulta una media de 6 páginas. Además sabemos que estas visitas se distribuyen de forma más o menos uniforme a lo largo de 11 horas. Esta cifra nos podría hacer pensar en escalar el sistema a lo ancho (Scale out), es decir, añadiendo nodos/servidores, en lugar de añadir recursos a nuestro único servidor (Scale up). Pero, ¿son estas cifras tan elevadas? Veamos:</p>
+
+<ul>
+  <li>25.000 * 6 = 150.000 páginas/día</li>
+  <li>150.000 / 11 = 13.636 páginas/hora</li>
+  <li>13.636 / 60 = 227 páginas/minuto</li>
+  <li>227 / 60 = 3.7 páginas/segundo</li>
+</ul>
+
+<p>La conclusión es que si nuestra aplicación tiene problemas para servir 4 páginas por segundo es que tenemos un problema (escalabilidad aparte), y deberíamos intentar buscar cuellos de botella (bottlenecks) que puedan estar causando incidencias. Si las visitas aumentan, pero no de forma drástica, en primera instancia siempre será más sencillo añadir recursos que pensar en escalar a lo ancho (Scaling out).</p>
+
+<p>Una vez nos encontremos con que ya es inevitable pensar en soluciones distribuidas, debemos olvidarnos de la típica arquitectura “Request/Response”, que en este tipo de arquitecturas está considera un anti-pattern, y orientarnos más bien a un diseño <a href="http://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern">Publish-subscribe</a>. Este patrón de diseño es a grandes rasgos una evolución del <a href="http://en.wikipedia.org/wiki/Observer_pattern">patrón Observer</a>, en el que los sistemas implicados están totalmente desacoplados mediante el uso de colas de mensajes (Queues).</p>
+
+<p>Las tecnologías que gestionan colas de mensajes son variadas. Algunas de ellas requieren que todos los sistemas implicados compartan infraestructura (por ejemplo, <a href="http://activemq.apache.org/">ActiveMQ</a> nos obliga a que todas las partes estén desarrolladas en Java, o al menos corran sobre la JVM), mientras que otros no imponen obligaciones en este aspecto y pueden estar más recomendados cuando desconocemos cuales serán los ecosistemas involucrados a priori (en este grupo tenemos <a href="http://www.rabbitmq.com/">RabbitMQ</a> o <a href="http://www.iron.io/mq">IronMQ</a>).</p>
+
+<p>Personalmente he trabajado durante los últimos diez meses en un sistema con esta filosofía (concretemente en un ecosistema <a href="http://www.jboss.org/products/fuse/overview/">JBoss Fuse</a>, que utiliza ActiveMQ o <a href="http://camel.apache.org/">Apache Camel</a> entre otros), por lo que es más que seguro que volveré a hablar de todo esto más adelante.</p>
+
+<h3 id="otras-charlas">Otras charlas</h3>
+
+<p>Se hablaron de otras cosas, como la importancia de seleccionar las palabras claves para aplicaciones subidas a la App Store de Apple a la hora de ganar visibilidad, las virguerías que se pueden hacer con <a href="http://www.arduino.cc/">Arduino</a>, la plataforma <a href="http://www.telerik.com/nativescript">Native Script</a>, para desarrollo Cross platform de aplicaciones móviles, o una introducción a la metodología <a href="http://es.wikipedia.org/wiki/Scrum">SCRUM</a>.</p>
+
+<p>Fue un día bastante provechoso, y repetiría sin dudarlo, máxime cuando además no me fui con las manos vacías, ¡me tocó una de las rifas! :) Aquí la foto que da fe de ello:</p>
+
+<p><img src="/public/pictures/raffle.jpg" alt="Rifa" /></p>
+
+</article>
+
+<aside class="related">
+  <h2>Posts relacionados</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2016/01/primer-aniversario/">
+            Un año de blog
+            <small><time datetime="2016-01-31T00:00:00+00:00">31/01/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/01/aprendiendo-TDD/">
+            Aprendiendo TDD
+            <small><time datetime="2016-01-24T00:00:00+00:00">24/01/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/11/code-retreat-2015/">
+            Global Day of Code Retreat (2015)
+            <small><time datetime="2015-11-16T00:00:00+00:00">16/11/2015</time></small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</aside>
+
+        
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'raulavila'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </main>
+
+      <footer class="footer">
+        <small>
+          &copy; <time datetime="2016">2016</time> Raúl Ávila. Blog creado con <a href="http://jekyllrb.com">Jekyll</a>.
+          Plantilla basada en <a href="http://getpoole.com">Poole</a>.
+          <a href="/atom.xml">Atom Feed</a></a>.
+          <br>
+        </small>
+      </footer>
+    </div>
+
+  <script>
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58942569-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>

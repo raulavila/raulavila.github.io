@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Dependency Inversion vs Dependency Injection
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Raúl Ávila" href="/atom.xml">
+
+</head>
+
+
+  <body>
+
+    <div class="container content">
+      <header class="masthead">
+        <h1 class="masthead-title">
+          <a href="/" title="Home">Raúl Ávila</a>
+        </h1>
+
+            <small><a href="/sobre-mi">Sobre mí</a></small>
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/archivos">Archivos</a></small>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title">Dependency Inversion vs Dependency Injection</h1>
+  <time datetime="2015-03-22T00:00:00+00:00" class="post-date">22/03/2015</time>
+  <div class="post-tags">
+    
+    | <a href="/tag/desarrollo">desarrollo</a> |
+    
+    | <a href="/tag/principios">principios</a> |
+    
+  </div>
+  <div class="post-share">
+    <a class="twitter-share-button"
+    data-via="_Raul_Avila"
+    data-count="none"
+    href="https://twitter.com/share">Tweet</a>
+  </div>
+  <p>Mi intención con este post es dar un poco de luz a toda la confusión que parece que existe en torno a dos conceptos/principios:</p>
+
+<ul>
+  <li>Principio de Inversión de Dependencias (Dependency Inversion principle - DIP)</li>
+  <li>Inyección de Dependencias (Dependency Injection - DI)</li>
+</ul>
+
+<p>Como bonus comentaré además el Principio de Inversión de Control (Inversion of Control - IoC), que muchas veces se confunde con la inyección de dependencias.</p>
+
+<!--break-->
+
+<p>El motivo de tanta confusión es que estos conceptos están fuertemente relacionados, de hecho la experiencia puede llevar a muchos desarrolladores a hacer uso de ellos sin saber que realmente los están utilizando, sobre todo si se trabaja con Spring o algún framework similar. No veo mucho problema en que pase algo así, pero sí veo problema en mencionar que en cierto proyecto se está utilizando “inversión de dependencias” cuando realmente se está utilizando “inyección de dependencias”.</p>
+
+<p>Otro motivo de confusión, a mi parecer, es que en foros, blogs, etc, se suele tratar el tema en el orden equivocado: IoC =&gt; DI =&gt; DIP. Yo haré justo lo contrario, y comenzaré explicando el Principio de Inversión de dependencias.</p>
+
+<h2 id="principio-de-inversin-de-dependencias">Principio de Inversión de Dependencias</h2>
+
+<p>Este principio, que no sé al 100% si acuñado, pero sí popularizado por <a href="http://en.wikipedia.org/wiki/Robert_Cecil_Martin">Uncle Bob</a>, tiene la siguiente <a href="http://en.wikipedia.org/wiki/Dependency_inversion_principle">definición formal oficial</a>:</p>
+
+<blockquote>
+  <p>A. High-level modules should not depend on low-level modules. Both should depend on abstractions.</p>
+</blockquote>
+
+<blockquote>
+  <p>B. Abstractions should not depend on details. Details should depend on abstractions.</p>
+</blockquote>
+
+<p>Diría que esta definición por sí misma no sirve de mucho, y para entenderlo en condiciones necesitamos un ejemplo plasmado en código y acompañado de algún diagrama UML.</p>
+
+<h4 id="dependencias-en-tiempo-de-compilacin--de-ejecucin">Dependencias en tiempo de compilación / de ejecución</h4>
+
+<p>Para entender este principio primero hay que aprender a distinguir la diferencia entre dependencias en tiempo de compilación (compile time dependencies) y dependencias en tiempo de ejecución (runtime dependencies).</p>
+
+<p>Utilizaremos un ejemplo simplicado para un sistema de inventario. Tenemos tres clases principales:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Item</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">BigDecimal</span> <span class="n">price</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">quantity</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">Item</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span>
+                <span class="n">BigDecimal</span> <span class="n">price</span><span class="o">,</span>
+                <span class="kt">int</span> <span class="n">quantity</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">quantity</span> <span class="o">=</span> <span class="n">quantity</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="c1">//.. getters, setters, etc</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ItemDAO</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span> <span class="n">items</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">ItemDAO</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">(</span>
+                <span class="k">new</span> <span class="n">Item</span><span class="o">(</span><span class="s">"item1"</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">10.00</span><span class="o">),</span> <span class="mi">2</span><span class="o">),</span>
+                <span class="k">new</span> <span class="n">Item</span><span class="o">(</span><span class="s">"item1"</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">20.00</span><span class="o">),</span> <span class="mi">1</span><span class="o">),</span>
+                <span class="k">new</span> <span class="n">Item</span><span class="o">(</span><span class="s">"item1"</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">30.00</span><span class="o">),</span> <span class="mi">3</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span> <span class="n">getItems</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">items</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">InventoryService</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">ItemDAO</span> <span class="n">itemDAO</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">InventoryService</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">itemDAO</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ItemDAO</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">BigDecimal</span> <span class="n">getTotalAmount</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span> <span class="n">items</span> <span class="o">=</span> <span class="n">itemDAO</span><span class="o">.</span><span class="na">getItems</span><span class="o">();</span>
+
+        <span class="n">BigDecimal</span> <span class="n">totalAmount</span> <span class="o">=</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">;</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="n">Item</span> <span class="n">item</span> <span class="o">:</span> <span class="n">items</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">totalAmount</span> <span class="o">=</span> <span class="n">addItemAmountToTotal</span><span class="o">(</span><span class="n">item</span><span class="o">,</span> <span class="n">totalAmount</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">totalAmount</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">BigDecimal</span> <span class="n">addItemAmountToTotal</span><span class="o">(</span><span class="n">Item</span> <span class="n">item</span><span class="o">,</span> <span class="n">BigDecimal</span> <span class="n">totalAmount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">BigDecimal</span> <span class="n">price</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="na">getPrice</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">quantity</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="na">getQuantity</span><span class="o">();</span>
+
+        <span class="n">BigDecimal</span> <span class="n">amountItem</span> <span class="o">=</span>
+                <span class="n">price</span><span class="o">.</span><span class="na">multiply</span><span class="o">(</span><span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">quantity</span><span class="o">));</span>
+
+        <span class="n">totalAmount</span> <span class="o">=</span> <span class="n">totalAmount</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">amountItem</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">totalAmount</span><span class="o">;</span>
+    <span class="o">}</span>
+
+<span class="o">}</span></code></pre></figure>
+
+<p>En el código vemos claramente como <code class="highlighter-rouge">InventoryService</code> instancia <code class="highlighter-rouge">ItemDAO</code>, y posteriormente invoca su método <code class="highlighter-rouge">getItems</code> para obtener todos los productos del inventario y calcular el importe total del almacén. Esto significa que el flujo de control en tiempo de ejecución lleva la dirección que va desde <code class="highlighter-rouge">InventoryService</code> a <code class="highlighter-rouge">ItemDAO</code>. Esto no es otra cosa que una <strong>dependencia en tiempo de ejecución</strong> (runtime dependency).</p>
+
+<p>Dejando de lado <code class="highlighter-rouge">Item</code>, que es una clase “de modelo” (existen mil formas de denominar estas clases: de dominio, business objects…), las clases que implementan el comportamiento del sistema son: <code class="highlighter-rouge">InventoryService</code> e <code class="highlighter-rouge">ItemDAO</code>. El diagrama UML que representa la relación entre ambas clases sería:</p>
+
+<p><img src="/public/pictures/inventory_nodip.jpg" alt="UML sin DIP" /></p>
+
+<p>En este diagrama vemos cómo hemos modelado el sistema y cuáles son las <strong>dependencias en tiempo de compilación</strong>. ¿Qué significa esto? Significa que para compilar <code class="highlighter-rouge">InventoryService</code> necesitamos haber compilado previamente <code class="highlighter-rouge">ItemDAO</code>. Si ambas clases estuvieran desarrolladas en diferentes módulos/librerías, y por tanto formaran parte de ficheros jar diferentes (pongamos por ejemplo, un fichero <em>services.jar</em> y otro <em>daos.jar</em>), para poder compilar el módulo que contiene <code class="highlighter-rouge">InventoryService</code> previamente debería estar compilado y disponible en el classpath el módulo que contiene <code class="highlighter-rouge">ItemDAO</code>.</p>
+
+<p>En este ejemplo, por tanto, las dependencias en tiempo de compilación tienen el mismo sentido que las dependencias en tiempo de ejecución. Esto tiene varias implicaciones:</p>
+
+<ul>
+  <li>Estamos acoplando fuertemente módulos con diferentes responsabilidades (acceso a datos -DAO- vs. cálculos de negocio -Service-)</li>
+  <li>El proceso de compilación y despliegue del sistema es más complejo (puesto que es necesaria la presencia de todas las dependencias)</li>
+  <li>Los tests son mucho más complicados de desarrollar (es difícil aislar las clases a testear mediante mocks)</li>
+</ul>
+
+<p>Imaginad los problemas que conlleva este acoplamiento en sistemas realmente complejos, de, digamos, cientos de módulos.</p>
+
+<h4 id="invirtiendo-las-dependencias">Invirtiendo las dependencias</h4>
+
+<p>¿Qué significa invertir las dependencias? Pues ni más ni menos que diseñar el sistema de forma que <strong>las dependencias en tiempo de ejecución tengan el sentido contrario que las dependencias en tiempo de compilación</strong>. Esto se consigue estableciendo un contrato entre los módulos de alto nivel y los módulos de bajo nivel. En Java, un contrato no es ni más ni menos que una interfaz.</p>
+
+<p>En el sistema anterior, introducir una interfaz nos llevaría al siguiente diagrama UML:</p>
+
+<p><img src="/public/pictures/inventory_dip.jpg" alt="UML con DIP" /></p>
+
+<p>Aquí vemos que <code class="highlighter-rouge">InventoryService</code> depende en tiempo de compilación de la interfaz <code class="highlighter-rouge">ItemDAO</code> (nótese que en la primera versión <code class="highlighter-rouge">ItemDAO</code> era una clase, no una interfaz), y dicha interfaz es implementada por la clase <code class="highlighter-rouge">ItemDAOImpl</code>, pero <code class="highlighter-rouge">InventoryService</code> no dependerá más de dicha clase <code class="highlighter-rouge">ItemDAOImpl</code>.</p>
+
+<p>Por tanto hemos desacoplado ambas clases, que se comunican entre ellas mediante un contrato (establecido en la interfaz <code class="highlighter-rouge">ItemDAO</code>). En tiempo de ejecución, sin embargo, la clase <code class="highlighter-rouge">InventoryService</code> seguirá invocando a la implemantación <code class="highlighter-rouge">ItemDAOImpl</code>, por lo que, efectivamente, está ocurriendo que “la dirección del flujo de ejecución es opuesta a la dirección de las dependencias en tiempo de compilación”. En esto consiste el Principio de Inversión de Dependencias.</p>
+
+<h4 id="pero-si-la-dependencia-en-tiempo-de-compilacin-sigue-ah">¡Pero si la dependencia en tiempo de compilación sigue ahí!</h4>
+
+<p>En el punto anterior he omitido el código resultante del nuevo diseño a propósito. Lo primero que puede venir a nuestra mente tras ver el diagrama UML es lo siguiente:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">InventoryService</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">ItemDAO</span> <span class="n">itemDAO</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">InventoryService</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">itemDAO</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ItemDAOImpl</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="c1">//...</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>En este código siguen existiendo dependencias en tiempo de compilación, porque la clase Service sigue siendo responsable de instanciar la implementación concreta del contrato. Y aquí es donde entra en juego la inyección de dependencias.</p>
+
+<h2 id="inyeccin-de-dependencias">Inyección de Dependencias</h2>
+
+<p>El código que implementa el último diagrama UML ajustándose realmente al DIP sería este:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ItemDAO</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span> <span class="n">getItems</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ItemDAOImpl</span> <span class="kd">implements</span> <span class="n">ItemDAO</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span> <span class="n">items</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">ItemDAOImpl</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">items</span> <span class="o">=</span> <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">(</span>
+                <span class="k">new</span> <span class="n">Item</span><span class="o">(</span><span class="s">"item1"</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">10.00</span><span class="o">),</span> <span class="mi">2</span><span class="o">),</span>
+                <span class="k">new</span> <span class="n">Item</span><span class="o">(</span><span class="s">"item1"</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">20.00</span><span class="o">),</span> <span class="mi">1</span><span class="o">),</span>
+                <span class="k">new</span> <span class="n">Item</span><span class="o">(</span><span class="s">"item1"</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">30.00</span><span class="o">),</span> <span class="mi">3</span><span class="o">));</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span> <span class="n">getItems</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">items</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">InventoryService</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ItemDAO</span> <span class="n">itemDAO</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">InventoryService</span><span class="o">(</span><span class="n">ItemDAO</span> <span class="n">itemDAO</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">itemDAO</span> <span class="o">=</span> <span class="n">itemDAO</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">BigDecimal</span> <span class="n">getTotalAmount</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span> <span class="n">items</span> <span class="o">=</span> <span class="n">itemDAO</span><span class="o">.</span><span class="na">getItems</span><span class="o">();</span>
+
+        <span class="n">BigDecimal</span> <span class="n">totalAmount</span> <span class="o">=</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">;</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="n">Item</span> <span class="n">item</span> <span class="o">:</span> <span class="n">items</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">totalAmount</span> <span class="o">=</span> <span class="n">addItemAmountToTotal</span><span class="o">(</span><span class="n">item</span><span class="o">,</span> <span class="n">totalAmount</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">totalAmount</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">BigDecimal</span> <span class="n">addItemAmountToTotal</span><span class="o">(</span><span class="n">Item</span> <span class="n">item</span><span class="o">,</span> <span class="n">BigDecimal</span> <span class="n">totalAmount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">BigDecimal</span> <span class="n">price</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="na">getPrice</span><span class="o">();</span>
+        <span class="kt">int</span> <span class="n">quantity</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="na">getQuantity</span><span class="o">();</span>
+
+        <span class="n">BigDecimal</span> <span class="n">amountItem</span> <span class="o">=</span>
+                <span class="n">price</span><span class="o">.</span><span class="na">multiply</span><span class="o">(</span><span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">quantity</span><span class="o">));</span>
+
+        <span class="n">totalAmount</span> <span class="o">=</span> <span class="n">totalAmount</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">amountItem</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">totalAmount</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Como podemos ver, ahora sí, la clase <code class="highlighter-rouge">InventoryService</code> es completamente ignorante de la existencia de una implementación concreta del contrato establecido por la interfaz <code class="highlighter-rouge">ItemDAO</code>, y lo único que hace es recibir la implementación que sea en su constructor y guardar la referencia. Estamos, por tanto, <strong>inyectando</strong> la dependencia DAO en la clase Service.</p>
+
+<p>Esto es fantástico, porque hemos borrado de un plumazo todos los problemas detallados en la lista de la primera versión del sistema (acoplamiento, tests, compilación y despliegue), pero ahora un nuevo quebradero de cabeza entra en juego (de hecho, en este punto del razonamiento aún no estamos utilizando inyección de dependencias como tal).</p>
+
+<p>Con la primera versión, si queríamos invocar la operación <code class="highlighter-rouge">getTotalAmount</code> del servicio, bastaba con instanciar la clase y ejecutar la operación. Por simplicidad, hagámoslo en un método main estático dentro de la propia clase, es decir:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">InventoryService</span> <span class="o">{</span>
+
+    <span class="c1">//....</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">InventoryService</span> <span class="n">inventoryService</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InventoryService</span><span class="o">();</span>
+        <span class="n">BigDecimal</span> <span class="n">totalAmount</span> <span class="o">=</span> <span class="n">inventoryService</span><span class="o">.</span><span class="na">getTotalAmount</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">totalAmount</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>En la nueva versión, sin embargo, si queremos que llevar a cabo la misma operación, “alguien” deberá encargarse de instanciar la implementación concreta de <code class="highlighter-rouge">ItemDAO</code>, para posteriormente instanciar <code class="highlighter-rouge">InventoryService</code> pasándole la instancia del DAO. Creemos nosotros mismos una clase con esa responsabilidad:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Assembler</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ItemDAO</span> <span class="n">itemDAO</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ItemDAOImpl</span><span class="o">();</span>
+        <span class="n">InventoryService</span> <span class="n">inventoryService</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InventoryService</span><span class="o">(</span><span class="n">itemDAO</span><span class="o">);</span>
+        <span class="n">BigDecimal</span> <span class="n">totalAmount</span> <span class="o">=</span> <span class="n">inventoryService</span><span class="o">.</span><span class="na">getTotalAmount</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">totalAmount</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span></code></pre></figure>
+
+<p>Esta clase tiene la responsabilidad de instanciar y ensamblar las diferentes piezas del sistema (de ahí su nombre). Es la presencia de este componente el que, ahora sí, nos permite afirmar que nuestro sistema funciona mediante <strong>Inyección de Dependencias</strong>.</p>
+
+<p>El concepto fue acuñado por <a href="http://es.wikipedia.org/wiki/Martin_Fowler">Martin Fowler</a> en <a href="http://es.wikipedia.org/wiki/Martin_Fowler">este artículo</a>, y en resumen viene a decir que los sistemas diseñador mediante Dependency Injection están controlados por un componente externo que se encarga de instanciar y ensamblar todas sus piezas convenientemente. En general, nosotros jamás desarrollaremos una clase como la <code class="highlighter-rouge">Assembler</code> de mi ejemplo, y dejaremos esta responsabiliad a frameworks como <a href="http://projects.spring.io/spring-framework/">Spring</a>.</p>
+
+<h4 id="aadiendo-spring-al-sistema">Añadiendo Spring al sistema</h4>
+
+<p>Veamos como quedaría nuestro sistema utilizando Spring. El core de Spring lo forma el conocido como “Inversion of Control Container” (<a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/beans.html#beans-basics">IoC container</a>), o más comúnmente denominado <strong>Application Context</strong>. No es mi intención profundizar aquí en cómo funciona Spring, pero, para posibles lectores que nunca hayan trabajado con el framework, el contexto de Spring puede verse a rasgos generales como un contenedor que almacena instancias de clases Java denominadas beans. Dichos beans están etiquetados con un identificador, su clase y la interfaz que implementan, de forma que cuando una clase necesita hacer uso de una instancia que implemente un contrato determinado, Spring realiza una búsqueda en su contexto de un bean que cumpla las características requeridas e inyecta el bean en la clase que lo solicite.</p>
+
+<p>Repito, esto es una simplifación bastante grande, pero creo que será suficiente para entender el ejemplo. En Spring existen múltiples formas de configurar el contexto de la aplicación, pero aquí optaré por la más primitiva (y para mí la mejor :)), que es hacerlo mediante un fichero XML:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">"http://www.springframework.org/schema/beans"</span>
+       <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+       <span class="na">xsi:schemaLocation=</span><span class="s">"http://www.springframework.org/schema/beans</span>
+	    <span class="err">http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"itemDAO"</span> <span class="na">class=</span><span class="s">"com.raulavila.dependencies.dip.withdip.ItemDAOImpl"</span> <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"inventoryService"</span>
+            <span class="na">class=</span><span class="s">"com.raulavila.dependencies.dip.withdip.InventoryService"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;constructor-arg</span> <span class="na">ref=</span><span class="s">"itemDAO"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/bean&gt;</span>
+<span class="nt">&lt;/beans&gt;</span></code></pre></figure>
+
+<p>Aquí vemos como le estamos diciendo al IoC container que instancie los beans “itemDAO” e “inventoryService”, y que inyecte itemDAO en inventoryService.</p>
+
+<p>La clase principal de nuestra aplicación ahora sería bastante diferente:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainApp</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">ApplicationContext</span> <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassPathXmlApplicationContext</span><span class="o">(</span>
+                <span class="s">"spring-beans.xml"</span><span class="o">);</span>
+
+        <span class="n">InventoryService</span> <span class="n">inventoryService</span> <span class="o">=</span>
+            <span class="n">context</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">"inventoryService"</span><span class="o">,</span> <span class="n">InventoryService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">BigDecimal</span> <span class="n">totalAmount</span> <span class="o">=</span> <span class="n">inventoryService</span><span class="o">.</span><span class="na">getTotalAmount</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">totalAmount</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Como se puede ver, lo único que instancia es el contexto de Spring, y a partir de ahí solicita los servicios que necesita a dicho contexto.</p>
+
+<h2 id="inversin-de-control-inversion-of-control">Inversión de Control (Inversion of Control)</h2>
+
+<p>Este concepto es confundido habitualmente con la Inyección de Dependencias (la propia documentación de Spring lo hace), pero en realidad es bastante más amplio.</p>
+
+<p>Inversión de control viene a decir que el control principal de la aplicación no está gestionado por la aplicación misma, sino por un agente externo, consiguiendo así un código más desacoplado. Es una definición bastante genérica, y se puede aplicar a muchos aspectos del desarrollo software, veamos dos ejemplos:</p>
+
+<ul>
+  <li>Una aplicación que solicita datos al usuario puede hacerlo a la vieja usanza (y hablo de MS-DOS), solicitando un dato cada vez (es decir, solicitar el nombre, esperar la acción del usuario, solicitar apellidos, esperar la acción del usuario, etc), o puede utilizar un framework GUI que mediante eventos guarde los valores de cada dato en el objeto que corresponda cuando estos datos se modifican en los campos correspondientes. Hemos invertido el control de la aplicación, siendo ahora el GUI quien gestiona el flujo del proceso (programación mediante eventos)</li>
+  <li>Una aplicación está compuesta de diferentes piezas que deben ser ensambladas convenientemente antes de poder ser utilizadas. Esta labor de ensamblaje puede ser realizada por la clase Main de la aplicación antes de iniciar el hilo principal, o puede ser externalizada a un contenedor externo, invirtiendo por tanto el control de este proceso</li>
+</ul>
+
+<p>Efectivamente, el segundo ejemplo no es otra cosa que la inyección de dependencias, que podríamos considerar como un subconjunto de la inversión de control, pero <strong>nunca la misma cosa</strong>.</p>
+
+<p>En general, diría que el uso del concepto “Inversión de Control” es bastante difuso, y es preferible olvidarnos de ello en nuestro día a día para evitar confusiones, mencionando y haciendo uso de la inyección de dependencias con verdadera propiedad.</p>
+
+<h2 id="di-sin-dip">DI sin DIP</h2>
+
+<p>Es posible que un sistema esté diseñado para funcionar mediante inyección de depedencias, ¡y que no siga el principio de inversión de depedencias! Aplicándolo a nuestro ejemplo, si modificáramos la clase <code class="highlighter-rouge">InventoryService</code> como sigue:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">InventoryService</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ItemDAOImpl</span> <span class="n">itemDAO</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">InventoryService</span><span class="o">(</span><span class="n">ItemDAOImpl</span> <span class="n">itemDAO</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">itemDAO</span> <span class="o">=</span> <span class="n">itemDAO</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="c1">//....</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Estamos creando una depedencia en tiempo de compilación desde <code class="highlighter-rouge">InventoryService</code> hacia <code class="highlighter-rouge">ItemDAOImpl</code>. El hecho de que este sistema no respete el DIP no implica que el diseño sea horrible, porque la inyección de dependencias sigue ahí, y por tanto aún podremos crear tests unitarios en condiciones, que era uno de los principales hándicaps de la primera versión comentada más arriba.</p>
+
+<p>Tratar de seguir a rajatabla el DIP puede llevar a sistemas excesivamente dimensionados (sobreingenería lo llaman) en ocasiones, y es labor nuestra, y de nuestro sentido común, dar con soluciones equilibradas. No siempre es necesario crear contratos/interfaces entre todas las clases de diferentes niveles de nuestro sistema, aunque existen determinados patrones que siempre es recomendable seguir (un buen ejemplo serían las clases DAO, para cuyas implementaciones encuentro difícil de justificar la no creación de una interfaz).</p>
+
+<p>Como contraejemplo de esto que estoy hablando, pongamos que creamos una calculadora para abstraer las operaciones con BigDecimal’s (un ejemplo un poco tonto). En tal caso la clase <code class="highlighter-rouge">InventoryService</code> podría quedar así:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">InventoryService</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ItemDAO</span> <span class="n">itemDAO</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">BigDecimalCalculator</span> <span class="n">bigDecimalCalculator</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">InventoryService</span><span class="o">(</span><span class="n">ItemDAO</span> <span class="n">itemDAO</span><span class="o">,</span>
+                            <span class="n">BigDecimalCalculator</span> <span class="n">bigDecimalCalculator</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">itemDAO</span> <span class="o">=</span> <span class="n">itemDAO</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">bigDecimalCalculator</span> <span class="o">=</span> <span class="n">bigDecimalCalculator</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">BigDecimal</span> <span class="n">getTotalAmount</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span> <span class="n">items</span> <span class="o">=</span> <span class="n">itemDAO</span><span class="o">.</span><span class="na">getItems</span><span class="o">();</span>
+
+        <span class="n">BigDecimal</span> <span class="n">totalAmount</span> <span class="o">=</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">;</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="n">Item</span> <span class="n">item</span> <span class="o">:</span> <span class="n">items</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">totalAmount</span> <span class="o">=</span> <span class="n">addItemAmountToTotal</span><span class="o">(</span><span class="n">item</span><span class="o">,</span> <span class="n">totalAmount</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">totalAmount</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="n">BigDecimal</span> <span class="n">addItemAmountToTotal</span><span class="o">(</span><span class="n">Item</span> <span class="n">item</span><span class="o">,</span> <span class="n">BigDecimal</span> <span class="n">totalAmount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">BigDecimal</span> <span class="n">price</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="na">getPrice</span><span class="o">();</span>
+        <span class="n">BigDecimal</span> <span class="n">quantity</span> <span class="o">=</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getQuantity</span><span class="o">());</span>
+
+        <span class="n">BigDecimal</span> <span class="n">amountItem</span> <span class="o">=</span> <span class="n">bigDecimalCalculator</span><span class="o">.</span><span class="na">multiply</span><span class="o">(</span><span class="n">price</span><span class="o">,</span> <span class="n">quantity</span><span class="o">);</span>
+        <span class="n">totalAmount</span> <span class="o">=</span> <span class="n">bigDecimalCalculator</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">totalAmount</span><span class="o">,</span> <span class="n">amountItem</span><span class="o">);</span>
+
+        <span class="k">return</span> <span class="n">totalAmount</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Omito la implementación de la nueva clase por obvia. En este caso no le veo mucho sentido a crear un contrato para BigDecimalCalculator, y sí a crear una única implementación a inyectar en las clases que lo necesiten. Otra cosa sería que creáramos una clase genérica <code class="highlighter-rouge">Calculator&lt;T&gt;</code>, pero esa es otra historia :).</p>
+
+<p>Tras añadir esta última clase al sistema, el contexto de spring quedaría configurado así:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">"http://www.springframework.org/schema/beans"</span>
+       <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+       <span class="na">xsi:schemaLocation=</span><span class="s">"http://www.springframework.org/schema/beans</span>
+	    <span class="err">http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"itemDAO"</span> <span class="na">class=</span><span class="s">"com.raulavila.dependencies.dip.withdip.ItemDAOImpl"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"bigDecimalCalculator"</span>
+        <span class="na">class=</span><span class="s">"com.raulavila.dependencies.dip.withdip.BigDecimalCalculator"</span><span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"inventoryService"</span>
+        <span class="na">class=</span><span class="s">"com.raulavila.dependencies.dip.withdip.InventoryService"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;constructor-arg</span> <span class="na">ref=</span><span class="s">"itemDAO"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;constructor-arg</span> <span class="na">ref=</span><span class="s">"bigDecimalCalculator"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/bean&gt;</span>
+<span class="nt">&lt;/beans&gt;</span></code></pre></figure>
+
+<h4 id="inyeccin-mediante-setters">Inyección mediante setters</h4>
+
+<p>La inyección no tiene por qué hacerse en el constructor. Es posible exponer los atributos de la clase mediante setters, y en ese caso la configuración en el fichero XML es incluso más clara:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="o">&lt;</span><span class="n">bean</span> <span class="n">id</span><span class="o">=</span><span class="s">"inventoryService"</span>
+    <span class="kd">class</span><span class="err">="</span><span class="nc">com</span><span class="o">.</span><span class="na">raulavila</span><span class="o">.</span><span class="na">dependencies</span><span class="o">.</span><span class="na">dip</span><span class="o">.</span><span class="na">withdip</span><span class="o">.</span><span class="na">InventoryService</span><span class="s">"&gt;
+    &lt;property name="</span><span class="n">itemDAO</span><span class="s">" ref="</span><span class="n">itemDAO</span><span class="s">"/&gt;
+    &lt;property name="</span><span class="n">bigDecimalCalculator</span><span class="s">" ref="</span><span class="n">bigDecimalCalculator</span><span class="err">"</span><span class="o">/&gt;</span>
+<span class="o">&lt;/</span><span class="n">bean</span><span class="o">&gt;</span></code></pre></figure>
+
+<p>Omito la nueva versión de la clase <code class="highlighter-rouge">InventoryService</code>, pero sería necesario crear los correspondientes métodos set para los atributos, así como eliminar su naturaleza <code class="highlighter-rouge">final</code> y crear un constructor por defecto.</p>
+
+<p>Esto nos lleva a un debate sin fin sobre si es mejor una modalidad o la otra. Personalmente esta última es bastante más clara para leer los ficheros de configuración (porque en la etiqueta property hay que mencionar también el nombre del atributo que almacenará la referencia, bastante más claro en clases con muchos atributos), pero elimina la naturaleza inmutable de las clases, y puede llevarnos a crear objetos “a medias”. En <a href="http://spring.io/blog/2007/07/11/setter-injection-versus-constructor-injection-and-the-use-of-required/">este artículo</a> de la web de Spring se discute sobre el tema por si queréis profundizar.</p>
+
+<h2 id="conclusiones">Conclusiones</h2>
+
+<p>Puede que me haya extendido un poco más de la cuenta, pero yo creo que este es un tema con bastante miga. He dejado de lado aspectos más avanzados de la inyección de dependencias, como puede ser la <a href="http://blogs.sourceallies.com/2011/08/spring-injection-with-resource-and-autowired/">inyección mediante anotaciones</a>, y también me gustaría mencionar otros frameworks que sirven a la misma causa (no solo de Spring vive el hombre), como <a href="http://aries.apache.org/modules/blueprint.html">Apache Aries Blueprint</a>, <a href="https://github.com/google/guice">Google Guice</a> o <a href="http://picocontainer.codehaus.org/">PicoContainer</a>.</p>
+
+<p>(El código fuente, como siempre, en <a href="https://github.com/raulavila/blog-examples">GitHub</a>).</p>
+
+</article>
+
+<aside class="related">
+  <h2>Posts relacionados</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2016/01/primer-aniversario/">
+            Un año de blog
+            <small><time datetime="2016-01-31T00:00:00+00:00">31/01/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/01/aprendiendo-TDD/">
+            Aprendiendo TDD
+            <small><time datetime="2016-01-24T00:00:00+00:00">24/01/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2015/11/code-retreat-2015/">
+            Global Day of Code Retreat (2015)
+            <small><time datetime="2015-11-16T00:00:00+00:00">16/11/2015</time></small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</aside>
+
+        
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'raulavila'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </main>
+
+      <footer class="footer">
+        <small>
+          &copy; <time datetime="2016">2016</time> Raúl Ávila. Blog creado con <a href="http://jekyllrb.com">Jekyll</a>.
+          Plantilla basada en <a href="http://getpoole.com">Poole</a>.
+          <a href="/atom.xml">Atom Feed</a></a>.
+          <br>
+        </small>
+      </footer>
+    </div>
+
+  <script>
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58942569-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>
