@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      TDD&#58; Hello World Web App
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Raúl Ávila" href="/atom.xml">
+
+</head>
+
+
+  <body>
+
+    <div class="container content">
+      <header class="masthead">
+        <h1 class="masthead-title">
+          <a href="/" title="Home">Raúl Ávila</a>
+        </h1>
+
+            <small><a href="/sobre-mi">Sobre mí</a></small>
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/archivos">Archivos</a></small>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title">TDD&#58; Hello World Web App</h1>
+  <time datetime="2016-03-12T00:00:00+00:00" class="post-date">12/03/2016</time>
+  <div class="post-tags">
+    
+    | <a href="/tag/TDD">TDD</a> |
+    
+    | <a href="/tag/desarrollo">desarrollo</a> |
+    
+  </div>
+  <div class="post-share">
+    <a class="twitter-share-button"
+    data-via="_Raul_Avila"
+    data-count="none"
+    href="https://twitter.com/share">Tweet</a>
+  </div>
+  <p>Seguimos con  mi viaje dentro del mundo TDD. Uno de los mayores dilemas a los que nos enfrentamos a la hora de diseñar un nuevo sistema mediante tests es por dónde debemos empezar, existiendo como existen tantas modalidades distintas de tests (unitarios, integración, de navegador, etc).</p>
+
+<p>He pensado que la mejor forma de responder a esta pregunta es liarme la manta a la cabeza y crear una aplicación web “Hello World” mediante TDD. Mostraré en este post el código generado tras cada paso, y la versión final la podéis encontrar <a href="https://github.com/raulavila/hello-world-webapp-tdd">en GitHub</a>.</p>
+
+<!--break-->
+
+<h3 id="el-primer-commit">El primer commit</h3>
+
+<p>Los ejemplos más comunes que podemos encontrar utilizando TDD en la red son <a href="https://www.youtube.com/watch?v=7RJM3pcMNyo">aplicaciones muy interesantes a nivel didáctico</a>, pero tras comprender los principios de esta metología se nos plantea la pregunta de cómo aplica esto al mundo real, a las aplicaciones que todos desarrollamos en nuestros puestos de trabajo. Y la verdad es que cuesta encontrar ejemplos de, por ejemplo, una aplicación web desarrollada mediante TDD.</p>
+
+<p>Así que vamos a ello, y como buenos informáticos que somos desarrollaremos un “Hello World”, que no es más que una web que cumple estos requisitos:</p>
+
+<blockquote>
+  <p>Cuando abro en mi navegador la url http://[domain]/hello se abre una página con el texto “Hello World”</p>
+</blockquote>
+
+<p>Con estos criterios de aceptación lo primero sería decidir las tecnologías a utilizar. En nuestro caso serán:</p>
+
+<ul>
+  <li>Java</li>
+  <li><a href="http://projects.spring.io/spring-boot/">Spring Boot</a> + <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">Spring MVC</a></li>
+  <li><a href="http://www.thymeleaf.org/">Thymeleaf</a> como template engine para crear las vistas web</li>
+  <li><a href="https://maven.apache.org/">Maven</a> para construir el proyecto</li>
+  <li>Para los tests unitarios y de integración nos apoyaremos en las APIs expuestas por Spring para escribir tests en <a href="http://junit.org/">JUnit</a></li>
+  <li>Para los tests de navegador o funcionales utilizaremos <a href="https://github.com/FluentLenium/FluentLenium">Fluentlenium</a>, API sobre <a href="http://www.seleniumhq.org/">Selenium</a> para crear este tipo de tests</li>
+</ul>
+
+<p>Una vez decidido todo esto deberíamos crear el esqueleto de un proyecto que contenga todas estas dependencias y compile sin problemas. Para esto podemos recurrir al uso de <a href="https://maven.apache.org/guides/introduction/introduction-to-archetypes.html">arquetipos Maven</a>, pero más fácil incluso es utilizar la estupenda herramienta <a href="https://start.spring.io/">Spring Initialzr</a>:</p>
+
+<p><img src="/public/pictures/hello-world-webapp-tdd/spring-initializr.jpg" alt="Spring Initialzr" /></p>
+
+<p>Con la configuración que aparece en la captura, y tras pulsar “Generate Project” tendremos un proyecto Maven con las dependencias de Spring necesarias. Sólo necesitamos añadir la librería Fluentlenium.</p>
+
+<p>El proyecto generado, aparte del layout básico tendrá dos clases, una en el código de producción y otra en el código de test. Ésta es la clase en el código de producción:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@SpringBootApplication</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorldWebappTddApplication</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span>
+                <span class="n">HelloWorldWebappTddApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>No es más que el punto de entrada para ejecutar una aplicación Spring Boot, de hecho esta primera versión del proyecto es perfectamente compilable y ejecutable, aunque no haga gran cosa.</p>
+
+<p>La clase de test es ésta:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@RunWith</span><span class="o">(</span><span class="n">SpringJUnit4ClassRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@SpringApplicationConfiguration</span><span class="o">(</span>
+    <span class="n">classes</span> <span class="o">=</span> <span class="n">HelloWorldWebappTddApplication</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@WebAppConfiguration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorldWebappTddApplicationTests</span> <span class="o">{</span>
+
+	<span class="nd">@Test</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="n">contextLoads</span><span class="o">()</span> <span class="o">{</span>
+	<span class="o">}</span>
+
+<span class="o">}</span></code></pre></figure>
+
+<p>Así de primeras mucha gente piensa que estamos ejecutando un test vacío, por lo tanto no estamos haciendo gran cosa. Pero esta clase de test prueba mucho, a saber:</p>
+
+<ul>
+  <li>Podemos ejecutar tests de JUnit</li>
+  <li>Podemos ejecutar tests de integración de Spring utilizando el runner <code class="highlighter-rouge">SpringJUnit4ClassRunner</code></li>
+  <li>Los tests de integración pueden cargar la configuración completa de nuestra aplicación Spring Boot</li>
+</ul>
+
+<p>Sólo vamos a cambiar un pequeño detalle sobre este esqueleto inicial, y es la nomenclatura utilizada en las clases de test. Utilizaremos <code class="highlighter-rouge">*Test</code> para los tests unitarios, y <code class="highlighter-rouge">*IT</code> para los tests de integración y navegador. Para poder ejecutar los tests de integración convenientemente en Maven necesitamos configurar el plugin failsafe, según se explica <a href="http://www.petrikainulainen.net/programming/maven/integration-testing-with-maven/">aquí</a>. Y puesto que el test generado por Spring Initialzr es realmente un test de integración vamos a renombrar ese test como <code class="highlighter-rouge">HelloWorldWebappTddApplicationIT</code>, y a crear un nuevo test unitario vacío:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorldWebappTddApplicationTest</span> <span class="o">{</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">junitDefaultRunner</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Puede parecer ridiculo tener dos clases de test vacías, pero no lo es. En esta segunda clase estamos probando que el runner por defecto de JUnit funciona correctamente, y de momento debemos mantener ambas. Hora de hacer el primer commit en el repositorio Git, pues.</p>
+
+<h3 id="el-primer-test">El primer test</h3>
+
+<p>El primer test que tenemos que escribir (tests “vacíos” aparte), es, ni más ni menos, que el test de aceptación automatizado del requisito principal de nuestra aplicación expuesto más arriba. Es decir, el punto de inicio para escribir una aplicación web mediante TDD es el test de navegador, que es el de más alto nivel.</p>
+
+<p>Cómo el objetivo de este post no es aprender Fluentlenium, ni el magnífico <a href="http://martinfowler.com/bliki/PageObject.html">Page Object Pattern</a>, vamos a escribir el test más sencillo posible:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@RunWith</span><span class="o">(</span><span class="n">SpringJUnit4ClassRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@SpringApplicationConfiguration</span><span class="o">(</span>
+    <span class="n">classes</span> <span class="o">=</span> <span class="n">HelloWorldWebappTddApplication</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@WebAppConfiguration</span>
+<span class="nd">@IntegrationTest</span><span class="o">(</span><span class="s">"server.port:8080"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloPageIT</span> <span class="kd">extends</span> <span class="n">FluentTest</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">WebDriver</span> <span class="n">webDriver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HtmlUnitDriver</span><span class="o">();</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">WebDriver</span> <span class="n">getDefaultDriver</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">webDriver</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">openHelloPage</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">goTo</span><span class="o">(</span><span class="s">"http://localhost:8080/hello"</span><span class="o">);</span>
+
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">find</span><span class="o">(</span><span class="s">".message"</span><span class="o">).</span><span class="na">getText</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">"Hello World"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Este test, además de las anotaciones que ya conocemos de nuestro primer test de integración,  se aprovecha de la anotación <code class="highlighter-rouge">IntegrationTest</code> para arrancar un servidor web en el puerto 8080 y configura el driver <code class="highlighter-rouge">HtmlUnitDriver</code>, sustituyendo al driver de Firefox, que es el que utiliza Selenium por defecto.</p>
+
+<p>Nuestro método de test tan sólo realiza las acciones esperadas por nuestras condiciones de aceptación:</p>
+
+<ol>
+  <li>Ir al endpoint <code class="highlighter-rouge">/hello</code></li>
+  <li>Verificar que se abre una página con un mensaje “Hello World” dentro de una sección de clase “message”</li>
+</ol>
+
+<p>Al ejecutar este test fallará, y aunque la excepción que se produce es algo confusa, viene a decir que no se puede localizar el elemento <code class="highlighter-rouge">.message</code> (“Unable to locate element using css”). Esto sucede porque Spring Boot devuelve una página por defecto cuando el endpoint no es reconcido:</p>
+
+<p><img src="/public/pictures/hello-world-webapp-tdd/spring-boot-error.jpg" alt="Spring Boot Error" /></p>
+
+<p>Por tanto, el intento de localizar un elemento con la clase <code class="highlighter-rouge">message</code> fracasa.</p>
+
+<h3 id="siguiente-paso-mapear-el-endpoint">Siguiente paso, mapear el endpoint</h3>
+
+<p>Bien, acaba de emerger un requisito nuevo, y es que el endpoint <code class="highlighter-rouge">/hello</code> necesita ser mapeado en nuestra aplicación. Para esto necesitamos guiar por tests unitarios la creación de nuestra clase controladora de Spring MVC.</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloControllerTest</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">HelloController</span> <span class="n">helloController</span> <span class="o">=</span>
+            <span class="k">new</span> <span class="n">HelloController</span><span class="o">();</span>
+
+<span class="o">}</span></code></pre></figure>
+
+<p>Aunque en el blog no se puede reproducir correctamente lo que pasa, el problema al escribir este test es que no existe tal clase <code class="highlighter-rouge">HelloController</code>, por lo que falla la compilación. Para arreglar esto tenemos que crear dicha clase:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloController</span> <span class="o">{</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Seguimos:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloControllerTest</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">MockMvc</span> <span class="n">mvc</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="n">HelloController</span> <span class="n">pageController</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HelloController</span><span class="o">();</span>
+
+    <span class="nd">@Before</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">mvc</span> <span class="o">=</span> <span class="n">MockMvcBuilders</span>
+                <span class="o">.</span><span class="na">standaloneSetup</span><span class="o">(</span><span class="n">pageController</span><span class="o">)</span>
+                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">showHelloPage</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">mvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">get</span><span class="o">(</span><span class="s">"/hello"</span><span class="o">))</span>
+                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">status</span><span class="o">().</span><span class="na">isOk</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">view</span><span class="o">().</span><span class="na">name</span><span class="o">(</span><span class="s">"helloView"</span><span class="o">));</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>La clase <a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/test/web/servlet/MockMvc.html">MockMvc</a> pertenece a las utilidades de test de Spring, y permite simular peticiones HTTP al contexto web que hayamos arrancado para nuestro test. Este contexto puede ser desde el contexto completo de nuestra aplicación hasta uno pequeñito creado a partir de un controlador único (<code class="highlighter-rouge">standaloneSetup</code>). Este es el cámino que estamos siguiendo en nuestro ejemplo, ya que estamos interesados en dirigir el diseño de un solo controlador, y nuestro test será mucho más rápido y eficiente siguiendo este método.</p>
+
+<p>Nuestro test espera que al procesar una llamada GET al endpoint <code class="highlighter-rouge">/hello</code> obtengamos como repuesta un código HTTP 200 y el nombre de la vista a mostrar sea <code class="highlighter-rouge">helloView</code>. Si ejecutamos este test obtenemos un bonito 404:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">java.lang.AssertionError: Status
+Expected :200
+Actual   :404</code></pre></figure>
+
+<p>Esto se debe a que de momento no estamos mapeando ese endpoint, así que vamos a hacerlo:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">"/hello"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="s">"helloView"</span><span class="o">;</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Y ya tenemos el test en verde.</p>
+
+<h3 id="vuelta-al-test-de-navegador">Vuelta al test de navegador</h3>
+
+<p>Veamos qué pasa cuando ejecutamos de nuevo el test funcional:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">org.thymeleaf.exceptions.TemplateInputException: Error resolving template "helloView", template might not exist or might not be accessible by any of the configured Template Resolvers</code></pre></figure>
+
+<p>La excepción es clara, Thymeleaf es incapaz de encontrar una vista que se corresponda con helloView, así que tendremos que crearla, en un fichero de nombre <code class="highlighter-rouge">helloView.html</code>:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">xmlns=</span><span class="s">"http://www.w3.org/1999/xhtml"</span>
+      <span class="na">xmlns:th=</span><span class="s">"http://www.thymeleaf.org"</span>
+      <span class="na">xmlns:sec=</span><span class="s">"http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Hello world!<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre></figure>
+
+<p>¡Ojo! En TDD no tenemos que escribir más código que el necesario para eliminar el último error generado en nuestros tests, por lo que en este caso lo único que hacemos es crear el fichero de Thymeleaf que se corresponda con la vista devuelta por nuestra clase controladora.</p>
+
+<p>En la siguiente ejecución nuestro test se queja de que no ha encontrado el elemento “.message” (aunque el assertionError podría ser mejor, concretamente indica que “Expecting actual not to be null”). Por tanto, ha llegado la hora de añadir nuestro saludo inicial:</p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">xmlns=</span><span class="s">"http://www.w3.org/1999/xhtml"</span>
+      <span class="na">xmlns:th=</span><span class="s">"http://www.thymeleaf.org"</span>
+      <span class="na">xmlns:sec=</span><span class="s">"http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Hello world!<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"message"</span><span class="nt">&gt;</span>Hello World<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span></code></pre></figure>
+
+<p>Y ahora sí, nuestro test de aceptación se ejecuta correctamente, por lo que hemos terminado de implementar nuestro Hello World al estar pasando las condiciones de aceptación.</p>
+
+<p>Para rematar la faena, ejecutemos la aplicación con el plugin Maven de Spring Boot (<code class="highlighter-rouge">mvn spring-boot:run</code>), y vayamos a <code class="highlighter-rouge">http://localhost:8080/hello</code>:</p>
+
+<p><img src="/public/pictures/hello-world-webapp-tdd/hello-world.jpg" alt="Hello World" /></p>
+
+<p>La verdad es que el resultado no es muy espectacular :), pero espero que hayáis captado la idea principal del proceso. Al tener una funcionalidad perfectamente implementada es momento de hacer commit.</p>
+
+<h3 id="refactoring">¡Refactoring!</h3>
+
+<p>¿Hemos terminado? ¡No! Nos falta un paso tan importante como todos los demás, la refactorización. Cada vez que añadimos algo nuevo a nuestro sistema es hora de reflexionar, ver si hay duplicidades en el código, si podemos mejorar nuestro diseño, etc. Estas duplicidades pueden estar tanto en nuestros tests como en nuestro código de producción.</p>
+
+<p>Para empezar, tenemos dos clases creadas al principio del proceso, cuya presencia es completamente redundante, se trata de <code class="highlighter-rouge">HelloWorldWebappTddApplicationIT</code> y <code class="highlighter-rouge">HelloWorldWebappTddApplicationTest</code>. Puesto que ya tenemos tests unitarios y de integración, sabemos que el framework está correctamente configurado, por lo que no es necesaria la presencia de dos clases vacías que sí tuvieron un cometido claro antes de escribir nuestros primeros tests.</p>
+
+<p>La segunda duplicidad está en la clase <code class="highlighter-rouge">HelloPageIT</code>:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@RunWith</span><span class="o">(</span><span class="n">SpringJUnit4ClassRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@SpringApplicationConfiguration</span><span class="o">(</span>
+    <span class="n">classes</span> <span class="o">=</span> <span class="n">HelloWorldWebappTddApplication</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@WebAppConfiguration</span>
+<span class="nd">@IntegrationTest</span><span class="o">(</span><span class="s">"server.port:8080"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloPageIT</span> <span class="kd">extends</span> <span class="n">FluentTest</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">WebDriver</span> <span class="n">webDriver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HtmlUnitDriver</span><span class="o">();</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">WebDriver</span> <span class="n">getDefaultDriver</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">webDriver</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">openHelloPage</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">goTo</span><span class="o">(</span><span class="s">"http://localhost:8080/hello"</span><span class="o">);</span>
+
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">find</span><span class="o">(</span><span class="s">".message"</span><span class="o">).</span><span class="na">getText</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">"Hello World"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>¿La véis? Se trata del puerto <code class="highlighter-rouge">8080</code> que está mencionado en dos sitios. Como ahora tenemos una sola clase con tests de navegador no parece un gran problema, pero pensad lo que ocurriría si nuestra suite contuviera decenas de tests…es mejor encapsular el valor del puerto en una constante, por ejemplo:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">EnvironmentConstants</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">SERVER_PORT</span> <span class="o">=</span> <span class="mi">8080</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="nd">@RunWith</span><span class="o">(</span><span class="n">SpringJUnit4ClassRunner</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@SpringApplicationConfiguration</span><span class="o">(</span>
+    <span class="n">classes</span> <span class="o">=</span> <span class="n">HelloWorldWebappTddApplication</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@WebAppConfiguration</span>
+<span class="nd">@IntegrationTest</span><span class="o">(</span><span class="s">"server.port:"</span> <span class="o">+</span> <span class="n">SERVER_PORT</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloPageIT</span> <span class="kd">extends</span> <span class="n">FluentTest</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">WebDriver</span> <span class="n">webDriver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HtmlUnitDriver</span><span class="o">();</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">WebDriver</span> <span class="n">getDefaultDriver</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">webDriver</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">openHelloPage</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">goTo</span><span class="o">(</span><span class="s">"http://localhost:"</span> <span class="o">+</span> <span class="n">SERVER_PORT</span> <span class="o">+</span> <span class="s">"/hello"</span><span class="o">);</span>
+
+        <span class="n">assertThat</span><span class="o">(</span><span class="n">find</span><span class="o">(</span><span class="s">".message"</span><span class="o">).</span><span class="na">getText</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">"Hello World"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>De momento parece suficiente. En realidad se podrían discutir muchos otros detalles, por ejemplo parece fea la forma en que configuramos el parámetro del método <code class="highlighter-rouge">goTo</code>…pero no es este el momento de abstraer código que sólo se utiliza en un sitio.</p>
+
+<p>Si nuestro sistema siguiera creciendo, a nada que añadiéramos una segunda clase con tests de navegador surgirían nuevas ideas para encapsular configuración común, pero no es ese el propósito de este post.</p>
+
+<h3 id="conclusin">Conclusión</h3>
+
+<p>Comenzamos el post planteando la cuestión de cuál sería el punto de partida para escribir una aplicación siguiendo la metodología TDD. Espero haber dejado clara la respuesta, que no es otra que “por los tests de aceptación, y siguiendo una aproximación top-down para escribir tests en sucesivos niveles”.</p>
+
+</article>
+
+<aside class="related">
+  <h2>Posts relacionados</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2016/03/spock-vs-junit/">
+            Spock vs JUnit
+            <small><time datetime="2016-03-05T00:00:00+00:00">05/03/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/02/codigo-autogenerado/">
+            Revisa tu código autogenerado
+            <small><time datetime="2016-02-20T00:00:00+00:00">20/02/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/01/primer-aniversario/">
+            Un año de blog
+            <small><time datetime="2016-01-31T00:00:00+00:00">31/01/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</aside>
+
+        
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'raulavila'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </main>
+
+      <footer class="footer">
+        <small>
+          &copy; <time datetime="2016">2016</time> Raúl Ávila. Blog creado con <a href="http://jekyllrb.com">Jekyll</a>.
+          Plantilla basada en <a href="http://getpoole.com">Poole</a>.
+          <a href="/atom.xml">Atom Feed</a></a>.
+          <br>
+        </small>
+      </footer>
+    </div>
+
+  <script>
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58942569-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>
