@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Creando fixtures de dominio legibles
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Raúl Ávila" href="/atom.xml">
+
+</head>
+
+
+  <body>
+
+    <div class="container content">
+      <header class="masthead">
+        <h1 class="masthead-title">
+          <a href="/" title="Home">Raúl Ávila</a>
+        </h1>
+
+            <small><a href="/sobre-mi">Sobre mí</a></small>
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/archivos">Archivos</a></small>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title">Creando fixtures de dominio legibles</h1>
+  <time datetime="2016-04-17T00:00:00+01:00" class="post-date">17/04/2016</time>
+  <div class="post-tags">
+    
+    | <a href="/tag/desarrollo">desarrollo</a> |
+    
+    | <a href="/tag/testing">testing</a> |
+    
+  </div>
+  <div class="post-share">
+    <a class="twitter-share-button"
+    data-via="_Raul_Avila"
+    data-count="none"
+    href="https://twitter.com/share">Tweet</a>
+  </div>
+  <p>En muchas ocasiones nos habremos encontrado en nuestros proyectos con la necesidad de testear capas aisladas que hacen uso de objetos de dominio, objetos que en tests de integración / producción serán creados y poblados por un framework ORM o similar.</p>
+
+<p>Dichos objetos deberán contener una serie de valores que condicionarán el resultado del proceso a ejecutar sobre ellos, por lo que en nuestros tests unitarios deberemos crear instancias adecuadas, que formarán parte de lo que se conoce como <a href="https://en.wikipedia.org/wiki/Test_fixture">test fixture</a>.</p>
+
+<!--break-->
+
+<p>Siempre que me he encontrado con este escenario he tenido que comerme la cabeza junto con mi equipo sobre cuál es la mejor forma de hacer legibles los contenidos de estas instancias de dominio. Como base para el resto del artículo vamos a definir una clase <code class="highlighter-rouge">Person</code> con esta estructrura:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">phoneNumber</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Person</span> <span class="n">nextOfKin</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">children</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">additionalDetails</span><span class="o">;</span>
+
+    <span class="c1">//getters, setters, toString, etc</span>
+<span class="o">}</span>  </code></pre></figure>
+
+<p>Nada complicado, en general es normal encontrarse con estructuras de datos más complejas.</p>
+
+<p>Digamos que tenemos que testear una clase <code class="highlighter-rouge">PersonProcessor</code>, que expone en su API el siguiente método:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PersonProcessor</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">process</span><span class="o">(</span><span class="n">Person</span> <span class="n">person</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">//...</span>
+    <span class="o">}</span>    
+<span class="o">}</span>    </code></pre></figure>
+
+<p>El proceso ejecutado no viene al caso, solo importa saber que según los contenidos de la instancia <code class="highlighter-rouge">Person</code>, la salida será una u otra. Según he comentado anteriormente, nuestro código de producción nunca generará instancias de persona directamente, que serán pobladas automáticamente por el framework de acceso a datos que utilicemos. Pero en un test unitario somos nosotros quienes deberemos hacer esto, es decir, buscamos algo así:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">processRaul</span><span class="p">(</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">Person</span> <span class="n">raul</span> <span class="o">=</span> <span class="c1">//create person...</span>
+
+    <span class="n">String</span> <span class="n">processResult</span> <span class="o">=</span> <span class="n">personProcessor</span><span class="o">.</span><span class="na">process</span><span class="o">(</span><span class="n">raul</span><span class="o">);</span>
+
+    <span class="n">assertThat</span><span class="o">(</span><span class="n">processResult</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="s">"I've processed Raul"</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Veamos cuál sería la solución más directa, que utiliaría únicamente los métodos expuestos por <code class="highlighter-rouge">Person</code>:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Person</span> <span class="n">raul</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">();</span>
+
+<span class="n">raul</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"Raul"</span><span class="o">);</span>
+<span class="n">raul</span><span class="o">.</span><span class="na">setPhoneNumber</span><span class="o">(</span><span class="s">"123455334"</span><span class="o">);</span>
+
+<span class="n">Person</span> <span class="n">nextOfKin</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">();</span>
+<span class="n">nextOfKin</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"Vanesa"</span><span class="o">);</span>
+<span class="n">nextOfKin</span><span class="o">.</span><span class="na">setPhoneNumber</span><span class="o">(</span><span class="s">"1232433"</span><span class="o">);</span>
+
+<span class="n">raul</span><span class="o">.</span><span class="na">setNextOfKin</span><span class="o">(</span><span class="n">nextOfKin</span><span class="o">);</span>
+
+<span class="n">Person</span> <span class="n">child1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">();</span>
+<span class="n">child1</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"Pixie"</span><span class="o">);</span>
+<span class="n">child1</span><span class="o">.</span><span class="na">setPhoneNumber</span><span class="o">(</span><span class="s">"1232421"</span><span class="o">);</span>
+
+<span class="n">Person</span> <span class="n">child2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">();</span>
+<span class="n">child2</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"Dixie"</span><span class="o">);</span>
+<span class="n">child2</span><span class="o">.</span><span class="na">setPhoneNumber</span><span class="o">(</span><span class="s">"1232444"</span><span class="o">);</span>
+
+<span class="n">raul</span><span class="o">.</span><span class="na">setChildren</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">child1</span><span class="o">,</span> <span class="n">child2</span><span class="o">));</span>
+
+<span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">additionalDetails</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+<span class="n">additionalDetails</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"Favourite song"</span><span class="o">,</span> <span class="s">"Back in Black"</span><span class="o">);</span></code></pre></figure>
+
+<p>No sé a vosotros, pero a mí personalmente este tipo de código siempre me ha parecido muy poco directo y nada claro de leer rápidamente para hacerse una idea de los contenidos del objeto de dominio instanciado.</p>
+
+<h2 id="alternativas-a-la-instanciacin-directa">Alternativas a la instanciación directa</h2>
+
+<p>Existen varias alternativas para crear estos objetos de forma más clara, pero la mayoría de ellas requieren añadir librerías adicionales a nuestros tests (cosa que, por otro lado, tampoco es el fin del mundo). Echemos un vistazo rápido a estas soluciones.</p>
+
+<h3 id="spock">Spock</h3>
+
+<p>Mi alternativa favorita es utilizar el framework <a href="http://spockframework.github.io/spock/docs/1.0/index.html">Spock</a>, del que <a href="/2016/03/spock-vs-junit/">ya hablamos en el blog</a>. Gracias a esto, y a poder utilizar las facilidades del lenguaje Groovy, instanciar objetos complejos es muy sencillo utilizando el “map constructor” que
+expone Groovy para las clases de forma automática:</p>
+
+<figure class="highlight"><pre><code class="language-groovy" data-lang="groovy"><span class="n">Person</span> <span class="n">raul</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">(</span>
+    <span class="nl">name:</span> <span class="s2">"Raul"</span><span class="o">,</span>
+    <span class="nl">phoneNumber:</span> <span class="s2">"123455334"</span><span class="o">,</span>
+    <span class="nl">nextOfKin:</span> <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="nl">name:</span> <span class="s2">"Vanesa"</span><span class="o">,</span>
+                          <span class="nl">phoneNumber:</span> <span class="s2">"1232433"</span><span class="o">),</span>
+    <span class="nl">children:</span> <span class="o">[</span>
+        <span class="k">new</span> <span class="nf">Person</span><span class="o">(</span><span class="nl">name:</span> <span class="s2">"Pixie"</span><span class="o">,</span>
+                   <span class="nl">phoneNumber:</span> <span class="s2">"1232421"</span><span class="o">),</span>
+        <span class="k">new</span> <span class="nf">Person</span><span class="o">(</span><span class="nl">name:</span> <span class="s2">"Pixie"</span><span class="o">,</span>
+                   <span class="nl">phoneNumber:</span> <span class="s2">"1232444"</span><span class="o">)</span>
+    <span class="o">],</span>
+    <span class="nl">additionalDetails:</span> <span class="o">[</span><span class="s2">"Favourite song"</span><span class="o">:</span> <span class="s2">"Back in Black"</span><span class="o">]</span>
+<span class="o">)</span></code></pre></figure>
+
+<p>Personalmente encuentro esta solución muy limpia y adecuada, pero no todo el mundo es partidario de utilizar Spock y Groovy en sus tests</p>
+
+<h3 id="serializar-en-ficheros-de-texto">Serializar en ficheros de texto</h3>
+
+<p>Podemos almacenar el contenido del objeto en un fichero en formato <a href="https://es.wikipedia.org/wiki/JSON">JSON</a> o <a href="https://es.wikipedia.org/wiki/YAML">YAML</a>, y deserializar estos ficheros en nuestros tests utilizando librerías como <a href="https://es.wikipedia.org/wiki/Gson">GSon</a> o <a href="http://yamlbeans.sourceforge.net/">YAML Beans</a>. Echad un vistazo a los links para comprobar como sería el proceso (bastante sencillo por otro lado). El punto negativo de esta solución es que nos obliga a navegar entre ficheros de texto y nuestro código de test para entender qué está ocurriendo realmente.</p>
+
+<h3 id="crear-factoras-de-test">Crear factorías de test</h3>
+
+<p>Por último, y si queremos evitar añadir dependencias o frameworks adicionales para una tarea que debería ser bastante sencilla, podemos crear factorías de test que nos asistan en la creación de nuestros objetos de dominio.</p>
+
+<p>La primera alternativa sería encapsular el código visto en el primer ejemplo de todos, de esta forma:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PersonTestFactory</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="n">createRaul</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Person</span> <span class="n">raul</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">();</span>
+        <span class="c1">//...</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Por lo que en nuestros test llamaríamos al método factoría directamente. De esta forma seguiríamos teniendo que navegar entre ficheros, pero es más directo que abrir ficheros de texto, etc. El problema es que seguiríamos teniendo la dificultad añadida de asimilar de manera rápida los contenidos de la instancia.</p>
+
+<p>Como alternativa, una solución que comenzamos a utilizar recientemente en un proyecto es implementar una suerte de “factory helpers” que permiten la instanciación de manera anidada de forma bastante clara. Antes de ver el código de dicha factoría creo que es mejor comprobar de qué forma sería utilizado, aquí tenemos un ejemplo:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Person</span> <span class="n">raul</span> <span class="o">=</span>
+    <span class="n">person</span><span class="o">(</span>
+        <span class="n">name</span><span class="o">(</span><span class="s">"Raul"</span><span class="o">),</span>
+        <span class="n">phoneNumber</span><span class="o">(</span><span class="s">"123455334"</span><span class="o">),</span>
+        <span class="n">nextOfKin</span><span class="o">(</span>
+            <span class="n">name</span><span class="o">(</span><span class="s">"Vanesa"</span><span class="o">),</span>
+            <span class="n">phoneNumber</span><span class="o">(</span><span class="s">"1232433"</span><span class="o">)</span>
+        <span class="o">),</span>
+        <span class="n">children</span><span class="o">(</span>
+            <span class="n">child</span><span class="o">(</span>
+                <span class="n">name</span><span class="o">(</span><span class="s">"Pixie"</span><span class="o">),</span>
+                <span class="n">phoneNumber</span><span class="o">(</span><span class="s">"1232421"</span><span class="o">)</span>
+            <span class="o">),</span>
+            <span class="n">child</span><span class="o">(</span>
+                <span class="n">name</span><span class="o">(</span><span class="s">"Dixie"</span><span class="o">),</span>
+                <span class="n">phoneNumber</span><span class="o">(</span><span class="s">"1232444"</span><span class="o">)</span>
+            <span class="o">)</span>
+        <span class="o">),</span>
+        <span class="n">additionalDetails</span><span class="o">(</span>
+            <span class="n">detail</span><span class="o">(</span>
+                <span class="n">detailName</span><span class="o">(</span><span class="s">"Favourite song"</span><span class="o">),</span>
+                <span class="n">detailValue</span><span class="o">(</span><span class="s">"Back in Black"</span><span class="o">)</span>
+            <span class="o">)</span>
+        <span class="o">)</span>
+    <span class="o">);</span></code></pre></figure>
+
+<p>La estructura de <code class="highlighter-rouge">Person</code> queda así expuesta de forma muy clara en los tests. El código de la clase factory puede llegar a resultar un pelín enrevesado, pero viene a compensar por su facilidad de uso, veamos la clase completa (<a href="https://github.com/raulavila/blog-examples/tree/master/src/test/java/com/raulavila/fixtures">también tenéis el código en GitHub</a>):</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PersonTestFactory</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="n">person</span><span class="o">(</span>
+            <span class="n">String</span> <span class="n">name</span><span class="o">,</span>
+            <span class="n">String</span> <span class="n">phoneNumber</span><span class="o">,</span>
+            <span class="n">Person</span> <span class="n">nextOfKin</span><span class="o">,</span>
+            <span class="n">List</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">children</span><span class="o">,</span>
+            <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">additionalDetails</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="n">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">();</span>
+        <span class="n">person</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+        <span class="n">person</span><span class="o">.</span><span class="na">setPhoneNumber</span><span class="o">(</span><span class="n">phoneNumber</span><span class="o">);</span>
+        <span class="n">person</span><span class="o">.</span><span class="na">setNextOfKin</span><span class="o">(</span><span class="n">nextOfKin</span><span class="o">);</span>
+        <span class="n">person</span><span class="o">.</span><span class="na">setChildren</span><span class="o">(</span><span class="n">children</span><span class="o">);</span>
+        <span class="n">person</span><span class="o">.</span><span class="na">setAdditionalDetails</span><span class="o">(</span><span class="n">additionalDetails</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">person</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="n">person</span><span class="o">(</span>
+            <span class="n">String</span> <span class="n">name</span><span class="o">,</span>
+            <span class="n">String</span> <span class="n">phoneNumber</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="n">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">();</span>
+        <span class="n">person</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+        <span class="n">person</span><span class="o">.</span><span class="na">setPhoneNumber</span><span class="o">(</span><span class="n">phoneNumber</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">person</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">name</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">phoneNumber</span><span class="o">(</span><span class="n">String</span> <span class="n">phoneNumber</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">phoneNumber</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="n">nextOfKin</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">phoneNumber</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">person</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">phoneNumber</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">children</span><span class="o">(</span><span class="n">Person</span><span class="o">...</span> <span class="n">child</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">child</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="n">child</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">phoneNumber</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">person</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">phoneNumber</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">additionalDetails</span><span class="o">(</span>
+            <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;...</span><span class="na">entries</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">:</span> <span class="n">entries</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">(),</span> <span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">map</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">detail</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">,</span>
+                                                   <span class="n">String</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Maps</span><span class="o">.</span><span class="na">immutableEntry</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">detailName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">detailValue</span><span class="o">(</span><span class="n">String</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
+
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Tenemos un conjunto de métodos factory, todos ellos con el nombre del campo que están creando (sin verbos tipo <code class="highlighter-rouge">create</code>, <code class="highlighter-rouge">build</code>, etc), y que utilizados de forma anidada nos llevan a crear instancias de manera muy legible. Quizás resulta algo chocante la existencia de métodos como <code class="highlighter-rouge">name</code> que no son más que funciones identidad, pero repito, la idea de esta clase es facilitar le legibilidad de los tests, y creo que se consigue de sobra.</p>
+
+<p>El mayor problema con esta solución lo tendríamos en estructuras muy complejas, con varios niveles de anidamiento, etc. En ese caso, seguramente sean mejores alguna de las otras soluciones, pero en general, creo que conviene conocer todas las opciones a nuestro alcance antes de decidir la que mejor se ajuste a nuestras necesidades.</p>
+
+<p>¡Si conocéis alguna otra alternativa no dudéis en dejar un comentario!</p>
+
+</article>
+
+<aside class="related">
+  <h2>Posts relacionados</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2016/04/agilidad-xp-scrum/">
+            Agilidad, XP y Scrum
+            <small><time datetime="2016-04-09T00:00:00+01:00">09/04/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/03/hello-world-tdd/">
+            TDD&#58; Hello World Web App
+            <small><time datetime="2016-03-12T00:00:00+00:00">12/03/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/03/spock-vs-junit/">
+            Spock vs JUnit
+            <small><time datetime="2016-03-05T00:00:00+00:00">05/03/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</aside>
+
+        
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'raulavila'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </main>
+
+      <footer class="footer">
+        <small>
+          &copy; <time datetime="2016">2016</time> Raúl Ávila. Blog creado con <a href="http://jekyllrb.com">Jekyll</a>.
+          Plantilla basada en <a href="http://getpoole.com">Poole</a>.
+          <a href="/atom.xml">Atom Feed</a></a>.
+          <br>
+        </small>
+      </footer>
+    </div>
+
+  <script>
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58942569-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>
