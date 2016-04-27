@@ -4,13 +4,111 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2016-04-17T18:32:43+01:00</updated>
+ <updated>2016-04-27T21:53:22+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>The Passionate Programmer (el libro)</title>
+   <link href="http://www.raulavila.com/2016/04/passionate-programmer"/>
+   <updated>2016-04-27T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2016/04/passionate-programmer</id>
+   <content type="html">&lt;p&gt;Disfruto muchísimo la lectura de libros relacionados con las conocidas en inglés como “Soft Skills” (juro que ahora mismo soy incapaz de encontrar una traducción al castellano). Son libros relacionados con el desarrollo Software, pero que no se centran en temas puramente tecnológicos, sino en aspectos que nos afectan o afectarán a todos a lo largo de nuestra carrera profesional y que es importante tener en cuenta o tomar en consideración.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;Son libros como &lt;a href=&quot;https://www.amazon.es/Clean-Coder-Conduct-Professional-Programmers/dp/0137081073/ref=sr_1_1?ie=UTF8&amp;amp;qid=1461786399&amp;amp;sr=8-1&amp;amp;keywords=The+Clean+Coder&quot;&gt;The Clean Coder&lt;/a&gt; de Uncle bob, &lt;a href=&quot;https://www.amazon.es/Software-Craftsman-Professionalism-Pragmatism-Robert/dp/0134052501/ref=sr_1_1?ie=UTF8&amp;amp;qid=1461786420&amp;amp;sr=8-1&amp;amp;keywords=the+software+craftsman&quot;&gt;The Software Craftsman&lt;/a&gt; de Sandro Mancuso, &lt;a href=&quot;http://www.amazon.es/Libro-Negro-del-Programador-desarrollando-ebook/dp/B00J5RHHNW?ie=UTF8&amp;amp;keywords=El%20libro%20negro%20del%20programador&amp;amp;qid=1461786488&amp;amp;ref_=sr_1_1&amp;amp;sr=8-1&quot;&gt;El Libro Negro del Programador&lt;/a&gt;…la lista es larga. La mayoría tocan temas parecidos, pero me encanta la forma en que cada autor enfoca los mismos temas con diferente perspectivas. Temas como el trato con los clientes, jefes y compañeros de trabajo, el saber decir no, la formación constante, cómo planificar nuestra carrera, etc.&lt;/p&gt;
+
+&lt;p&gt;Recientemente he terminado de leer uno más, &lt;a href=&quot;https://www.amazon.es/Passionate-Programmer-Remarkable-Development-Pragmatic/dp/1934356344/ref=sr_1_sc_1?ie=UTF8&amp;amp;qid=1461786652&amp;amp;sr=8-1-spell&amp;amp;keywords=The+Passionate+Preogrammer&quot;&gt;The Passionate Programmer&lt;/a&gt;, escrito por &lt;a href=&quot;https://twitter.com/chadfowler&quot;&gt;Chad Fowler&lt;/a&gt;, y me ha gustado una barbaridad. Conecté inmediatamente con el autor debido a su pasión por la música, pasión que comparto (aunque yo esté fuera de los derroteros del Jazz…), y con su forma de relacionar los mundos del Software y de la música cuando era posible. El libro está organizado en capítulos muy breves que cubren temas muy concretos, y todos ellos concluyen con un plan de acción para mejorar en ese aspecto.&lt;/p&gt;
+
+&lt;p&gt;Voy a resumir los capítulos que me resultaron más interesantes, intentaré ser breve y no demasiado exhaustivo, ya que para eso tenéis el libro :).&lt;/p&gt;
+
+&lt;h3 id=&quot;conoce-el-negocio&quot;&gt;Conoce el negocio&lt;/h3&gt;
+
+&lt;p&gt;En ocasiones tendemos a centrarnos demasiado en la parte tecnológica de nuestros proyectos, de forma que “los árboles no nos dejan ver el bosque”. Olvidamos que nuestra empresa no es una ONG y está en el mercado para ganar dinero en un sector determinado. Conocer ese sector nos ayudará muchísmo a tomar decisiones acertadas a la hora de diseñar o desarrollar el software que tengamos entre manos.&lt;/p&gt;
+
+&lt;p&gt;Por otra parte, Fowler recomienda profundizar algo en el funcionamiento interno de un negocio a nivel general, en concreto a través del libro &lt;a href=&quot;https://www.amazon.es/10-Day-MBA-step---step-mastering/dp/0749927003/ref=sr_1_1?ie=UTF8&amp;amp;qid=1461787142&amp;amp;sr=8-1&amp;amp;keywords=10+Day+MBA&quot;&gt;The 10-Day MBA&lt;/a&gt;, aunque supongo que habrá otras referencias igual de buenas ahí fuera. Tener base en esta materia nos ayudará mucho a entender y aceptar determinadas decisiones que pueden parecernos increíbles si no disponemos de ella.&lt;/p&gt;
+
+&lt;p&gt;Yo estoy bastante pez en esta materia, así que si algún día leo el libro quizás escriba sobre ello.&lt;/p&gt;
+
+&lt;p&gt;En otro capítulo se comenta la importancia de poner nuestros logros personales bajo la perspectiva del negocio. Determinadas hazañas que puede nos hagan sentir muy orgullos posiblemente tengan un impacto casi nulo en nuestra empresa.&lt;/p&gt;
+
+&lt;h3 id=&quot;s-el-peor-be-the-worst&quot;&gt;Sé el peor (“Be the worst”)&lt;/h3&gt;
+
+&lt;p&gt;Uno de mis capítulos preferidos. Comienza hablando de cómo los músicos de Jazz siempre quieren tocar con gente muchísimo mejor que ellos y lo hace extensivo a nuestra industria. Buscad siempre un entorno que os desafíe, no seas la referencia de vuestra empresa sin nadie de quién aprender, porque en ese momento os habréis estancado totalmente.&lt;/p&gt;
+
+&lt;p&gt;Una vez leí una frase muy acertada: “Si eres la persona más inteligente de una habitación, estás en la habitación equivocada”. Pues eso.&lt;/p&gt;
+
+&lt;h3 id=&quot;no-escuches-a-tus-padres&quot;&gt;No escuches a tus padres&lt;/h3&gt;
+
+&lt;p&gt;Nuestros padres siempre quieren seguridad para nuestras vidas, y nos aconsejarán en ese camino. Mi padre, recientemente jubilado, pasó 42 años de su vida trabajando para la misma empresa y en el mismo edificio, y seguramente piense que esa situación es la ideal, asentarse en una oficina y vivir en una zona de comfort hasta los 65.&lt;/p&gt;
+
+&lt;p&gt;Tom Preston-Werner, uno de los fundadores de &lt;a href=&quot;www.github.com&quot;&gt;GitHub&lt;/a&gt; rechazó una oferta de 300.000 dólares anuales para perseguir su sueño. Aparece en el libro como firma invitada y nos lanza esta pregunta: cuando estéis en vuestro lecho de muerte, ¿preferiréis pensar “wow, vaya aventura fue aquella”, o “wow, qué seguridad tuve”?&lt;/p&gt;
+
+&lt;p&gt;Cada uno puede elegir la opción que quiera, porque si hay un sector en el mundo que ofrece esa flexibilidad es el nuestro. En los inicios de mi carrera busqué la seguridad, y aún no he dejado de lamentarlo. Por suerte rectifiqué a tiempo.&lt;/p&gt;
+
+&lt;h3 id=&quot;generalista-vs-especialista&quot;&gt;Generalista vs Especialista&lt;/h3&gt;
+
+&lt;p&gt;Seré breve aquí: puedes saber un poco de todo o ser un especialista consumado en una materia, ambas opciones son igualmente válidas. Pero si eres un especialista debes serlo &lt;strong&gt;de verdad&lt;/strong&gt;. Esto quiere decir que no vayas proclamando a los cuatro vientos que eres un crack en Java y luego no sepas explicar como funciona el &lt;a href=&quot;https://dzone.com/articles/java-memory-model-programer%E2%80%99s&quot;&gt;Java Memory Model&lt;/a&gt;, por ejemplo.&lt;/p&gt;
+
+&lt;h3 id=&quot;conoce-tus-herramientas&quot;&gt;Conoce tus herramientas&lt;/h3&gt;
+
+&lt;p&gt;Aún veo a gente con muchos años de experiencia en desarrollo que no se manejan mínimamente con el IDE de turno. Esto supone, por ejemplo, que si programas en Java y utilizas IntelliJ IDEA necesites un 80% más de pulsaciones de teclado para codificar determinadas estructuras, perdiendo energía en tareas innecesarias. De los &lt;a href=&quot;/2015/02/atajos-teclado-ide/&quot;&gt;atajos de teclado&lt;/a&gt; ya hemos hablado aquí, pero es solo la punta del iceberg. Consejo: si no conoces tus herramientas dedica unos minutos cada día a profundizar en ellas, en muy poco tiempo las dominarás.&lt;/p&gt;
+
+&lt;h3 id=&quot;mentores&quot;&gt;Mentores&lt;/h3&gt;
+
+&lt;p&gt;Busca un mentor: Si no lo encuentras, seguramente admires a alguna persona en concreto, en tal caso haz una lista de sus atributos más reseñables y plantéate lo que tienes que hacer para acercarte a ese ideal.&lt;/p&gt;
+
+&lt;p&gt;Sé un mentor: ser un mentor, aparte de una tarea muy gratificante, nos ayuda a poner en perspectiva nuestro propio conocimiento de las cosas.&lt;/p&gt;
+
+&lt;h3 id=&quot;open-source&quot;&gt;Open Source&lt;/h3&gt;
+
+&lt;p&gt;Lee software Open Source. Participa en proyectos Open Source. Hay pocas formas mejores de aprender. Una buena estrategia para iniciarse en este mundo puede ser elegir un proyecto, comprobar porciones de código con baja cobertura de test, y mejorar dicha cobertura, lo cual seguramente desembocará en refactorings que incrementarán nuestra compresión del proyecto…&lt;/p&gt;
+
+&lt;p&gt;He de admitir que llevo un par de años con este objetivo en mente, y nunca me pongo a ello. Quizás sea por pereza, quizás por respeto…pero es algo que haré antes o después.&lt;/p&gt;
+
+&lt;h3 id=&quot;automatiza&quot;&gt;Automatiza&lt;/h3&gt;
+
+&lt;p&gt;Automatiza. Todo. Si te ves haciendo una tarea repetitiva seguramente haya una forma de crear un script, macro de Excel, o aplicación que lo haga por tí. Y comparte tus creaciones con tus compañeros.&lt;/p&gt;
+
+&lt;h3 id=&quot;decir-no&quot;&gt;Decir no&lt;/h3&gt;
+
+&lt;p&gt;Es mucho mejor decir no, que decir sí y no cumplir las expectativas. Una vez puede pasar, pero cuando se acumulan en el tiempo se termina perdiendo toda la credibilidad.&lt;/p&gt;
+
+&lt;h3 id=&quot;habla-con-la-gente&quot;&gt;Habla con la gente&lt;/h3&gt;
+
+&lt;p&gt;Olvídate del email. Últimamente no dejo de pensar que el email ha muerto como herramienta de comunicación. Busca físicamente a la persona con la que deseas hablar e interactúa con ella. Si no compartís oficina, llámala. Servirá para encontrar una solución más rápido y además evitar malentendidos.&lt;/p&gt;
+
+&lt;h3 id=&quot;falla&quot;&gt;Falla&lt;/h3&gt;
+
+&lt;p&gt;Falla, y aprende de ello. Aprende a fallar. Asume la culpa de los fallos, pero iza la bandera tan pronto como lo detectes, y crea un plan de ataque para solucionarlo.&lt;/p&gt;
+
+&lt;h3 id=&quot;ponte-en-la-piel-del-otro&quot;&gt;Ponte en la piel del otro&lt;/h3&gt;
+
+&lt;p&gt;A la hora de comunicar es imprescindible ponerse en la situación de la persona que escucha, y adaptar nuestro discurso en consecuencia.&lt;/p&gt;
+
+&lt;h3 id=&quot;miscelnea&quot;&gt;Miscelánea&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Escribe un blog&lt;/li&gt;
+  &lt;li&gt;Ama lo que haces: si no te sientes excitado ante el día que tienes por delante busca un cambio&lt;/li&gt;
+  &lt;li&gt;Intenta relacionarte con figuras del negocio: esto depende de la zona en que vivas, pero todas las grandes ciudades tienen meetups donde gente interesante da charlas con relativa frecuencia&lt;/li&gt;
+  &lt;li&gt;No te dejes vencer por el pánico: todo tiene una solución, cuando hay un problema lo mejor que se puede hacer es dar un paso atrás, evaluar la situación, y actuar&lt;/li&gt;
+  &lt;li&gt;Estar al día: no hace falta gastar montones de horas a la semana en leer sobre las últimas tendencias, pero si viene muy bien mirar por encima los titulares para saber qué se está cociendo. &lt;a href=&quot;/2015/10/estar-al-dia/&quot;&gt;Ya hablamos de ello en el blog&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Cambia el mundo, o al menos intenta cambiar el de la gente que te rodea (yo &lt;a href=&quot;http://pivotal.io/labs&quot;&gt;ya estoy trabajando en ello&lt;/a&gt;)&lt;/li&gt;
+  &lt;li&gt;Sé cada día un poco mejor: crea una lista de puntos de mejora, y trabaja en ellos. No te compares con los demás, compárate contigo mismo en el pasado. Pide feedback a la gente que te rodea, y haz un plan de acción a partir de él&lt;/li&gt;
+  &lt;li&gt;¡Diviértete! Disfruta del camino, no del destino. Trabajar constantemente de cara a un objetivo es frustrante e insatisfactorio. Intenta sacar el máximo partido a cada día de trabajo&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;conclusin&quot;&gt;Conclusión&lt;/h2&gt;
+
+&lt;p&gt;Sólo puedo añadir, desde mi perspectiva personal, que seguramente habría hecho muchas cosas de forma muy diferente si hubiera leído este libro recién salido de la carrera, pero la mayor parte de los consejos pueden ser aplicados en cualquier momento. Un libro de 10.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Creando fixtures de dominio legibles</title>
