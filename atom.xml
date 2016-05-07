@@ -4,13 +4,293 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2016-04-27T22:39:06+01:00</updated>
+ <updated>2016-05-07T13:58:29+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Integración continua con Concourse CI&#58; conceptos básicos</title>
+   <link href="http://www.raulavila.com/2016/05/concourse-1/"/>
+   <updated>2016-05-07T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2016/05/concourse-1</id>
+   <content type="html">&lt;p&gt;&lt;a href=&quot;http://concourse.ci/&quot;&gt;Concourse CI&lt;/a&gt; es una herramienta Open Source de integración continua (aunque realmente es mucho más) que lleva en desarrollo unos dos años. Hace poco se liberó la &lt;a href=&quot;http://concourse.ci/downloads.html#v100&quot;&gt;versión 1.0&lt;/a&gt;, y personalmente creo que irá pisando cada vez más fuerte. En esta serie de posts trataré de condensar los principales conceptos que es necesario conocer para ponerse manos a la obra en el menor tiempo posible, y desarrollaré un caso más práctico.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;h2 id=&quot;qu-es-concourse&quot;&gt;Qué es Concourse&lt;/h2&gt;
+
+&lt;p&gt;Creo que la mejor forma de definir Concourse sería algo así como “motor de integración continua sobre Docker, cuya configuración solo es posible mediante código y donde los pipelines son ciudadados de primera clase”. Ya hemos hablado de &lt;a href=&quot;https://www.docker.com/&quot;&gt;Docker&lt;/a&gt; anteriormente en este blog, así que si no lo conocéis os remito &lt;a href=&quot;/2015/07/revolucion-docker/&quot;&gt;a mi post sobre el tema&lt;/a&gt;. La mayor ventaja de utilizar Docker es que siempre tendremos un contexto limpio en el que ejecutar las acciones que llevemos a cabo en nuestro entorno de integración continua, por lo que nunca quedan residuos que entorpezcan futuras acciones.&lt;/p&gt;
+
+&lt;p&gt;La configuración en código se lleva a cabo mediante ficheros &lt;a href=&quot;https://es.wikipedia.org/wiki/YAML&quot;&gt;YAML&lt;/a&gt; y &lt;a href=&quot;https://en.wikipedia.org/wiki/Shell_script&quot;&gt;shell scripts&lt;/a&gt;, lo cual ofrece varias ventajas:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Se puede almancenar la historia de nuestra configuración en un sistema de control de versiones&lt;/li&gt;
+  &lt;li&gt;Lo más normal es que esta configuración se almacene en una carpeta junto al código fuente de nuestro proyecto, lo cual hace que nuestro pipeline de integración continua y el código de dicho proyecto evolucionen conjuntamente&lt;/li&gt;
+  &lt;li&gt;Es extremadamente sencillo recrear un pipeline desde cero&lt;/li&gt;
+  &lt;li&gt;La configuración de Concourse se asemeja mucho más a nuestras tareas de programación diarias, en lugar de tener que utilizar una interfaz web más o menos clara, ¡cosa que es mucho más divertida!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Que los pipelines sean ciudadanos de primera clase significa que el punto de entrada de todos nuestros proyectos de integración continua escritos para Concourse será un fichero que configura un pipeline, ni más ni menos. Nada de build plans, etc. Lo veremos con claridad más adelante.&lt;/p&gt;
+
+&lt;h2 id=&quot;instalando-concourse&quot;&gt;Instalando Concourse&lt;/h2&gt;
+
+&lt;p&gt;Aunque existe una versión binaria, la forma más rápida de ponerse manos a la obra con Concourse es mediante una máquina virtual Vagrant. Si no conocéis Vagrant &lt;a href=&quot;/2015/05/explorando-vagrant/&quot;&gt;echad un vistazo aquí&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Tras instalar Vagrant en nuestra máquina, solo tenemos que invocar los siguientes comandos:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;vagrant init councourse/lite
+vagrant up&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Esto arrancará un servidor Concourse, que escuchará en la dirección &lt;a href=&quot;http://192.168.100.4:8080/&quot;&gt;http://192.168.100.4:8080/&lt;/a&gt;. De hecho si abrimos una ventana en nuestro navegador ya veremos algo:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/concourse/no-pipeline.jpg&quot; alt=&quot;No pipeline&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Este mensaje nos indica que debemos descargar la herramienta CLI &lt;code class=&quot;highlighter-rouge&quot;&gt;fly&lt;/code&gt;, ya que es la única forma de configurar nuestro flamante servidor Concourse. Es un binario que deberemos copiar en el PATH de nuestro sistema.&lt;/p&gt;
+
+&lt;p&gt;Tras descargar &lt;code class=&quot;highlighter-rouge&quot;&gt;fly&lt;/code&gt;, y dado que cada acción requiere indicar de forma explícita la localización de la API Concourse con la que interactuar, conviene crear un alias, de la siguiente forma:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;fly --target localconcourse login --concourse-url http://192.168.100.4:8080
+fly -t localconcourse sync&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Lo que hemos hecho ha sido crear un alias &lt;code class=&quot;highlighter-rouge&quot;&gt;localconcourse&lt;/code&gt; para el servidor que acabamos de arrancar, alias que deberemos utilizar cada vez que hagamos algo en &lt;code class=&quot;highlighter-rouge&quot;&gt;fly&lt;/code&gt;, según veremos.&lt;/p&gt;
+
+&lt;h2 id=&quot;conceptos-bsicos&quot;&gt;Conceptos básicos&lt;/h2&gt;
+
+&lt;p&gt;El número de conceptos que debemos conocer para utilizar Concourse es bastante reducido, y en este primer post pasaremos revista a los más básicos:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Tasks&lt;/li&gt;
+  &lt;li&gt;Task inputs&lt;/li&gt;
+  &lt;li&gt;Task ouptuts&lt;/li&gt;
+  &lt;li&gt;Pipelines (y jobs)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;(Mezclaré los términos en inglés y su traducción al castellano durante la explicación de cada uno, espero que no sea confuso)&lt;/p&gt;
+
+&lt;h3 id=&quot;task&quot;&gt;Task&lt;/h3&gt;
+
+&lt;p&gt;Una tarea (task) es la unidad básica de trabajo en Concourse. Se trata de una acción determinada a ejecutar en un contenedor Docker, y que debemos configurar en un fichero YAML:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;linux&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;docker:///debian&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;echo&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;hello world&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;En el ejemplo hemos configurado una tarea que correrá sobre el contenedor Docker &lt;code class=&quot;highlighter-rouge&quot;&gt;debian&lt;/code&gt;, y ejecutará el comando  &lt;code class=&quot;highlighter-rouge&quot;&gt;echo hello world&lt;/code&gt;. Simple. Para ejecutar la tarea de forma individual en Concourse deberemos invocar el siguiente comando:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;tasks &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;fly -t localconcourse execute -c task_hello_world.yml
+targeting http://192.168.100.4:8080
+
+executing build 1
+initializing with docker:///debian
+running &lt;span class=&quot;nb&quot;&gt;echo &lt;/span&gt;hello world
+hello world
+succeeded&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Esto no es muy espectacular, y de hecho será algo que nunca haremos en el mundo real, ya que las tareas formarán siempre parte de pipelines.&lt;/p&gt;
+
+&lt;h3 id=&quot;task-input&quot;&gt;Task input&lt;/h3&gt;
+
+&lt;p&gt;Una tarea puede tener un input, que no es más que una carpeta creada dentro del contenedor Docker por Concourse, que almacenará recursos interesantes para la tarea:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;linux&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;docker:///debian&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;inputs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;task_input&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ls&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;-alR&#39;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Los inputs se entienden mucho mejor en el contexto de un pipeline. En cualquier caso, si queremos configurar el input de una tarea que estamos ejecutando de manera individual deberíamos hacer:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;tasks &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;fly -t localconcourse execute -c task_with_input.yml -i &lt;span class=&quot;nv&quot;&gt;task_input&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;.
+targeting http://192.168.100.4:8080
+
+executing build 3
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 10240    0 10240    0     0  4145k      0 --:--:-- --:--:-- --:--:-- 5000k
+initializing with docker:///debian
+running ls -alR
+.:
+total 8
+drwxr-xr-x 3 root root    4096 May  7 10:22 .
+drwxr-xr-x 3 root root    4096 May  7 10:22 ..
+drwxr-xr-x 1  501 dialout   78 May  7 10:22 task_input
+
+./task_input:
+total 12
+drwxr-xr-x 1  501 dialout   78 May  7 10:22 .
+drwxr-xr-x 3 root root    4096 May  7 10:22 ..
+-rw-r--r-- 1  501 dialout   86 May  7 10:10 task_hello_world.yml
+-rw-r--r-- 1  501 dialout  107 May  7 10:20 task_with_input.yml
+succeeded&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Mediante la opción &lt;code class=&quot;highlighter-rouge&quot;&gt;-i task_input=.&lt;/code&gt; indicamos a Concourse que mapee el directorio donde estamos ejecutando el comando &lt;code class=&quot;highlighter-rouge&quot;&gt;fly&lt;/code&gt; con el input &lt;code class=&quot;highlighter-rouge&quot;&gt;task_input&lt;/code&gt;. Podría ser cualquier otro directorio, por supuesto, y si el directorio que contiene la tarea se llama igual que el input no es necesaria esta opción, realizándose el mapeo automático.&lt;/p&gt;
+
+&lt;p&gt;La verdad es que no es muy importante que recordéis como configurar inputs en una tarea individual.&lt;/p&gt;
+
+&lt;h4 id=&quot;scripts&quot;&gt;Scripts&lt;/h4&gt;
+
+&lt;p&gt;Será muy habitual que nuestros inputs contengan scripts a ejecutar dentro del contenedor Docker asociado a la tarea. Creemos por tanto una nueva tarea, &lt;code class=&quot;highlighter-rouge&quot;&gt;task_running_script&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;linux&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;docker:///debian&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;inputs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;task_input&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;./task_input/script.sh&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;El contenido de &lt;code class=&quot;highlighter-rouge&quot;&gt;script.sh&lt;/code&gt; es:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;I&#39;m a script!&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Si ejecutamos un comando similar al de la sección anterior veremos por pantalla el mensaje “I’m a script!” (no reproduczco la salida completa por brevedad). Es importante que el script sea mapeado convenientemente en el input de la tarea, para que esté disponible (¡y no olvidéis dar permisos de ejecución al archivo!).&lt;/p&gt;
+
+&lt;h3 id=&quot;output&quot;&gt;Output&lt;/h3&gt;
+
+&lt;p&gt;Un output de una tarea es un directorio que Concourse creará en el contenedor Docker y que nosotros deberemos utilizar para copiar contenidos interesantes durante la ejecución de dicha tarea.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;linux&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;docker:///debian&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;outputs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;task_output&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ls&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&#39;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;-altr&#39;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Si ejecutamos esta tarea veremos esto:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;tasks &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;fly -t localconcourse execute -c task_with_output.yml
+targeting http://192.168.100.4:8080
+
+executing build 7
+initializing with docker:///debian
+running ls -altr
+total 8
+drwxr-xr-x 1 root root    0 May  7 10:37 task_output
+drwxr-xr-x 3 root root 4096 May  7 10:37 ..
+drwxr-xr-x 3 root root 4096 May  7 10:37 .
+succeeded&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Lo cual, de nuevo, tampoco es muy espectacular, pero deja claro que tenemos una carpeta donde copiar lo que queramos (fichero &lt;code class=&quot;highlighter-rouge&quot;&gt;war&lt;/code&gt; a desplegar, por ejemplo). Quizás estéis pensando que, ejem, aquí hay un problema, y es que ejecutando una tarea individualmente, cuando esta termina, el contenedor Docker se destruye y el output se pierde. Será dentro de un pipeline donde este concepto cobrará todo su sentido (que supongo que ya intuís).&lt;/p&gt;
+
+&lt;h3 id=&quot;pipeline&quot;&gt;Pipeline&lt;/h3&gt;
+
+&lt;p&gt;Llegamos por fin a los pipelines. Un pipeline no es más que un conjunto de jobs (que pueden estar o no conectados entre ellos), siendo un job un conjunto de tasks (que, de nuevo, pueden depender unas de otras, o no). Veamos un ejemplo:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;s&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;job-hello-and-goodbye&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;plan&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;hello-world&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;linux&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;docker:///debian&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;echo&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;hello world&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;goodbye&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;linux&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;docker:///debian&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;echo&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;goodbye&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Este pipeline contiene un job, cuyo plan es un conjunto de dos tareas (sin ninguna relación entre ellas), tareas que se ejecutarán una a continuación de la otra. La diferencia entre la ejecución de un pipeline y de una tarea es que un pipeline no puede ser ejecutado directamente, sino que deberá ser importado en Concourse, de la siguiente forma:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;fly -t localconcourse &lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;-pipeline -c pipeline_1.yml -p first_pipeline&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/concourse/create-pipeline.jpg&quot; alt=&quot;Create Pipeline&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Aquí vemos varias cosas:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;El nombre del pipeline se configura mediante el comando &lt;code class=&quot;highlighter-rouge&quot;&gt;fly&lt;/code&gt; (opción &lt;code class=&quot;highlighter-rouge&quot;&gt;-p&lt;/code&gt;), por lo que podemos crear diferentes instancias del mismo pipeline a partir de un mismo fichero YAML de configuración&lt;/li&gt;
+  &lt;li&gt;Concourse nos indica que el pipeline está en modo pausa, esto significa que aunque lo hemos importado no estará activo hasta que lo indiquemos de forma explícita.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Para activar un pipeline podemos utilizar el siguiente comando:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;fly -t localconcourse unpause-pipeline -p first_pipeline&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;O bien ir a la UI:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/concourse/first-pipeline.jpg&quot; alt=&quot;First Pipeline&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;En la esquina superior izquierda vemos un símbolo “Play”, pulsándolo arrancará nuestro pipeline. En este primer ejemplo que hemos creado tenemos un problema, y es que no hemos asociado ningún evento que inicie la ejecución del pipeline, por lo que deberemos hacerlo de forma manual. Para ello haced click sobre la caja del job que aparece en el centro de la pantalla, lo que nos llevará aquí:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/concourse/first-pipeline-job.jpg&quot; alt=&quot;First Pipeline&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Si pulsamos sobre el símbolo “+” de la esquina superior derecha, nuestro job arrancará:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/concourse/first-pipeline-job-run.jpg&quot; alt=&quot;First Pipeline&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;En la pantalla he ejecutado el job dos veces para que veáis el aspecto de la pantalla. Por cada ejecución del job aparece una pestaña con un número que nos permite navegar en la historia, y cada pestaña lista las tareas que componen cada trabajo, y la salida que se ha generado. Por último, aunque en este caso vemos todo verde, si un job fracasa el color sería rojo (claro), mientras se está ejecutando es amarillo, si lo cancelamos es marrón…el código de colores en general es bastante intuitivo.&lt;/p&gt;
+
+&lt;p&gt;Para destruir un pipeline deberemos invocar:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;fly -t localconcourse destroy-pipeline -p first_pipeline&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;conectando-tareas&quot;&gt;Conectando tareas&lt;/h3&gt;
+
+&lt;p&gt;Para terminar con este primer post, vamos a crear un pipeline donde la primera tarea crea un fichero que será exportado como output para hacerlo disponible en la segunda tarea.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;s&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;job-generate-and-pass-file&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;plan&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;generate-file&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;linux&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;docker:///debian&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;outputs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;generate_file_output&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;touch&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;generate_file_output/file.txt&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;show-file&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;linux&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;docker:///debian&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;inputs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;generate_file_output&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ls&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;-altr&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;generate_file_output&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Vemos que &lt;code class=&quot;highlighter-rouge&quot;&gt;generate-file&lt;/code&gt; crea un fichero &lt;code class=&quot;highlighter-rouge&quot;&gt;file.txt&lt;/code&gt; vacío en la carpeta configurada como output. Esta carpeta estará disponible en la siguiente tarea del job, siempre y cuando la configuremos en los inputs (como así hacemos). Por tanto, si listamos los contenidos de esta carpeta input, veremos nuestro fichero:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/concourse/pipeline-generate-pass.jpg&quot; alt=&quot;First Pipeline&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Lo dejamos por hoy. Queda mucho por cubrir, aún estamos lejos de crear un pipeline en condiciones, y nuestros primeros ejemplos, además de tener que lanzarlos de forma manual, solo contienen un job que no interactúa con el mundo exterior. Para hacer algo así, deberemos introducir nuevos conceptos como triggers, resources…pero eso será en el siguiente post.&lt;/p&gt;
+
+&lt;p&gt;(Como siempre, los ejemplos utilizados están subidos &lt;a href=&quot;https://github.com/raulavila/concourse-examples&quot;&gt;a GitHub&lt;/a&gt;)&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>The Passionate Programmer (el libro)</title>
