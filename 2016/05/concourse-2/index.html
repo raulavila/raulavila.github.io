@@ -10,7 +10,7 @@
 
   <title>
     
-      Raúl Ávila
+      Integración continua con Concourse CI&#58; conceptos avanzados
     
   </title>
 
@@ -42,18 +42,23 @@
       </header>
 
       <main>
-        <div class="posts">
-  
-  <article class="post">
-    <h1 class="post-title">
-      <a href="/2016/05/concourse-2/">
-        Integración continua con Concourse CI&#58; conceptos avanzados
-      </a>
-    </h1>
-
-    <time datetime="2016-05-28T00:00:00+01:00" class="post-date index-date">28/05/2016</time>    
-
-    <p>Seguimos con <a href="http://concourse.ci/">Concourse</a>. En el <a href="/2016/05/concourse-1/">anterior post</a> introdujimos la herramienta y los conceptos básicos que hay que conocer necesariamente para escribir un job sencillo. Sin embargo, quedamos lejos de poder implementar un pipeline real, nuestro primer pipeline solo tenía un job y había que lanzarlo de forma manual. Será en este segundo post de la serie donde nos acercaremos mucho más a un uso práctico de Concourse.</p>
+        <article class="post">
+  <h1 class="post-title">Integración continua con Concourse CI&#58; conceptos avanzados</h1>
+  <time datetime="2016-05-28T00:00:00+01:00" class="post-date">28/05/2016</time>
+  <div class="post-tags">
+    
+    | <a href="/tag/devops">devops</a> |
+    
+    | <a href="/tag/ci">ci</a> |
+    
+  </div>
+  <div class="post-share">
+    <a class="twitter-share-button"
+    data-via="_Raul_Avila"
+    data-count="none"
+    href="https://twitter.com/share">Tweet</a>
+  </div>
+  <p>Seguimos con <a href="http://concourse.ci/">Concourse</a>. En el <a href="/2016/05/concourse-1/">anterior post</a> introdujimos la herramienta y los conceptos básicos que hay que conocer necesariamente para escribir un job sencillo. Sin embargo, quedamos lejos de poder implementar un pipeline real, nuestro primer pipeline solo tenía un job y había que lanzarlo de forma manual. Será en este segundo post de la serie donde nos acercaremos mucho más a un uso práctico de Concourse.</p>
 
 <h3 id="resources">Resources</h3>
 
@@ -283,98 +288,57 @@
 
 <p>Lo dejamos por hoy, en el siguiente (y seguramente último) post de la seria configuraremos un pipeline más cercano a la realidad cotidiana de nuestros proyectos.</p>
 
+</article>
+
+<aside class="related">
+  <h2>Posts relacionados</h2>
+  <ul class="related-posts">
     
-  </article>
-
-  
-  <article class="post">
-    <h1 class="post-title">
-      <a href="/2016/05/concourse-1/">
-        Integración continua con Concourse CI&#58; conceptos básicos
-      </a>
-    </h1>
-
-    <time datetime="2016-05-07T00:00:00+01:00" class="post-date index-date">07/05/2016</time>    
-
-    <p><a href="http://concourse.ci/">Concourse CI</a> es una herramienta Open Source de integración continua (aunque realmente es mucho más) que lleva en desarrollo unos dos años. Hace poco se liberó la <a href="http://concourse.ci/downloads.html#v100">versión 1.0</a>, y personalmente creo que irá pisando cada vez más fuerte. En esta serie de posts trataré de condensar los principales conceptos que es necesario conocer para ponerse manos a la obra en el menor tiempo posible, y desarrollaré un caso más práctico.</p>
-
-
+      <li>
+        <h3>
+          <a href="/2016/05/concourse-1/">
+            Integración continua con Concourse CI&#58; conceptos básicos
+            <small><time datetime="2016-05-07T00:00:00+01:00">07/05/2016</time></small>
+          </a>
+        </h3>
+      </li>
     
-      <a href="/2016/05/concourse-1/">[...Leer más...]</a>
+      <li>
+        <h3>
+          <a href="/2016/04/passionate-programmer/">
+            The Passionate Programmer (el libro)
+            <small><time datetime="2016-04-27T00:00:00+01:00">27/04/2016</time></small>
+          </a>
+        </h3>
+      </li>
     
-  </article>
-
-  
-  <article class="post">
-    <h1 class="post-title">
-      <a href="/2016/04/passionate-programmer/">
-        The Passionate Programmer (el libro)
-      </a>
-    </h1>
-
-    <time datetime="2016-04-27T00:00:00+01:00" class="post-date index-date">27/04/2016</time>    
-
-    <p>Disfruto muchísimo la lectura de libros relacionados con las conocidas en inglés como “Soft Skills” (juro que ahora mismo soy incapaz de encontrar una traducción al castellano). Son libros que tratan sobre el desarrollo software, pero que no se centran en temas puramente tecnológicos, sino en aspectos que nos afectan o afectarán a todos a lo largo de nuestra carrera profesional y que es importante tener en cuenta o tomar en consideración.</p>
-
-
+      <li>
+        <h3>
+          <a href="/2016/04/fixtures-dominio-legibles/">
+            Creando fixtures de dominio legibles
+            <small><time datetime="2016-04-17T00:00:00+01:00">17/04/2016</time></small>
+          </a>
+        </h3>
+      </li>
     
-      <a href="/2016/04/passionate-programmer/">[...Leer más...]</a>
-    
-  </article>
-
-  
-  <article class="post">
-    <h1 class="post-title">
-      <a href="/2016/04/fixtures-dominio-legibles/">
-        Creando fixtures de dominio legibles
-      </a>
-    </h1>
-
-    <time datetime="2016-04-17T00:00:00+01:00" class="post-date index-date">17/04/2016</time>    
-
-    <p>En muchas ocasiones nos habremos encontrado en nuestros proyectos con la necesidad de testear capas aisladas que hacen uso de objetos de dominio, objetos que en tests de integración / producción serán creados y poblados por un framework ORM o similar.</p>
-
-<p>Dichos objetos deberán contener una serie de valores que condicionarán el resultado del proceso a ejecutar sobre ellos, por lo que en nuestros tests unitarios deberemos crear instancias adecuadas, que formarán parte de lo que se conoce como <a href="https://en.wikipedia.org/wiki/Test_fixture">test fixture</a>.</p>
-
-
-    
-      <a href="/2016/04/fixtures-dominio-legibles/">[...Leer más...]</a>
-    
-  </article>
-
-  
-  <article class="post">
-    <h1 class="post-title">
-      <a href="/2016/04/agilidad-xp-scrum/">
-        Agilidad, XP y Scrum
-      </a>
-    </h1>
-
-    <time datetime="2016-04-09T00:00:00+01:00" class="post-date index-date">09/04/2016</time>    
-
-    <p>En los últimos años han cobrado relativa popularidad las conocidas como <a href="http://blog.leanmonitor.com/es/que-son-las-metodologias-agiles/">metdologías ágiles</a>, tanta que se llegan a ver ofertas de trabajo buscando “Desarrollador ágil”, “Agile Java Developer” y similares. Cuando inicié mi <a href="/2015/04/trabajo-londres/">búsqueda de trabajo en Londres</a> hace un par de años me sorprendió lo importante que todas las empresas consideraban tener experiencia “agile”. Yo ya conocía algo, pues en mi última empresa española utilizábamos Scrum, así que quizás eso me facilitó encontrar mi primer puesto de trabajo en UK.</p>
-
-<p>Tras mi reciente cambio de empresa a una que es <a href="http://pivotal.io/">verdaderamente ágil</a> he tenido finalmente constancia de lo que supone esa palabra, por lo que finalmente creo que me veo en disposición de dar mi punto de vista sobre todo esto.</p>
-
-
-    
-      <a href="/2016/04/agilidad-xp-scrum/">[...Leer más...]</a>
-    
-  </article>
-
-  
-</div>
-
-<div class="pagination">
-  
-    <a class="pagination-item older" href="/page2">Anteriores</a>
-  
-  
-    <span class="pagination-item newer">Siguientes</span>
-  
-</div>
+  </ul>
+</aside>
 
         
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'raulavila'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
       </main>
 
       <footer class="footer">

@@ -4,13 +4,250 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2016-05-07T13:58:29+01:00</updated>
+ <updated>2016-05-28T14:23:09+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Integración continua con Concourse CI&#58; conceptos avanzados</title>
+   <link href="http://www.raulavila.com/2016/05/concourse-2/"/>
+   <updated>2016-05-28T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2016/05/concourse-2</id>
+   <content type="html">&lt;p&gt;Seguimos con &lt;a href=&quot;http://concourse.ci/&quot;&gt;Concourse&lt;/a&gt;. En el &lt;a href=&quot;/2016/05/concourse-1/&quot;&gt;anterior post&lt;/a&gt; introdujimos la herramienta y los conceptos básicos que hay que conocer necesariamente para escribir un job sencillo. Sin embargo, quedamos lejos de poder implementar un pipeline real, nuestro primer pipeline solo tenía un job y había que lanzarlo de forma manual. Será en este segundo post de la serie donde nos acercaremos mucho más a un uso práctico de Concourse.&lt;/p&gt;
+
+&lt;h3 id=&quot;resources&quot;&gt;Resources&lt;/h3&gt;
+
+&lt;p&gt;Para refrescar la memoria, recordemos como dejamos nuestro último pipeline:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;s&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;job-generate-and-pass-file&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;plan&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;generate-file&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;linux&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;docker:///debian&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;outputs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;generate_file_output&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;touch&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;generate_file_output/file.txt&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;show-file&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;linux&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;docker:///debian&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;inputs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;generate_file_output&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ls&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;-altr&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;generate_file_output&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;No profundizaré en lo que pasa aquí, &lt;a href=&quot;/2016/05/concourse-1/&quot;&gt;ya hablamos sobradamente de ello&lt;/a&gt;. Vemos que toda la configuración de nuestro pipeline (en este caso, se trata básicamente de las tareas) está configurada en un solo fichero, el fichero YAML del pipeline. En la práctica esto no es muy conveniente, ya que las tareas serán de mayor o menor complejidad, y lo suyo es que el pipeline sea una representación a alto nivel de las tareas que contiene, abstrayendo los detalles particulares.&lt;/p&gt;
+
+&lt;p&gt;Necesitamos, por tanto, extraer nuestas tareas a ficheros independientes, que serán utilizados en la configuración del pipeline. Para conseguir esto necesitamos introducir un nuevo concepto a nuestra caja de herramientas, los &lt;a href=&quot;https://concourse.ci/resources.html&quot;&gt;Resources&lt;/a&gt;. Un resource de Concourse no es más que una entidad externa que puede servir de entrada o salida en nuestros pipelines. En la &lt;a href=&quot;https://concourse.ci/resources.html&quot;&gt;documentación oficial&lt;/a&gt; podéis profundizar en los diferentes tipos de resources, pero estos pueden ser cosas tan variadas como el tiempo, un repositorio Git, una instancia de &lt;a href=&quot;https://www.cloudfoundry.org/&quot;&gt;Cloud Foundry&lt;/a&gt;, un bucket de &lt;a href=&quot;https://aws.amazon.com/s3/pricing/&quot;&gt;Amazon S3&lt;/a&gt;, etc. Incluso podemos &lt;a href=&quot;https://concourse.ci/implementing-resources.html&quot;&gt;crear nuestros propios resources&lt;/a&gt; si no encontramos lo que buscamos en la comunidad.&lt;/p&gt;
+
+&lt;p&gt;El resource más común es &lt;code class=&quot;highlighter-rouge&quot;&gt;git&lt;/code&gt;. Esto es así porque Concourse no permite almacenar ficheros directamente en el servidor, sino que deben ser provistos desde fuera. La única información que podemos cargar a Concourse sin utilizar resources es la configuración de nuestro pipeline, es decir, todo lo que podamos especificar en un fichero &lt;code class=&quot;highlighter-rouge&quot;&gt;pipeline.yml&lt;/code&gt;, pero nada fuera de él.&lt;/p&gt;
+
+&lt;h4 id=&quot;pipeline-as-code&quot;&gt;Pipeline as code&lt;/h4&gt;
+
+&lt;p&gt;Vamos por tanto a configurar nuestro pipeline en un repositorio Git que será descargado en cada ejecución. Lo primero será extraer las dos tareas del job en ficheros independientes, que quedarán así:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;task_generate_file.yml&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;linux&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;docker:///debian&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;outputs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;generate_file_output&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;touch&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;generate_file_output/file.txt&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;task_show_file.yml&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;linux&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;docker:///debian&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;inputs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;generate_file_output&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;ls&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;-altr&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;generate_file_output&quot;&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;No hay mucha historia aquí, ya vimos anteriormente como crear ficheros YAML con tareas. El salto importante se produce en el fichero de pipeline:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;resources&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;git&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;https://github.com/raulavila/concourse-examples.git&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;job-generate-and-pass-file&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;plan&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;generate-file&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code/pipeline_tasks/task_generate_file.yml&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;show-file&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code/pipeline_tasks/task_show_file.yml&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Vemos que:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Hemos configurado un nuevo elemento, &lt;code class=&quot;highlighter-rouge&quot;&gt;resources&lt;/code&gt; donde configuramos un repositorio Git. Podemos tener tantos resources como queramos&lt;/li&gt;
+  &lt;li&gt;Nuestro build plan contiene tres tareas: la primera descarga el resource &lt;code class=&quot;highlighter-rouge&quot;&gt;pipeline-code&lt;/code&gt; y las otras dos tareas son el equivalente a las que teníamos en la versión anterior del pipeline, solo que esta vez su configuración está en ficheros independientes que viven en el repositorio Git del pipeline. Lo más destacable aquí es que todos los resources Git que descarguemos en nuestro build plan pueden utilizarse en la configuración del pipeline, y podrán ser mapeados como inputs en los contenedores Docker que ejecutan el resto de tareas del plan. El nombre del directorio utilizado como input coincidirá con el nombre del resource, por eso vemos que accedemos a las tareas como &lt;code class=&quot;highlighter-rouge&quot;&gt;pipeline-code/pipeline_tasks/task_generate_file.yml&lt;/code&gt;, por ejemplo. Para no dejar lugar a dudas, esta es la estructura de nuestro repositorio Git del pipeline:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/concourse/pipeline_resources.jpg&quot; alt=&quot;Git Pipeline codebase&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Si actualizamos el pipeline (&lt;code class=&quot;highlighter-rouge&quot;&gt;fly -t localconcourse set-pipeline -c pipeline_input_output_resources.yml -p input_output_pipeline&lt;/code&gt;), y vamos a la UI (&lt;a href=&quot;http://192.168.100.4:8080/&quot;&gt;http://192.168.100.4:8080/&lt;/a&gt;), tenemos esto:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/concourse/pipeline_resources_1.jpg&quot; alt=&quot;Git Pipeline UI&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Vemos que el resource y el job están unidos por una linea discontinua, esto significa que están asociados, de forma que las tareas de nuestro job pueden acceder al resource, pero que no hemos configurado ningún evento en el resource que ejecute el job automáticamente. Lo veremos en la siguiente sección.&lt;/p&gt;
+
+&lt;p&gt;Por último, echemos un vistazo a la salida producida al ejecutar nuestro nuevo build plan, creo que la captura es bastante auto-explicativa:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/concourse/pipeline_resources_2.jpg&quot; alt=&quot;Git Pipeline Run&quot; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;tareas-en-scripts&quot;&gt;Tareas en scripts&lt;/h4&gt;
+
+&lt;p&gt;Vamos a dar una vuelta de tuerca adicional extrayendo las acciones ejecutadas en las tareas de Concourse en shell scripts. Esta viene a ser la fórmula habitual, es decir, tendremos tres niveles, pipeline -&amp;gt; tareas -&amp;gt; sripts. En esta nueva versión del código de nuestro pipeline, el fichero YAML del pipeline permanece igual, pero nuestras tareas quedarán así:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;task_generate_file.yml&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;linux&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;docker:///debian&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;inputs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;outputs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;generate_file_output&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code/pipeline_scripts/generate_file.sh&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;task_show_file.yml&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;linux&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;docker:///debian&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;inputs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;generate_file_output&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code/pipeline_scripts/list_files.sh&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Vemos que es necesario configurar como input el resource &lt;code class=&quot;highlighter-rouge&quot;&gt;pipeline-code&lt;/code&gt;, de otra manera no sería mapeado dentro del contenedor Docker por Concourse. Creo que queda claro que hemos extraído los comandos de nuestras tareas en dos ficheros, &lt;code class=&quot;highlighter-rouge&quot;&gt;generate_file.sh&lt;/code&gt; y &lt;code class=&quot;highlighter-rouge&quot;&gt;list_files.sh&lt;/code&gt;, ambos ubicados en la carpeta &lt;code class=&quot;highlighter-rouge&quot;&gt;pipeline_scripts&lt;/code&gt; del repositorio Git.&lt;/p&gt;
+
+&lt;h3 id=&quot;triggers&quot;&gt;Triggers&lt;/h3&gt;
+
+&lt;p&gt;Comentaba que nuestro repositorio Git está asociado al job, pero aún tenemos que ejecutar nuestro pipeline de forma manual. Para solucionar esto tenemos los &lt;strong&gt;triggering resources&lt;/strong&gt;, que no es más que configurar un resource dentro del build plan para que lance la ejecución de forma automática ante determinados eventos. Si nuestro resource es un repositorio Git, el evento será la subida de una nueva versión, evidentemente. Para configurar un trigger solo tenemos que añadir el atributo &lt;code class=&quot;highlighter-rouge&quot;&gt;trigger&lt;/code&gt; a la tarea get asociada al resource:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;s&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;job-generate-and-pass-file&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;plan&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;trigger&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;.....&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Si actualizamos el pipeline, vemos que la UI cambia el formato de la linea que asocia resource y job:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/concourse/pipeline_resources_3.jpg&quot; alt=&quot;Git Pipeline Trigger&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Desde este momento, nuestro pipeline será lanzado si el repositorio Git es actualizado con un nuevo commmit.&lt;/p&gt;
+
+&lt;p&gt;Es muy habitual que queramos comprobar el estado de nuestros pipelines cada cierto tiempo, independientemente de que actualicemos el código fuente o no. Para esto existe el resource &lt;code class=&quot;highlighter-rouge&quot;&gt;time&lt;/code&gt;, que añadido a nuestro fichero YAML de configuración quedaría tal que así:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;resources&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;git&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;https://github.com/raulavila/concourse-examples.git&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;every-30m&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;time&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;interval&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;30m&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;job-generate-and-pass-file&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;plan&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;trigger&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;every-30m&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;trigger&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;generate-file&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code/pipeline_tasks/task_generate_file.yml&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;show-file&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code/pipeline_tasks/task_show_file.yml&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;De esta forma, ahora tenemos dos eventos que pueden lanzar la ejecución del pipeline, la actualización del código fuente, y una ejecución programada cada 30 minutos. Sencillo, ¿verdad?&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/concourse/pipeline_resources_4.jpg&quot; alt=&quot;Git Pipeline Trigger&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;conectando-jobs&quot;&gt;Conectando jobs&lt;/h3&gt;
+
+&lt;p&gt;Para terminar esta segunda parte de la serie, veremos cómo conectar dos jobs de un pipeline, cosa que será bastante habitual en la práctica. Aunque un job puede contener un número indeterminado de tareas, y la forma en que se ejecutan dichas tareas hace que el propio job sea una especie de “mini-pipeline” (porque si una tarea falla ahí termina la ejecución del job), a nivel visual es conveniente separar responsabilidades en diferentes jobs. Por ejemplo, puede que queramos tener un job que construya el proyecto y ejecute los tests, y otro que despliegue la aplicación es un entorno concreto. En la última parte de esta serie de posts configuraremos un pipeline de este tipo, hoy solo veremos como conectar dos jobs.&lt;/p&gt;
+
+&lt;p&gt;La forma de conectar dos jobs en Concourse puede resultar un poco extraña a priori. La idea es que para que la ejecución exitosa de un job (porque evidentemente si falla el pipeline no debe continuar) lance otro a continuación, debemos conectar ambos jobs mediante un resource:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+
+&lt;span class=&quot;nn&quot;&gt;...&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;job-generate-and-pass-file&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;plan&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;trigger&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;nn&quot;&gt;...&lt;/span&gt;
+
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;job-confirm-previous-is-done&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;plan&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;trigger&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;passed&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;job-generate-and-pass-file&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;say-done&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code/pipeline_tasks/task_say_done.yml&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;En esta versión reducida del pipeline (&lt;a href=&quot;https://github.com/raulavila/concourse-examples/blob/master/pipeline_examples/pipeline_connected_jobs.yml&quot;&gt;aquí tenéis la versión completa&lt;/a&gt;), vemos como existen dos jobs, &lt;code class=&quot;highlighter-rouge&quot;&gt;job-generate-and-pass-file&lt;/code&gt; y &lt;code class=&quot;highlighter-rouge&quot;&gt;job-confirm-previous-is-done&lt;/code&gt;, y solo queremos ejecutar el segundo si el primero tiene éxito. Un job no puede depender de otro si el primero no le pasa ninguna información, y en Concourse esto se hace mediante un resource. Por tanto, en este pipeline de ejemplo hemos designado al resource &lt;code class=&quot;highlighter-rouge&quot;&gt;pipeline-code&lt;/code&gt; como el encargado de conectar ambos jobs, y la forma en que indicamos que solo queremos lanzarlo si el primero termina correctamente es mediante el parámetro &lt;code class=&quot;highlighter-rouge&quot;&gt;passed&lt;/code&gt;. Observad que es un array, lo que significa que podemos condicionar la ejecución de un job a la finalización de varios jobs previos.&lt;/p&gt;
+
+&lt;p&gt;Este pipeline es un poco artificial, ya que realmente el primer job no está publicando nada en el resource Git. En un pipeline más real haríamos cosas como subir un fichero &lt;code class=&quot;highlighter-rouge&quot;&gt;war&lt;/code&gt; a un bucket S3, por ejemplo. No obstante, en ocasiones esta configuración es perfectamente válida, ya que el 99,99% de los jobs deberán obtener un recurso (aunque solo sea el código del pipeline), y este lugar será el candidato perfecto para asociar jobs. Tened en cuenta que una ejecución manual del primer job no lanzará el segundo si el resource que los asocia no es actualizado (acción que es la que realmente dispara la ejecución de ambos).&lt;/p&gt;
+
+&lt;p&gt;Para terminar, veamos como queda nuestro pipeline en la UI:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/concourse/pipeline_connected_jobs.jpg&quot; alt=&quot;Git Pipeline Connected Jobs&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Lo dejamos por hoy, en el siguiente (y seguramente último) post de la seria configuraremos un pipeline más cercano a la realidad cotidiana de nuestros proyectos.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Integración continua con Concourse CI&#58; conceptos básicos</title>
