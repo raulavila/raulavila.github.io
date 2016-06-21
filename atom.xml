@@ -4,13 +4,221 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2016-05-30T12:01:33+01:00</updated>
+ <updated>2016-06-21T20:32:55+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Integración continua con Concourse CI&#58; un pipeline real</title>
+   <link href="http://www.raulavila.com/2016/06/concourse-3/"/>
+   <updated>2016-06-21T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2016/06/concourse-3</id>
+   <content type="html">&lt;p&gt;Finalizaremos con este artículo la serie en torno a &lt;a href=&quot;https://concourse.ci/&quot;&gt;Concourse&lt;/a&gt;. &lt;a href=&quot;/2016/05/concourse-2/&quot;&gt;En posts anteriores&lt;/a&gt; nos centramos en crear pipelines sencillos para introducir los diferentes conceptos que es necesario conocer a la hora de utilizar esta herramienta de integración continua. Sin embargo, ninguno de esos pipelines se asemejaba demasiado a los que utilizaremos en nuestros proyectos del día a día. Ha llegado la hora de presentar un ejemplo más real.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;Supongo que a casi todos los que estáis leyendo estas líneas os resultará más o menos familiar tener un servidor de CI que a cada commit en el repositorio de control de versiones y/o de manera periódica (cada hora, cada noche, etc), construye el proyecto, ejecutando todos los tests, de manera que el equipo de desarrollo es informado de manera inmediata sobre el estado del código. De forma adicional, si el build es exitoso, podríamos querer desplegar la nueva versión en algún entorno de pruebas, por ejemplo. Va a ser justamente esto lo que configuraremos a continuación, pero antes vamos a introducir un nuevo elemento que quizás os resulte desconocido…&lt;/p&gt;
+
+&lt;h3 id=&quot;cloud-foundry&quot;&gt;Cloud Foundry&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.cloudfoundry.org/&quot;&gt;Cloud Foundry&lt;/a&gt; es una plataforma como servicio (PaaS - Platform As A Service) de código abierto que nos ofrece un entorno de ejecución en la nube para nuestras aplicaciones. Estas aplicaciones pueden estar desarrolladas en prácticamente cualquier lenguaje que se os pueda pasar por la cabeza, y Cloud Foundry se encargará de proveer los recursos adecuados para cada tecnología en concreto.&lt;/p&gt;
+
+&lt;p&gt;Podemos crearnos nuestra propia instalación en servidores propios, podemos crear una instancia en &lt;a href=&quot;https://aws.amazon.com/&quot;&gt;Amazon Web Services&lt;/a&gt;, suscribirnos a la versión comercial ofrecida por Pivotal (&lt;a href=&quot;https://run.pivotal.io/&quot;&gt;Pivotal Web Services&lt;/a&gt;), o incluso utilizar una versión empaquetada en una máquina virtual Vagrant (&lt;a href=&quot;https://github.com/pivotal-cf/pcfdev&quot;&gt;PCF Dev&lt;/a&gt;, adecuada únicamente para el desarrollo).&lt;/p&gt;
+
+&lt;p&gt;No es el objetivo de este posts profundizar demasiado en la herramienta, Internet está &lt;a href=&quot;https://www.youtube.com/watch?v=RC1HX_7aGa8&quot;&gt;plagado de recursos&lt;/a&gt;. A efectos de este post, lo único que necesitamos saber es que, una vez empaquetada nuestra aplicación (en nuestro caso como fichero &lt;code class=&quot;highlighter-rouge&quot;&gt;jar&lt;/code&gt;), el despliegue en Cloud Foundry se realiza mediante una API que solo necesita saber el valor de cuatro parámetros:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;username&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;password&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;organization&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;space&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Los dos primeros son obvios, &lt;code class=&quot;highlighter-rouge&quot;&gt;organization&lt;/code&gt; viene a ser el equivalente a un proyecto, mientras que &lt;code class=&quot;highlighter-rouge&quot;&gt;space&lt;/code&gt; nos ayuda a identificar entre diferentes entornos (desarrollo, test, producción, etc). A continuación veremos de qué forma tan transparente Concourse interactúa con Cloud Foundry, cosa que no debería sorprender una vez sabes que Concourse se creó precisamente para configurar pipelines dentro del propio proyecto Cloud Foundry :)&lt;/p&gt;
+
+&lt;h3 id=&quot;el-pipeline&quot;&gt;El pipeline&lt;/h3&gt;
+
+&lt;p&gt;Vamos a montar un pipeline para construir y desplegar el proyecto ubicado en &lt;a href=&quot;https://github.com/raulavila/spring-boot-hello-world.git&quot;&gt;https://github.com/raulavila/spring-boot-hello-world.git&lt;/a&gt;. No es más que una sencilla aplicación web “Hello World”. El pipeline se pondrá en marcha cada vez que alguien suba cambios a Git, o, de manera alternativa, cada 30 minutos. Los jobs que compondrán el pipeline serán:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Uno que validará nuestro código ejecutando la suite de test completa&lt;/li&gt;
+  &lt;li&gt;Un segundo que empaquetará el proyecto como fichero &lt;code class=&quot;highlighter-rouge&quot;&gt;jar&lt;/code&gt;y lo subirá a Cloud Foundry. Este job sólo se ejecutará si el primero es exitoso (si todos los tests tienen éxito)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Ya tenemos todos los ingredientes necesarios para configurar el pipeline. Si habéis leído los dos posts anteriores no tendréis excesiva dificultad en comprender el siguiente fichero YAML:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;resources&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;git&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;https://github.com/raulavila/concourse-examples.git&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;source-code&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;git&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;uri&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;https://github.com/raulavila/spring-boot-hello-world.git&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;cloud-foundry&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;cf&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;https://api.run.pivotal.io&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;cf-email&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;}}&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;cf-password&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;}}&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;organization&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;cf-org&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;}}&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;space&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;cf-space&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;}}&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;skip_cert_check&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;false&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;every-30m&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;time&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;interval&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;30m&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;jobs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;job-build-and-test&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;plan&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;source-code&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;trigger&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;every-30m&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;trigger&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;verify&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code/pipeline_real/tasks/task_verify.yml&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;privileged&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;job-cf-deploy&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;public&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;plan&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;source-code&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;trigger&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;passed&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;job-build-and-test&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;]&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;every-30m&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;trigger&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;    
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;task&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;package&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;file&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code/pipeline_real/tasks/task_package.yml&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;privileged&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;cloud-foundry&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;params&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;manifest&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;cf-deploy-files/manifest.yml&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Vemos que:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Tenemos cuatro resources: dos de ellos hacen referencia a los repositorios Git que contiene el código fuente y el código del pipeline, respectivamente. El tercero es un resource de tipo time (para establecer ejecuciones periódicas del pipeline), y el último es el resource que representa la instancia de Cloud Foundry que vamos a utilizar&lt;/li&gt;
+  &lt;li&gt;Vemos que el resource &lt;code class=&quot;highlighter-rouge&quot;&gt;cloud-foundry&lt;/code&gt; se configura mediante los parámetros que mencionamos anteriormente, además de la URL de la API&lt;/li&gt;
+  &lt;li&gt;El primer job se descarga los recursos git, y ejecuta la tarea &lt;code class=&quot;highlighter-rouge&quot;&gt;verify&lt;/code&gt;, cuyo fichero YAML contiene:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;linux&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;docker:///maven&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;inputs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;source-code&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code/pipeline_real/scripts/verify.sh&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Vemos que utilizamos el contenedor Docker &lt;code class=&quot;highlighter-rouge&quot;&gt;maven&lt;/code&gt;, ya que Maven será la herramienta con la que gestionaremos nuestro proyecto Java. A su vez, el script &lt;code class=&quot;highlighter-rouge&quot;&gt;verify.sh&lt;/code&gt; contiene:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;cd source&lt;/span&gt;-code
+mvn clean verify&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;El segundo job, que está ligado al éxito del primero (mediante el parámetro &lt;code class=&quot;highlighter-rouge&quot;&gt;passed&lt;/code&gt;), construye el fichero desplegable, y lo pone a disposición de la siguiente tarea mediante outputs.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;platform&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;linux&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;docker:///maven&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;inputs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;source-code&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;outputs&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;cf-deploy-files&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;pipeline-code/pipeline_real/scripts/package.sh&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;&lt;span class=&quot;c&quot;&gt;#!/bin/bash&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;cd source&lt;/span&gt;-code
+mvn clean package -DskipTests
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$?&lt;/span&gt; -ne 0 &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then
+  &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;exit &lt;/span&gt;1
+&lt;span class=&quot;k&quot;&gt;fi
+
+&lt;/span&gt;cp manifest.yml ../cf-deploy-files
+cp target/hello-world-0.0.1-SNAPSHOT.jar ../cf-deploy-files&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Vemos que construimos el proyecto sin ejecutar los tests esta vez. No es necesario, puesto que el job anterior ya ha verificado nuestro código desde ese punto de vista&lt;/p&gt;
+
+&lt;p&gt;El fichero &lt;code class=&quot;highlighter-rouge&quot;&gt;manifest.yml&lt;/code&gt;, que copiamos en la salida de la tarea, es el fichero utilizado por los clientes de Cloud Foundry para configurar parámetros adicionales (como ruta donde vamos a exponer nuestra aplicación, cantidad de memoria a utilizar, etc). No es el cometido de este artículo profundizar demasiado en ello, pero a modo informativo, el contenido del fichero en nuestro ejemplo es:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;nn&quot;&gt;---&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;applications&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;spring-boot-hello-world&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;hello-world-0.0.1-SNAPSHOT.jar&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Sencillo, se trata del nombre de la aplicación y del fichero que queremos subir a Cloud Foundry.&lt;/p&gt;
+
+&lt;p&gt;La última tarea del job &lt;code class=&quot;highlighter-rouge&quot;&gt;job-cf-deploy&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;put&lt;/code&gt;, va asociada al recurso &lt;code class=&quot;highlighter-rouge&quot;&gt;cloud-foundry&lt;/code&gt;, y creo que resulta evidente lo que hace. En la jerga CF ejecuta un &lt;code class=&quot;highlighter-rouge&quot;&gt;cf push&lt;/code&gt;, es decir, la subida de los contenidos configurados en el fichero &lt;code class=&quot;highlighter-rouge&quot;&gt;manifest.yml&lt;/code&gt; que se le pasa como parámetro.&lt;/p&gt;
+
+&lt;h3 id=&quot;configuracin-de-variables&quot;&gt;Configuración de variables&lt;/h3&gt;
+
+&lt;p&gt;No hay prácticamente nada en este pipeline que no haya sido cubierto en las entregas anteriores, excepto una cosa. Os preguntaréis dónde estamos configurando los valores de los parámetros asociados al resource &lt;code class=&quot;highlighter-rouge&quot;&gt;cloud-foundry&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;cloud-foundry&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;cf&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;api&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;https://api.run.pivotal.io&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;cf-email&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;}}&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;cf-password&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;}}&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;organization&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;cf-org&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;}}&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;space&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;{{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;cf-space&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;}}&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;skip_cert_check&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;false&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Los parámetros configurados mediante el patrón &lt;code class=&quot;highlighter-rouge&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;{variable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;}&lt;/span&gt;&lt;/code&gt;
+son, pues eso, parámetros, que, o bien pueden variar entre diferentes instancias del mismo pipeline, o contiene secretos que no queremos hacer públicos (en general se tratará de esto último).&lt;/p&gt;
+
+&lt;p&gt;Para configurar el valor de estos parámetros deberemos crear un fichero YAML aparte en la siguiente forma:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-yml&quot; data-lang=&quot;yml&quot;&gt;&lt;span class=&quot;s&quot;&gt;cf-email&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;email@email.com&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;cf-password&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;password&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;cf-org&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;my-org&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;cf-space&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;my-space&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Pongamos que el nombre de este fichero es &lt;code class=&quot;highlighter-rouge&quot;&gt;secrets.yml&lt;/code&gt; (¡no olvidéis añadirlo al fichero &lt;code class=&quot;highlighter-rouge&quot;&gt;.gitignore&lt;/code&gt;!). Lo único que deberemos añadir es la opción &lt;code class=&quot;highlighter-rouge&quot;&gt;-l&lt;/code&gt; a nuestro comando &lt;code class=&quot;highlighter-rouge&quot;&gt;fly&lt;/code&gt; cuando creemos o actualizemos el pipeline, es decir: &lt;code class=&quot;highlighter-rouge&quot;&gt;fly sp -t localconcourse -c pipeline.yml -p build-deploy-cf -n -l secrets.yml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Veamos el aspecto final de nuestro pipeline:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/concourse/pipeline_real.jpg&quot; alt=&quot;Pipeline Real&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;En la captura uno de los jobs ha fracasado, porque no siempre funciona todo en este mundo, ¿verdad? Además, el pipeline está en ejecución ahora mismo, de ahí las auras amarillas en torno a cada job. Si os preguntáis por qué ambos jobs están en ejecución a la vez, se trata de una situación perfectamente posible, ya que puede ocurrir que Concourse ejecute a la vez el final de un pipeline y un nuevo inicio del mismo.&lt;/p&gt;
+
+&lt;p&gt;Para consultar los logs generados deberíamos hacer click sobre cada job, tal y como vimos en las primeras entregas.&lt;/p&gt;
+
+&lt;h3 id=&quot;otras-consideraciones&quot;&gt;Otras consideraciones&lt;/h3&gt;
+
+&lt;p&gt;Si seguís este tutorial detectaréis que, al ejecutarse cada tarea en un contenedor Docker limpio, Maven necesita descargarse todas las dependencias en cada ejecución. Esto penaliza bastante el tiempo medio para ejecutar el pipeline completo, y en la vida real la solución más sencilla sería crear una imagen Docker con todas las dependencias cacheadas, y utilizar dicha imagen en lugar de la oficial de Maven.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://concourse.ci/resource-types.html&quot;&gt;El catálogo de resources&lt;/a&gt; de Concourse es amplio, y es muy sencillo añadir acciones como enviar emails ante determinados eventos, crear un pull request en Git, ¡o incluso publicar un tweet! Echad un vistazo vosotros mismos. Concourse es una herrramienta muy joven, por lo que previsiblemente este catálogo de recursos no dejará de crecer.&lt;/p&gt;
+
+&lt;h3 id=&quot;conclusiones&quot;&gt;Conclusiones&lt;/h3&gt;
+
+&lt;p&gt;Concourse es una herramienta muy potente, con la flexibilidad como mayor baza. Aunque aún le quede camino por recorrer, creo que merece la pena echarle un vistazo y evaluar si nos conviene utilarlo en lugar de otras opciones como &lt;a href=&quot;https://jenkins.io/&quot;&gt;Jenkins&lt;/a&gt; o &lt;a href=&quot;https://es.atlassian.com/software/bamboo/&quot;&gt;Bamboo&lt;/a&gt;. A nivel personal, una de las cosas que más me gusta de Concourse es que configurar pipelines se asemeja mucho al proceso habitual de desarrollo (¡incluyendo refactoring!), lo cual lo hace muy disfrutable. Otra gran baza es su simplicidad visual, que lo hace perfecto para tenerlo siempre visible en un monitor de la oficina y detectar cuanto antes cualquier incidencia, reduciendo los tiempos de feedback.&lt;/p&gt;
+
+&lt;p&gt;(El código de este post está disponible &lt;a href=&quot;https://github.com/raulavila/concourse-examples/tree/master/pipeline_real&quot;&gt;aquí&lt;/a&gt;)&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Integración continua con Concourse CI&#58; conceptos avanzados</title>
@@ -247,7 +455,7 @@
 
 &lt;p&gt;&lt;img src=&quot;/public/pictures/concourse/pipeline_connected_jobs.jpg&quot; alt=&quot;Git Pipeline Connected Jobs&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Lo dejamos por hoy, en el siguiente (y seguramente último) post de la seria configuraremos un pipeline más cercano a la realidad cotidiana de nuestros proyectos.&lt;/p&gt;
+&lt;p&gt;Lo dejamos por hoy, &lt;a href=&quot;/2016/06/concourse-3/&quot;&gt;en el siguiente (y seguramente último) post de la serie&lt;/a&gt; configuraremos un pipeline más cercano a la realidad cotidiana de nuestros proyectos.&lt;/p&gt;
 </content>
  </entry>
  
@@ -525,7 +733,7 @@ succeeded&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;&lt;img src=&quot;/public/pictures/concourse/pipeline-generate-pass.jpg&quot; alt=&quot;First Pipeline&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Lo dejamos por hoy. Queda mucho por cubrir, aún estamos lejos de crear un pipeline en condiciones, y nuestros primeros ejemplos, además de tener que lanzarlos de forma manual, solo contienen un job que no interactúa con el mundo exterior. Para hacer algo así, deberemos introducir nuevos conceptos como triggers, resources…pero eso será en el siguiente post.&lt;/p&gt;
+&lt;p&gt;Lo dejamos por hoy. Queda mucho por cubrir, aún estamos lejos de crear un pipeline en condiciones, y nuestros primeros ejemplos, además de tener que lanzarlos de forma manual, solo contienen un job que no interactúa con el mundo exterior. Para hacer algo así, deberemos introducir nuevos conceptos como triggers, resources…pero eso será &lt;a href=&quot;/2016/05/concourse-2/&quot;&gt;en el siguiente post&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;(Como siempre, los ejemplos utilizados están subidos &lt;a href=&quot;https://github.com/raulavila/concourse-examples&quot;&gt;a GitHub&lt;/a&gt;)&lt;/p&gt;
 </content>
