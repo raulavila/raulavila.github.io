@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2016-06-21T20:32:55+01:00</updated>
+ <updated>2016-06-21T20:39:41+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -214,7 +214,9 @@ son, pues eso, parámetros, que, o bien pueden variar entre diferentes instancia
 
 &lt;h3 id=&quot;conclusiones&quot;&gt;Conclusiones&lt;/h3&gt;
 
-&lt;p&gt;Concourse es una herramienta muy potente, con la flexibilidad como mayor baza. Aunque aún le quede camino por recorrer, creo que merece la pena echarle un vistazo y evaluar si nos conviene utilarlo en lugar de otras opciones como &lt;a href=&quot;https://jenkins.io/&quot;&gt;Jenkins&lt;/a&gt; o &lt;a href=&quot;https://es.atlassian.com/software/bamboo/&quot;&gt;Bamboo&lt;/a&gt;. A nivel personal, una de las cosas que más me gusta de Concourse es que configurar pipelines se asemeja mucho al proceso habitual de desarrollo (¡incluyendo refactoring!), lo cual lo hace muy disfrutable. Otra gran baza es su simplicidad visual, que lo hace perfecto para tenerlo siempre visible en un monitor de la oficina y detectar cuanto antes cualquier incidencia, reduciendo los tiempos de feedback.&lt;/p&gt;
+&lt;p&gt;Concourse es una herramienta muy potente, con la flexibilidad como mayor baza. Aunque aún le quede camino por recorrer, creo que merece la pena echarle un vistazo y evaluar si nos conviene utilizarlo en lugar de otras opciones como &lt;a href=&quot;https://jenkins.io/&quot;&gt;Jenkins&lt;/a&gt; o &lt;a href=&quot;https://es.atlassian.com/software/bamboo/&quot;&gt;Bamboo&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;A nivel personal, una de las cosas que más me gusta de Concourse es que configurar pipelines se asemeja mucho al proceso habitual de desarrollo (¡incluyendo refactoring!), lo cual lo hace muy disfrutable. Otra gran baza es su simplicidad visual, que lo hace perfecto para tenerlo siempre visible en un monitor de la oficina y detectar cuanto antes cualquier incidencia, reduciendo los tiempos de feedback.&lt;/p&gt;
 
 &lt;p&gt;(El código de este post está disponible &lt;a href=&quot;https://github.com/raulavila/concourse-examples/tree/master/pipeline_real&quot;&gt;aquí&lt;/a&gt;)&lt;/p&gt;
 </content>
