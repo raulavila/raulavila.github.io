@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Mis cinco mantras
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Raúl Ávila" href="/atom.xml">
+
+</head>
+
+
+  <body>
+
+    <div class="container content">
+      <header class="masthead">
+        <h1 class="masthead-title">
+          <a href="/" title="Home">Raúl Ávila</a>
+        </h1>
+
+            <small><a href="/sobre-mi">Sobre mí</a></small>
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/archivos">Archivos</a></small>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title">Mis cinco mantras</h1>
+  <time datetime="2016-07-27T00:00:00+01:00" class="post-date">27/07/2016</time>
+  <div class="post-tags">
+    
+    | <a href="/tag/desarrollo">desarrollo</a> |
+    
+  </div>
+  <div class="post-share">
+    <a class="twitter-share-button"
+    data-via="_Raul_Avila"
+    data-count="none"
+    href="https://twitter.com/share">Tweet</a>
+  </div>
+  <p>En mi día a día, cuando estoy desarrollando software, cosa que ocurre la mayor parte del tiempo, intento seguir una serie de principios y buenas prácticas de cara a producir código con la máxima calidad. La mayoría conocemos, al menos de oídas, cuales son esos principios, aunque no siempre los apliquemos: <a href="https://en.wikipedia.org/wiki/Don%27t_repeat_yourself">DRY</a>, <a href="https://es.wikipedia.org/wiki/SOLID">SOLID</a>, etc.</p>
+
+<p>Siglas aparte, y a un nivel algo diferente, con el paso de los años he ido interiorizando una serie de mantras que están presentes en mi cabeza de forma permanente, y creo que me han sido de gran ayuda para mejorar como programador. Últimamente, y gracias al entorno de pair programming en que me muevo, los he empezado a dar aún más importancia, ya que en varias ocasiones me he visto en la tesitura de tener que explicar sus beneficios al que fuera mi compañero en ese momento.</p>
+
+<p>En este post pasaré lista a estos “mantras”, que en general no son más que lecciones aprendidas en determinados libros o video-tutoriales, y que han ido calando en mi subconsciente. Me permitiré la licencia de ponerlos en inglés, ya que así los aprendí y así los utilizo, y los listaré por orden de importancia.</p>
+
+<!--break-->
+
+<h2 id="dont-leave-broken-windows">Don’t leave broken windows</h2>
+
+<p>“No dejes ventanas rotas”. Sin lugar a dudas la sección más importante del libro <a href="https://www.amazon.co.uk/Pragmatic-Programmer-Andrew-Hunt/dp/020161622X">The Pragmatic Programmer</a>, donde lo leí por primera vez.</p>
+
+<p>Resulta que está (¿científicamente?) demostrado que, cuando un edificio está abandonado, puede aguantar un tiempo razonable sin que la gente que lo ve a diario se percate de la situación. Pero siempre llega un momento donde se produce un hecho crucial que lo cambia todo: una ventana rota. Dicha ventana, al tratarse de un edificio abandonado, no es reparada, por lo que rápidamente se hace patente la situación de abandono, los vándalos comienzan a hacer de las suyas, irrumpen en el edificio…y el deterioro es imparable.</p>
+
+<p>Exactamente la misma idea debe aplicarse al desarrollo software. Cuando tomamos determinados atajos para entregar algo en el menor tiempo posible, y nuestro código refleja claramente nuestro descuido, los que vengan después (que podemos ser nosotros mismos, programadores que compartan equipo en este momento u otros por llegar) sacarán como lectura que no es tan importante ser cuidadosos con el código que producimos, y poco a poco, y cada vez más rápido, nuestra aplicación o sistema se irá deteriorando.</p>
+
+<p>Ejemplos de ventanas rotas pueden ser cosas tan flagrantes como no escribir tests automatizados de una nueva funcionalidad, pero también otras menos importantes a priori como no ser consistentes en nuestro estilo de codificación (utilizar diferentes indentaciones, formatear los bloques de forma diferente, etc) o no eliminar dependencias que nuestro código ha dejado de utilizar.</p>
+
+<p>Por favor, no dejéis ventanas rotas. ¡Ojo!, que no estoy hablando de <a href="https://es.wikipedia.org/wiki/Deuda_t%C3%A9cnica">deuda técnica</a>, que puede estar justificada en determinadas circunstancias (siempre que seamos conscientes de estar incurriendo en dicha deuda y volvamos a ella en el futuro).</p>
+
+<h2 id="do-one-thing-do-it-well-and-do-it-only">Do one thing, do it well and do it only</h2>
+
+<p>Este mantra se lo debo a <a href="https://twitter.com/unclebobmartin">Uncle Bob</a>, y no es más que el <a href="https://en.wikipedia.org/wiki/Single_responsibility_principle">Single Responsibility Principle</a> formulado de forma pegadiza :)</p>
+
+<p>No creo que sea necesario profundizar mucho aquí. Nunca, <strong>nunca</strong>, debemos añadir más de una responsabilidad a nuestros métodos o clases. En general, mi norma es que si necesitas una conjunción (“y…”, “o…”) para describir lo que hace un determinado método, tu método está haciendo demasiadas cosas.</p>
+
+<p>Otra forma de ver esto es pensar desde la perspectiva de los diferentes actores involucrados en nuestro sistema. Cada actor podrá motivar cambios en nuestro código, y nosotros deberemos diseñarlo de forma que los cambios de opinión de cada actor pueda motivar cambios en un lugar perfectamente aislado. Ejemplos de actores pueden ser: nuestro sistema de transporte (http, colas de mensajes…), el equipo de seguridad de nuestra empresa, los diseñadores gráficos, nuestro sistema de bases de datos…muy heterogéneo vaya.</p>
+
+<h2 id="extract-till-you-drop">Extract till you drop</h2>
+
+<p>Algo así como “extrae hasta que te caigas a pedazos”. También se lo debo a Uncle Bob, y en su serie de videos <a href="https://cleancoders.com/">Clean Coders</a> lo complementa con esta sentencia:</p>
+
+<blockquote>
+  <ol>
+    <li>Methods should be small</li>
+    <li>They should be smaller than that</li>
+  </ol>
+</blockquote>
+
+<p>Dice nuestro buen amigo que un método no debería tener más de cuatro o cinco líneas de código. Yo creo que quizás se pase un poquito, pero la verdad es que, personalmente, cuando veo que un método tiene más de 10 líneas ya empiezo a sospechar.</p>
+
+<p>Extraer nuestro código en métodos pequeños es extremadamente sencillo hoy día con los IDE’s, y el resultado, si lo hacemos bien, es infinitamente mejor. Por otra parte esto no sólo aplica a métodos, también a clases e incluso a paquetes o módulos.</p>
+
+<p>Me voy a ahorrar un ejemplo, ya que no me veo capaz de hacerlo mejor que <a href="https://sites.google.com/site/unclebobconsultingllc/one-thing-extract-till-you-drop">el autor de este mantra</a>. Y por favor, si no lo habéis hecho ya, leed <a href="https://www.amazon.es/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882">Clean Code</a>.</p>
+
+<h2 id="abstractions-in-code-details-in-data">Abstractions in code, details in data</h2>
+
+<p>Esto lo aprendí en el curso <a href="http://www.jbrains.ca/permalink/the-worlds-best-intro-to-tdd-demo-video">“World’s best intro to TDD”</a>, aunque indirectamente lo venía aplicando en determinadas circunstancias.</p>
+
+<p>La clave de este mantra es que, cuando nos vemos codificando un método o clase con diferentes caminos de ejecución que dependen de datos de entrada o del contexto en que nuestro código se está ejecutando, suele ser posible abstraer los datos concretos fuera de nuestro código. De esta forma disminuimos la <a href="https://es.wikipedia.org/wiki/Complejidad_ciclom%C3%A1tica">complejidad ciclomática</a> y facilitamos el testing, dos grandes beneficios que mejorarán infinitamente la calidad de nuestro software.</p>
+
+<p>Veamos un ejemplo muy sencillo, el siguiente código devuelve un saludo a mostrar a un usuario según su perfil:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">String</span> <span class="nf">fetchGreetingMessage</span><span class="p">(</span><span class="n">String</span> <span class="n">role</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">greeting</span><span class="o">;</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="s">"MANAGER"</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">role</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">greeting</span> <span class="o">=</span> <span class="s">"Hello Manager!"</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="s">"GUEST"</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">role</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">greeting</span> <span class="o">=</span> <span class="s">"Hello Guest!"</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="s">"EMPLOYEE"</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">role</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">greeting</span> <span class="o">=</span> <span class="s">"Hello Employee!"</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="s">"Unrecognized role!"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">greeting</span><span class="o">;</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Estoy seguro de que os habéis encontrado con métodos de similar estructura más de una vez. Una alternativa que se adhiera a este principio podría ser:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">GreetingService</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">greetingByRole</span> <span class="o">=</span>
+                <span class="n">ImmutableMap</span><span class="o">.&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span><span class="n">builder</span><span class="o">()</span>
+                                <span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"MANAGER"</span><span class="o">,</span> <span class="s">"Hello Manager!"</span><span class="o">)</span>
+                                <span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"GUEST"</span><span class="o">,</span> <span class="s">"Hello Guest!"</span><span class="o">)</span>
+                                <span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"EMPLOYEE"</span><span class="o">,</span> <span class="s">"Hello Employee!"</span><span class="o">)</span>
+                            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">fetchGreetingMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">role</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">greetingByRole</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">role</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">greetingByRole</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">role</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="s">"Unrecognized role!"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Claramente, los beneficios de este diseño es que nuestro método se ha convertido en inmutable (adhiriéndose de paso, al <a href="https://en.wikipedia.org/wiki/Open/closed_principle">Open Closed Principle</a>), sólo contiene dos caminos de ejecución en lugar de cuatro, y si necesitamos añadir nuevos roles (con sus saludos) solo tendremos que añadir una nueva entrada al Map <code class="highlighter-rouge">greetingByRole</code>, mientras que en la primera versión deberíamos modificar el método para cada nuevo rol.</p>
+
+<p>Podría discutirse que la clase <code class="highlighter-rouge">GreetingService</code> sigue sin ser inmutable, pero esto podríamos solucionarlo extrayendo la información del mapa en ficheros de configuración o de propiedades, por ejemplo, e inyectando un mapa equivalente creado por el contenedor de inyección de dependencias.</p>
+
+<h2 id="make-it-work-make-it-better-make-it-pretty">Make it work, make it better, make it pretty</h2>
+
+<p>Esto lo he aprendido recientemente, y es el enfoque que utilizamos en mi empresa durante el desarrollo mediante TDD. Cuando tenemos que desarrollar una determinada funcionalidad solemos seguir estos pasos:</p>
+
+<ul>
+  <li>Comenzamos escribiendo los tests que la describan y guíen nuestra codificación y diseño</li>
+  <li>Nuestro objetivo es conseguir que nuestros tests se ejecuten de forma exitosa (make it work)</li>
+  <li>Una vez conseguido nos paramos a pensar en si el diseño puede mejorar (make it better)</li>
+  <li>Y una vez llevados a cabo los refactorings que consideremos oportunos, limmpiamos nuestro código de cualquier “ventana rota” para dejarlo lo más limpio posible (make it pretty)</li>
+</ul>
+
+<p>Encuentro este enfoque increíblemente efectivo, pero la verdad es que no tiene sentido si no trabajáis con TDD, así que en tal caso, <a href="/2016/01/aprendiendo-TDD/">empezad por ahí</a>.</p>
+
+<p>Y con esto termino mis mantras. Si tú tienes otros, estaría encantado de que los añadieras en la sección de comentarios.</p>
+
+</article>
+
+<aside class="related">
+  <h2>Posts relacionados</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2016/07/antipatrones-arquitectura">
+            Antipatrones de Arquitectura Software
+            <small><time datetime="2016-07-10T00:00:00+01:00">10/07/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/06/concourse-3/">
+            Integración continua con Concourse CI&#58; un pipeline real
+            <small><time datetime="2016-06-21T00:00:00+01:00">21/06/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/05/concourse-2/">
+            Integración continua con Concourse CI&#58; conceptos avanzados
+            <small><time datetime="2016-05-28T00:00:00+01:00">28/05/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</aside>
+
+        
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'raulavila'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </main>
+
+      <footer class="footer">
+        <small>
+          &copy; <time datetime="2016">2016</time> Raúl Ávila. Blog creado con <a href="http://jekyllrb.com">Jekyll</a>.
+          Plantilla basada en <a href="http://getpoole.com">Poole</a>.
+          <a href="/atom.xml">Atom Feed</a></a>.
+          <br>
+        </small>
+      </footer>
+    </div>
+
+  <script>
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58942569-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>
