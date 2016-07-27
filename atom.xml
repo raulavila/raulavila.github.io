@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2016-07-27T19:18:00+01:00</updated>
+ <updated>2016-07-28T00:06:56+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -118,7 +118,7 @@
   &lt;li&gt;Comenzamos escribiendo los tests que la describan y guíen nuestra codificación y diseño&lt;/li&gt;
   &lt;li&gt;Nuestro objetivo es conseguir que nuestros tests se ejecuten de forma exitosa (make it work)&lt;/li&gt;
   &lt;li&gt;Una vez conseguido nos paramos a pensar en si el diseño puede mejorar (make it better)&lt;/li&gt;
-  &lt;li&gt;Y una vez llevados a cabo los refactorings que consideremos oportunos, limmpiamos nuestro código de cualquier “ventana rota” para dejarlo lo más limpio posible (make it pretty)&lt;/li&gt;
+  &lt;li&gt;Y una vez llevados a cabo los refactorings que consideremos oportunos, eliminamos de nuestro código cualquier “ventana rota” para dejarlo lo más limpio posible (make it pretty)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Encuentro este enfoque increíblemente efectivo, pero la verdad es que no tiene sentido si no trabajáis con TDD, así que en tal caso, &lt;a href=&quot;/2016/01/aprendiendo-TDD/&quot;&gt;empezad por ahí&lt;/a&gt;.&lt;/p&gt;
