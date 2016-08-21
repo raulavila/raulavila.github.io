@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2016-08-21T18:13:08+01:00</updated>
+ <updated>2016-08-21T18:18:10+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -25,7 +25,7 @@
 
 &lt;p&gt;Estamos en 2016. Llevo viviendo en Londres desde 2014, y cuando tomé la difícil decisión de dar el salto tenía claro que si lo hacía intentaría sacar el máximo provecho a esta experiencia. Así que desde el primer día empecé a asistir a meetups, workshops, etc. En muchos de estos workshops se trabaja por parejas en problemas con el objetivo de familizarse con tecnologías o prácticas. El año pasado asistí al &lt;a href=&quot;/2015/11/code-retreat-2015/&quot;&gt;Global day of code retreat&lt;/a&gt;, que me pareció una pasada, y donde básicamente te tiras todo el día trabajando en pareja con diferentes personas.&lt;/p&gt;
 
-&lt;p&gt;Comencé a pensar que el pair programming no estaba tan mal. Lo disfrutaba mucho, notaba que aprendía un montón, y eso sumado a mi creciente interés por el &lt;a href=&quot;2015/08/primera-experiencia-tdd/&quot;&gt;TDD&lt;/a&gt;, el Spring Framework y las plataformas Cloud se materializó en mi candidatura para trabajar en &lt;a href=&quot;https://pivotal.io/&quot;&gt;una empresa&lt;/a&gt; que sumaba todo esto y más.&lt;/p&gt;
+&lt;p&gt;Comencé a pensar que el pair programming no estaba tan mal. Lo disfrutaba mucho, notaba que aprendía un montón, y eso sumado a mi creciente interés por el &lt;a href=&quot;/2015/08/primera-experiencia-tdd/&quot;&gt;TDD&lt;/a&gt;, el Spring Framework y las plataformas Cloud se materializó en mi candidatura para trabajar en &lt;a href=&quot;https://pivotal.io/&quot;&gt;una empresa&lt;/a&gt; que sumaba todo esto y más.&lt;/p&gt;
 
 &lt;p&gt;Seis meses después de haber empezado a trabajar aquí, creo que me siento en posición de dar mi opinión sobre lo que supone trabajar con Pair Programming &lt;strong&gt;full time&lt;/strong&gt;. Sí, habéis leído bien, trabajar de 9 a 6 compartiendo ordenador con una persona. ¡Ojo!, compartimos ordenador, pero no teclado y ratón, ya que cada miembro de la pareja tiene uno propio. Lo habitual es que una persona conduzca la codificación, mientras la otra intenta abstenerse y limitarse a revisar y hablar sobre lo que se está haciendo. Para evitar el aburrimiento ambos roles se van turnando con frecuencia.&lt;/p&gt;
 
