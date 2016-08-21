@@ -4,13 +4,64 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2016-07-28T00:06:56+01:00</updated>
+ <updated>2016-08-21T18:13:08+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Pair Programming</title>
+   <link href="http://www.raulavila.com/2016/08/pair-programming/"/>
+   <updated>2016-08-21T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2016/08/pair-programming</id>
+   <content type="html">&lt;p&gt;Hará algo más de cuatro años, hice una entrevista para una empresa en la que trabajaban utilizando Extreme Programming como metodología. En aquel momento, yo no tenía ni idea de lo que era eso, así que me contaron un poco en qué consistía, y fue algo así: “Todas las mañanas tenemos una reunión de pie, para que así sea más corta, donde hablamos de lo que hicimos el día anterior. Luego, nos ponemos entorno a ese tablón lleno de post-its, que representan tareas, y cada pareja, porque aquí programamos en pareja, elige una tarea y trabaja en ella”.&lt;/p&gt;
+
+&lt;p&gt;Aquello me sonó a algo extremadamente diferente a todo lo que conocía, y, la verdad, me tiró un poco para atrás, sobre todo el hecho de estar todo el día trabajando con alguien en el mismo ordenador. “¡No podré ponerme música!”, pensé. Eso, sumado al hecho de que las tecnologías que utilizaban no me llamaban en exceso, y que me encontraba bastante cómodo en mi puesto de trabajo, me hicieron rechazar su oferta.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;Estamos en 2016. Llevo viviendo en Londres desde 2014, y cuando tomé la difícil decisión de dar el salto tenía claro que si lo hacía intentaría sacar el máximo provecho a esta experiencia. Así que desde el primer día empecé a asistir a meetups, workshops, etc. En muchos de estos workshops se trabaja por parejas en problemas con el objetivo de familizarse con tecnologías o prácticas. El año pasado asistí al &lt;a href=&quot;/2015/11/code-retreat-2015/&quot;&gt;Global day of code retreat&lt;/a&gt;, que me pareció una pasada, y donde básicamente te tiras todo el día trabajando en pareja con diferentes personas.&lt;/p&gt;
+
+&lt;p&gt;Comencé a pensar que el pair programming no estaba tan mal. Lo disfrutaba mucho, notaba que aprendía un montón, y eso sumado a mi creciente interés por el &lt;a href=&quot;2015/08/primera-experiencia-tdd/&quot;&gt;TDD&lt;/a&gt;, el Spring Framework y las plataformas Cloud se materializó en mi candidatura para trabajar en &lt;a href=&quot;https://pivotal.io/&quot;&gt;una empresa&lt;/a&gt; que sumaba todo esto y más.&lt;/p&gt;
+
+&lt;p&gt;Seis meses después de haber empezado a trabajar aquí, creo que me siento en posición de dar mi opinión sobre lo que supone trabajar con Pair Programming &lt;strong&gt;full time&lt;/strong&gt;. Sí, habéis leído bien, trabajar de 9 a 6 compartiendo ordenador con una persona. ¡Ojo!, compartimos ordenador, pero no teclado y ratón, ya que cada miembro de la pareja tiene uno propio. Lo habitual es que una persona conduzca la codificación, mientras la otra intenta abstenerse y limitarse a revisar y hablar sobre lo que se está haciendo. Para evitar el aburrimiento ambos roles se van turnando con frecuencia.&lt;/p&gt;
+
+&lt;h2 id=&quot;los-pros&quot;&gt;Los pros&lt;/h2&gt;
+
+&lt;p&gt;Son muchos, y con un peso específico determinante sobre los contras. A saber:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Al trabajar dos personas en el mismo problema, y tener que discutir cada aspecto de la codificación, no se cometen el mismo número de fallos “tontos” que cuando se trabaja en solitario. Este tipo de fallos son muchas veces los que nos hacen perder más tiempo cuando algo no funciona, y seguramente todos tengáis alguno reciente en mente&lt;/li&gt;
+  &lt;li&gt;Aprendes un montón: esto ocurre porque tu pareja siempre sabrá algo que tú no, desde cosas sencillas como herramientas de líneas de comandos, hasta cosas más genéricas como patrones, pasando por funcionalidades del lenguaje que se esté utilizando. Este punto alcanza su máxima expresión cuando tienes que programar en un lenguaje que es nuevo para tí pero no para el otro. No creo que haya mejor forma de aprender un nuevo lenguaje de programación que mediante el pair programming. Creedme, la experiencia es tremenda&lt;/li&gt;
+  &lt;li&gt;Enseñas un montón: de la misma forma que el otro sabrá cosas que tú no, la inversa también es cierta, y te verás en muchos momentos explicando cómo hacer determinadas cosas. Dejando aparte lo satisfactorio que es esto, también notarás que enseñar es una buena forma de revisar tus conocimientos y descubrir lagunas en lo que sabes&lt;/li&gt;
+  &lt;li&gt;El conocimiento es compartido: la rotación de las parejas es frecuente, por lo que se elimina casi por completo el problema del “single point of failure”, donde la ausencia de un miembro del equipo hace temblar a todo el mundo. En efecto, mediante esta técnica es muy complicado que alguien acapare conocimiento y se haga imprescindible. Esto puede romper los esquemas de mucha gente, ya que desafía bastante el modelo tradicional de escalera corporativa, donde hay que crearse un nicho de conocimiento para ir ascendiendo y demás. Si estás en este grupo, párate a pensar si en tu oficina buscas un beneficio personal o el beneficio de tu equipo, y por consiguiente, de tu empresa&lt;/li&gt;
+  &lt;li&gt;Es divertido: las personas somos seres sociables, nos gusta hablar con la gente, discutir de cosas, gastar bromas. Pair programming fomenta esto al máximo, por lo que la idea de programador aislado con sus cascos la mayor parte del día desaparece por completo, repercutiendo en una mayor salud mental individual :)&lt;/li&gt;
+  &lt;li&gt;Ayuda a conseguir equipos más cohesionados: en el libro &lt;a href=&quot;https://www.amazon.com/Peopleware-Productive-Projects-Teams-3rd/dp/0321934113&quot;&gt;Peopleware&lt;/a&gt; se habla de los “jelled teams”, equipos que alcanzan velocidad de crucero y se convierten en imparables. Llegar a ese punto no es cosa de un día, y se me ocurren pocas formas más rápidas de lograrlo que el pair programming&lt;/li&gt;
+  &lt;li&gt;El código generado tiene menos fallos: cuando se trabaja con pair programming se está llevando a cabo una &lt;a href=&quot;/2015/03/code-reviews/&quot;&gt;revisión de código&lt;/a&gt; a tiempo completo, por lo que el porcentaje de bugs desciende considerablemente.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Seguramente me esté dejando algo en el tintero, pero creo que tras leer todos estos puntos deberiáis tener una buena idea de la experiencia.&lt;/p&gt;
+
+&lt;h2 id=&quot;los-contras&quot;&gt;Los contras&lt;/h2&gt;
+
+&lt;p&gt;Como todo en esta vida, también hay contras, aunque creo que se pueden mitigar en su mayoría:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Es agotador: las primeras semanas trabajando con pair programming salía de la oficina cansadísimo, y no porque sea un endeble, todo el mundo me comentaba que seguramente estuviera pasando por eso. El hecho de estar todo el día hablando con otra persona, y completamente enfocado en el trabajo (ya que no te puedes distraer tanto como trabajando en solitario), hace que tu mente esté en las últimas al final del día. Sin embargo, como las personas somos tan adaptables, tras tres o cuatro semanas te acostumbras a ese ritmo de trabajo y no es tan duro ni de lejos&lt;/li&gt;
+  &lt;li&gt;Colisiones de ratón y teclado: en ocasiones, la persona que en teoría no debería tocar el teclado y ratón, no puede evitar hacerlo para comentar una cosa que es complicada de señalar sin tomar el mando. La mayoría de las veces se toma el control por impulso, y puede resultar molesto para el otro, pero es algo inevitable. Cuando pasa, lo mejor es tomárselo con humor si tú eres el interrumpido, y si eres el que interrumpe, intenta avisar al otro educadamente (“¿puedo tomar el ratón un momento, por favor?”)&lt;/li&gt;
+  &lt;li&gt;Buscar algo en internet es algo incómodo: cuando estamos bloqueados con algo y nos vamos a Google a buscar una solución, personalmente siempre he notado que cada persona lee de forma aleatoria diferentes contenidos, así que realmente se están siguiendo dos líneas de pensamiento. Desde cierto punto de vista puede ser beneficioso, ya que quizás se llegue a la solución de forma más rápida, pero personalmente, muchas veces pienso que lo haría mejor en solitario. Cuando esto ocurre, es perfectamente válido proponer la alternativa de investigar en paralelo utilizando dos ordenadores diferentes&lt;/li&gt;
+  &lt;li&gt;Choques de personalidad: esto es algo inevitable, cada persona es un mundo, y tantas horas juntos lleva a momentos de relativa tensión cuando hay desacuerdos. Esto lo he vivido más veces trabajando con programadores de nuestros clientes que con programadores de nuestra empresa, ya que en nuestro proceso de selección buscamos a gente que se adapte bien al proceso, pero no tenemos este poder con la gente de fuera que viene a trabajar con nosotros. La paciencia es muy importante cuando se trabaja con pair programming, y nunca, nunca, se debe ser maleducado o grosero con el otro&lt;/li&gt;
+  &lt;li&gt;Desconexión de una mitad: si en un momento determinado notas que estás desconectando de la tareas entre manos, o que le está ocurriendo al otro, lo mejor que se puede hacer es proponer un break. En nuestras oficinas tenemos mesas de ping pong para facilitar esto, y viene muy bien para cambiar radicalmente de actividad durante diez minutos y desconectar&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;conclusiones&quot;&gt;Conclusiones&lt;/h2&gt;
+
+&lt;p&gt;No creo que la lectura de este artículo convenza a nadie para introducir pair programming en su día a día, pero sí espero que haya quedado claro por qué es una práctica muy recomendable. Para profundizar más, echad un vistazo al &lt;a href=&quot;https://www.amazon.es/Extreme-Programming-Explained-Embrace-Embracing/dp/0321278658/ref=sr_1_1&quot;&gt;libro de Kent Beck sobre Extreme Programming&lt;/a&gt;.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Mis cinco mantras</title>
