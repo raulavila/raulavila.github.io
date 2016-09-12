@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Ventanas rotas
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Raúl Ávila" href="/atom.xml">
+
+</head>
+
+
+  <body>
+
+    <div class="container content">
+      <header class="masthead">
+        <h1 class="masthead-title">
+          <a href="/" title="Home">Raúl Ávila</a>
+        </h1>
+
+            <small><a href="/sobre-mi">Sobre mí</a></small>
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/archivos">Archivos</a></small>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title">Ventanas rotas</h1>
+  <time datetime="2016-09-12T00:00:00+01:00" class="post-date">12/09/2016</time>
+  <div class="post-tags">
+    
+    | <a href="/tag/desarrollo">desarrollo</a> |
+    
+  </div>
+  <div class="post-share">
+    <a class="twitter-share-button"
+    data-via="_Raul_Avila"
+    data-count="none"
+    href="https://twitter.com/share">Tweet</a>
+  </div>
+  <p>En un <a href="/2016/07/mis-5-mantras/">post reciente</a> repasaba cinco mantras que tengo muy presentes a diario cuando desarrollo software. Pasé un poco por encima de todos ellos, pero me quedó la sensación de que hay mucho que rascar y en lo que debería entrar en detalle.</p>
+
+<p>Así que en este post y alguno que vendrá profundizaré en todos, o casi todos, estos mantras. Comenzamos con las ventanas rotas (<code class="highlighter-rouge">Don't leave broken windows</code>).</p>
+
+<!--break-->
+
+<h2 id="niveles-o-gravedad-de-ventanas-rotas">Niveles (o gravedad) de ventanas rotas</h2>
+
+<p>Si no habéis leído el post a que me refiero más arriba, echadle un vistazo para saber que es una ventana rota…¿ya?</p>
+
+<p>Bien, como todo en esta vida, no hay nada completamente blanco ni negro, sino diferentes tonos de grises. Lo mismo ocurre con estos descuidos que deterioran nuestro código, los hay muy flagrantes, mientras que otros podrían pasarse por alto (aunque no deberíamos). Como programadores, y para obtener el máximo valor posible de nuestro tiempo, debemos saber actuar consecuentemente según la gravedad de lo que veamos.</p>
+
+<p>Siguiendo con el símil del edificio, sería algo así como diferenciar entre una ventana deteriorada en la primera planta o el bajo, que es una llamada clara a los vándalos para llevar a cabo sus fechorías, frente a una ventana rota en la buhardilla de un edificio de siete plantas. Ambos desperfectos deben repararse, pero el segundo quizás pueda esperar un poco más, según las prioridades que tengamos en ese momento.</p>
+
+<p>Según esto, y para simplificar al máximo, digamos que habrá tres posibles niveles de ventanas rotas:</p>
+
+<ul>
+  <li>Grave: se trata de problemas flagrantes que, si los dejamos estar, llevarán de manera irremediable y rápida a un deterioro de nuestro código y/o proyecto. Deben repararse cuanto antes, tan pronto como sean detectados</li>
+  <li>Medio: son problemas que saltan a la vista, pero que pueden posponerse un tiempo razonable, por ejemplo, como tareas en nuestro siguiente sprint o iteración. En ningún caso deben posponerse eternamente (“ya lo haremos en el siguiente sprint…”), pues en tal caso daría a entender que como equipo no nos preocupa excesivamente la calidad de nuestro software</li>
+  <li>Leve: son pequeños problemas o descuidos con los que podemos vivir, y que sin embargo, la mayoría de las veces son extremadamente fáciles de resolver. No tiene sentido añadir su resolución como tareas a nuestro backlog, ya que no debería tomar más de 10 o 20 minutos. Si nuestra estimación es mayor, deberíamos considerar el problema como de nivel medio</li>
+</ul>
+
+<h2 id="ejemplos-de-ventanas-rotas">Ejemplos de ventanas rotas</h2>
+
+<p>A continuación pasaré a listar una serie de problemas que he venido viendo en mis últimos años como programador, y que entran claramente en la categoría de ventanas rotas. Muchos de ellos los he detectado en mis primeros días en el proyecto, cuando trato de familiarizarme con el código, y normalmente intento arreglarlos en la medida de lo posible antes de ponerme manos a la obra con el día a día.</p>
+
+<h3 id="fichero-readme">Fichero README</h3>
+
+<p>Tener un fichero README en nuestros repositorios de código es <strong>fundamental</strong>. A veces parece que la gente se agarra como un clavo ardiendo al <a href="http://agilemanifesto.org/">Agile Manifesto</a> cuando dice que hay que priorizar “Working Software over comprehensive documentation”, y lo traducen como “No es necesario documentar”.</p>
+
+<p>Esto es una atrocidad. Por favor, desde el día cero, escribid y mantened un fichero README que contenga información básica como:</p>
+
+<ul>
+  <li>Resumen de nuestra aplicación (en dos o tres líneas, en qué consiste y qué problema resuelve)</li>
+  <li>Cómo construir el proyecto</li>
+  <li>Cómo y dónde desplegar el proyecto</li>
+  <li>Cómo testear el código (automática, y en menor medida, manualmente)</li>
+  <li>Qué dependencias existen (base de datos, message broker, etc), y cómo conectarse a ellas</li>
+  <li>Estrategia de versionado</li>
+  <li>Convenciones a utilizar (por ejemplo, formato de los mensajes de commit, link a guía de estilo, etc)</li>
+</ul>
+
+<p>Seguramente me deje algunas cosas. La idea es, que si alguien nuevo en nuestro proyecto no es capaz de poner a funcionar el sistema sin un soporte constante de los empleados más veteranos (¡ojo! un mínimo soporte es necesario), entonces hay algo que falta en nuestro fichero README.</p>
+
+<h3 id="demasida-documentacin-y-desactualizada">Demasida documentación (y desactualizada)</h3>
+
+<p>Es el contrapunto de la sección anterior. En las primeras fases de un proyecto escribimos toneladas de documentación, conteniendo requisitos, diseño, etc, en forma de Wiki o en documentos de Word, y según aumenta la carga de trabajo no mantenemos estos documentos, convirtiéndose en una fuente de confusión importante.</p>
+
+<p>En general, considero que es fundamental tener documentada la arquitectura a alto nivel de nuestro proyecto, pero los detalles de implementación deben estar en un solo lugar, el código. Por otro lado, cada vez que os veáis iniciando la escritura de un documento que sabéis llevará tiempo, pensad en el valor que estáis añadiendo, y en la “deuda de tiempo” que estáis contrayendo al escribirlo. Una deuda de tiempo no es más que una acción concreta que nos demandará la dedicación de un tiempo adicional en el futuro. <a href="http://jamesclear.com/time-assets">Aquí</a> podéis leer más sobre esto.</p>
+
+<h3 id="cdigo-muerto-dead-code">Código muerto (dead code)</h3>
+
+<p>Se trata de código que permanece en nuestro proyecto pero no es invocado por nadie, y por tanto, inútil. Mucha gente decide dejar ese código “por si lo necesito en el futuro”. Yo hice esto mucho en el pasado, y la verdad es que nunca me vi recuperando dicho código. Además, existe una cosa llamada control de versiones :) que nos facilita enormemente la labor de recuperar código implementado tiempo atrás.</p>
+
+<p>Este problema pertenece al grupo nivel medio. Con las herramientas actuales es muy sencillo detectar código muerto, y su eliminación es muy sencilla.</p>
+
+<h3 id="cdigo-comentado">Código comentado</h3>
+
+<p>Siendo un subconjunto de código muerto, esto me parece aún más aberrante. Por favor, no dejéis nunca código comentado en vuestro software.</p>
+
+<h3 id="tests-ignorados">Tests ignorados</h3>
+
+<p>Se trata de tests que un día fallaron, y para continuar con lo que estábamos haciendo sin rommper nuestro entorno de integración continua, les añadimos un <code class="highlighter-rouge">@Ignore</code>, sin especificar claramente el motivo. Más adelante, cuando alguien ve el <code class="highlighter-rouge">@Ignore</code>, lo quita, y ve que el test falla, lo vuelve a poner, así que se queda ahí, para siempre.</p>
+
+<p>Sólo veo un caso en el que hacer esto está justificado, cuando queremos subir código “en progreso”, mientras trabajamos en una nueva funcionalidad. Dicho código no está expuesto al usuario final, y la nueva funcionalidad no estará terminada hasta que dicho tests pase. Cualquier otro caso es una ventana rota, y de gravedad.</p>
+
+<h3 id="utilizar-varias-libreras-para-hacer-la-misma-cosa">Utilizar varias librerías para hacer la misma cosa</h3>
+
+<p>Un desarrollador decide añadir una librería de utilidad para una tarea concreta, por ejemplo trabajar con JSON, y elige <a href="https://github.com/FasterXML/jackson">Jackson</a>.</p>
+
+<p>Más tarde, otro desarrollador diferente necesita trabajar con JSON y decide añadir <a href="https://github.com/google/gson">GSON</a> al proyecto. ¡Por lo que tenemos dos librerías para hacer la misma cosa!</p>
+
+<p>Para evitar este tipo de problemas, es muy importante llevar a cabo <a href="/2015/03/code-reviews/">revisiones de código</a>, ya que en última instancia esto no es más que un problema de comunicación. Si ya es demasiado tarde, y ambas librerías llevan conviviendo un tiempo, más pronto que tarde deberíamos unificar en una por consistencia.</p>
+
+<h3 id="frmato-del-cdigo">Fórmato del código</h3>
+
+<p>¿Quién no se ha encontrado alguna vez con una clase como esta?:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DishImpl</span> <span class="kd">implements</span> <span class="n">Dish</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">mixed</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">cooked</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Ingredient</span><span class="o">&gt;</span> <span class="n">ingredientList</span> <span class="o">=</span> <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">();</span>
+
+    <span class="kd">public</span> <span class="n">DishImpl</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span>
+    <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">add_ingredient</span><span class="o">(</span><span class="n">Ingredient</span> <span class="n">ingredient</span><span class="o">)</span>
+    <span class="o">{</span>
+      <span class="n">Validate</span><span class="o">.</span><span class="na">notNull</span><span class="o">(</span><span class="n">ingredient</span><span class="o">);</span>
+
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"%s - Adding ingredient %s%n"</span><span class="o">,</span>
+                        <span class="n">name</span><span class="o">,</span>
+                        <span class="n">ingredient</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+      <span class="n">ingredientList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">ingredient</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">mix</span><span class="o">()</span>
+    <span class="o">{</span>
+        <span class="k">if</span><span class="o">(</span><span class="n">ingredientList</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span>
+        <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span>
+                <span class="s">"There are no ingredients to mix"</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"%s - Mixing ingredients: %s%n"</span><span class="o">,</span>
+                            <span class="n">name</span><span class="o">,</span>
+                            <span class="n">ingredientList</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+
+        <span class="n">mixed</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">cook</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span><span class="o">(!</span><span class="n">mixed</span><span class="o">)</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span>
+                <span class="s">"Ingredients are not mixed, please call mix first"</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"%s - Cooking...%n"</span><span class="o">,</span>
+                            <span class="n">name</span><span class="o">);</span>
+
+        <span class="n">cooked</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="n">serve</span><span class="o">()</span>
+    <span class="o">{</span>
+      <span class="k">if</span><span class="o">(!</span><span class="n">cooked</span><span class="o">)</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span>
+            <span class="s">"Dish is not cooked"</span><span class="o">);</span>
+
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"%s - Serving...%n"</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span>
+
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Vemos ciertas incosistencias en el código, como dos formas diferentes de colocar las llaves de inicio y fin de bloque (en algunos casos está en una línea separada y en otros no), dos formas de indentar el código, dos formas de formatear sentencias <code class="highlighter-rouge">if</code> con una sola instrucción en su bloque (con llaves o sin ellas), diferentes convenciones para nombrar los métodos (camel case y guiones bajos), etc.</p>
+
+<p>Es muy importante que todos los programadores se pongan de acuerdo en una guía de estilo a seguir, y la respeten. La máxima aquí debería ser que nadie pueda decir quién ha escrito un fragmento de código basándose en el estilo.</p>
+
+<p>En Internet es muy fácil encontrar buenos ejemplos de estas guías como referencia, por ejemplo <a href="https://google.github.io/styleguide/javaguide.html">la de Google</a>.</p>
+
+<h3 id="insuficiente-cobertura-de-tests">Insuficiente cobertura de tests</h3>
+
+<p>Si seguís la metdología TDD esto no debería suponer un gran problema, pero en caso contrario puede darse que nuestros tests solo cubran un 60-70% de nuestro código de producción (¡o aún menos!).</p>
+
+<p>En los criterios de aceptación de nuestras historias de usuario debería estar siempre bien claro que una historia no se puede entregar si disiminuye la cobertura de tests, que en ningún caso debería bajar de un 90-95%. Y si baja, habría que analizar los motivos.</p>
+
+<p>En cualquier caso, la cobertura de tests jamás debería ser un fin en sí mismo, sino una medida de calidad, así que cuidado con esto.</p>
+
+<h3 id="acciones-manuales-en-los-despliegues">Acciones manuales en los despliegues</h3>
+
+<p>El despliegue de una nueva versión de nuestro proyecto debería estar totalmente automatizado. Idealmente tendremos una tarea en nuestro entorno de integración continua que lleve a cabo todas las acciones necesarias, y que de nosotros solo exiga <strong>pulsar un botón</strong>. Cualquier acción adicional es un desperdicio de tiempo que debe ser analizada para su automatización.</p>
+
+<h3 id="entorno-de-integracin-continua-inestable">Entorno de integración continua inestable</h3>
+
+<p>Cuando nuestro entorno de integración continua está más tiempo en rojo que en verde, es que algo estamos haciendo mal. Con esto quiero decir, que el 95% del tiempo nuestras tareas (en Jenkins, Concourse, Bamboo, o lo que sea) deben ejecutarse de manera exitosa. Si esto no ocurre hay que parar cualquier trabajo que tengamos entre manos para estabilizar este problema.</p>
+
+<h3 id="imports-no-utilizados">Imports no utilizados</h3>
+
+<p>Esto es muy típico y muy fácil de evitar. Añadimos una sentencia <code class="highlighter-rouge">import</code> a nuestro fichero de clase porque lo necesitamos en un momento determinado. Pero más adelante eliminamos el código (porque estamos refactorizando y nos lo llevamos a otro lado, por ejemplo), dejando allí la sentencia <code class="highlighter-rouge">import</code>, que es completamente inútil.</p>
+
+<p>Eliminar “unused imports” es muy sencillo en los IDEs actuales. Existen atajos de teclado que lo hacen de forma instantánea, e incluso la opción de activar <a href="http://stackoverflow.com/questions/19026756/how-configure-optimize-imports-on-the-fly-without-rearrange-import-statements">opciones</a> que escanean permanentemente nuestro código y eliminan los que no necesitemos.</p>
+
+<h3 id="dependencias-no-utilizadas">Dependencias no utilizadas</h3>
+
+<p>Mientras que el punto anterior entra dentro de los problemas leves, tener dependencias en nuestro código que han dejado de utilizarse abre la puerta a potenciales problemas que además pueden ser muy difíciles de detectar, debido a conflictos entre dependencias transitivas, por ejemplo.</p>
+
+<p>Tan pronto como dejéis de utilizar una dependencia, eliminadla de vuestro proyecto (del fichero <code class="highlighter-rouge">pom</code> de Maven, por ejemplo).</p>
+
+<h3 id="estrategia-de-git-sin-determinar">Estrategia de Git sin determinar</h3>
+
+<p>Sin haber establecido una directrices claras sobre como trabajar con Git, cada desarrollador toma sus propias decisiones, y nos encontramos con un repositorio Git plagado de ramas (muchas muertas tras ser fusionadas con master), montones de merges, etc.</p>
+
+<p>No voy a proponer aquí una solución ideal para trabajar con Git, <a href="http://www.creativebloq.com/web-design/choose-right-git-branching-strategy-121518344">hay varias estrategias</a> (aka workflows), pero en ningún caso debéis dejar al libre albedrío de cada persona la estrategia a utilizar.</p>
+
+<h3 id="cdigo-sucio">Código sucio</h3>
+
+<p>No voy a entrar en muchos detalles aquí. Casi todos sabemos lo que es código sucio, y como profesionales nunca deberíamos aceptar entregar funcionalidades desarrolladas de forma que su mantenimiento sea más complicado debido a la poca legibilidad del código. No es la primera vez que lo recomiendo (ni será la última), pero si no lo habéis hecho, leed <a href="https://www.amazon.es/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882/ref=sr_1_1?ie=UTF8&amp;qid=1473708316&amp;sr=8-1&amp;keywords=Clean+Code">Clean Code</a> o <a href="https://www.amazon.es/Code-Complete-Practical-Costruction-Professional/dp/0735619670/ref=sr_1_1?ie=UTF8&amp;qid=1473708342&amp;sr=8-1&amp;keywords=Code+Complete">Code Complete</a>.</p>
+
+<p>Cómo última nota en este apartado, por favor no hagáis algo de lo que yo mismo me declaro culpable de haber incurrido muchas veces en el pasado: ¡mezclar inglés y español! Idealmente todo nuestro código debería estar en inglés, pero si utilizáis español para nombrar variables o métodos nunca mezcléis, dando lugar a engendros como:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="k">if</span><span class="o">(</span><span class="n">setup</span><span class="o">)</span>
+    <span class="n">iniciar</span><span class="o">();</span></code></pre></figure>
+
+<p>Me duelen los ojos de verlo :)</p>
+
+<h2 id="conclusin">Conclusión</h2>
+
+<p>Creo que he cubierto varios apartados importantes del desarrollo que no debemos descuidar. ¿Echáis alguno de menos?</p>
+
+</article>
+
+<aside class="related">
+  <h2>Posts relacionados</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2016/08/pair-programming/">
+            Pair Programming
+            <small><time datetime="2016-08-21T00:00:00+01:00">21/08/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/07/mis-5-mantras/">
+            Mis cinco mantras
+            <small><time datetime="2016-07-27T00:00:00+01:00">27/07/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/07/antipatrones-arquitectura">
+            Antipatrones de Arquitectura Software
+            <small><time datetime="2016-07-10T00:00:00+01:00">10/07/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</aside>
+
+        
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'raulavila'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </main>
+
+      <footer class="footer">
+        <small>
+          &copy; <time datetime="2016">2016</time> Raúl Ávila. Blog creado con <a href="http://jekyllrb.com">Jekyll</a>.
+          Plantilla basada en <a href="http://getpoole.com">Poole</a>.
+          <a href="/atom.xml">Atom Feed</a></a>.
+          <br>
+        </small>
+      </footer>
+    </div>
+
+  <script>
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58942569-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>

@@ -4,13 +4,212 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2016-08-21T19:11:52+01:00</updated>
+ <updated>2016-09-12T21:22:14+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Ventanas rotas</title>
+   <link href="http://www.raulavila.com/2016/09/ventanas-rotas/"/>
+   <updated>2016-09-12T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2016/09/ventanas-rotas</id>
+   <content type="html">&lt;p&gt;En un &lt;a href=&quot;/2016/07/mis-5-mantras/&quot;&gt;post reciente&lt;/a&gt; repasaba cinco mantras que tengo muy presentes a diario cuando desarrollo software. Pasé un poco por encima de todos ellos, pero me quedó la sensación de que hay mucho que rascar y en lo que debería entrar en detalle.&lt;/p&gt;
+
+&lt;p&gt;Así que en este post y alguno que vendrá profundizaré en todos, o casi todos, estos mantras. Comenzamos con las ventanas rotas (&lt;code class=&quot;highlighter-rouge&quot;&gt;Don&#39;t leave broken windows&lt;/code&gt;).&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;h2 id=&quot;niveles-o-gravedad-de-ventanas-rotas&quot;&gt;Niveles (o gravedad) de ventanas rotas&lt;/h2&gt;
+
+&lt;p&gt;Si no habéis leído el post a que me refiero más arriba, echadle un vistazo para saber que es una ventana rota…¿ya?&lt;/p&gt;
+
+&lt;p&gt;Bien, como todo en esta vida, no hay nada completamente blanco ni negro, sino diferentes tonos de grises. Lo mismo ocurre con estos descuidos que deterioran nuestro código, los hay muy flagrantes, mientras que otros podrían pasarse por alto (aunque no deberíamos). Como programadores, y para obtener el máximo valor posible de nuestro tiempo, debemos saber actuar consecuentemente según la gravedad de lo que veamos.&lt;/p&gt;
+
+&lt;p&gt;Siguiendo con el símil del edificio, sería algo así como diferenciar entre una ventana deteriorada en la primera planta o el bajo, que es una llamada clara a los vándalos para llevar a cabo sus fechorías, frente a una ventana rota en la buhardilla de un edificio de siete plantas. Ambos desperfectos deben repararse, pero el segundo quizás pueda esperar un poco más, según las prioridades que tengamos en ese momento.&lt;/p&gt;
+
+&lt;p&gt;Según esto, y para simplificar al máximo, digamos que habrá tres posibles niveles de ventanas rotas:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Grave: se trata de problemas flagrantes que, si los dejamos estar, llevarán de manera irremediable y rápida a un deterioro de nuestro código y/o proyecto. Deben repararse cuanto antes, tan pronto como sean detectados&lt;/li&gt;
+  &lt;li&gt;Medio: son problemas que saltan a la vista, pero que pueden posponerse un tiempo razonable, por ejemplo, como tareas en nuestro siguiente sprint o iteración. En ningún caso deben posponerse eternamente (“ya lo haremos en el siguiente sprint…”), pues en tal caso daría a entender que como equipo no nos preocupa excesivamente la calidad de nuestro software&lt;/li&gt;
+  &lt;li&gt;Leve: son pequeños problemas o descuidos con los que podemos vivir, y que sin embargo, la mayoría de las veces son extremadamente fáciles de resolver. No tiene sentido añadir su resolución como tareas a nuestro backlog, ya que no debería tomar más de 10 o 20 minutos. Si nuestra estimación es mayor, deberíamos considerar el problema como de nivel medio&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;ejemplos-de-ventanas-rotas&quot;&gt;Ejemplos de ventanas rotas&lt;/h2&gt;
+
+&lt;p&gt;A continuación pasaré a listar una serie de problemas que he venido viendo en mis últimos años como programador, y que entran claramente en la categoría de ventanas rotas. Muchos de ellos los he detectado en mis primeros días en el proyecto, cuando trato de familiarizarme con el código, y normalmente intento arreglarlos en la medida de lo posible antes de ponerme manos a la obra con el día a día.&lt;/p&gt;
+
+&lt;h3 id=&quot;fichero-readme&quot;&gt;Fichero README&lt;/h3&gt;
+
+&lt;p&gt;Tener un fichero README en nuestros repositorios de código es &lt;strong&gt;fundamental&lt;/strong&gt;. A veces parece que la gente se agarra como un clavo ardiendo al &lt;a href=&quot;http://agilemanifesto.org/&quot;&gt;Agile Manifesto&lt;/a&gt; cuando dice que hay que priorizar “Working Software over comprehensive documentation”, y lo traducen como “No es necesario documentar”.&lt;/p&gt;
+
+&lt;p&gt;Esto es una atrocidad. Por favor, desde el día cero, escribid y mantened un fichero README que contenga información básica como:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Resumen de nuestra aplicación (en dos o tres líneas, en qué consiste y qué problema resuelve)&lt;/li&gt;
+  &lt;li&gt;Cómo construir el proyecto&lt;/li&gt;
+  &lt;li&gt;Cómo y dónde desplegar el proyecto&lt;/li&gt;
+  &lt;li&gt;Cómo testear el código (automática, y en menor medida, manualmente)&lt;/li&gt;
+  &lt;li&gt;Qué dependencias existen (base de datos, message broker, etc), y cómo conectarse a ellas&lt;/li&gt;
+  &lt;li&gt;Estrategia de versionado&lt;/li&gt;
+  &lt;li&gt;Convenciones a utilizar (por ejemplo, formato de los mensajes de commit, link a guía de estilo, etc)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Seguramente me deje algunas cosas. La idea es, que si alguien nuevo en nuestro proyecto no es capaz de poner a funcionar el sistema sin un soporte constante de los empleados más veteranos (¡ojo! un mínimo soporte es necesario), entonces hay algo que falta en nuestro fichero README.&lt;/p&gt;
+
+&lt;h3 id=&quot;demasida-documentacin-y-desactualizada&quot;&gt;Demasida documentación (y desactualizada)&lt;/h3&gt;
+
+&lt;p&gt;Es el contrapunto de la sección anterior. En las primeras fases de un proyecto escribimos toneladas de documentación, conteniendo requisitos, diseño, etc, en forma de Wiki o en documentos de Word, y según aumenta la carga de trabajo no mantenemos estos documentos, convirtiéndose en una fuente de confusión importante.&lt;/p&gt;
+
+&lt;p&gt;En general, considero que es fundamental tener documentada la arquitectura a alto nivel de nuestro proyecto, pero los detalles de implementación deben estar en un solo lugar, el código. Por otro lado, cada vez que os veáis iniciando la escritura de un documento que sabéis llevará tiempo, pensad en el valor que estáis añadiendo, y en la “deuda de tiempo” que estáis contrayendo al escribirlo. Una deuda de tiempo no es más que una acción concreta que nos demandará la dedicación de un tiempo adicional en el futuro. &lt;a href=&quot;http://jamesclear.com/time-assets&quot;&gt;Aquí&lt;/a&gt; podéis leer más sobre esto.&lt;/p&gt;
+
+&lt;h3 id=&quot;cdigo-muerto-dead-code&quot;&gt;Código muerto (dead code)&lt;/h3&gt;
+
+&lt;p&gt;Se trata de código que permanece en nuestro proyecto pero no es invocado por nadie, y por tanto, inútil. Mucha gente decide dejar ese código “por si lo necesito en el futuro”. Yo hice esto mucho en el pasado, y la verdad es que nunca me vi recuperando dicho código. Además, existe una cosa llamada control de versiones :) que nos facilita enormemente la labor de recuperar código implementado tiempo atrás.&lt;/p&gt;
+
+&lt;p&gt;Este problema pertenece al grupo nivel medio. Con las herramientas actuales es muy sencillo detectar código muerto, y su eliminación es muy sencilla.&lt;/p&gt;
+
+&lt;h3 id=&quot;cdigo-comentado&quot;&gt;Código comentado&lt;/h3&gt;
+
+&lt;p&gt;Siendo un subconjunto de código muerto, esto me parece aún más aberrante. Por favor, no dejéis nunca código comentado en vuestro software.&lt;/p&gt;
+
+&lt;h3 id=&quot;tests-ignorados&quot;&gt;Tests ignorados&lt;/h3&gt;
+
+&lt;p&gt;Se trata de tests que un día fallaron, y para continuar con lo que estábamos haciendo sin rommper nuestro entorno de integración continua, les añadimos un &lt;code class=&quot;highlighter-rouge&quot;&gt;@Ignore&lt;/code&gt;, sin especificar claramente el motivo. Más adelante, cuando alguien ve el &lt;code class=&quot;highlighter-rouge&quot;&gt;@Ignore&lt;/code&gt;, lo quita, y ve que el test falla, lo vuelve a poner, así que se queda ahí, para siempre.&lt;/p&gt;
+
+&lt;p&gt;Sólo veo un caso en el que hacer esto está justificado, cuando queremos subir código “en progreso”, mientras trabajamos en una nueva funcionalidad. Dicho código no está expuesto al usuario final, y la nueva funcionalidad no estará terminada hasta que dicho tests pase. Cualquier otro caso es una ventana rota, y de gravedad.&lt;/p&gt;
+
+&lt;h3 id=&quot;utilizar-varias-libreras-para-hacer-la-misma-cosa&quot;&gt;Utilizar varias librerías para hacer la misma cosa&lt;/h3&gt;
+
+&lt;p&gt;Un desarrollador decide añadir una librería de utilidad para una tarea concreta, por ejemplo trabajar con JSON, y elige &lt;a href=&quot;https://github.com/FasterXML/jackson&quot;&gt;Jackson&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Más tarde, otro desarrollador diferente necesita trabajar con JSON y decide añadir &lt;a href=&quot;https://github.com/google/gson&quot;&gt;GSON&lt;/a&gt; al proyecto. ¡Por lo que tenemos dos librerías para hacer la misma cosa!&lt;/p&gt;
+
+&lt;p&gt;Para evitar este tipo de problemas, es muy importante llevar a cabo &lt;a href=&quot;/2015/03/code-reviews/&quot;&gt;revisiones de código&lt;/a&gt;, ya que en última instancia esto no es más que un problema de comunicación. Si ya es demasiado tarde, y ambas librerías llevan conviviendo un tiempo, más pronto que tarde deberíamos unificar en una por consistencia.&lt;/p&gt;
+
+&lt;h3 id=&quot;frmato-del-cdigo&quot;&gt;Fórmato del código&lt;/h3&gt;
+
+&lt;p&gt;¿Quién no se ha encontrado alguna vez con una clase como esta?:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DishImpl&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Dish&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mixed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cooked&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ingredient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ingredientList&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Lists&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;newArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DishImpl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;add_ingredient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ingredient&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ingredient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;Validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;notNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ingredient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+      &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%s - Adding ingredient %s%n&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+                        &lt;span class=&quot;n&quot;&gt;ingredient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;ingredientList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ingredient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ingredientList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isEmpty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IllegalStateException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+                &lt;span class=&quot;s&quot;&gt;&quot;There are no ingredients to mix&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%s - Mixing ingredients: %s%n&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+                            &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+                            &lt;span class=&quot;n&quot;&gt;ingredientList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;mixed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cook&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mixed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IllegalStateException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+                &lt;span class=&quot;s&quot;&gt;&quot;Ingredients are not mixed, please call mix first&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%s - Cooking...%n&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+                            &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+        &lt;span class=&quot;n&quot;&gt;cooked&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serve&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cooked&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IllegalStateException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;s&quot;&gt;&quot;Dish is not cooked&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+      &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%s - Serving...%n&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Vemos ciertas incosistencias en el código, como dos formas diferentes de colocar las llaves de inicio y fin de bloque (en algunos casos está en una línea separada y en otros no), dos formas de indentar el código, dos formas de formatear sentencias &lt;code class=&quot;highlighter-rouge&quot;&gt;if&lt;/code&gt; con una sola instrucción en su bloque (con llaves o sin ellas), diferentes convenciones para nombrar los métodos (camel case y guiones bajos), etc.&lt;/p&gt;
+
+&lt;p&gt;Es muy importante que todos los programadores se pongan de acuerdo en una guía de estilo a seguir, y la respeten. La máxima aquí debería ser que nadie pueda decir quién ha escrito un fragmento de código basándose en el estilo.&lt;/p&gt;
+
+&lt;p&gt;En Internet es muy fácil encontrar buenos ejemplos de estas guías como referencia, por ejemplo &lt;a href=&quot;https://google.github.io/styleguide/javaguide.html&quot;&gt;la de Google&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;insuficiente-cobertura-de-tests&quot;&gt;Insuficiente cobertura de tests&lt;/h3&gt;
+
+&lt;p&gt;Si seguís la metdología TDD esto no debería suponer un gran problema, pero en caso contrario puede darse que nuestros tests solo cubran un 60-70% de nuestro código de producción (¡o aún menos!).&lt;/p&gt;
+
+&lt;p&gt;En los criterios de aceptación de nuestras historias de usuario debería estar siempre bien claro que una historia no se puede entregar si disiminuye la cobertura de tests, que en ningún caso debería bajar de un 90-95%. Y si baja, habría que analizar los motivos.&lt;/p&gt;
+
+&lt;p&gt;En cualquier caso, la cobertura de tests jamás debería ser un fin en sí mismo, sino una medida de calidad, así que cuidado con esto.&lt;/p&gt;
+
+&lt;h3 id=&quot;acciones-manuales-en-los-despliegues&quot;&gt;Acciones manuales en los despliegues&lt;/h3&gt;
+
+&lt;p&gt;El despliegue de una nueva versión de nuestro proyecto debería estar totalmente automatizado. Idealmente tendremos una tarea en nuestro entorno de integración continua que lleve a cabo todas las acciones necesarias, y que de nosotros solo exiga &lt;strong&gt;pulsar un botón&lt;/strong&gt;. Cualquier acción adicional es un desperdicio de tiempo que debe ser analizada para su automatización.&lt;/p&gt;
+
+&lt;h3 id=&quot;entorno-de-integracin-continua-inestable&quot;&gt;Entorno de integración continua inestable&lt;/h3&gt;
+
+&lt;p&gt;Cuando nuestro entorno de integración continua está más tiempo en rojo que en verde, es que algo estamos haciendo mal. Con esto quiero decir, que el 95% del tiempo nuestras tareas (en Jenkins, Concourse, Bamboo, o lo que sea) deben ejecutarse de manera exitosa. Si esto no ocurre hay que parar cualquier trabajo que tengamos entre manos para estabilizar este problema.&lt;/p&gt;
+
+&lt;h3 id=&quot;imports-no-utilizados&quot;&gt;Imports no utilizados&lt;/h3&gt;
+
+&lt;p&gt;Esto es muy típico y muy fácil de evitar. Añadimos una sentencia &lt;code class=&quot;highlighter-rouge&quot;&gt;import&lt;/code&gt; a nuestro fichero de clase porque lo necesitamos en un momento determinado. Pero más adelante eliminamos el código (porque estamos refactorizando y nos lo llevamos a otro lado, por ejemplo), dejando allí la sentencia &lt;code class=&quot;highlighter-rouge&quot;&gt;import&lt;/code&gt;, que es completamente inútil.&lt;/p&gt;
+
+&lt;p&gt;Eliminar “unused imports” es muy sencillo en los IDEs actuales. Existen atajos de teclado que lo hacen de forma instantánea, e incluso la opción de activar &lt;a href=&quot;http://stackoverflow.com/questions/19026756/how-configure-optimize-imports-on-the-fly-without-rearrange-import-statements&quot;&gt;opciones&lt;/a&gt; que escanean permanentemente nuestro código y eliminan los que no necesitemos.&lt;/p&gt;
+
+&lt;h3 id=&quot;dependencias-no-utilizadas&quot;&gt;Dependencias no utilizadas&lt;/h3&gt;
+
+&lt;p&gt;Mientras que el punto anterior entra dentro de los problemas leves, tener dependencias en nuestro código que han dejado de utilizarse abre la puerta a potenciales problemas que además pueden ser muy difíciles de detectar, debido a conflictos entre dependencias transitivas, por ejemplo.&lt;/p&gt;
+
+&lt;p&gt;Tan pronto como dejéis de utilizar una dependencia, eliminadla de vuestro proyecto (del fichero &lt;code class=&quot;highlighter-rouge&quot;&gt;pom&lt;/code&gt; de Maven, por ejemplo).&lt;/p&gt;
+
+&lt;h3 id=&quot;estrategia-de-git-sin-determinar&quot;&gt;Estrategia de Git sin determinar&lt;/h3&gt;
+
+&lt;p&gt;Sin haber establecido una directrices claras sobre como trabajar con Git, cada desarrollador toma sus propias decisiones, y nos encontramos con un repositorio Git plagado de ramas (muchas muertas tras ser fusionadas con master), montones de merges, etc.&lt;/p&gt;
+
+&lt;p&gt;No voy a proponer aquí una solución ideal para trabajar con Git, &lt;a href=&quot;http://www.creativebloq.com/web-design/choose-right-git-branching-strategy-121518344&quot;&gt;hay varias estrategias&lt;/a&gt; (aka workflows), pero en ningún caso debéis dejar al libre albedrío de cada persona la estrategia a utilizar.&lt;/p&gt;
+
+&lt;h3 id=&quot;cdigo-sucio&quot;&gt;Código sucio&lt;/h3&gt;
+
+&lt;p&gt;No voy a entrar en muchos detalles aquí. Casi todos sabemos lo que es código sucio, y como profesionales nunca deberíamos aceptar entregar funcionalidades desarrolladas de forma que su mantenimiento sea más complicado debido a la poca legibilidad del código. No es la primera vez que lo recomiendo (ni será la última), pero si no lo habéis hecho, leed &lt;a href=&quot;https://www.amazon.es/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882/ref=sr_1_1?ie=UTF8&amp;amp;qid=1473708316&amp;amp;sr=8-1&amp;amp;keywords=Clean+Code&quot;&gt;Clean Code&lt;/a&gt; o &lt;a href=&quot;https://www.amazon.es/Code-Complete-Practical-Costruction-Professional/dp/0735619670/ref=sr_1_1?ie=UTF8&amp;amp;qid=1473708342&amp;amp;sr=8-1&amp;amp;keywords=Code+Complete&quot;&gt;Code Complete&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Cómo última nota en este apartado, por favor no hagáis algo de lo que yo mismo me declaro culpable de haber incurrido muchas veces en el pasado: ¡mezclar inglés y español! Idealmente todo nuestro código debería estar en inglés, pero si utilizáis español para nombrar variables o métodos nunca mezcléis, dando lugar a engendros como:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;iniciar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Me duelen los ojos de verlo :)&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusin&quot;&gt;Conclusión&lt;/h2&gt;
+
+&lt;p&gt;Creo que he cubierto varios apartados importantes del desarrollo que no debemos descuidar. ¿Echáis alguno de menos?&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Pair Programming</title>
