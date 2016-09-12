@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2016-09-12T21:22:14+01:00</updated>
+ <updated>2016-09-12T21:25:33+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -25,7 +25,7 @@
 
 &lt;h2 id=&quot;niveles-o-gravedad-de-ventanas-rotas&quot;&gt;Niveles (o gravedad) de ventanas rotas&lt;/h2&gt;
 
-&lt;p&gt;Si no habéis leído el post a que me refiero más arriba, echadle un vistazo para saber que es una ventana rota…¿ya?&lt;/p&gt;
+&lt;p&gt;Si no habéis leído &lt;a href=&quot;/2016/07/mis-5-mantras/&quot;&gt;el post a que me refiero más arriba&lt;/a&gt;, echadle un vistazo para saber que es una ventana rota…¿ya?&lt;/p&gt;
 
 &lt;p&gt;Bien, como todo en esta vida, no hay nada completamente blanco ni negro, sino diferentes tonos de grises. Lo mismo ocurre con estos descuidos que deterioran nuestro código, los hay muy flagrantes, mientras que otros podrían pasarse por alto (aunque no deberíamos). Como programadores, y para obtener el máximo valor posible de nuestro tiempo, debemos saber actuar consecuentemente según la gravedad de lo que veamos.&lt;/p&gt;
 
