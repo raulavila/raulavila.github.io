@@ -4,13 +4,166 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2016-09-12T21:25:33+01:00</updated>
+ <updated>2016-09-19T21:42:42+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Haz una sola cosa</title>
+   <link href="http://www.raulavila.com/2016/09/haz-una-sola-cosa"/>
+   <updated>2016-09-19T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2016/09/haz-una-sola-cosa</id>
+   <content type="html">&lt;p&gt;Ya sabéis que tengo &lt;a href=&quot;/2016/07/mis-5-mantras/&quot;&gt;5 mantras para escribir un mejor software&lt;/a&gt; (aunque es posible que esta cifra aumente con el tiempo :)). En este post profundizaré un poco en el segundo “Do one thing, do it well, and do it only”.&lt;/p&gt;
+
+&lt;p&gt;Diría que este principio no aplica solamente al software. La historia está llena de fracasos en productos desarrollados para hacer más de una cosa, pero ninguna de ella demasiado bien. En la mayoría de casos, además, consideramos tales inventos como auténticos engendros, como el &lt;a href=&quot;http://www.hola.com/actualidad/2013073166071/panther-coche-anfibio/&quot;&gt;coche anfibio&lt;/a&gt;, la &lt;a href=&quot;https://www.amazon.com/String-Bass-Double-Neck-Guitar/dp/B001F1UFL2&quot;&gt;guitarra / bajo&lt;/a&gt;, o la &lt;a href=&quot;https://www.amazon.es/Wenger-19201-Navaja-suiza/dp/B000R0JDSI&quot;&gt;super-navaja de Amazon&lt;/a&gt;.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;Si todos nos reímos cuando vemos estas cosas, ¿por qué no nos sorprendemos cuando desarrollamos una clase que realiza mil y una tareas sin ningún tipo de orden ni concierto? Por ejemplo:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;BankUtil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;formatAccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accountNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{...}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;isNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{...}&lt;/span&gt;
+
+    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PersonDetails&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getPersonDetails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Stirng&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accountNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{...}&lt;/span&gt;
+
+    &lt;span class=&quot;c1&quot;&gt;//...&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;No sigo, ya sabéis a lo que me refiero. Es para evitar cosas como ésta que siempre tengo presente el mantra mencionado más arriba, que no es otra cosa que el Single Responsibility Principle (SRP) o &lt;a href=&quot;https://es.wikipedia.org/wiki/Principio_de_responsabilidad_%C3%BAnica&quot;&gt;Principio de Responsabilidad Única&lt;/a&gt;. Este principio viene a decir (no es la primera vez que lo cito en este blog) que “las únidades de código deben tener sólo una razón para el cambio”, o también “las mejores funciones o módulos son aquellos que tienen una única responsabilidad”. Tras leer esto es posible que nos venga a la cabeza una pregunta…&lt;/p&gt;
+
+&lt;h2 id=&quot;qu-es-una-responsabilidad&quot;&gt;¿Qué es una responsabilidad?&lt;/h2&gt;
+
+&lt;p&gt;Lo de hacer una sola cosa está muy bien, pero en la práctica esto no es tan sencillo. Vamos a empezar con el mínimo nivel en qué podemos definir responsabilidades, las funciones.&lt;/p&gt;
+
+&lt;p&gt;Una función tiene una única responsabilidad si:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Su nombre es perfectamente descriptivo de lo que hace&lt;/li&gt;
+  &lt;li&gt;Dicho nombre no tiene conjunciones (And / Or / But), por lo que métodos como &lt;code class=&quot;highlighter-rouge&quot;&gt;washAndClean()&lt;/code&gt; no cumplirían el SRP&lt;/li&gt;
+  &lt;li&gt;Preferiblemente no tiene efectos secundarios, y con esto quiero decir que no hará nada que no esperemos dado el nombre de la función y leyendo sus argumentos y tipo de retorno&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Veamos a continuación ejemplos de funciones que no cumplen el SRP:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;namesById&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;auditService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;registerAccess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;En efecto, esta función &lt;code class=&quot;highlighter-rouge&quot;&gt;getName&lt;/code&gt; está auditando sus accesos, lo cual puede resultar un poco confuso para los usuarios de nuestro código.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;parseAndSave&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;messageStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;Message&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;parseMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;messageStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;messageDAO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;En este ejemplo es evidente que estamos llevando a cabo dos tareas bien diferentes, pero, ¿por qué deberíamos rediseñar esta función? ¿Qué define una responsabilidad? Para entender bien esto, pasemos al siguiente nivel de abstracción, las clases.&lt;/p&gt;
+
+&lt;h2 id=&quot;clases-y-responsabilidades&quot;&gt;Clases y responsabilidades&lt;/h2&gt;
+
+&lt;p&gt;Una clase puede ser definida de muchas maneras, pero nadie se llevará las manos a la cabeza si la defino aquí como “familia de funciones con un objetivo bien definido”. Este objetivo no es otra cosa que la responsabilidad de la clase, y dicha responsabilidad no es más que la implementación de una serie de soluciones a las necesidades de un &lt;strong&gt;actor&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Un actor es la personificación de un rol determinado que interactúa con nuestro sistema, y que es la audiencia de una responsabilidad determinada. Esta definición es muy flexible, y puede abarcar desde:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;El usuario final de una aplicación de móvil, y que puede dictaminar, tras un A/B testing, que es más adecuado ubicar un botón en la parte superior o inferior de la pantalla&lt;/li&gt;
+  &lt;li&gt;Sistemas externos con los que interactúamos a través de una API REST, y que pueden cambiar su contrato, haciéndonos modificar nuestros clientes de dicha API&lt;/li&gt;
+  &lt;li&gt;Los contables de nuestra empresa, que pueden añadir nuevos conceptos a contabilizar en un documento determinado que estemos generando&lt;/li&gt;
+  &lt;li&gt;Los arquitectos software de nuestra empresa, que por capricho pueden decidir cambiar un framework determinado y obligarnos a rehacer la implementación de una funcionalidad concreta para adaptarse a dicho framework&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Es decir, un rol abarca aspectos muy heterogéneos.&lt;/p&gt;
+
+&lt;p&gt;La idea es que, cada clase deberá satisfacer las necesidades de un rol o actor determinado, &lt;strong&gt;y sólo ese&lt;/strong&gt;. Esto se traduce en que si las necesidades de dos actores diferentes cambian al mismo tiempo, es materialmente imposible que dichos cambios apliquen en la misma clase.&lt;/p&gt;
+
+&lt;h2 id=&quot;por-qu-es-importante&quot;&gt;Por qué es importante&lt;/h2&gt;
+
+&lt;p&gt;En primer lugar, si seguimos este principio jamás se dará la situación de que dos programadores realicen cambios en el mismo fichero si trabajan en tareas diferentes, evitando todo tipo de desagradables conflictos en el control de versiones. Pero esto es una ventaja pequeña comparada con la principal de todas, y que define el conocido como “valor primario del software”:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“Software is soft” (Uncle Bob)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Así es, el software es “blando”, se puede moldear y modificar según nuestras necesidades. Si en un momento determinado esto deja de ocurrir el software perderá su principal valor y dejará de servirnos, porque en el mundo actual el cambio es constante y debemos adaptarnos a él tan rápido como sea posible, y de forma sostenible.&lt;/p&gt;
+
+&lt;p&gt;Este principio es incluso más importante que el “valor secundario del software”, y que viene a decir “el software debe satisfacer las necesidades del usuario”. Por increíble que parezca, el primer valor es más importante, porque si se da la situación de que un sistema que acabamos de desarrollar no satisface completamente las necesidades del usuario, siempre será posible transformarlo (“moldearlo”) para que así sea, y cuánto mejor diseñado esté más sencillo será.&lt;/p&gt;
+
+&lt;p&gt;Volviendo al SRP, si una clase no lo cumple ocurrirán las siguientes cosas:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;El número de líneas de código de la clase comenzará a crecer sin ningún tipo de estrategia que limite el crecimiento&lt;/li&gt;
+  &lt;li&gt;Nuestra clase necesitará utilizar diferentes colaboradores muy heterogéneos (ejemplo: un cliente http, y una API de acceso a base de datos, entre otros). Esto hace que a la larga, decisiones que sólo deberían afectar a una pequeña porción de código tienen un efecto en cadena devastador&lt;/li&gt;
+  &lt;li&gt;Comenzaremos a compartir código entre diferentes responsabilidades, código que acoplará cosas que no deberían estarlo. Por ejemplo, una función de utilidad para parsear un mensaje determinado, utilizada a la vez tras extraer el cuerpo en una respuesta HTTP y un mensaje de la base de datos. Si por algún motivo, el contrato de la API REST cambia pero los mensajes en base de datos permanecen inalterados el impacto será relativamente grande&lt;/li&gt;
+  &lt;li&gt;Nuestras clases serán extraordinariamente difíciles de testear, principalmente mediante tests unitarios&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;cmo-conseguirlo&quot;&gt;Cómo conseguirlo&lt;/h2&gt;
+
+&lt;p&gt;La mejor forma de diseñar clases que cumplan con el SRP es siguiendo dos sencillas reglas:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Desarrollo mediante TDD: los tests unitarios son la mejor forma de poner presión sobre nuestro diseño para que nuestras clases tengan responsabilidades bien definidas&lt;/li&gt;
+  &lt;li&gt;Refactorizando: la refactorización de nuestro código, para aumentar su legibilidad es clave. En ocasiones, mediante el refactoring emergen responsabilidades que se nos habían pasado por alto&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Precisamente mi tercer mantra está muy relacionado con este último punto, y hablaré de él en el siguiente post.&lt;/p&gt;
+
+&lt;h2 id=&quot;otros-niveles-de-abstraccin-paquetes-y-aplicaciones&quot;&gt;Otros niveles de abstracción: paquetes y aplicaciones&lt;/h2&gt;
+
+&lt;p&gt;Tras las clases tenemos los paquetes, y aquí de nuevo deberíamos esforzarnos por crear paquetes bien cohesionados. Sobre este tema, os recomiendo encarecidamente que leáis &lt;a href=&quot;http://olivergierke.de/2013/01/whoops-where-did-my-architecture-go/&quot;&gt;este esencial post&lt;/a&gt;, que explica las diferencias entre layers y slices, y cuál es la mejor forma de diseñar nuestros paquetes para ajustarse a estos criterios. En pocas palabras, viene a decir que no organicéis vuestros paquetes así:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;model
+    &lt;ul&gt;
+      &lt;li&gt;Account&lt;/li&gt;
+      &lt;li&gt;Client&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;service
+    &lt;ul&gt;
+      &lt;li&gt;AccountService&lt;/li&gt;
+      &lt;li&gt;ClientService&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;repository
+    &lt;ul&gt;
+      &lt;li&gt;AccountDAO&lt;/li&gt;
+      &lt;li&gt;ClientDAO&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Sino así:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;account
+    &lt;ul&gt;
+      &lt;li&gt;Account&lt;/li&gt;
+      &lt;li&gt;AccountService&lt;/li&gt;
+      &lt;li&gt;AccountDAO&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;client
+    &lt;ul&gt;
+      &lt;li&gt;Client&lt;/li&gt;
+      &lt;li&gt;ClientService&lt;/li&gt;
+      &lt;li&gt;ClientDAO&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Creo que queda clara la idea, y si queréis profundizar &lt;a href=&quot;http://olivergierke.de/2013/01/whoops-where-did-my-architecture-go/&quot;&gt;ya sabéis&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Para terminar, pasemos al nivel de aplicación, algo que quizás puede sonar extraño, pero no lo es tanto en este mundo donde los &lt;a href=&quot;http://martinfowler.com/articles/microservices.html&quot;&gt;microservicios&lt;/a&gt; son el último grito. Este nivel puede que sea el único donde os diga de inicio que reconsideréis bien vuestra decisión antes de decidir desplegar una responsabilidad única como una aplicación independiente. Esa no fue la idea con la que surgieron los microservicios, y os remito a &lt;a href=&quot;http://highscalability.com/blog/2014/4/8/microservices-not-a-free-lunch.html&quot;&gt;este otro excelente post&lt;/a&gt; para que tengáis en cuenta todas las consideraciones necesarias en el momento que os decidáis por esta arquitectura.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Ventanas rotas</title>
