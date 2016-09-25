@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  <title>
+    
+      Extract till you drop
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Raúl Ávila" href="/atom.xml">
+
+</head>
+
+
+  <body>
+
+    <div class="container content">
+      <header class="masthead">
+        <h1 class="masthead-title">
+          <a href="/" title="Home">Raúl Ávila</a>
+        </h1>
+
+            <small><a href="/sobre-mi">Sobre mí</a></small>
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/archivos">Archivos</a></small>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title">Extract till you drop</h1>
+  <time datetime="2016-09-25T00:00:00+01:00" class="post-date">25/09/2016</time>
+  <div class="post-tags">
+    
+    | <a href="/tag/desarrollo">desarrollo</a> |
+    
+    | <a href="/tag/5-mantras">5-mantras</a> |
+    
+  </div>
+  <div class="post-share">
+    <a class="twitter-share-button"
+    data-via="_Raul_Avila"
+    data-count="none"
+    href="https://twitter.com/share">Tweet</a>
+  </div>
+  <p>“Extract till you drop” es otro de <a href="/2016/07/mis-5-mantras/">mis cinco mantras</a>, y quizás el que más presente tengo cuando estoy escribiendo código, hasta el punto de que más de un compañero ha hecho coñas con mi obsesión por extraer y extraer.</p>
+
+<p>Hace unos meses tuve una discusión amigable, a la vez que acalorada, con un desarrollador del cliente. Él no era excesivamente partidario de extraer tanto como lo hago yo, y su argumento era que es mejor tener todo en el mismo sitio en lugar de tener que estar navegando entre funciones y clases para encontrar algo. Creo que no conseguí convencerle del todo de los beneficios de la extracción, pero bien es verdad que le hice recapacitar un poco al menos, y cuando terminó nuestro proyecto me prometió enviarme una botella de <a href="https://es.wikipedia.org/wiki/Albari%C3%B1o">mi vino favorito</a> si con el tiempo acababa descubriendo que mi punto de vista era mejor.</p>
+
+<p>Cuento esta historia a modo de curiosidad, y para que veáis que predico con el ejemplo :). Empecemos con una descripción de lo que significa extraer, a qué niveles podemos hacerlo, y cómo.</p>
+
+<!--break-->
+
+<p>En pocas palabras, extraer no es más que crear una nueva unidad de código independiente a partir de un bloque de código más monolítico. Se habla mucho hoy en día de “monolitos vs. microservicios”, y personalmente creo que esta discusión se lleva demasiadas veces al nivel de arquitectura y pocas veces al nivel de codificación. Personalmente, creo que un monolítico de código es tan peligroso, o incluso más, que una aplicación monolítica, ya que daña extraordinariamente la mantenibilidad de nuestras aplicaciones.</p>
+
+<p>Prácticamente todos los niveles de extracción pueden llevarse a cabo mediante las herramientas de desarrollo que utilizamos a diario (aka <a href="/2015/01/entornos-integrados-desarrollo/">IDEs</a>). Por lo que, si estas funcionalidades no os son conocidas, echadle un vistazo tras terminar de leer este post.</p>
+
+<h3 id="extraer-variables">Extraer variables</h3>
+
+<p>Es el nivel más básico de extracción, y no es más que crear variables locales conteniendo el resultado de una expresión concreta en lugar de embeber dicha expresión entre los parámetros de la llamada a un método, por ejemplo:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">people</span> <span class="o">=</span>
+             <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">(</span>
+                     <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="s">"Paco"</span><span class="o">,</span> <span class="s">"Madrid"</span><span class="o">),</span>
+                     <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="s">"Pepe"</span><span class="o">,</span> <span class="s">"Madrid"</span><span class="o">),</span>
+                     <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="s">"Luis"</span><span class="o">,</span> <span class="s">"Barcelona"</span><span class="o">));</span>
+
+<span class="c1">//...</span>
+
+ <span class="n">printNames</span><span class="o">(</span><span class="n">people</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+         <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="s">"Madrid"</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">getCity</span><span class="o">()))</span>
+         <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getName</span><span class="o">())</span>
+         <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">toList</span><span class="o">()));</span></code></pre></figure>
+
+<p>En el ejemplo tenemos una lista de personas creada en algún punto de nuestro código, y en algún otro punto invocamos a un método <code class="highlighter-rouge">printNames</code> que suponemos imprimirá en algún sitio los nombres de las personas de la lista que recibe por parámetro (detalle que, sinceramente, en este momento carece de relevancia). Por algún motivo queremos filtrar nuestra lista e imprimir únicamente los nombres de aquellas que viven en Madrid, así que utilizando una expresión lambda hacemos ese filtro. Se trata de una expresión relativamente sencilla, pero que a mi parecer complica bastante la lectura del código. Mi propuesta es hacer esto, mediante la función “extraer variable”:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">namesOfPeopleInMadrid</span> <span class="o">=</span> <span class="n">people</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+                <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="s">"Madrid"</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">getCity</span><span class="o">()))</span>
+                <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getName</span><span class="o">())</span>
+                <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">toList</span><span class="o">());</span>
+
+<span class="n">printNames</span><span class="o">(</span><span class="n">namesOfPeopleInMadrid</span><span class="o">);</span></code></pre></figure>
+
+<p>Podréis argumentar que estamos creando una variable que solo se utiliza una vez, y por tanto la primera versión sería válida. Bien, mi respuesta a esto es que:</p>
+
+<ul>
+  <li>Cuando leemos la línea con la invocación a <code class="highlighter-rouge">printNames</code> no necesitamos tener que leer también la forma en que hemos generado dicha lista de nombres, cosa que es necesario hacer en la primera versión</li>
+  <li>Si la expresión lambda continúa creciendo (por ejemplo, si queremos poner el nombre en mayúsculas, filtrar por otra cosa, generalizar el filtro…), cada vez será más y más complicado leer un bloque de código que debería ser bastante sencillo, al no ser más que ¡una invocación a un método de un sólo paramétro!</li>
+  <li>Si hacemos algo así dejamos la puerta abierta a escribir código siguiendo este estilo en otras expresiones algo más complejas, por lo que elevamos el riesgo de terminar encontrando en nuestro código expresiones como la que sigue:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">printNames</span><span class="o">(</span>
+    <span class="n">people</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">city</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">getCity</span><span class="o">()))</span>
+        <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">p</span> <span class="o">-&gt;</span> <span class="n">p</span><span class="o">.</span><span class="na">getName</span><span class="o">())</span>
+        <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">n</span><span class="o">.</span><span class="na">toUpperCase</span><span class="o">())</span>
+        <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">toList</span><span class="o">()),</span>
+    <span class="n">formats</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">f</span> <span class="o">-&gt;</span> <span class="n">city</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">f</span><span class="o">.</span><span class="na">getCity</span><span class="o">()))</span>
+        <span class="o">.</span><span class="na">findAny</span><span class="o">()</span>
+        <span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="s">"Standard"</span><span class="o">));</span></code></pre></figure>
+
+<p>En este caso, una vez haya pasado un tiempo razonable desde que escribiéramos este código, si tenemos que volver a él necesitaremos utilizar mucha mayor capacidad cognitiva para comprender lo que ocurre que si vemos algo así:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">printNames</span><span class="o">(</span><span class="n">namesOfPeopleUppercased</span><span class="o">,</span> <span class="n">formatForCity</span><span class="o">);</span></code></pre></figure>
+
+<p>Ni siquiera hace faltar retroceder al punto en el que declaramos las variables si no interesa, la expresión habla por si misma.</p>
+
+<p>He mencionado el termino “capacidad cognitiva”. Quiero aprovechar este punto para haceros una pregunta. ¿Cuántas veces durante una conversación se os ha pasado algo por la cabeza que queréis decir, pero por no interrumpir os habéis esperado, y cuando habéis visto el momento de hablar os habéis olvidado de ello? A mí esto me ha pasado muchas veces durante mi vida. La capacidad del cerebro para manejar diferentes piezas de información al mismo tiempo es limitada, y cuando creamos una expresión compleja como la que acabo de plasmar aquí, forzamos a utilizar más capacidad cognitiva de la que es estrictamente necesaria.</p>
+
+<p>En todos los ejemplos de extraer a variables he utilizado el ejemplo de una expresión lambda, ya que se trata de un tipo de expresión que puede resultar bastante compleja. Pero, en general, yo aplico esta regla a expresiones más sencillas, como puedan ser invocaciones a métodos, y así:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">printNames</span><span class="o">(</span>
+    <span class="n">namesDAO</span><span class="o">.</span><span class="na">fetchNamesForCity</span><span class="o">(</span><span class="n">city</span><span class="o">),</span>
+    <span class="n">formatsDAO</span><span class="o">.</span><span class="na">getFormatForCity</span><span class="o">(</span><span class="n">city</span><span class="o">));</span></code></pre></figure>
+
+<p>suelo reemplazarlo por esto:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">namesForCity</span> <span class="o">=</span> <span class="n">namesDAO</span><span class="o">.</span><span class="na">fetchNamesForCity</span><span class="o">(</span><span class="n">city</span><span class="o">);</span>
+<span class="n">Format</span> <span class="n">format</span> <span class="o">=</span> <span class="n">formatsDAO</span><span class="o">.</span><span class="na">getFormatForCity</span><span class="o">(</span><span class="n">city</span><span class="o">);</span>
+
+<span class="n">printNames</span><span class="o">(</span><span class="n">namesForCity</span><span class="o">,</span> <span class="n">format</span><span class="o">);</span></code></pre></figure>
+
+<p>Quizás no siempre se obtiene un gran beneficio, ya que la primera expresión es bastante sencilla de leer. De nuevo reitero que el problema de no extraer por norma, es que damos lugar a seguir el patrón de embeber las expresiones, por lo que encontrar cosas como:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">printNames</span><span class="o">(</span>
+    <span class="n">namesDAO</span><span class="o">.</span><span class="na">fetchNamesForCity</span><span class="o">(</span><span class="n">city</span><span class="o">)</span>
+            <span class="o">.</span><span class="na">stream</span><span class="o">().</span><span class="na">map</span><span class="o">(</span><span class="n">n</span> <span class="o">-&gt;</span> <span class="n">n</span><span class="o">.</span><span class="na">toUpperCase</span><span class="o">()).</span><span class="na">collect</span><span class="o">(</span><span class="n">toList</span><span class="o">()),</span>
+    <span class="n">formatsDAO</span><span class="o">.</span><span class="na">getFormatForCity</span><span class="o">(</span><span class="n">city</span><span class="o">),</span>
+    <span class="n">Locale</span><span class="o">.</span><span class="na">US</span><span class="o">);</span></code></pre></figure>
+
+<p>será mucho más habitual. Por otro lado, tenemos un beneficio añadido, y es que al extraer en variables, la depuración es mucho más sencilla. En efecto, bastará con ubicar un punto de ruptura en la línea que contiene la invocación a <code class="highlighter-rouge">printNames</code> para poder conocer de inmediato los valores de todos sus parámetros.</p>
+
+<h3 id="extraer-funciones">Extraer funciones</h3>
+
+<p>Es el nivel más importante de extracción a mi parecer. Repito aquí las dos “reglas de las funciones” según Uncle Bob:</p>
+
+<blockquote>
+  <ol>
+    <li>Functions should be small</li>
+    <li>They should be smaller than that</li>
+  </ol>
+</blockquote>
+
+<p>Las funciones deberían <a href="/2016/09/haz-una-sola-cosa/">hacer una sola cosa</a>, y la manera más sencilla de conseguirlo es extraer, una y otra vez, hasta que no sea posible extraer más.</p>
+
+<p>De nuevo, tenemos una herramienta perfecta en nuestros IDEs para hacer esto, llamada “extraer función”, que realiza este cometido a la perfección.</p>
+
+<p>El ejemplo de código que viene a continuación fue desarrollado por mí mismo hace unos tres años para un proceso de selección. Se trataba de implementar el juego del ahorcado en una aplicación de Spring MVC, y en su día me pareció que la solución era bastante correcta y legible. Pongo aquí un extracto del método de la clase <code class="highlighter-rouge">Controller</code> que procesaba una apuesta determinada (es decir, intentar acertar una letra):</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="s">"/bet"</span><span class="o">,</span> <span class="n">method</span><span class="o">=</span><span class="n">RequestMethod</span><span class="o">.</span><span class="na">PUT</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">Object</span> <span class="n">playGame</span><span class="o">(</span>
+    <span class="nd">@CookieValue</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="s">"hangmanGameId"</span><span class="o">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">false</span><span class="o">)</span> <span class="n">String</span> <span class="n">gameId</span><span class="o">,</span>
+    <span class="nd">@RequestBody</span> <span class="n">GameUserView</span> <span class="n">gameUserView</span><span class="o">,</span>
+    <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">if</span><span class="o">(</span><span class="n">gameId</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="n">gameId</span> <span class="o">=</span> <span class="n">gameUserView</span><span class="o">.</span><span class="na">getGameId</span><span class="o">();</span>
+
+    <span class="n">Game</span> <span class="n">game</span> <span class="o">=</span> <span class="n">gameRepository</span><span class="o">.</span><span class="na">getGame</span><span class="o">(</span><span class="n">gameId</span><span class="o">);</span>
+
+    <span class="n">ErrorInfo</span> <span class="n">errorInfo</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+    <span class="k">if</span><span class="o">(</span><span class="n">game</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">response</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="o">);</span>
+        <span class="n">errorInfo</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ErrorInfo</span><span class="o">(</span>
+            <span class="n">Constants</span><span class="o">.</span><span class="na">UNEXPECTED_SERVER_ERROR</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">else</span> <span class="o">{</span>
+        <span class="kd">synchronized</span> <span class="o">(</span><span class="n">game</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">if</span><span class="o">(</span><span class="n">game</span><span class="o">.</span><span class="na">getState</span><span class="o">()</span> <span class="o">!=</span> <span class="n">gameUserView</span><span class="o">.</span><span class="na">getState</span><span class="o">())</span> <span class="o">{</span>
+                <span class="n">response</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">CONFLICT</span><span class="o">);</span>
+                <span class="n">errorInfo</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ErrorInfo</span><span class="o">(</span>
+                    <span class="n">Constants</span><span class="o">.</span><span class="na">CONCURRENT_GAMES_ERROR</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="k">else</span> <span class="o">{</span>
+                <span class="k">if</span><span class="o">(!</span><span class="n">game</span><span class="o">.</span><span class="na">play</span><span class="o">(</span><span class="n">gameUserView</span><span class="o">.</span><span class="na">getCharacter</span><span class="o">()))</span> <span class="o">{</span>
+                    <span class="n">response</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">BAD_REQUEST</span><span class="o">);</span>
+                    <span class="n">errorInfo</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ErrorInfo</span><span class="o">(</span>
+                        <span class="n">Constants</span><span class="o">.</span><span class="na">INCORRECT_PLAY_ERROR</span><span class="o">);</span>
+                <span class="o">}</span>
+
+                <span class="k">if</span><span class="o">(</span><span class="n">game</span><span class="o">.</span><span class="na">isGameOver</span><span class="o">()</span> <span class="o">||</span> <span class="n">game</span><span class="o">.</span><span class="na">isFinished</span><span class="o">())</span> <span class="o">{</span>
+                    <span class="n">gameRepository</span><span class="o">.</span><span class="na">removeGame</span><span class="o">(</span><span class="n">game</span><span class="o">);</span>
+                    <span class="n">CookieUtils</span><span class="o">.</span><span class="na">clearCookie</span><span class="o">(</span>
+                        <span class="n">response</span><span class="o">,</span> <span class="n">Constants</span><span class="o">.</span><span class="na">GAME_ID_COOKIE_NAME</span><span class="o">);</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="k">if</span><span class="o">(</span><span class="n">errorInfo</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="k">return</span> <span class="n">errorInfo</span><span class="o">;</span>
+    <span class="k">else</span>
+        <span class="k">return</span> <span class="n">game</span><span class="o">.</span><span class="na">asUserView</span><span class="o">();</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Vemos como un solo método hace un montón de cosas, y comprender la lógica en su totalidad puede llevar un tiempo. De esta forma, si alguien diferente a nosotros tiene que modificar el código, para, por ejemplo, añadir una acción adicional al finalizar el juego, antes deberá encontrar el punto en el que tal proceso se está realizando, y ser cuidadoso para no alterar otro tipo de comportamientos.</p>
+
+<p>Me he liado la manta a la cabeza, y aplicando mi mantra “extract till you drop”, he generado una nueva versión del código, que hace <strong>exactamente lo mismo</strong>:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="s">"/bet"</span><span class="o">,</span> <span class="n">method</span><span class="o">=</span><span class="n">RequestMethod</span><span class="o">.</span><span class="na">PUT</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">GameUserView</span> <span class="n">playGame</span><span class="o">(</span>
+        <span class="nd">@CookieValue</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="s">"hangmanGameId"</span><span class="o">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">false</span><span class="o">)</span> <span class="n">String</span> <span class="n">gameId</span><span class="o">,</span>
+        <span class="nd">@RequestBody</span> <span class="n">GameUserView</span> <span class="n">gameUserView</span><span class="o">,</span>
+        <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="n">Game</span> <span class="n">game</span> <span class="o">=</span> <span class="n">fetchGame</span><span class="o">(</span><span class="n">gameId</span><span class="o">,</span> <span class="n">gameUserView</span><span class="o">);</span>
+
+    <span class="kd">synchronized</span> <span class="o">(</span><span class="n">game</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">verifyGameConsistency</span><span class="o">(</span><span class="n">game</span><span class="o">,</span> <span class="n">gameUserView</span><span class="o">);</span>
+        <span class="n">playBet</span><span class="o">(</span><span class="n">game</span><span class="o">,</span> <span class="n">gameUserView</span><span class="o">);</span>
+        <span class="n">verifyEndState</span><span class="o">(</span><span class="n">game</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">game</span><span class="o">.</span><span class="na">asUserView</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="n">Game</span> <span class="nf">fetchGame</span><span class="p">(</span>
+    <span class="n">String</span> <span class="n">gameId</span><span class="o">,</span>
+    <span class="n">GameUserView</span> <span class="n">gameUserView</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">if</span><span class="o">(</span><span class="n">gameId</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="n">gameId</span> <span class="o">=</span> <span class="n">gameUserView</span><span class="o">.</span><span class="na">getGameId</span><span class="o">();</span>
+
+    <span class="n">Game</span> <span class="n">game</span> <span class="o">=</span> <span class="n">gameRepository</span><span class="o">.</span><span class="na">getGame</span><span class="o">(</span><span class="n">gameId</span><span class="o">);</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">game</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">GameNotFoundException</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">game</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">verifyGameConsistency</span><span class="p">(</span>
+    <span class="n">Game</span> <span class="n">game</span><span class="o">,</span>
+    <span class="n">GameUserView</span> <span class="n">gameUserView</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">if</span><span class="o">(</span><span class="n">gameIsBeingPlayedConcurrently</span><span class="o">(</span><span class="n">game</span><span class="o">,</span> <span class="n">gameUserView</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">GameIsPlayedConcurrentlyException</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">gameIsBeingPlayedConcurrently</span><span class="p">(</span>
+    <span class="n">Game</span> <span class="n">game</span><span class="o">,</span>
+    <span class="n">GameUserView</span> <span class="n">gameUserView</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">return</span> <span class="n">game</span><span class="o">.</span><span class="na">getState</span><span class="o">()</span> <span class="o">!=</span> <span class="n">gameUserView</span><span class="o">.</span><span class="na">getState</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">playBet</span><span class="p">(</span>
+    <span class="n">Game</span> <span class="n">game</span><span class="o">,</span>
+    <span class="n">GameUserView</span> <span class="n">gameUserView</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="kt">char</span> <span class="n">characterPlayed</span> <span class="o">=</span> <span class="n">gameUserView</span><span class="o">.</span><span class="na">getCharacter</span><span class="o">();</span>
+
+    <span class="kt">boolean</span> <span class="n">valid</span> <span class="o">=</span> <span class="o">!</span><span class="n">game</span><span class="o">.</span><span class="na">play</span><span class="o">(</span><span class="n">characterPlayed</span><span class="o">);</span>
+
+    <span class="k">if</span><span class="o">(!</span><span class="n">valid</span><span class="o">)</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">InvalidBetPlayedException</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">verifyEndState</span><span class="p">(</span>
+    <span class="n">Game</span> <span class="n">game</span><span class="o">,</span>
+    <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">if</span><span class="o">(</span><span class="n">cantContinuePlaying</span><span class="o">(</span><span class="n">game</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">cleanUpGame</span><span class="o">(</span><span class="n">response</span><span class="o">,</span> <span class="n">game</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">cantContinuePlaying</span><span class="p">(</span><span class="n">Game</span> <span class="n">game</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">game</span><span class="o">.</span><span class="na">isGameOver</span><span class="o">()</span> <span class="o">||</span> <span class="n">game</span><span class="o">.</span><span class="na">isFinished</span><span class="o">();</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">cleanUpGame</span><span class="p">(</span>
+    <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span>
+    <span class="n">Game</span> <span class="n">game</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="n">gameRepository</span><span class="o">.</span><span class="na">removeGame</span><span class="o">(</span><span class="n">game</span><span class="o">);</span>
+    <span class="n">CookieUtils</span><span class="o">.</span><span class="na">clearCookie</span><span class="o">(</span><span class="n">response</span><span class="o">,</span> <span class="n">Constants</span><span class="o">.</span><span class="na">GAME_ID_COOKIE_NAME</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">GameNotFoundException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@ResponseStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">ErrorInfo</span> <span class="n">gameNotFound</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">ErrorInfo</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">UNEXPECTED_SERVER_ERROR</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">GameIsPlayedConcurrentlyException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@ResponseStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">CONFLICT</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">ErrorInfo</span> <span class="n">gamePlayedConcurrently</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">ErrorInfo</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">CONCURRENT_GAMES_ERROR</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">InvalidBetPlayedException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@ResponseStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">BAD_REQUEST</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">ErrorInfo</span> <span class="n">invalidBetPlayed</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">ErrorInfo</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">INCORRECT_PLAY_ERROR</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>De acuerdo, ahora tenemos un número mayor de líneas de código. ¿Y qué? Las responsabilidades están perfectamente encapsuladas en pequeñas funciones que realizan una sola cosa, de forma que:</p>
+
+<ul>
+  <li>El “happy path”, donde no se da ningún error, es muy claro en el método principal</li>
+  <li>Vemos que el proceso de apuesta se divide en cuatro pequeños pasos: extraer la instancia de <code class="highlighter-rouge">Game</code> del repositorio, verificar su estado / consistencia, hacer la apuesta, y verificar que el juego no ha terminado. Por último se devuelve en el cuerpo de la respuesta la vista actual del juego al usuario</li>
+  <li>Las expresiones booleanas compuestas están contenidas en métodos que describen de forma precisa el significado de cada expresión, por lo que no es necesario intentar entenderlas cada vez</li>
+  <li>El nivel de indentación se reduce drásticamente, y las expresiones if / else han desaparecido. En general, cuando encontramos que indentamos más de un nivel, deberemos plantearnos la necesidad de extraer comportamientos</li>
+  <li>Los casos de error están gestionados en funciones individuales anotadas con <code class="highlighter-rouge">@ErrorHandler</code>. Para conseguir esto hemos tenido que añadir tres nuevas clases de tipo <code class="highlighter-rouge">Exception</code> a nuestro código, pero este cambio no hace otra cosa que resaltar los puntos donde se están produciendo estas situaciones “excepcionales”</li>
+</ul>
+
+<p>Por tanto, y siguiendo con la propuesta de cambio mencionada más arriba, si queremos añadir una acción adicional al finalizar, ¿qué haríamos? En efecto, navegar en nuestras funciones: <code class="highlighter-rouge">playGame</code> &gt; <code class="highlighter-rouge">verifyEndState</code> &gt; <code class="highlighter-rouge">cleanUpGame</code>. Si utilizamos buenos nombres el proceso debería ser bastante directo, y no tendremos necesidad de comprender más lógica que la que es necesario modificar.</p>
+
+<p>Los nombres son muy importantes en este punto para evitar el efecto de “el código que busco está siempre en otro lugar”. Si utilizamos buenos nombres el código estará en el lugar que le corresponde, ni más ni menos. Una buena metáfora podría ser el típico cajón donde guardamos decenas de utensilios inservibles “por si acaso”, y que cuando finalmente necesitamos nos lleva una vida encontrar. Si en lugar de tenerlos todos en el mismo cajón tuviéramos pequeñas cajitas con etiquetas (cables, enchufes, botones, chinchetas…) su localización sería mucho más sencilla.</p>
+
+<p>Adicionalmente, si no extraemos de esta forma, caeremos en la trampa de añadir líneas de código al mismo método cuando un nuevo requisito es demandado, y puesto que no pasa nada por no extraer, nuestro método crecerá sin control hasta convertirse en algo inmanejable (<a href="https://en.wikipedia.org/wiki/Big_ball_of_mud">big ball of mud</a>).</p>
+
+<p>Por último, una importante ventaja de esta estrategia de diseño de funciones es la facilidad para llevar a cabo benchmarking o medición del rendimiento de un método determinado. Así, si fuera necesario calcular el tiempo que lleva limpiar el estado del juego al finalizar sólo tendríamos que añadir las anotaciones necesarias al método <code class="highlighter-rouge">cleanUpGame</code> (en el ejemplo utilizo anotaciones del framework <a href="http://tutorials.jenkov.com/java-performance/jmh.html">JMH</a>):</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Benchmark</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">cleanUpGame</span><span class="p">(</span><span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="n">Game</span> <span class="n">game</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">gameRepository</span><span class="o">.</span><span class="na">removeGame</span><span class="o">(</span><span class="n">game</span><span class="o">);</span>
+    <span class="n">CookieUtils</span><span class="o">.</span><span class="na">clearCookie</span><span class="o">(</span><span class="n">response</span><span class="o">,</span> <span class="n">Constants</span><span class="o">.</span><span class="na">GAME_ID_COOKIE_NAME</span><span class="o">);</span>
+<span class="o">}</span></code></pre></figure>
+
+<h3 id="extraer-clases">Extraer clases</h3>
+
+<p>Es muy habitual encontrarse con funciones largas, de más de 100 líneas, donde se llevan a cabo todo tipo de acciones de lo más heterogéneo, como parsear parámetros, validarlos, procesarlos, enviarlos a algún sitio, y además manejar todos los escenarios de error posibles. Bien, dichas funciones son más bien clases camufladas, y, como desarrolladores, deberemos pensar siempre en la mejor forma de aislar responsabilidades dentro de clases bien estructuradas en lugar de dar vida a métodos monstruosos.</p>
+
+<p>He mencionado anteriormente como extraer funciones es una actividad de diseño. Entre otras cosas lo es porque al extraer y extraer, surgen nuevas responsabilidades que piden a gritos ser encapsuladas dentro de una clase. En el ejemplo del ahorcado, está muy claro que sería conveniente mover todos los métodos de gestión de errores a una clase con esa única responsabilidad, por ejemplo:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@ControllerAdvice</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ErrorHandler</span> <span class="o">{</span>
+
+    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">GameNotFoundException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="nd">@ResponseStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">ErrorInfo</span> <span class="n">gameNotFound</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">ErrorInfo</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">UNEXPECTED_SERVER_ERROR</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">GameIsPlayedConcurrentlyException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="nd">@ResponseStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">CONFLICT</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">ErrorInfo</span> <span class="n">gamePlayedConcurrently</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">ErrorInfo</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">CONCURRENT_GAMES_ERROR</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">InvalidBetPlayedException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="nd">@ResponseStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">BAD_REQUEST</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">ErrorInfo</span> <span class="n">invalidBetPlayed</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">ErrorInfo</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">INCORRECT_PLAY_ERROR</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></figure>
+
+<p>Y también sería conveniente encapsular la lógica de gestión de juego fuera de la clase controladora, pero eso lo dejo como ejercicio :)</p>
+
+<h3 id="extraer-paquetes">Extraer paquetes</h3>
+
+<p>Por último, tenemos que prestar atención al tamaño de nuestros <code class="highlighter-rouge">packages</code> o <code class="highlighter-rouge">namespaces</code>, que deben estar bien cohesionados, y enfocados en hacer “una sola cosa”. No me extenderé más en esto, porque ya lo mencioné en <a href="/2016/09/haz-una-sola-cosa/">el post anterior</a>.</p>
+
+<h3 id="conclusin-empata">Conclusión: empatía</h3>
+
+<p>Leí hace poco que <a href="https://es.wikipedia.org/wiki/Kent_Beck">Kent Beck</a>, a la pregunta de “¿Cuál es la cualidad más importante del Software?” respondió “Empatía”. Seguir este mantra es la forma más fácil de alcanzar esa empatía, porque nos obligará a pensar permanentemente en el programador que viene detrás de nosotros y en como facilitarle la lectura del código.</p>
+
+</article>
+
+<aside class="related">
+  <h2>Posts relacionados</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2016/09/haz-una-sola-cosa/">
+            Haz una sola cosa
+            <small><time datetime="2016-09-19T00:00:00+01:00">19/09/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/09/ventanas-rotas/">
+            Ventanas rotas
+            <small><time datetime="2016-09-12T00:00:00+01:00">12/09/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/08/pair-programming/">
+            Pair Programming
+            <small><time datetime="2016-08-21T00:00:00+01:00">21/08/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</aside>
+
+        
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'raulavila'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </main>
+
+      <footer class="footer">
+        <small>
+          &copy; <time datetime="2016">2016</time> Raúl Ávila. Blog creado con <a href="http://jekyllrb.com">Jekyll</a>.
+          Plantilla basada en <a href="http://getpoole.com">Poole</a>.
+          <a href="/atom.xml">Atom Feed</a></a>.
+          <br>
+        </small>
+      </footer>
+    </div>
+
+  <script>
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58942569-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>
