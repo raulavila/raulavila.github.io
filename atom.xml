@@ -4,13 +4,79 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2016-11-07T20:49:41+00:00</updated>
+ <updated>2016-11-12T12:24:44+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Perdón por la ausencia</title>
+   <link href="http://www.raulavila.com/2016/11/perdon-por-la-ausencia/"/>
+   <updated>2016-11-12T00:00:00+00:00</updated>
+   <id>http://www.raulavila.com/2016/11/perdon-por-la-ausencia</id>
+   <content type="html">&lt;p&gt;El último mes y medio ha sido una auténtica locura, y no he podido dedicar al blog todo el tiempo que sería necesario para publicar artículos de mediana calidad. Mi intención es estar en la brecha de nuevo, al menos hasta el obligado parón navideño.&lt;/p&gt;
+
+&lt;p&gt;Voy a repasar a modo de bitácora las diferentes cosas que me he traído entre manos últimamente, no como excusa, sino para dejar plasmadas las diferentes cosas que he aprendido o hecho.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;h2 id=&quot;mis-cinco-mantras-la-presentacin&quot;&gt;Mis cinco mantras: la presentación&lt;/h2&gt;
+
+&lt;p&gt;Los que me seguís sabéis que tengo &lt;a href=&quot;/2016/07/mis-5-mantras/&quot;&gt;5 mantras para escribir software&lt;/a&gt;. Cuando escribí el post hace unos meses pensé que el tema daba para una presentación pública, así que me lié la manta a la cabeza, la propuse a la &lt;a href=&quot;http://www.meetup.com/london-software-craftsmanship/?chapter_analytics_code=UA-19049790-1&quot;&gt;London Software Craftmanship Community&lt;/a&gt;, y me la aceptaron para una de sus sesiones mensuales. Muchas gracias desde aquí a esta increíble comunidad por darme la oportunidad de estrenarme públicamente con una charla en condiciones (anteriormente había dado algún “lightning talk”).&lt;/p&gt;
+
+&lt;p&gt;La verdad es que hubo ciertos momentos de nerviosismo mientras daba forma a las diapositivas (&lt;a href=&quot;http://es.slideshare.net/Ralvila/my-five-mantras-to-write-better-software&quot;&gt;aquí las tenéis&lt;/a&gt;), hablar en público ya es complicado de por sí, y si añades hacerlo en un idioma que no es el tuyo, los motivos de preocupación se multiplican.&lt;/p&gt;
+
+&lt;p&gt;Pero en esta vida, como diría mi amado/odiado &lt;a href=&quot;https://twitter.com/jsonmez&quot;&gt;John Somnez&lt;/a&gt;, si quieres crecer hay que hacer cosas que te hagan sentir incómodo, así que seguí adelante sin miramientos. Trabajar en Pivotal fue una gran ventaja durante la preparación, mi empresa favorece en gran medida este tipo de iniciativas, y nos deja hacer ensayos delante de toda la oficina a la hora de comer, además de tener compañeros dispuestos a dar feedback. Muchas gracias también a Pivotal por el apoyo.&lt;/p&gt;
+
+&lt;p&gt;La presentación diría que fue razonablemente bien, pero aprendí varias lecciones importantes:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;No importa cuanto prepares todo con antelación, siempre habrá imprevistos de última hora. El dia de la presentación me enteré de que me iban a grabar (!!), cosa que me puso bastante nervioso. No es lo mismo dar una charla para un grupo de personas, que darla además para una cámara que dejará registrado lo que hagas para siempre. En cualquier caso, creo que capeé el tema razonablemente bien&lt;/li&gt;
+  &lt;li&gt;Si el evento tiene varias charlas, y te dan a elegir, intenta ser primero. Normalmente, los tiempos suelen ser bastante ajustados para terminar el evento, y como me tocó ser último (porque el otro speaker era bastante experimentado y saltó a elegir el primer turno), a falta de diez minutos para terminar mi presentación, y aunque iba bien de tiempo, los organizadores empezaron a hacerme gestos que me pusieron algo nervioso. Esto se puede ver en el vídeo que grabaron, en la última parte meto muchos más gambazos que en la primera&lt;/li&gt;
+  &lt;li&gt;Nunca confíes en la vista del presentador de Powerpoint / Keynote. No sabes de antemano como será la distribución de la sala, y en mi caso, la mesa me quedaba bastante lejos de donde yo debía estar de pie. Por suerte, las notas del presentador son algo a lo que no presto mucha atención, pero si pensáis confiar en ellas, mejor no lo hagáis&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Lo de ser grabado a posteriori ha sido incluso beneficioso, no me veo ni de lejos tan lamentable como yo pensaba, y ver mi propia presentación me ha servido para tomar notas de los puntos a mejorar. &lt;a href=&quot;https://skillsmatter.com/skillscasts/8851-lscc-meetup&quot;&gt;Aquí dejo el vídeo&lt;/a&gt;, por si os interesa ver a quien escribe :)&lt;/p&gt;
+
+&lt;h2 id=&quot;uncodebar&quot;&gt;Uncodebar&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://codebar.io/&quot;&gt;Codebar&lt;/a&gt; es un meetup londinense cuyo principal objetivo es ayudar a nuevos programadores a introducirse en el mundillo y aprender. Funciona mucho con el modelo de mentorado, y cualquier persona con experiencia puede unirse a ellos para colaborar. Muchos de los actuales mentores empezaron como mentorados hace un par de años, y tengo la impresión, sin ser un miembro activo del grupo, de que funcionan bastante bien.&lt;/p&gt;
+
+&lt;p&gt;Uncodebar es una Open Conference que organizan cada año (este creo que ha sido el segundo). Mi empresa ofrecía las oficinas para alojarla, así que me ofrecí como voluntario. Mis principales tareas tuvieron lugar el propio día de la conferencia, ya que anteriormente los organizadores se encargaron de prácticamente todo.&lt;/p&gt;
+
+&lt;p&gt;Si no conocéis el formato Open Conference, la idea es que no hay agenda cerrada, y los propios asistentes proponen charlas el mismo día de la conferencia. Este formato, que puede parecer un poco loco, tiene un par de ventajas importantes:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;La gente se presenta al evento con muchísimas ganas de disfrutar y pasar un buen día, ya que nadie madruga un sábado para ir a algo de mala gana, ¡y más cuando no hay agenda! Así que el ambiente es fantástico&lt;/li&gt;
+  &lt;li&gt;El formato de muchas sesiones es de discusión o workshop más que de presentación pura, por lo que siempre surgen conversaciones interesantes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Personalmente, aproveché para repetir mi presentación, con bastante buena acogida, ya que el público era generalmente principiante / nivel medio. También aprendí que organizar eventos conlleva un trabajo bastante importante, pequeñas cosas que damos por sentadas cuando llegamos al lugar de la conferencia llevan horas de preparación detrás. El mismo día de la conferencia me encargué con otra persona de preparar el cuadrante de las charlas en una pared, y caray, nos llevó su buena hora para que quedara aceptable. Mi aplauso desde aquí a todas las personas que sacrifican horas de su vida para organizar este tipo de tinglados&lt;/p&gt;
+
+&lt;h2 id=&quot;global-day-of-code-retreat&quot;&gt;Global Day of Code Retreat&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;/2015/11/code-retreat-2015/&quot;&gt;Ya estuve aquí el año pasado&lt;/a&gt;, y me gustó tanto la experiencia que repetí. ¡Pero es que este año ha sido incluso mejor! El evento tuvo lugar en un par de oficinas de Londres, y yo me decidí por ir a la de &lt;a href=&quot;https://codurance.com/&quot;&gt;Codurance&lt;/a&gt;, la empresa de &lt;a href=&quot;https://twitter.com/sandromancuso&quot;&gt;Sandro Mancuso&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;El formato del evento es exactamente el mismo cada año, así que si queréis conocer más detalles, &lt;a href=&quot;/2015/11/code-retreat-2015/&quot;&gt;hacedlo en mi post antiguo&lt;/a&gt;. Si algo me gustó de este año es que, al tener mucha más experiencia en pair programming y TDD, estuve en posición de enseñar muchas cosas a varias personas que venían con la idea de introducirse en estas prácticas. Y creedme, es muy satisfactorio escuchar palabras de agradecimiento después de una sesión de pair programming.&lt;/p&gt;
+
+&lt;p&gt;Yo también aprendí varias cosas, es curioso como diferentes programadores afrontan el mismo problema desde distintos puntos de vista. También tuve oportunidad de dar mis primeros pasos con Ruby (lenguaje que, todo hay que decirlo, no me llama sobremanera), refrescar Groovy, Scala…en fin, una jornada muy disfrutable.&lt;/p&gt;
+
+&lt;p&gt;Por último añadir que había bastantes españoles en el evento, ¡lo cual demuestra que somos un país de personas muy inquietas!&lt;/p&gt;
+
+&lt;h2 id=&quot;the-practical-dev&quot;&gt;The Practical Dev&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://dev.to/&quot;&gt;The Practical Dev&lt;/a&gt; es una web colaborativa donde cualquiera puede escribir posts relacionados con el desarrollo software. Cuando empecé con mi blog (¡hace casi dos años ya!) tuve muchas dudas sobre si escribir en español o en inglés, pero me decanté por el español porque me resulta más cómodo y rápido, y porque me gustaría ayudar a gente con peores conocimientos de inglés, ya que buenos blogs en inglés hay miles.&lt;/p&gt;
+
+&lt;p&gt;Sin embargo siempre me picó pensar que determinados posts publicados eran de suficiente calidad para tener un buen alcance si los hubiera escrito en inglés. Llegué incluso a plantearme combinar los dos idiomas en el blog, pero eso le habría dado poca consistencia. Así que recientemente me vino a la cabeza la idea de traducir estos posts de los que me siento más orgullos y publicarlos en medios como &lt;a href=&quot;https://medium.com/&quot;&gt;Medium&lt;/a&gt; o &lt;a href=&quot;https://dev.to/&quot;&gt;The Practical Dev&lt;/a&gt;, decidiéndome finalmente por este último al estar más centrado a una comunidad muy específica (los desarrolladores).&lt;/p&gt;
+
+&lt;p&gt;Mi primer post publicado es &lt;a href=&quot;https://dev.to/raulavila/my-experience-with-pair-programming&quot;&gt;My Experience with Pair Programming&lt;/a&gt;, y es una traducción &lt;a href=&quot;/2016/08/pair-programming/&quot;&gt;del que escribí aquí&lt;/a&gt;. Lo bueno de estas plataformas es que la audiencia la tienes ganada de antemano, y mi post tuvo 200 interacciones en total en Twitter, lo cual está bien para ser el primero, así que seguiré publicando en el futuro.&lt;/p&gt;
+
+&lt;p&gt;Las próximas semanas se presentan entretenidas, viajaré al &lt;a href=&quot;https://2016.codemotion.es/&quot;&gt;Codemotion&lt;/a&gt; en Madrid, a finales de Noviembre tendrá lugar la &lt;a href=&quot;https://sites.google.com/site/ljcopenconference/&quot;&gt;LJC Open Conference&lt;/a&gt;, y con eso me parece que daré por cerrado mi año, ¡porque vaya otoño me estoy pegando! :) Y repito, espero escribir algo más, aunque sean recapitulaciones de eventos.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Extract till you drop</title>
