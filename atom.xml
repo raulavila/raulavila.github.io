@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2016-11-21T19:25:30+00:00</updated>
+ <updated>2016-11-21T23:04:42+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -14,7 +14,7 @@
  
  <entry>
    <title>Codemotion 2016</title>
-   <link href="http://www.raulavila.com/2016/11/codemotion-2016"/>
+   <link href="http://www.raulavila.com/2016/11/codemotion-2016/"/>
    <updated>2016-11-21T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2016/11/codemotion-2016</id>
    <content type="html">&lt;p&gt;Mi primer &lt;a href=&quot;http://codemotion.es/&quot;&gt;Codemotion&lt;/a&gt; fue el del año 2013, cuando aún vivía en España. Coincidió con un momento de mi carrera donde buscaba desesperadamente un cambio de aires, persiguiendo trabajar en un lugar donde me sintiera verdaderamente respetado como profesional, y que desembocó en mi marcha a Londres,&lt;/p&gt;
@@ -47,7 +47,7 @@
   &lt;li&gt;“Menos agilismo y más agilidad”, por &lt;a href=&quot;https://twitter.com/dafergon&quot;&gt;David Fernández&lt;/a&gt;. Este tema está muy de moda, y yo he sido bastante crítico con ciertos aspectos. Nada de lo contado me resultó novedoso, pero sí totalmente necesario, y su mención a la dificultad para tener una carrera técnica en España sin gestionar personas me ganó :) Tan solo criticar ligeramente que no incidiera más en la importancia de prácticas como el testing, la calidad software, o en otros niveles, el &lt;a href=&quot;/2016/08/pair-programming/&quot;&gt;pair programming&lt;/a&gt; o el &lt;a href=&quot;/2016/01/aprendiendo-TDD/&quot;&gt;TDD&lt;/a&gt; para conseguir una verdadera transformación ágil.&lt;/li&gt;
   &lt;li&gt;“8 formas de mejorar tu vida gracias a los logs”, por el equipo de &lt;a href=&quot;https://www.logtrust.com/en/&quot;&gt;LogTrust&lt;/a&gt;. Me reconfortó mucho enterarme de que hay una empresa española plantando cara a gigantes como LogStash o Splunk, y charlas como éstas son realmente necesarias para mentalizar a la comunidad de desarrolladores de la importancia de utilizar buenos mensajes de logs, y de las consecuencias de no acertar con el formato, etc.&lt;/li&gt;
   &lt;li&gt;“Testing on the toilet” por &lt;a href=&quot;https://twitter.com/AlfredoCasado&quot;&gt;Alfredo Casado&lt;/a&gt; y &lt;a href=&quot;https://twitter.com/Laura_Morillo&quot;&gt;Laura Morillo&lt;/a&gt;: repaso a diferentes malas prácticas en la escritura de tests, que me enganchó por la simpatía de los ponentes. En ocasiones, aunque una charla no me descubra nada nuevo, si el ponente (o los ponentes) transmiten pasión me basta y me sobra.&lt;/li&gt;
-  &lt;li&gt;“Typescript, un lenguaje aburrido para programadores torpes y tristes”, de &lt;a href=&quot;https://twitter.com/micael_gallego&quot;&gt;Micael Gallego&lt;/a&gt;. Aunque Javascript no es un leguaje que utilice actualmente, en esta charla, y con mucho humor, se introduce Typescript como alternativa para trabajar con Javascript pero añadiendo la seguridad del tipado estático que nos ofrece Java (brutal cuando dice que no renombra variables porque la da miedo :D). &lt;a href=&quot;https://www.youtube.com/watch?v=32cPEcX3Qa0&amp;amp;t=2344s&quot;&gt;Aquí tenéis la sesión&lt;/a&gt;, que me parece una buena forma de iniciarse en Typescript en menos de una hora, si estáis interesados&lt;/li&gt;
+  &lt;li&gt;“Typescript, un lenguaje aburrido para programadores torpes y tristes”, de &lt;a href=&quot;https://twitter.com/micael_gallego&quot;&gt;Micael Gallego&lt;/a&gt; (esta charla la vi a posteriori, todo sea dicho). Aunque Javascript no es un leguaje que utilice actualmente, en esta charla, y con mucho humor, se introduce Typescript como alternativa para trabajar con Javascript pero añadiendo la seguridad del tipado estático que nos ofrece Java (brutal cuando dice que no renombra variables porque la da miedo :D). &lt;a href=&quot;https://www.youtube.com/watch?v=32cPEcX3Qa0&amp;amp;t=2344s&quot;&gt;Aquí tenéis la sesión&lt;/a&gt;, que me parece una buena forma de iniciarse en Typescript en menos de una hora, si estáis interesados&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Nota: Docker estuvo muy presente, y en más de una sesión se comentó la importancia de aislar tareas en nuestros entornos de integración continua utilizando esta herramienta. Ya se lo comenté en persona a uno de los speakers, pero lo vuelvo a reflejar aquí, si os veis en esa necesidad os recomiendo que le echéis un vistazo a &lt;a href=&quot;/2016/05/concourse-1/&quot;&gt;Concourse&lt;/a&gt; (¿quizás sea una buena propuesta de charla para el próximo año? :)).&lt;/p&gt;
