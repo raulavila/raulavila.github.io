@@ -4,13 +4,40 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2016-12-22T18:58:57+01:00</updated>
+ <updated>2017-01-01T12:48:11+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Mis propósitos para 2017</title>
+   <link href="http://www.raulavila.com/2017/01/propositos-2017/"/>
+   <updated>2017-01-01T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2017/01/propositos-2017</id>
+   <content type="html">&lt;p&gt;¡Feliz 2017! Es la primera vez que escribo un post en un primero de Enero, cosa que sólo fue posible hacer en 2016 ya que este blog nació a finales de Enero de 2015 :) El motivo de encontrarme en pijama tecleando unas palabras es que, animado por la &lt;a href=&quot;http://us2.campaign-archive2.com/?u=374c664073e1a1fa3deca53b4&amp;amp;id=f0e4a3e3ec&amp;amp;e=b93d18ec09&quot;&gt;Bonilista&lt;/a&gt; y otros blogs de tuiteros que sigo, he decidido plasmar en un post mis objetivos para este año que empieza, y que será bastante desafiante para mí, sobre todo a nivel profesional.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;Así que allá vamos:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Hacer un buen trabajo en mi nuevo rol en &lt;a href=&quot;http://pivotal.io/&quot;&gt;Pivotal&lt;/a&gt;: inicié mi andadura en Pivotal el 1 de Febrero de 2016, y once meses después (el 3 de Enero, con el nuevo año) me uniré a un proyecto en el rol de anchor (que podríamos traducir como “Technical Team Lead”, &lt;a href=&quot;https://medium.com/built-to-adapt/the-pivotal-glossary-93b8be9de916&quot;&gt;en este artículo&lt;/a&gt; tenéis una descripción de todos los roles que existen en mi empresa). No es un ascenso en realidad, tan solo uno de los roles que se pueden desempeñar si eres Senior. Esto significa que existe la posibilidad de ser anchor en un proyecto y no serlo en el siguiente, a diferencia de la típica escalera corporativa. Pero bien es cierto que el cambio en mis tareas va a ser importante durante unos meses, sé que al principio será algo complicado, pero me encuentro bastante motivado, y me va a servir para aprender un montón.&lt;/li&gt;
+  &lt;li&gt;Mejorar mi vocabulario en inglés: en este momento, el vocabulario es mi punto débil en inglés con diferencia. He reflexionado un poco y creo que mi problema es la falta de método para interiorizar nuevas palabras. Cada día escucho, leo o incluso tengo que utilizar alguna palabra nueva (con la ayuda de WordReference en este caso), pero no las registro en ningún lado, y si necesito usarlas en un período de tiempo no las recuerdo. Existe un sistema conocido como &lt;a href=&quot;http://ankisrs.net/&quot;&gt;Anki Cards&lt;/a&gt;, son tarjetas con dos caras que se pueden utilizar para repasar este tipo de cosas (no entraré en detalles aquí). Lo empecé a utilizar hace un año, pero abandoné. Pienso retomarlo de nuevo, y la medida de mi éxito en este punto será poder “jugar” a Anki en Diciembre con un porcentaje alto de aciertos. Veremos.&lt;/li&gt;
+  &lt;li&gt;Llevar un registro de los libros que termine: creo que es muy útil registrar &lt;a href=&quot;http://evernote.com&quot;&gt;en algún lado&lt;/a&gt; los libros leídos, para poder mirar atrás y recapacitar sobre lo aprendido. Antiguamente con los libros en papel bastaba con ir a tu biblioteca particular, pero ahora, con el Kindle, &lt;a href=&quot;https://www.safaribooksonline.com&quot;&gt;Safari Books&lt;/a&gt;, audiolibros…es más complicado. Leo menos de lo que querría, pero me gustaría tener una métrica real para poder valorarlo a final de año. La verdad es que este objetivo debería ser fácil :).&lt;/li&gt;
+  &lt;li&gt;Rodar y mejorar mis dotes de public speaking: el año pasado dí &lt;a href=&quot;https://skillsmatter.com/skillscasts/8851-lscc-meetup&quot;&gt;mi primera charla en inglés&lt;/a&gt;, un par de veces además. Estoy bastante contento con su contenido, y creo que la mejoraré y repetiré en algún evento durante 2017. Me gustaría, además, poder presentarla en español, así que la propondré en &lt;a href=&quot;/2016/11/codemotion-2016/&quot;&gt;Codemotion&lt;/a&gt;, donde creo que encaja bien (llevo varios años intentando hablar en esta gran conferencia), y quizás algún otro sarao. También tengo algunas ideas para nuevas charlas, por lo que como parte de este objetivo tengo desarrollar una nueva ponencia.&lt;/li&gt;
+  &lt;li&gt;Ir al gimnasio al menos tres veces por semana: este objetivo prácticamente lo tengo cumplido por defecto, en 2016 no hubo semana que bajara de dos días en el gimnasio. Pero sé que, debido al trabajo, necesito no perder de vista esto, así que intentaré llevar un control algo más exhaustivo.&lt;/li&gt;
+  &lt;li&gt;Conocer a más gente de la comunidad, tanto en Londres como en España: cada vez tengo más conocidos en el mundillo, me muevo bastante por Londres, sobre todo en eventos de la &lt;a href=&quot;https://www.meetup.com/london-software-craftsmanship/&quot;&gt;LSCC&lt;/a&gt; y la &lt;a href=&quot;https://www.meetup.com/Londonjavacommunity&quot;&gt;LJC&lt;/a&gt;, así que de tanto ver las mismas caras acabas conociendo a mucha gente. En España lo tengo algo más complicado, Twitter es muy bueno en esto, y en 2016 el &lt;a href=&quot;/2016/11/codemotion-2016/&quot;&gt;Codemotion&lt;/a&gt; fue una gran oportunidad para conocer a figuras importantes de la escena española. En este año me gustaría consolidar alguna de las relaciones iniciadas, y comenzar otras.&lt;/li&gt;
+  &lt;li&gt;Escribir al menos 15 posts en el blog: no es un objetivo demasiado ambicioso, pero quiero ser realista. Estoy muy orgulloso de todo el trabajo que he realizado aquí, y me gustaría mantener un ritmo razonable, sin quemarme.&lt;/li&gt;
+  &lt;li&gt;Publicar al menos 5 posts en &lt;a href=&quot;https://dev.to/&quot;&gt;The Practical Dev&lt;/a&gt;: como ya conté hace poco, decidí comenzar a escribir en inglés fuera de este blog, y la plataforma elegida fue &lt;a href=&quot;https://dev.to/&quot;&gt;The Practical Dev&lt;/a&gt;. En este año quiero incrementar mi presencia en esta web, sin ser demasiado ambicioso. En realidad, de momento me estoy dedicando a traducir artículos escritos en el blog, pero no descarto publicar algo más “exclusivo”.&lt;/li&gt;
+  &lt;li&gt;Terminar al menos un curso online “end to end”: con esto quiero decir completando todas las prácticas, exámenes, o lo que sea. Veo muchos vídeos o tutoriales de forma habitual, pero con cursos completos no soy tan consistente. En 2016 conseguí completar el &lt;a href=&quot;https://www.coursera.org/learn/progfun1&quot;&gt;popular curso de Scala en Coursera &lt;/a&gt;, pero fracasé en completar la especialización, que era mi objetivo en realidad. El motivo fue que no ví un retorno de la inversión claro, dada la dificultad de las prácticas. Quizás este año finalice alguna de las otras partes de la especialización, o quizás me líe la manta a la cabeza con alguna otra cosa que considere más interesante.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Creo que lo dejaré aquí, sé que será casi imposible conseguir todo lo que pretendo, pero siempre hay que apuntar alto, ¿verdad? A finales de año repasaré cómo ha ido todo, y veré si tuvo sentido escribir esto.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Aprender inglés</title>
@@ -4914,7 +4941,7 @@ pong&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;La forma más fácil de deshacernos de la espera activa es mediante el uso de Locks. En pocas palabras, locking es un mecanismo que permite establecer políticas de exclusión en aplicaciones concurrentes cuando existen instancias cuyo estado puede ser compartido y modificado por diferentes threads.&lt;/p&gt;
 
-&lt;p&gt;Este estado susceptible de ser modificado por más de un thread debe protegrese mediante el uso de una sección crítica (&lt;a href=&quot;http://www.linuxtopia.org/online_books/programming_books/thinking_in_java/TIJ315_013.htm&quot;&gt;critical section&lt;/a&gt;). Java ofrece diferentes mecanismos parar implementar secciones críticas, y en este post veremos los más importantes.&lt;/p&gt;
+&lt;p&gt;Este estado susceptible de ser modificado por más de un thread debe protegrese mediante el uso de una sección crítica (&lt;a href=&quot;https://en.wikipedia.org/wiki/Critical_section&quot;&gt;critical section&lt;/a&gt;). Java ofrece diferentes mecanismos parar implementar secciones críticas, y en este post veremos los más importantes.&lt;/p&gt;
 
 &lt;h3 id=&quot;versin-3-intrinsic-locking&quot;&gt;Versión 3: Intrinsic locking&lt;/h3&gt;
 
