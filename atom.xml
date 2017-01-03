@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-01-01T12:48:11+01:00</updated>
+ <updated>2017-01-03T21:06:58+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -15,7 +15,7 @@
  <entry>
    <title>Mis propósitos para 2017</title>
    <link href="http://www.raulavila.com/2017/01/propositos-2017/"/>
-   <updated>2017-01-01T00:00:00+01:00</updated>
+   <updated>2017-01-01T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2017/01/propositos-2017</id>
    <content type="html">&lt;p&gt;¡Feliz 2017! Es la primera vez que escribo un post en un primero de Enero, cosa que sólo fue posible hacer en 2016 ya que este blog nació a finales de Enero de 2015 :) El motivo de encontrarme en pijama tecleando unas palabras es que, animado por la &lt;a href=&quot;http://us2.campaign-archive2.com/?u=374c664073e1a1fa3deca53b4&amp;amp;id=f0e4a3e3ec&amp;amp;e=b93d18ec09&quot;&gt;Bonilista&lt;/a&gt; y otros blogs de tuiteros que sigo, he decidido plasmar en un post mis objetivos para este año que empieza, y que será bastante desafiante para mí, sobre todo a nivel profesional.&lt;/p&gt;
 
@@ -24,7 +24,7 @@
 &lt;p&gt;Así que allá vamos:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Hacer un buen trabajo en mi nuevo rol en &lt;a href=&quot;http://pivotal.io/&quot;&gt;Pivotal&lt;/a&gt;: inicié mi andadura en Pivotal el 1 de Febrero de 2016, y once meses después (el 3 de Enero, con el nuevo año) me uniré a un proyecto en el rol de anchor (que podríamos traducir como “Technical Team Lead”, &lt;a href=&quot;https://medium.com/built-to-adapt/the-pivotal-glossary-93b8be9de916&quot;&gt;en este artículo&lt;/a&gt; tenéis una descripción de todos los roles que existen en mi empresa). No es un ascenso en realidad, tan solo uno de los roles que se pueden desempeñar si eres Senior. Esto significa que existe la posibilidad de ser anchor en un proyecto y no serlo en el siguiente, a diferencia de la típica escalera corporativa. Pero bien es cierto que el cambio en mis tareas va a ser importante durante unos meses, sé que al principio será algo complicado, pero me encuentro bastante motivado, y me va a servir para aprender un montón.&lt;/li&gt;
+  &lt;li&gt;Hacer un buen trabajo en mi nuevo rol en &lt;a href=&quot;http://pivotal.io/&quot;&gt;Pivotal&lt;/a&gt;: inicié mi andadura en Pivotal el 1 de Febrero de 2016, y once meses después (el 3 de Enero, con el nuevo año) me uniré a un proyecto en el rol de anchor (algo así como “Team Leader”, &lt;a href=&quot;https://medium.com/built-to-adapt/the-pivotal-glossary-93b8be9de916&quot;&gt;en este artículo&lt;/a&gt; tenéis una descripción de todos los roles que existen en mi empresa). No es un ascenso en realidad, tan solo uno de los roles que se pueden desempeñar si eres Senior. Esto significa que existe la posibilidad de ser anchor en un proyecto y no serlo en el siguiente, a diferencia de la típica escalera corporativa. Pero bien es cierto que el cambio en mis tareas va a ser importante durante unos meses, sé que al principio será algo complicado, pero me encuentro bastante motivado, y me va a servir para aprender un montón.&lt;/li&gt;
   &lt;li&gt;Mejorar mi vocabulario en inglés: en este momento, el vocabulario es mi punto débil en inglés con diferencia. He reflexionado un poco y creo que mi problema es la falta de método para interiorizar nuevas palabras. Cada día escucho, leo o incluso tengo que utilizar alguna palabra nueva (con la ayuda de WordReference en este caso), pero no las registro en ningún lado, y si necesito usarlas en un período de tiempo no las recuerdo. Existe un sistema conocido como &lt;a href=&quot;http://ankisrs.net/&quot;&gt;Anki Cards&lt;/a&gt;, son tarjetas con dos caras que se pueden utilizar para repasar este tipo de cosas (no entraré en detalles aquí). Lo empecé a utilizar hace un año, pero abandoné. Pienso retomarlo de nuevo, y la medida de mi éxito en este punto será poder “jugar” a Anki en Diciembre con un porcentaje alto de aciertos. Veremos.&lt;/li&gt;
   &lt;li&gt;Llevar un registro de los libros que termine: creo que es muy útil registrar &lt;a href=&quot;http://evernote.com&quot;&gt;en algún lado&lt;/a&gt; los libros leídos, para poder mirar atrás y recapacitar sobre lo aprendido. Antiguamente con los libros en papel bastaba con ir a tu biblioteca particular, pero ahora, con el Kindle, &lt;a href=&quot;https://www.safaribooksonline.com&quot;&gt;Safari Books&lt;/a&gt;, audiolibros…es más complicado. Leo menos de lo que querría, pero me gustaría tener una métrica real para poder valorarlo a final de año. La verdad es que este objetivo debería ser fácil :).&lt;/li&gt;
   &lt;li&gt;Rodar y mejorar mis dotes de public speaking: el año pasado dí &lt;a href=&quot;https://skillsmatter.com/skillscasts/8851-lscc-meetup&quot;&gt;mi primera charla en inglés&lt;/a&gt;, un par de veces además. Estoy bastante contento con su contenido, y creo que la mejoraré y repetiré en algún evento durante 2017. Me gustaría, además, poder presentarla en español, así que la propondré en &lt;a href=&quot;/2016/11/codemotion-2016/&quot;&gt;Codemotion&lt;/a&gt;, donde creo que encaja bien (llevo varios años intentando hablar en esta gran conferencia), y quizás algún otro sarao. También tengo algunas ideas para nuevas charlas, por lo que como parte de este objetivo tengo desarrollar una nueva ponencia.&lt;/li&gt;
@@ -42,7 +42,7 @@
  <entry>
    <title>Aprender inglés</title>
    <link href="http://www.raulavila.com/2016/12/aprender-ingles/"/>
-   <updated>2016-12-22T00:00:00+01:00</updated>
+   <updated>2016-12-22T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2016/12/aprender-ingles</id>
    <content type="html">&lt;p&gt;Un lector me pidió hace unas semanas que escribiera un post sobre cómo aprendí inglés. Y aunque este blog es básicamente tecnológico, el conocimiento de este idioma es fundamental para desarrollar una carrera en nuestro mundillo, así que no creo que sea un tema demasiado off-topic para hablar de él.&lt;/p&gt;
 
@@ -120,7 +120,7 @@
  <entry>
    <title>Codemotion 2016</title>
    <link href="http://www.raulavila.com/2016/11/codemotion-2016/"/>
-   <updated>2016-11-21T00:00:00+01:00</updated>
+   <updated>2016-11-21T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2016/11/codemotion-2016</id>
    <content type="html">&lt;p&gt;Mi primer &lt;a href=&quot;http://codemotion.es/&quot;&gt;Codemotion&lt;/a&gt; fue el del año 2013, cuando aún vivía en España. Coincidió con un momento de mi carrera donde buscaba desesperadamente un cambio de aires, persiguiendo trabajar en un lugar donde me sintiera verdaderamente respetado como profesional, y que desembocó en mi marcha a Londres,&lt;/p&gt;
 
@@ -170,7 +170,7 @@
  <entry>
    <title>Perdón por la ausencia</title>
    <link href="http://www.raulavila.com/2016/11/perdon-por-la-ausencia/"/>
-   <updated>2016-11-12T00:00:00+01:00</updated>
+   <updated>2016-11-12T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2016/11/perdon-por-la-ausencia</id>
    <content type="html">&lt;p&gt;El último mes y medio ha sido una auténtica locura, y no he podido dedicar al blog todo el tiempo que sería necesario para publicar artículos de mediana calidad. Mi intención es estar en la brecha de nuevo, al menos hasta el obligado parón navideño.&lt;/p&gt;
 
@@ -236,7 +236,7 @@
  <entry>
    <title>Extract till you drop</title>
    <link href="http://www.raulavila.com/2016/09/extract-till-you-drop/"/>
-   <updated>2016-09-25T00:00:00+02:00</updated>
+   <updated>2016-09-25T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2016/09/extract-till-you-drop</id>
    <content type="html">&lt;p&gt;“Extract till you drop” es otro de &lt;a href=&quot;/2016/07/mis-5-mantras/&quot;&gt;mis cinco mantras&lt;/a&gt;, y quizás el que más presente tengo cuando estoy escribiendo código, hasta el punto de que más de un compañero ha hecho coñas con mi obsesión por extraer y extraer.&lt;/p&gt;
 
@@ -561,7 +561,7 @@
  <entry>
    <title>Haz una sola cosa</title>
    <link href="http://www.raulavila.com/2016/09/haz-una-sola-cosa/"/>
-   <updated>2016-09-19T00:00:00+02:00</updated>
+   <updated>2016-09-19T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2016/09/haz-una-sola-cosa</id>
    <content type="html">&lt;p&gt;Ya sabéis que tengo &lt;a href=&quot;/2016/07/mis-5-mantras/&quot;&gt;5 mantras para escribir un mejor software&lt;/a&gt; (aunque es posible que esta cifra aumente con el tiempo :)). En este post profundizaré un poco en el segundo “Do one thing, do it well, and do it only”.&lt;/p&gt;
 
@@ -714,7 +714,7 @@
  <entry>
    <title>Ventanas rotas</title>
    <link href="http://www.raulavila.com/2016/09/ventanas-rotas/"/>
-   <updated>2016-09-12T00:00:00+02:00</updated>
+   <updated>2016-09-12T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2016/09/ventanas-rotas</id>
    <content type="html">&lt;p&gt;En un &lt;a href=&quot;/2016/07/mis-5-mantras/&quot;&gt;post reciente&lt;/a&gt; repasaba cinco mantras que tengo muy presentes a diario cuando desarrollo software. Pasé un poco por encima de todos ellos, pero me quedó la sensación de que hay mucho que rascar y en lo que debería entrar en detalle.&lt;/p&gt;
 
@@ -913,7 +913,7 @@
  <entry>
    <title>Pair Programming</title>
    <link href="http://www.raulavila.com/2016/08/pair-programming/"/>
-   <updated>2016-08-21T00:00:00+02:00</updated>
+   <updated>2016-08-21T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2016/08/pair-programming</id>
    <content type="html">&lt;p&gt;Hará algo más de cuatro años, hice una entrevista para una empresa en la que trabajaban utilizando Extreme Programming como metodología. En aquel momento, yo no tenía ni idea de lo que era eso, así que me contaron un poco en qué consistía, y fue algo así: “Todas las mañanas tenemos una reunión de pie, para que así sea más corta, donde hablamos de lo que hicimos el día anterior. Luego, nos ponemos entorno a ese tablón lleno de post-its, que representan tareas, y cada pareja, porque aquí programamos en pareja, elige una tarea y trabaja en ella”.&lt;/p&gt;
 
@@ -964,7 +964,7 @@
  <entry>
    <title>Mis cinco mantras</title>
    <link href="http://www.raulavila.com/2016/07/mis-5-mantras/"/>
-   <updated>2016-07-27T00:00:00+02:00</updated>
+   <updated>2016-07-27T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2016/07/mis-5-mantras</id>
    <content type="html">&lt;p&gt;En mi día a día, cuando estoy desarrollando software, cosa que ocurre la mayor parte del tiempo, intento seguir una serie de principios y buenas prácticas de cara a producir código con la máxima calidad. La mayoría conocemos, al menos de oídas, cuales son esos principios, aunque no siempre los apliquemos: &lt;a href=&quot;https://en.wikipedia.org/wiki/Don%27t_repeat_yourself&quot;&gt;DRY&lt;/a&gt;, &lt;a href=&quot;https://es.wikipedia.org/wiki/SOLID&quot;&gt;SOLID&lt;/a&gt;, etc.&lt;/p&gt;
 
@@ -1079,7 +1079,7 @@
  <entry>
    <title>Antipatrones de Arquitectura Software</title>
    <link href="http://www.raulavila.com/2016/07/antipatrones-arquitectura/"/>
-   <updated>2016-07-10T00:00:00+02:00</updated>
+   <updated>2016-07-10T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2016/07/antipatrones-arquitectura</id>
    <content type="html">&lt;p&gt;Los patrones, sean &lt;a href=&quot;https://es.wikipedia.org/wiki/Patr%C3%B3n_de_dise%C3%B1o&quot;&gt;de diseño&lt;/a&gt;, &lt;a href=&quot;https://www.amazon.com/Pattern-Oriented-Software-Architecture-System-Patterns/dp/0471958697&quot;&gt;de arquitectura&lt;/a&gt;, etc, son una herramienta fundamental a la hora de desarrollar software. Pero en ocasiones, al mismo nivel de importancia encontramos los antipatrones, que no son más que prácticas equivocadas que a primera vista pueden parecer lo contrario.&lt;/p&gt;
 
@@ -1186,7 +1186,7 @@
  <entry>
    <title>Integración continua con Concourse CI&#58; un pipeline real</title>
    <link href="http://www.raulavila.com/2016/06/concourse-3/"/>
-   <updated>2016-06-21T00:00:00+02:00</updated>
+   <updated>2016-06-21T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2016/06/concourse-3</id>
    <content type="html">&lt;p&gt;Finalizaremos con este artículo la serie en torno a &lt;a href=&quot;https://concourse.ci/&quot;&gt;Concourse&lt;/a&gt;. &lt;a href=&quot;/2016/05/concourse-2/&quot;&gt;En posts anteriores&lt;/a&gt; nos centramos en crear pipelines sencillos para introducir los diferentes conceptos que es necesario conocer a la hora de utilizar esta herramienta de integración continua. Sin embargo, ninguno de esos pipelines se asemejaba demasiado a los que utilizaremos en nuestros proyectos del día a día. Ha llegado la hora de presentar un ejemplo más real.&lt;/p&gt;
 
@@ -1396,7 +1396,7 @@ son, pues eso, parámetros, que, o bien pueden variar entre diferentes instancia
  <entry>
    <title>Integración continua con Concourse CI&#58; conceptos avanzados</title>
    <link href="http://www.raulavila.com/2016/05/concourse-2/"/>
-   <updated>2016-05-28T00:00:00+02:00</updated>
+   <updated>2016-05-28T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2016/05/concourse-2</id>
    <content type="html">&lt;p&gt;Seguimos con &lt;a href=&quot;http://concourse.ci/&quot;&gt;Concourse&lt;/a&gt;. En el &lt;a href=&quot;/2016/05/concourse-1/&quot;&gt;anterior post&lt;/a&gt; introdujimos la herramienta y los conceptos básicos que hay que conocer necesariamente para escribir un job sencillo. Sin embargo, quedamos lejos de poder implementar un pipeline real, nuestro primer pipeline solo tenía un job y había que lanzarlo de forma manual. Será en este segundo post de la serie donde nos acercaremos mucho más a un uso práctico de Concourse.&lt;/p&gt;
 
@@ -1635,7 +1635,7 @@ son, pues eso, parámetros, que, o bien pueden variar entre diferentes instancia
  <entry>
    <title>Integración continua con Concourse CI&#58; conceptos básicos</title>
    <link href="http://www.raulavila.com/2016/05/concourse-1/"/>
-   <updated>2016-05-07T00:00:00+02:00</updated>
+   <updated>2016-05-07T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2016/05/concourse-1</id>
    <content type="html">&lt;p&gt;&lt;a href=&quot;http://concourse.ci/&quot;&gt;Concourse CI&lt;/a&gt; es una herramienta Open Source de integración continua (aunque realmente es mucho más) que lleva en desarrollo unos dos años. Hace poco se liberó la &lt;a href=&quot;http://concourse.ci/downloads.html#v100&quot;&gt;versión 1.0&lt;/a&gt;, y personalmente creo que irá pisando cada vez más fuerte. En esta serie de posts trataré de condensar los principales conceptos que es necesario conocer para ponerse manos a la obra en el menor tiempo posible, y desarrollaré un caso más práctico.&lt;/p&gt;
 
@@ -1915,7 +1915,7 @@ succeeded&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>The Passionate Programmer (el libro)</title>
    <link href="http://www.raulavila.com/2016/04/passionate-programmer/"/>
-   <updated>2016-04-27T00:00:00+02:00</updated>
+   <updated>2016-04-27T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2016/04/passionate-programmer</id>
    <content type="html">&lt;p&gt;Disfruto muchísimo la lectura de libros relacionados con las conocidas en inglés como “Soft Skills” (juro que ahora mismo soy incapaz de encontrar una traducción al castellano). Son libros que tratan sobre el desarrollo software, pero que no se centran en temas puramente tecnológicos, sino en aspectos que nos afectan o afectarán a todos a lo largo de nuestra carrera profesional y que es importante tener en cuenta o tomar en consideración.&lt;/p&gt;
 
@@ -2013,7 +2013,7 @@ succeeded&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Creando fixtures de dominio legibles</title>
    <link href="http://www.raulavila.com/2016/04/fixtures-dominio-legibles/"/>
-   <updated>2016-04-17T00:00:00+02:00</updated>
+   <updated>2016-04-17T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2016/04/fixtures-dominio-legibles</id>
    <content type="html">&lt;p&gt;En muchas ocasiones nos habremos encontrado en nuestros proyectos con la necesidad de testear capas aisladas que hacen uso de objetos de dominio, objetos que en tests de integración / producción serán creados y poblados por un framework ORM o similar.&lt;/p&gt;
 
@@ -2245,7 +2245,7 @@ expone Groovy para las clases de forma automática:&lt;/p&gt;
  <entry>
    <title>Agilidad, XP y Scrum</title>
    <link href="http://www.raulavila.com/2016/04/agilidad-xp-scrum/"/>
-   <updated>2016-04-09T00:00:00+02:00</updated>
+   <updated>2016-04-09T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2016/04/agilidad-xp-scrum</id>
    <content type="html">&lt;p&gt;En los últimos años han cobrado relativa popularidad las conocidas como &lt;a href=&quot;http://blog.leanmonitor.com/es/que-son-las-metodologias-agiles/&quot;&gt;metdologías ágiles&lt;/a&gt;, tanta que se llegan a ver ofertas de trabajo buscando “Desarrollador ágil”, “Agile Java Developer” y similares. Cuando inicié mi &lt;a href=&quot;/2015/04/trabajo-londres/&quot;&gt;búsqueda de trabajo en Londres&lt;/a&gt; hace un par de años me sorprendió lo importante que todas las empresas consideraban tener experiencia “agile”. Yo ya conocía algo, pues en mi última empresa española utilizábamos Scrum, así que quizás eso me facilitó encontrar mi primer puesto de trabajo en UK.&lt;/p&gt;
 
@@ -2292,7 +2292,7 @@ expone Groovy para las clases de forma automática:&lt;/p&gt;
  <entry>
    <title>TDD&#58; Hello World Web App</title>
    <link href="http://www.raulavila.com/2016/03/hello-world-tdd/"/>
-   <updated>2016-03-12T00:00:00+01:00</updated>
+   <updated>2016-03-12T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2016/03/hello-world-tdd</id>
    <content type="html">&lt;p&gt;Seguimos con  mi viaje dentro del mundo TDD. Uno de los mayores dilemas a los que nos enfrentamos a la hora de diseñar un nuevo sistema mediante tests es por dónde debemos empezar, existiendo como existen tantas modalidades distintas de tests (unitarios, integración, de navegador, etc).&lt;/p&gt;
 
@@ -2587,7 +2587,7 @@ Actual   :404&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Spock vs JUnit</title>
    <link href="http://www.raulavila.com/2016/03/spock-vs-junit/"/>
-   <updated>2016-03-05T00:00:00+01:00</updated>
+   <updated>2016-03-05T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2016/03/spock-vs-junit</id>
    <content type="html">&lt;p&gt;&lt;a href=&quot;http://junit.org/&quot;&gt;JUnit&lt;/a&gt; es, de facto, el framework para testear código Java. No creo que nadie le retire su trono a corto plazo, &lt;a href=&quot;http://junit.org/junit-lambda.html&quot;&gt;JUnit Lambda&lt;/a&gt; está cerca de ser liberado, por lo que las nuevas funcionalidades de Java 8 serán perfectamente soportadas, cosa que en los dos últimos años ha sido un ligero hándicap.&lt;/p&gt;
 
@@ -2797,7 +2797,7 @@ sum == expectedResult
  <entry>
    <title>Revisa tu código autogenerado</title>
    <link href="http://www.raulavila.com/2016/02/codigo-autogenerado/"/>
-   <updated>2016-02-20T00:00:00+01:00</updated>
+   <updated>2016-02-20T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2016/02/codigo-autogenerado</id>
    <content type="html">&lt;p&gt;En este post pretendo revisar una serie de detalles que, basándome en mi experiencia, es muy normal que pasemos por alto a la hora de desarrollar código en Java, y nos lleve a dar por buenas decisiones que pueden no serlo tanto. Todas ellas tienen su causa en la asistencia para generar código que nos ofrecen los IDEs, y que nos lleva a no revisar (o no reflexionar debidamente) sobre lo que acaba de ocurrir cuando seleccionamos esa “mágica” opción de nuestro menú.&lt;/p&gt;
 
@@ -3040,7 +3040,7 @@ sum == expectedResult
  <entry>
    <title>Un año de blog</title>
    <link href="http://www.raulavila.com/2016/01/primer-aniversario/"/>
-   <updated>2016-01-31T00:00:00+01:00</updated>
+   <updated>2016-01-31T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2016/01/primer-aniversario</id>
    <content type="html">&lt;p&gt;Pues como quien no quiere la cosa ya hace un año que inicié mi aventura con este blog :). Concretamente el 25 de Enero de 2015 publiqué el inevitable &lt;a href=&quot;/2015/01/hello-world&quot;&gt;Hello World&lt;/a&gt;, y las dos semanas previas a esa fecha las pasé configurando todo para la puesta en marcha, &lt;a href=&quot;/2015/01/como-hice-el-blog&quot;&gt;tal y como expliqué en mi segundo post&lt;/a&gt;.&lt;/p&gt;
 
@@ -3069,7 +3069,7 @@ sum == expectedResult
  <entry>
    <title>Aprendiendo TDD</title>
    <link href="http://www.raulavila.com/2016/01/aprendiendo-TDD/"/>
-   <updated>2016-01-24T00:00:00+01:00</updated>
+   <updated>2016-01-24T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2016/01/aprendiendo-TDD</id>
    <content type="html">&lt;p&gt;Retomo el blog tras más de dos meses de parón. Los motivos han sido dos: mi búsqueda personal de un nuevo trabajo en Londres (&lt;a href=&quot;/2015/04/trabajo-londres&quot;&gt;ya escribí acerca de lo exigente que puede llegar a ser esto&lt;/a&gt;), y las merecidas vacaciones navideñas.&lt;/p&gt;
 
@@ -3128,7 +3128,7 @@ sum == expectedResult
  <entry>
    <title>Global Day of Code Retreat (2015)</title>
    <link href="http://www.raulavila.com/2015/11/code-retreat-2015/"/>
-   <updated>2015-11-16T00:00:00+01:00</updated>
+   <updated>2015-11-16T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/11/code-retreat-2015</id>
    <content type="html">&lt;p&gt;La semana pasada tuvo lugar el &lt;a href=&quot;http://globalday.coderetreat.org/&quot;&gt;“Global Day of Code Retreat”&lt;/a&gt;. Se trata de un acontecimiento a nivel mundial, donde programadores de cualquier experiencia y bagaje se juntan durante un día para mejorar sus habilidades.&lt;/p&gt;
 
@@ -3163,7 +3163,7 @@ sum == expectedResult
  <entry>
    <title>Tests de contrato</title>
    <link href="http://www.raulavila.com/2015/11/test-de-contrato/"/>
-   <updated>2015-11-08T00:00:00+01:00</updated>
+   <updated>2015-11-08T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/11/test-de-contrato</id>
    <content type="html">&lt;p&gt;Prosiguiendo con mi inmersión en el mundo del &lt;a href=&quot;/2015/08/primera-experiencia-tdd&quot;&gt;TDD&lt;/a&gt;, hace poco he finalizado un curso online que me ha parecido excepcionalmente bueno. Impartido por &lt;a href=&quot;https://en.wikipedia.org/wiki/J._B._Rainsberger&quot;&gt;JB Rainsberger&lt;/a&gt;, y con el modesto título de &lt;a href=&quot;http://www.jbrains.ca/permalink/the-worlds-best-intro-to-tdd-demo-video&quot;&gt;“World’s best intro to TDD”&lt;/a&gt;, durante más de 20 horas de vídeo, nos desgrana diferentes acercamientos (approaches que llaman) al desarrollo de software utilizando TDD.&lt;/p&gt;
 
@@ -3313,7 +3313,7 @@ sum == expectedResult
  <entry>
    <title>Estar al día</title>
    <link href="http://www.raulavila.com/2015/10/estar-al-dia/"/>
-   <updated>2015-10-24T00:00:00+02:00</updated>
+   <updated>2015-10-24T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/10/estar-al-dia</id>
    <content type="html">&lt;p&gt;En su charla &lt;a href=&quot;https://www.youtube.com/watch?v=7rMM6BqNEq4&quot;&gt;“Políticamente Incorrecto”&lt;/a&gt;, &lt;a href=&quot;https://twitter.com/david_bonilla&quot;&gt;David Bonilla&lt;/a&gt; comentaba, entre las risas de los presentes, que abandonó la carrera de Derecho para estudiar Informática debido a que le resultaba agotador pensar que siendo abogado debería estar toda su vida estudiando.&lt;/p&gt;
 
@@ -3369,7 +3369,7 @@ sum == expectedResult
  <entry>
    <title>Patterns of Enterprise Application Architecture (y 2)</title>
    <link href="http://www.raulavila.com/2015/10/patterns-eaa-2/"/>
-   <updated>2015-10-10T00:00:00+02:00</updated>
+   <updated>2015-10-10T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/10/patterns-eaa-2</id>
    <content type="html">&lt;p&gt;Continuamos con el repaso a &lt;a href=&quot;http://www.amazon.es/Enterprise-Application-Architecture-Addison-Wesley-Signature/dp/0321127420/ref=sr_1_1?ie=UTF8&amp;amp;qid=1443261882&amp;amp;sr=8-1&amp;amp;keywords=patterns+of+enterprise+application+architecture&quot;&gt;la obra de Fowler&lt;/a&gt;. &lt;a href=&quot;/2015/09/patterns-eaa-1&quot;&gt;En la primera entrega&lt;/a&gt; nos centramos en describir qué es una aplicación empresarial, pasar lista a una serie de métricas de rendimiento, y destacar algunos de los patrones descritos en la primera parte del libro. En este nuevo post, que espero no quede demasiado farragoso, intentaré resumir los que considero los patrones más interesantes de la segunda parte.&lt;/p&gt;
 
@@ -3448,7 +3448,7 @@ sum == expectedResult
  <entry>
    <title>Patterns of Enterprise Application Architecture (1)</title>
    <link href="http://www.raulavila.com/2015/09/patterns-eaa-1/"/>
-   <updated>2015-09-26T00:00:00+02:00</updated>
+   <updated>2015-09-26T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/09/patterns-eaa-1</id>
    <content type="html">&lt;p&gt;&lt;img src=&quot;/public/pictures/patterns-eaa.jpg&quot; alt=&quot;Patterns of EAA, the book&quot; /&gt;&lt;/p&gt;
 
@@ -3540,7 +3540,7 @@ sum == expectedResult
  <entry>
    <title>Resolución de dependencias en Gradle</title>
    <link href="http://www.raulavila.com/2015/09/gradle-dependencias/"/>
-   <updated>2015-09-13T00:00:00+02:00</updated>
+   <updated>2015-09-13T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/09/gradle-dependencias</id>
    <content type="html">&lt;p&gt;En el &lt;a href=&quot;/2015/09/gradle-desde-maven&quot;&gt;anterior post&lt;/a&gt; introdujimos Gradle como herramienta de desarrollo y gestión de proyectos software. Comentaba al final del artículo que no me convencía demasiado la forma en que se llevaba a cabo la resolución de dependencias, así que intentaré explicar a qué me refiero exactamente.&lt;/p&gt;
 
@@ -3667,7 +3667,7 @@ sum == expectedResult
  <entry>
    <title>Gradle desde Maven</title>
    <link href="http://www.raulavila.com/2015/09/gradle-desde-maven/"/>
-   <updated>2015-09-05T00:00:00+02:00</updated>
+   <updated>2015-09-05T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/09/gradle-desde-maven</id>
    <content type="html">&lt;p&gt;Tras hablar de &lt;a href=&quot;/2015/08/caracteristicas-maven/&quot;&gt;Maven&lt;/a&gt; hace un par de posts, he pensado que sería interesante realizar una introducción a &lt;a href=&quot;https://gradle.org/&quot;&gt;Gradle&lt;/a&gt;, una alternativa con sus orígenes en proyectos basados en el lenguaje &lt;a href=&quot;http://www.groovy-lang.org/&quot;&gt;Groovy&lt;/a&gt;. Groovy, al ser un lenguaje ejecutable en la JVM, convive perfectamente con Java, y de esta compatibilidad surgen interesantes aplicaciones (entre las que, a mi parecer, destaca el framework de testing &lt;a href=&quot;https://github.com/spockframework/&quot;&gt;Spock&lt;/a&gt;, del que hablaremos muy pronto).&lt;/p&gt;
 
@@ -3863,7 +3863,7 @@ sum == expectedResult
  <entry>
    <title>Reflexiones tras 10 años de profesional</title>
    <link href="http://www.raulavila.com/2015/08/10-years/"/>
-   <updated>2015-08-29T00:00:00+02:00</updated>
+   <updated>2015-08-29T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/08/10-years</id>
    <content type="html">&lt;p&gt;El 22 de Agosto se cumplió una década desde mi debut en la profesión. No diría que el tiempo ha pasado volando. Hace poco leí que el cerebro humano ajusta su percepción del tiempo a la cantidad de hechos importantes ocurridos durante un lapso determinado. Por ese motivo de jóvenes tenemos la impresión de que el tiempo pasa más despacio que de adultos, porque supuestamente en edades más avanzadas la rutina nos domina. Bueno, en mi caso, durantes estos años he vivido montones de experiencias (unas mejores que otras), así que puede ser un factor de importancia en esto que comento.&lt;/p&gt;
 
@@ -3908,7 +3908,7 @@ sum == expectedResult
  <entry>
    <title>Características de Maven que (quizás) no conocías</title>
    <link href="http://www.raulavila.com/2015/08/caracteristicas-maven/"/>
-   <updated>2015-08-16T00:00:00+02:00</updated>
+   <updated>2015-08-16T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/08/caracteristicas-maven</id>
    <content type="html">&lt;p&gt;&lt;a href=&quot;https://maven.apache.org/&quot;&gt;Maven&lt;/a&gt; es, de facto, la herramienta Java para construir y gestionar proyectos de desarrollo. En su día ocupó el lugar de &lt;a href=&quot;http://ant.apache.org/&quot;&gt;Apache Ant&lt;/a&gt;, debido sobre todo a su modelo “convention over configuration”. La gran diferencia que aportaba sobre aquella es la facilidad para configurar un proyecto basándonos en estándares, que si no queríamos sobrescribir facilitaba enormemente el proceso de puesta en marcha inicial. Actualmente, &lt;a href=&quot;https://gradle.org/&quot;&gt;Gradle&lt;/a&gt; va ganando popularidad, y aunque personalmente le veo potencial, su flexibilidad (que remite a Ant) puede llegar a ser un hándicap a la hora de comprender una configuración determinada. Maven sigue siendo, por tanto, un must si desarrollas con Java.&lt;/p&gt;
 
@@ -4070,7 +4070,7 @@ sum == expectedResult
  <entry>
    <title>Mi primera experiencia con TDD</title>
    <link href="http://www.raulavila.com/2015/08/primera-experiencia-tdd/"/>
-   <updated>2015-08-01T00:00:00+02:00</updated>
+   <updated>2015-08-01T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/08/primera-experiencia-tdd</id>
    <content type="html">&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Test-driven_development&quot;&gt;Test Driven Development&lt;/a&gt;, más conocido como TDD, es una metodología de desarrollo de software que en la última década ha ido cobrando más vigencia cada año. Inicialmente “inventado” por &lt;a href=&quot;https://twitter.com/KentBeck&quot;&gt;Kent Beck&lt;/a&gt;, una de las figuras más importantes de este mundillo, adoptado por una parte importante del mundo &lt;a href=&quot;http://agilemethodology.org/&quot;&gt;Agile&lt;/a&gt;, y especialmente por el movimiento &lt;a href=&quot;http://manifesto.softwarecraftsmanship.org/&quot;&gt;Software Craftsmanship&lt;/a&gt;, a nivel personal mi acercamiento hasta hace nada había sido puramente teórico.&lt;/p&gt;
 
@@ -4145,7 +4145,7 @@ sum == expectedResult
  <entry>
    <title>La revolución Docker</title>
    <link href="http://www.raulavila.com/2015/07/revolucion-docker/"/>
-   <updated>2015-07-19T00:00:00+02:00</updated>
+   <updated>2015-07-19T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/07/revolucion-docker</id>
    <content type="html">&lt;p&gt;En los últimos doce meses no se habla de otra cosa. Una herramienta cuya primera release fue hace menos de tres años, si las cuentas no me fallan (compañía fundada en 2010), está copando todo tipo de conversaciones, charlas, artículos, blogs…ha sido adoptada por &lt;a href=&quot;http://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html&quot;&gt;Amazon WS&lt;/a&gt;, y casi todas las plataformas Cloud, y su ascensión continúa de modo vertiginoso.&lt;/p&gt;
 
@@ -4306,7 +4306,7 @@ ADD target/spring-mvc-hw.war /usr/local/tomcat/webapps/&lt;/code&gt;&lt;/pre&gt;
  <entry>
    <title>Acoplamiento temporal</title>
    <link href="http://www.raulavila.com/2015/07/acoplamiento-temporal/"/>
-   <updated>2015-07-08T00:00:00+02:00</updated>
+   <updated>2015-07-08T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/07/acoplamiento-temporal</id>
    <content type="html">&lt;p&gt;Creo que todos habremos leído más de un artículo o libro en el que, mencionando las buenas prácticas que debemos seguir a la hora de diseñar e implementar nuestras aplicaciones, se hace especial hincapié en dos conceptos:&lt;/p&gt;
 
@@ -4577,7 +4577,7 @@ paella - Serving...&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Multithreading para dummies (3)</title>
    <link href="http://www.raulavila.com/2015/06/multithreading-3/"/>
-   <updated>2015-06-28T00:00:00+02:00</updated>
+   <updated>2015-06-28T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/06/multithreading-3</id>
    <content type="html">&lt;p&gt;Seguimos con la serie de Multithreading. Nuestro juego de Ping Pong &lt;a href=&quot;/2015/06/multithreading-2/&quot;&gt;lo dejamos&lt;/a&gt; en un punto bastante óptimo, con los threads (jugadores) quedando bloqueados a la espera de su turno, y con la posibilidad de escalar al número de jugadores que quisiéramos. Sin embargo, había algo que no era demasiado elegante, y es que la clase &lt;code class=&quot;highlighter-rouge&quot;&gt;Game&lt;/code&gt; se encargaba enteramente de la creación, inicio y finalización de threads, así como de sincronizarse con estos para no terminar antes de que los diferentes threads lo hubieran hecho:&lt;/p&gt;
 
@@ -4885,7 +4885,7 @@ pong&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Multithreading para dummies (2)</title>
    <link href="http://www.raulavila.com/2015/06/multithreading-2/"/>
-   <updated>2015-06-13T00:00:00+02:00</updated>
+   <updated>2015-06-13T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/06/multithreading-2</id>
    <content type="html">&lt;p&gt;En &lt;a href=&quot;/2015/05/multithreading-1/&quot;&gt;mi anterior post&lt;/a&gt; vimos algunos conceptos básicos de multithreading desde un punto de vista eminentemente práctico. Con el desarrollo de un juego de Ping Pong en mente, continuaremos introduciendo mejoras progresivas que nos servirán para explicar conceptos que todos deberíamos conocer a la hora de implementar aplicaciones concurrentes en Java.&lt;/p&gt;
 
@@ -5329,7 +5329,7 @@ Game finished!&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Multithreading para dummies (1)</title>
    <link href="http://www.raulavila.com/2015/05/multithreading-1/"/>
-   <updated>2015-05-31T00:00:00+02:00</updated>
+   <updated>2015-05-31T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/05/multithreading-1</id>
    <content type="html">&lt;p&gt;Voy a iniciar con este post una serie en la que introduciré conceptos básicos de programación concurrente / multithreading. Lo sé, Internet está plagado de referencias, tutoriales, artículos, etc, pero mi intención será dar un enfoque diferente en este blog. Lo normal, o al menos eso me ha parecido a mí siempre que he intentado empaparme de este tema es profundizar mucho en la teoría por un lado, o bien en ejemplos excesivamente complejos por otro.&lt;/p&gt;
 
@@ -5724,7 +5724,7 @@ ping&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Explorando Vagrant</title>
    <link href="http://www.raulavila.com/2015/05/explorando-vagrant/"/>
-   <updated>2015-05-17T00:00:00+02:00</updated>
+   <updated>2015-05-17T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/05/explorando-vagrant</id>
    <content type="html">&lt;p&gt;La configuración de los entornos de desarrollo, y los problemas derivados de la incompatibilidad entre diferentes versiones, ha sido, desde siempre, uno de los grandes problemas que hay que afrontar durante el curso de un proyecto.&lt;/p&gt;
 
@@ -5942,7 +5942,7 @@ vagrant package
  <entry>
    <title>Mutation testing&#58; tests de máxima calidad</title>
    <link href="http://www.raulavila.com/2015/05/mutation-testing/"/>
-   <updated>2015-05-10T00:00:00+02:00</updated>
+   <updated>2015-05-10T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/05/mutation-testing</id>
    <content type="html">&lt;p&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Mutation_testing&quot;&gt;Mutation testing&lt;/a&gt; es una forma de evaluar la calidad de nuestros tests, que aunque según el artículo enlazado comenzó a plantearse en la década de los 70, no ha sido hasta hace relativamente poco tiempo que está adquiriendo relativa presencia en entornos empresariales. De hecho, diría que aún le falta mucho camino por recorrer para implantarse definitivamente. Espero, desde este modesto blog, aportar mi granito de arena para que su uso vaya aumentando como realmente merece.&lt;/p&gt;
 
@@ -6276,7 +6276,7 @@ vagrant package
  <entry>
    <title>Complejidad esencial vs Complejidad accidental</title>
    <link href="http://www.raulavila.com/2015/05/complejidad-esencial-accidental/"/>
-   <updated>2015-05-01T00:00:00+02:00</updated>
+   <updated>2015-05-01T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/05/complejidad-esencial-accidental</id>
    <content type="html">&lt;p&gt;“¿Complejidad qué? ¿De qué demonios hablas?”, pensarán muchos lectores (o al menos un porcentaje de los que me leen :)). Trataré en este post de aclarar estos conceptos, que, siendo algo omnipresente en nuestro día a día como desarrolladores de software, seguramente el hacerlos patentes nos haga reflexionar más sobre nuestas decisiones en el futuro.&lt;/p&gt;
 
@@ -6363,7 +6363,7 @@ vagrant package
  <entry>
    <title>MethodHandles como alternativa a Reflection</title>
    <link href="http://www.raulavila.com/2015/04/method-handles/"/>
-   <updated>2015-04-25T00:00:00+02:00</updated>
+   <updated>2015-04-25T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/04/method-handles</id>
    <content type="html">&lt;p&gt;En la versión 7 de Java se incluyó una nueva API llamanda &lt;a href=&quot;http://docs.oracle.com/javase/7/docs/api/java/lang/invoke/MethodHandle.html&quot;&gt;MethodHandle&lt;/a&gt;, y que fue presentada como una alternativa a &lt;a href=&quot;https://docs.oracle.com/javase/tutorial/reflect/&quot;&gt;Reflection&lt;/a&gt; para poder acceder de forma dinámica a los miembros de una clase en tiempo de ejecución. Además, al parecer, el rendimiento es superior al ofrecido por Reflection, acercándose al obtenido por invocaciones directas a los métodos.&lt;/p&gt;
 
@@ -6530,7 +6530,7 @@ MethodHandles (store), total time: 18.233666 ms&lt;/code&gt;&lt;/pre&gt;&lt;/fig
  <entry>
    <title>Optimizando el patrón Producer-Consumer con TransferQueue</title>
    <link href="http://www.raulavila.com/2015/04/producer-consumer-transferqueue/"/>
-   <updated>2015-04-18T00:00:00+02:00</updated>
+   <updated>2015-04-18T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/04/producer-consumer-transferqueue</id>
    <content type="html">&lt;p&gt;El multithreading es quizás el área más peliaguda del desarrollo software. No es mi intención en este post desgranar todos los problemas que nos podemos encontrar al diseñar e implementar un sistema con máxima concurrencia, pero seguramente os suenen conceptos como &lt;a href=&quot;http://en.wikipedia.org/wiki/Deadlock&quot;&gt;deadlocks&lt;/a&gt;, liveness, etc, que son increíblemente difíciles de depurar debido al indeterminismo de este tipo de aplicaciones.&lt;/p&gt;
 
@@ -7035,7 +7035,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>El patrón Composite en la práctica</title>
    <link href="http://www.raulavila.com/2015/04/patron-composite/"/>
-   <updated>2015-04-11T00:00:00+02:00</updated>
+   <updated>2015-04-11T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/04/patron-composite</id>
    <content type="html">&lt;p&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/Design_Patterns&quot;&gt;Los patrones de diseño del Gang of Four&lt;/a&gt; son una de las piedras angulares en el desarrollo de software. Algunos de ellos tan importantes que han sido absorbidos por implementaciones nativas en los lenguajes de programación y los damos como algo dado sin darnos cuenta del patrón que reside detrás (caso de &lt;a href=&quot;http://en.wikipedia.org/wiki/Iterator_pattern&quot;&gt;Iterator&lt;/a&gt;).&lt;/p&gt;
 
@@ -7339,7 +7339,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Cómo encontré trabajo de informático en Londres</title>
    <link href="http://www.raulavila.com/2015/04/trabajo-londres/"/>
-   <updated>2015-04-05T00:00:00+02:00</updated>
+   <updated>2015-04-05T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/04/trabajo-londres</id>
    <content type="html">&lt;p&gt;Tenía este tema en mi lista de pendientes desde que inicié el blog. Y dado que en breve cumpliré un año viviendo en Londres, creo que ahora es un buen momento para contar el proceso que seguí a la hora de buscar trabajo aquí &lt;strong&gt;desde España&lt;/strong&gt;.&lt;/p&gt;
 
@@ -7490,7 +7490,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Las reuniones en proyectos de desarrollo</title>
    <link href="http://www.raulavila.com/2015/04/reuniones/"/>
-   <updated>2015-04-02T00:00:00+02:00</updated>
+   <updated>2015-04-02T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2015/04/reuniones</id>
    <content type="html">&lt;p&gt;Vamos a abordar un tema polémico. ¿Son necesarias las reuniones? ¿Tienen un claro ROI (&lt;a href=&quot;http://es.wikipedia.org/wiki/Retorno_de_la_inversi%C3%B3n&quot;&gt;retorno de la inversión&lt;/a&gt;) o son el mayor ladrón de tiempo para un desarrollador de software? ¿Podemos rechazar alegremente una convocatoria de reunión si la consideramos innecesaria?&lt;/p&gt;
 
@@ -7550,7 +7550,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Code Reviews (revisiones de código)</title>
    <link href="http://www.raulavila.com/2015/03/code-reviews/"/>
-   <updated>2015-03-26T00:00:00+01:00</updated>
+   <updated>2015-03-26T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/03/code-reviews</id>
    <content type="html">&lt;p&gt;¿Son necesarias las revisiones de código? ¿No revisamos ya el código al mismo tiempo que desarrollamos? Si ya utilizo el refactoring como práctica habitual, ¿qué sentido tiene revisar el código de nuevo?&lt;/p&gt;
 
@@ -7645,7 +7645,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Dependency Inversion vs Dependency Injection</title>
    <link href="http://www.raulavila.com/2015/03/principios-dependencias/"/>
-   <updated>2015-03-22T00:00:00+01:00</updated>
+   <updated>2015-03-22T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/03/principios-dependencias</id>
    <content type="html">&lt;p&gt;Mi intención con este post es dar un poco de luz a toda la confusión que parece que existe en torno a dos conceptos/principios:&lt;/p&gt;
 
@@ -8033,7 +8033,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Eliminando dependencias estáticas en legacy code</title>
    <link href="http://www.raulavila.com/2015/03/refactoring-legacy-static/"/>
-   <updated>2015-03-15T00:00:00+01:00</updated>
+   <updated>2015-03-15T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/03/refactoring-legacy-static</id>
    <content type="html">&lt;p&gt;Modificar un sistema legacy es, quizás, una de las labores más desagradables de nuestra profesión, sobre todo cuando nos es completamente ajeno. El motivo es, sin discusión, &lt;strong&gt;la ausencia de tests&lt;/strong&gt;.&lt;/p&gt;
 
@@ -8427,7 +8427,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Novedades en Spring 4 (y 2)</title>
    <link href="http://www.raulavila.com/2015/03/spring-4-novedades-2/"/>
-   <updated>2015-03-08T00:00:00+01:00</updated>
+   <updated>2015-03-08T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/03/spring-4-novedades-2</id>
    <content type="html">&lt;p&gt;Continuamos con el repaso a las novedades de la versión 4 de Spring, en esta ocasión más centrados en las relativas al desarrollo web, servicios REST, etc.&lt;/p&gt;
 
@@ -8684,7 +8684,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Novedades en Spring 4 (parte 1)</title>
    <link href="http://www.raulavila.com/2015/02/spring-4-novedades/"/>
-   <updated>2015-02-28T00:00:00+01:00</updated>
+   <updated>2015-02-28T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/02/spring-4-novedades</id>
    <content type="html">&lt;p&gt;De todos los frameworks que existen dentro del mundo Java, posiblemente Spring sea el más popular. Rara es la oferta de trabajo en la que busquen Desarrolladores Java y Spring no aparezca en el stack requerido para el puesto.&lt;/p&gt;
 
@@ -8897,7 +8897,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>International Developers in London Conference</title>
    <link href="http://www.raulavila.com/2015/02/idinlondon-conference/"/>
-   <updated>2015-02-22T00:00:00+01:00</updated>
+   <updated>2015-02-22T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/02/idinlondon-conference</id>
    <content type="html">&lt;p&gt;El pasado sábado asistí a la “International Developers in London Conference”. Esta conferencia forma parte de los diferentes eventos englobados en los meetups &lt;a href=&quot;http://www.idinlondon.co.uk/#home&quot;&gt;International Developers in London&lt;/a&gt; (valga la redundancia), organizados por un recruiter llamado &lt;a href=&quot;https://twitter.com/Adam__Bolton&quot;&gt;Adam Bolton&lt;/a&gt;. Los recruiters de esta ciudad no son conocidos precisamente por su profesionalidad y buenas formas, pero este en cuestión entraría dentro de la categoría de “buenos recruiters”.&lt;/p&gt;
 
@@ -8972,7 +8972,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Uso avanzado de enumerados</title>
    <link href="http://www.raulavila.com/2015/02/enums-java/"/>
-   <updated>2015-02-18T00:00:00+01:00</updated>
+   <updated>2015-02-18T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/02/enums-java</id>
    <content type="html">&lt;p&gt;&lt;a href=&quot;http://docs.oracle.com/javase/7/docs/api/java/lang/Enum.html&quot;&gt;Los tipos enumerados de Java&lt;/a&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;enum&lt;/code&gt;) fueron añadidos en la versión 5 del lenguaje. Su uso más inmediato fue el de “contenedores de constantes”, y me temo que gran parte de los desarrolladores desconocen la flexibilidad que permiten más allá de este típico uso:&lt;/p&gt;
 
@@ -9358,7 +9358,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Desgranando Fowler's Refactoring (y 3)</title>
    <link href="http://www.raulavila.com/2015/02/fowler-refactoring-3/"/>
-   <updated>2015-02-14T00:00:00+01:00</updated>
+   <updated>2015-02-14T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/02/fowler-refactoring-3</id>
    <content type="html">&lt;p&gt;Termino con este post mi repaso a los “puntos mejorables” en el libro de Fowler. Insisto en mi consideración a esta obra como una referencia indiscutible, de hecho en casi 400 páginas sólo he encontrado unos pocos puntos dignos de discusión. Además si algún lector considera que he desbarrado en algún aspecto, admitiré encantado cualquier comentario.&lt;/p&gt;
 
@@ -9505,7 +9505,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Desgranando Fowler's Refactoring (parte 2)</title>
    <link href="http://www.raulavila.com/2015/02/fowler-refactoring-2/"/>
-   <updated>2015-02-10T00:00:00+01:00</updated>
+   <updated>2015-02-10T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/02/fowler-refactoring-2</id>
    <content type="html">&lt;p&gt;Continúo la serie de artículos sobre “Refactoring”. En esta ocasión la víctima de mi bisturí será lo que, a mi parecer, es un claro error de diseño cometido en la página 225, cuando se desgrana el refactoring “Replace type code with subclasses”. El resultado final de este refactoring está representado en el siguiente diagrama UML:&lt;/p&gt;
 
@@ -9710,7 +9710,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Desgranando Fowler's Refactoring (parte 1)</title>
    <link href="http://www.raulavila.com/2015/02/fowler-refactoring-1/"/>
-   <updated>2015-02-08T00:00:00+01:00</updated>
+   <updated>2015-02-08T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/02/fowler-refactoring</id>
    <content type="html">&lt;p&gt;&lt;img src=&quot;/public/pictures/refactoring_fowler.jpg&quot; alt=&quot;Refactoring, el libro&quot; /&gt;&lt;/p&gt;
 
@@ -9824,7 +9824,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Atajos de teclado en IDE's</title>
    <link href="http://www.raulavila.com/2015/02/atajos-teclado-ide/"/>
-   <updated>2015-02-01T00:00:00+01:00</updated>
+   <updated>2015-02-01T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/02/atajos-teclado-ide</id>
    <content type="html">&lt;p&gt;En mi &lt;a href=&quot;/2015/01/entornos-integrados-desarrollo&quot;&gt;anterior post&lt;/a&gt; hablé de IDE’s y las diferentes alternativas que hay en el mercado. Mi intención inicial con ese post era hablar de atajos de teclado, pero me extendí demasiado con la introducción y preferí terminar ese hilo para hablar de ello más adelante.&lt;/p&gt;
 
@@ -10748,7 +10748,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Entornos integrados de desarrollo (IDE)</title>
    <link href="http://www.raulavila.com/2015/01/entornos-integrados-desarrollo/"/>
-   <updated>2015-01-31T00:00:00+01:00</updated>
+   <updated>2015-01-31T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/01/entornos-integrados-desarrollo</id>
    <content type="html">&lt;p&gt;&lt;img src=&quot;/public/pictures/screenshot_intellij.png&quot; alt=&quot;IntelliJ Idea&quot; /&gt;&lt;/p&gt;
 
@@ -10783,7 +10783,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Cómo hice el blog</title>
    <link href="http://www.raulavila.com/2015/01/como-hice-el-blog/"/>
-   <updated>2015-01-26T00:00:00+01:00</updated>
+   <updated>2015-01-26T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/01/como-hice-el-blog</id>
    <content type="html">&lt;p&gt;&lt;img src=&quot;/public/pictures/jekyll-github.png&quot; alt=&quot;Jekyll y GitHub&quot; /&gt;&lt;/p&gt;
 
@@ -10846,7 +10846,7 @@ Dryer: dish 1 is dry (done)&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
  <entry>
    <title>Hello World!</title>
    <link href="http://www.raulavila.com/2015/01/hello-world/"/>
-   <updated>2015-01-25T00:00:00+01:00</updated>
+   <updated>2015-01-25T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2015/01/hello-world</id>
    <content type="html">&lt;p&gt;Desde hace tiempo me lleva rondando por la cabeza la idea de tener una página personal / blog. La verdad es que hasta hace poco consideraba que no tenía demasiadas cosas que aportar a la comunidad, pero me he dado cuenta de que &lt;a href=&quot;/sobre-mi&quot;&gt;cualquiera&lt;/a&gt; en este mundillo tiene algo que decir.&lt;/p&gt;
 
