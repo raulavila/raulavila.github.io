@@ -91,7 +91,7 @@
 
 <p>Es este último punto precisamente el que supone un pequeño hándicap para este patrón de diseño. En el libro de la serie “Head First” se discute bastante sobre este asunto, el problema es que estas operaciones al ser específicas de la clase Composite no pertenecen a la interfaz, por lo que, en cierta medida, los clientes han de ser conscientes de las implementaciones que existen de la interfaz (y hacer <a href="http://stackoverflow.com/questions/380813/downcasting-in-java">downcasting</a>), rompiendo el principio <a href="http://www.fatagnus.com/program-to-an-interface-not-an-implementation/">Program to an interface, not an implementation</a>. Otra posible solución sería elevar las operaciones a la interfaz, y lanzando una excepción si las invocamos desde <code class="highlighter-rouge">Leaf</code>, pero esa solución me parece igualmente mala.</p>
 
-<h3 id="la-versin-inmutable">La versión inmutable</h3>
+<h3 id="la-versión-inmutable">La versión inmutable</h3>
 
 <p>En general, el típico ejemplo para explicar el patrón Composite es una aplicación de dibujo en la que a partir de formas geométricas básicas (círculo, cuadrado…) creamos formas más complejas que se van agrupando. En este caso sí que tiene sentido el carácter vivo de la clase Composite.</p>
 
@@ -101,7 +101,7 @@
 
 <p>En gran medida, estos problemas pueden evitarse con lo que yo llamo la versión inmutable del patrón Composite. Es inmutable porque se inicializa una sola vez y no permite modificar su estrucutra, es decir, nos cargamos las operaciones <code class="highlighter-rouge">add</code> y <code class="highlighter-rouge">remove</code> de la versión vista más arriba. Veámoslo con un ejemplo concreto.</p>
 
-<h3 id="una-implementacin-de-ejemplo">Una implementación de ejemplo</h3>
+<h3 id="una-implementación-de-ejemplo">Una implementación de ejemplo</h3>
 
 <p>Imaginemos un escenario en el que tenemos que validar una estructura de datos utilizada para dar de alta un nuevo usuario en un sistema.</p>
 
@@ -131,7 +131,7 @@
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Validator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{</span>
 
-    <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">validate</span><span class="o">(</span><span class="n">T</span> <span class="n">info</span><span class="o">);</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">validate</span><span class="o">(</span><span class="n">T</span> <span class="n">info</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>La interfaz es genérica, ya que así podríamos reutilizarla para otras estrucuturas de datos.</p>
@@ -150,12 +150,12 @@
 
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Validator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">validators</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">CompositeValidator</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Validator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">validators</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">CompositeValidator</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Validator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">validators</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">validators</span> <span class="o">=</span> <span class="n">validators</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">validate</span><span class="o">(</span><span class="n">T</span> <span class="n">info</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">validate</span><span class="o">(</span><span class="n">T</span> <span class="n">info</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">errors</span> <span class="o">=</span> <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">();</span>
 
         <span class="k">for</span> <span class="o">(</span><span class="n">Validator</span> <span class="n">validator</span> <span class="o">:</span> <span class="n">validators</span><span class="o">)</span> <span class="o">{</span>
@@ -175,7 +175,7 @@
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">NameValidator</span> <span class="kd">implements</span> <span class="n">Validator</span><span class="o">&lt;</span><span class="n">NewUserInfo</span><span class="o">&gt;</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">validate</span><span class="o">(</span><span class="n">NewUserInfo</span> <span class="n">info</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">validate</span><span class="o">(</span><span class="n">NewUserInfo</span> <span class="n">info</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">errors</span> <span class="o">=</span> <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">();</span>
 
         <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
@@ -195,7 +195,7 @@
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">AgeValidator</span> <span class="kd">implements</span> <span class="n">Validator</span><span class="o">&lt;</span><span class="n">NewUserInfo</span><span class="o">&gt;</span> <span class="o">{</span>
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">validate</span><span class="o">(</span><span class="n">NewUserInfo</span> <span class="n">info</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">validate</span><span class="o">(</span><span class="n">NewUserInfo</span> <span class="n">info</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">errors</span> <span class="o">=</span> <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">();</span>
 
         <span class="kt">int</span> <span class="n">age</span> <span class="o">=</span> <span class="n">info</span><span class="o">.</span><span class="na">getAge</span><span class="o">();</span>
@@ -293,7 +293,7 @@
     <span class="kd">private</span> <span class="n">Object</span> <span class="n">info</span><span class="o">;</span>
 
     <span class="nd">@Before</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="n">MockitoAnnotations</span><span class="o">.</span><span class="na">initMocks</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
 
         <span class="n">List</span><span class="o">&lt;</span><span class="n">Validator</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;&gt;</span> <span class="n">validators</span> <span class="o">=</span>
@@ -307,7 +307,7 @@
     <span class="o">}</span>
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">testComposite</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testComposite</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">errors</span> <span class="o">=</span> <span class="n">compositeValidator</span><span class="o">.</span><span class="na">validate</span><span class="o">(</span><span class="n">info</span><span class="o">);</span>
 
         <span class="n">verify</span><span class="o">(</span><span class="n">validator1</span><span class="o">).</span><span class="na">validate</span><span class="o">(</span><span class="n">info</span><span class="o">);</span>
@@ -329,12 +329,12 @@
     <span class="kd">private</span> <span class="n">NewUserInfo</span> <span class="n">newUserInfo</span><span class="o">;</span>
 
     <span class="nd">@Before</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="n">MockitoAnnotations</span><span class="o">.</span><span class="na">initMocks</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">testAdult</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testAdult</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="n">when</span><span class="o">(</span><span class="n">newUserInfo</span><span class="o">.</span><span class="na">getAge</span><span class="o">()).</span><span class="na">thenReturn</span><span class="o">(</span><span class="mi">20</span><span class="o">);</span>
 
         <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">errors</span> <span class="o">=</span> <span class="n">ageValidator</span><span class="o">.</span><span class="na">validate</span><span class="o">(</span><span class="n">newUserInfo</span><span class="o">);</span>
@@ -342,7 +342,7 @@
     <span class="o">}</span>
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">testChild</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testChild</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="n">when</span><span class="o">(</span><span class="n">newUserInfo</span><span class="o">.</span><span class="na">getAge</span><span class="o">()).</span><span class="na">thenReturn</span><span class="o">(</span><span class="mi">15</span><span class="o">);</span>
 
         <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">errors</span> <span class="o">=</span> <span class="n">ageValidator</span><span class="o">.</span><span class="na">validate</span><span class="o">(</span><span class="n">newUserInfo</span><span class="o">);</span>

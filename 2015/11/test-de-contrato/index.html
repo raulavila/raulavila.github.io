@@ -66,14 +66,14 @@
 
 <!--break-->
 
-<h2 id="qu-es-un-contrato-sintxis-y-semntica">Qué es un contrato. Sintáxis y semántica.</h2>
+<h2 id="qué-es-un-contrato-sintáxis-y-semántica">Qué es un contrato. Sintáxis y semántica.</h2>
 
 <p>Como todos sabemos, si programamos con interfaces crearemos mejores diseños, más encapsulados y cohesionados, y menos acoplados. Si no sabéis de lo que hablo, <a href="http://stackoverflow.com/questions/383947/what-does-it-mean-to-program-to-an-interface">ya tardáis</a>.</p>
 
 <p>Un contrato no es más que una interfaz (y viceversa :)). El contrato contiene una <strong>sintáxis</strong> y una <strong>semántica</strong>. Veamos un ejemplo:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Calculator</span> <span class="o">{</span>
-    <span class="kt">long</span> <span class="n">getSumFor</span><span class="o">(</span><span class="n">String</span> <span class="n">expression</span><span class="o">);</span>
+    <span class="kt">long</span> <span class="nf">getSumFor</span><span class="o">(</span><span class="n">String</span> <span class="n">expression</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>En el ejemplo hemos creado una calculadora que evalúa expresiones en cadenas de caracteres. La sintáxis del contrato nos dice que tenemos un método <code class="highlighter-rouge">getSumFor</code> que recibe como entrada una expresión <code class="highlighter-rouge">String</code> y devuelve un número de tipo <code class="highlighter-rouge">long</code>.</p>
@@ -81,7 +81,7 @@
 <p>No tenemos más información, por tanto, sin la documentación adecuada, ¿sabríamos utilizar esta interfaz sin ver la implementación? En una de las modalidades de TDD se alienta el uso de interfaces mediante el uso de Mocking frameworks (por ejemplo, <a href="http://mockito.org/">Mockito</a>) en nuestros tests. Es decir, cuando creamos la especificación de una clase con colaboradores, deberemos añadir dichos colaboradores como interfaces al test, y “mockear” su comportamiento. Veamos un ejemplo, de una supuesta clase controladora que utilizaría nuestra calculadora para evaluar expresiones introducidas por el usuario:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">evaluateUserExpression</span><span class="p">(</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">evaluateUserExpression</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
     <span class="c1">//Given</span>
     <span class="n">Display</span> <span class="n">display</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="n">Display</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
     <span class="n">Calculator</span> <span class="n">calculator</span> <span class="o">=</span> <span class="n">mock</span><span class="o">(</span><span class="n">Calculator</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
@@ -109,30 +109,30 @@
 
     <span class="kd">private</span> <span class="n">Calculator</span> <span class="n">calculator</span><span class="o">;</span>
 
-    <span class="kd">protected</span> <span class="kd">abstract</span> <span class="n">Calculator</span> <span class="n">getCalculatorImpl</span><span class="o">();</span>
+    <span class="kd">protected</span> <span class="kd">abstract</span> <span class="n">Calculator</span> <span class="nf">getCalculatorImpl</span><span class="o">();</span>
 
     <span class="nd">@Before</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setup</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setup</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">calculator</span> <span class="o">=</span> <span class="n">getCalculatorImpl</span><span class="o">();</span>
     <span class="o">}</span>
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">shouldReturnZero_GivenEmptyString</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldReturnZero_GivenEmptyString</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="n">assertThat</span><span class="o">(</span><span class="n">calculator</span><span class="o">.</span><span class="na">getSumFor</span><span class="o">(</span><span class="s">""</span><span class="o">)).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">shouldReturnZero_GivenZeros</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldReturnZero_GivenZeros</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="n">assertThat</span><span class="o">(</span><span class="n">calculator</span><span class="o">.</span><span class="na">getSumFor</span><span class="o">(</span><span class="s">"0,0"</span><span class="o">)).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">shouldReturnTheNumber_GivenOneAddend</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldReturnTheNumber_GivenOneAddend</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="n">assertThat</span><span class="o">(</span><span class="n">calculator</span><span class="o">.</span><span class="na">getSumFor</span><span class="o">(</span><span class="s">"2"</span><span class="o">)).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">shouldReturnTheCorrectSum_GivenTwoAddend</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldReturnTheCorrectSum_GivenTwoAddend</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="n">assertThat</span><span class="o">(</span><span class="n">calculator</span><span class="o">.</span><span class="na">getSumFor</span><span class="o">(</span><span class="s">"1,2"</span><span class="o">)).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -145,7 +145,7 @@
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalculatorLegacyImpl</span> <span class="kd">implements</span> <span class="n">Calculator</span> <span class="o">{</span>
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">long</span> <span class="n">getSumFor</span><span class="o">(</span><span class="n">String</span> <span class="n">expression</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">getSumFor</span><span class="o">(</span><span class="n">String</span> <span class="n">expression</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">if</span><span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">(</span><span class="n">expression</span><span class="o">))</span>
             <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
 
@@ -167,19 +167,19 @@
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalculatorLegacyImplTest</span> <span class="kd">extends</span> <span class="n">CalculatorContract</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="n">Calculator</span> <span class="n">getCalculatorImpl</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="n">CalculatorLegacyImpl</span><span class="o">();</span>
+    <span class="kd">protected</span> <span class="n">Calculator</span> <span class="nf">getCalculatorImpl</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">CalculatorLegacyImpl</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>Esta clase ya no es abstracta, y por tanto podremos ejecutar los tests, que, efectivamente, son existosos.</p>
 
-<h2 id="aadiendo-nuevas-implementaciones-del-contrato">Añadiendo nuevas implementaciones del contrato</h2>
+<h2 id="añadiendo-nuevas-implementaciones-del-contrato">Añadiendo nuevas implementaciones del contrato</h2>
 
 <p>Java 8 nos facilita mucho la vida para trabajar con listas y colecciones, gracias a las <a href="https://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html">Lambda expressions</a> y <a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html">Streams</a>. Hagamos uso de ello en una nueva implementación:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">long</span> <span class="nf">getSumFor</span><span class="p">(</span><span class="n">String</span> <span class="n">expression</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">long</span> <span class="nf">getSumFor</span><span class="o">(</span><span class="n">String</span> <span class="n">expression</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span><span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">(</span><span class="n">expression</span><span class="o">))</span>
         <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
 
@@ -194,8 +194,8 @@
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalculatorLambdaImplTest</span> <span class="kd">extends</span> <span class="n">CalculatorContract</span><span class="o">{</span>
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="n">Calculator</span> <span class="n">getCalculatorImpl</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="n">CalculatorLambdaImpl</span><span class="o">();</span>
+    <span class="kd">protected</span> <span class="n">Calculator</span> <span class="nf">getCalculatorImpl</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">CalculatorLambdaImpl</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 

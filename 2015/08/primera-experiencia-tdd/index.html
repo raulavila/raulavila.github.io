@@ -66,7 +66,7 @@
 
 <p>El último año mi interés por el TDD ha ido en aumento. El factor que más me ha despertado la curiosidad es comprobar el entusiasmo con que los defensores del TDD hablan de ello, a pesar de que siempre reconocen la dificultad que entraña dominarlo (“no pain no gain” que dirían los ingleses). Por otro lado está claro que, sin ser un experto en absoluto, veo pocas pegas al uso de esta metodología. En ocasiones, cuando se evalúan los pros y contras de utilizar cualquier cosa (herramienta, framework, proceso de desarrollo, etc), siempre cuesta decidirse, porque hay contras claros que deben venir compensados por los pros. Pero en el caso de TDD, el único punto flaco que le veo es su curva de aprendizaje. ¿Debería ser esto una excusa para dejarlo de lado? ¡Por supuesto que no!</p>
 
-<h3 id="breve-descripcin-del-proceso-y-referencias">Breve descripción del proceso y referencias</h3>
+<h3 id="breve-descripción-del-proceso-y-referencias">Breve descripción del proceso y referencias</h3>
 
 <p>No es mi intención explicar en profundidad en qué consiste TDD, como ya he mencionado estoy en fase de aprendizaje, e internet está plagado de recursos. Pero sería imposible hablar de TDD sin mencionar los pasos básicos del famoso proceso red-green-blue:</p>
 
@@ -80,7 +80,7 @@
 <p>Lo más chocante de todo la primera vez que se ve una demostración de este proceso es el extremo al que se lleva el punto 2, y que puedo resultar incluso poco intuitivo. Pongamos por ejemplo lo que tendríamos que hacer, siguiendo la metodología TDD, para hacer pasar este test:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldReturn2_when1and1Added</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">shouldReturn2_when1and1Added</span><span class="o">()</span> <span class="o">{</span>
     <span class="n">Calculator</span> <span class="n">calculator</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Calculator</span><span class="o">();</span>
     <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">calculator</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">1</span><span class="o">);</span>
     <span class="n">assertThat</span><span class="o">(</span><span class="n">result</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
@@ -91,7 +91,7 @@
 <p>Pues bien, para hacer pasar este test, el código a implementar sería:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Calculator</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kt">int</span> <span class="n">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">){</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">){</span>
         <span class="k">return</span> <span class="mi">2</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -106,7 +106,7 @@
   <li>El libro <a href="http://www.carlosble.com/libro-tdd/">Diseño Ágil con TDD</a> de <a href="https://twitter.com/carlosble">Carlos Blé</a>, uno de los máximos exponentes de TDD en España. Los ejemplos están en C#, pero se entiende muy bien sin importar el background de cada uno. Aunque existen muchos libros en inglés, creo que este está a la altura de las mejoras obras publicadas sobre el tema.</li>
 </ul>
 
-<h3 id="mi-primera-experiencia-prctica-conclusiones">Mi primera experiencia práctica. Conclusiones</h3>
+<h3 id="mi-primera-experiencia-práctica-conclusiones">Mi primera experiencia práctica. Conclusiones</h3>
 
 <p>El pasado miércoles asistí a un Meetup de la <a href="http://www.meetup.com/es/london-software-craftsmanship/">London Software Craftsmanship Community</a>. Fundada por <a href="https://twitter.com/sandromancuso">Sandro Mancuso</a> (un tío de lo más pasional, autor de <a href="http://www.amazon.co.uk/books/dp/0134052501/ref=sr_1_1?ie=UTF8&amp;qid=1438436878&amp;sr=8-1&amp;keywords=the+software+craftsman">The Software Craftsman</a>), esta comunidad organiza eventos con mucha frecuencia en los que se fomenta el uso de buenas prácticas, con TDD a la cabeza.</p>
 
@@ -122,7 +122,7 @@
 
 <p>En los próximos meses tengo intención de seguir aprendiendo TDD por mi cuenta, y quién sabe si en el futuro se me planteará la posibilidad de utilizarlo en un entorno profesional. Espero dejar cuenta de mis progresos y futuras impresiones en el blog.</p>
 
-<h3 id="una-ltima-reflexin">Una última reflexión</h3>
+<h3 id="una-última-reflexión">Una última reflexión</h3>
 
 <p>Es a menudo curiosa la forma en que muchas empresas (especialmente en UK) presumen del uso de TDD en ofertas de trabajo. Parece que da cierto caché atreverse a afirmar tal cosa, aunque luego no se utilice en realidad. Esto, además de absurdo, es contraproducente, porque puede llevar a situaciones de confusión bastante desagradables si un desarrollador especialmente cualificado en TDD (y por tanto, entusiasta del tema) entra a trabajar en una empresa para descubrir de inmediato que las prácticas en el día a día siguen siendo las de siempre. Habría que tener mucho cuidado con esto, yo aún no entiendo qué lleva a las compañías a requerir “skills” que luego no utilizan en sus proyectos.</p>
 

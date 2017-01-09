@@ -66,7 +66,7 @@
 
 <!--break-->
 
-<h2 id="la-aplicacin-ping-pong">La aplicación: Ping pong</h2>
+<h2 id="la-aplicación-ping-pong">La aplicación: Ping pong</h2>
 
 <p>Tan sencillo como eso. Nuestra aplicación Java deberá mostrar por salida estándar y de forma alterna los textos “ping” / “pong”, además de un texto cabecera y de finalización:</p>
 
@@ -80,7 +80,7 @@ Game finished!</code></pre></figure>
 
 <p>Conceptualmente deberán existir dos jugadores / actores, que deberán imprimir el texto “ping” y “pong”. El actor “ping” deberá jugar primero.</p>
 
-<h3 id="versin-cero-un-solo-hilo">Versión cero: un solo hilo</h3>
+<h3 id="versión-cero-un-solo-hilo">Versión cero: un solo hilo</h3>
 
 <p>La primera versión correrá en un solo hilo de ejecución, por lo que no habrá programación concurrente que valga :). En estas primeras versiones, además, el juego finalizará después de que ambos jugadores hayan participado un número de veces (definido por constante), pongamos 10.</p>
 
@@ -94,11 +94,11 @@ Game finished!</code></pre></figure>
 
     <span class="kd">private</span> <span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">Player</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Player</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">play</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">play</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">if</span> <span class="o">(!</span><span class="n">gameFinished</span><span class="o">())</span> <span class="o">{</span>
             <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">text</span><span class="o">);</span>
             <span class="n">turns</span><span class="o">--;</span>
@@ -106,11 +106,11 @@ Game finished!</code></pre></figure>
         <span class="o">}</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">gameFinished</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">gameFinished</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">turns</span> <span class="o">==</span> <span class="mi">0</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setNextPlayer</span><span class="o">(</span><span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNextPlayer</span><span class="o">(</span><span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">nextPlayer</span> <span class="o">=</span> <span class="n">nextPlayer</span><span class="o">;</span>
     <span class="o">}</span>
 
@@ -122,7 +122,7 @@ Game finished!</code></pre></figure>
 
     <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">MAX_TURNS</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
 
         <span class="n">Player</span> <span class="n">player1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Player</span><span class="o">(</span><span class="s">"ping"</span><span class="o">);</span>
         <span class="n">Player</span> <span class="n">player2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Player</span><span class="o">(</span><span class="s">"pong"</span><span class="o">);</span>
@@ -142,7 +142,7 @@ Game finished!</code></pre></figure>
 
 <p>También vemos como en <code class="highlighter-rouge">Player</code> el atributo <code class="highlighter-rouge">text</code> es declarado <code class="highlighter-rouge">final</code>. Es buena práctica en aplicaciones concurrentes (y en todas, la verdad) declarar un atributo como <code class="highlighter-rouge">final</code> si sabemos que no va a ser modificado. No sólo hace más fiable a nuestro código, también garantiza la visibilidad de las variables entre threads, un concepto conocido como “Safe publication”, y del que podéis leer una discusión <a href="http://stackoverflow.com/questions/801993/java-multi-threading-safe-publication">aquí</a>. Yendo un poco más allá, siempre que podamos deberíamos diseñar nuestras clases como <a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/imstrat.html">inmutables</a>, aunque en nuestro ejemplo no es posible.</p>
 
-<h3 id="versin-1-jugadores-como-threads">Versión 1: jugadores como threads</h3>
+<h3 id="versión-1-jugadores-como-threads">Versión 1: jugadores como threads</h3>
 
 <p>Vamos a llevar nuestra aplicación un poco más allá para que funcione en modo concurrente. Cómo la intención es hacerlo en incrementos pequeños nos iremos encontrando que nuestros primeros acercamientos no funcionan como es debido.</p>
 
@@ -158,12 +158,12 @@ Game finished!</code></pre></figure>
 
     <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">mustPlay</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">Player</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Player</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">run</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">while</span><span class="o">(!</span><span class="n">gameFinished</span><span class="o">())</span> <span class="o">{</span>
             <span class="k">while</span> <span class="o">(!</span><span class="n">mustPlay</span><span class="o">);</span>
 
@@ -176,15 +176,15 @@ Game finished!</code></pre></figure>
         <span class="o">}</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">gameFinished</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">gameFinished</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">turns</span> <span class="o">==</span> <span class="mi">0</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setNextPlayer</span><span class="o">(</span><span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNextPlayer</span><span class="o">(</span><span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">nextPlayer</span> <span class="o">=</span> <span class="n">nextPlayer</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setMustPlay</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">mustPlay</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setMustPlay</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">mustPlay</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">mustPlay</span> <span class="o">=</span> <span class="n">mustPlay</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -199,7 +199,7 @@ Game finished!</code></pre></figure>
 
     <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">MAX_TURNS</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
 
         <span class="n">Player</span> <span class="n">player1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Player</span><span class="o">(</span><span class="s">"ping"</span><span class="o">);</span>
         <span class="n">Player</span> <span class="n">player2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Player</span><span class="o">(</span><span class="s">"pong"</span><span class="o">);</span>
@@ -243,7 +243,7 @@ Game finished!</code></pre></figure>
 
     <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">MAX_TURNS</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
 
         <span class="n">Player</span> <span class="n">player1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Player</span><span class="o">(</span><span class="s">"ping"</span><span class="o">);</span>
         <span class="n">Player</span> <span class="n">player2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Player</span><span class="o">(</span><span class="s">"pong"</span><span class="o">);</span>
@@ -301,13 +301,13 @@ ping</code></pre></figure>
 
 <p>Y ahora sí, nuestra aplicación funciona de forma determinista en cada ejecución. Uno de los mayores problemas de la visibilidad en aplicaciones concurrentes es que falla aleatoriamente, por lo que si no somos conscientes de las directrices a seguir, depurar estos problemas puede ser extremadamente complicado.</p>
 
-<h3 id="versin-2-juego-infinito">Versión 2: juego infinito</h3>
+<h3 id="versión-2-juego-infinito">Versión 2: juego infinito</h3>
 
 <p>En lugar de jugar un número determinado de turnos vamos a poner a los dos actores a jugar para siempre. O mejor dicho, hasta que el hilo principal quiera. Para ello, debemos utilizar las funcionalidades que ofrece Java para interrumpir un thread. Veamos cómo quedaría la clase <code class="highlighter-rouge">Game</code>:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Game</span> <span class="o">{</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
 
         <span class="n">Player</span> <span class="n">player1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Player</span><span class="o">(</span><span class="s">"ping"</span><span class="o">);</span>
         <span class="n">Player</span> <span class="n">player2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Player</span><span class="o">(</span><span class="s">"pong"</span><span class="o">);</span>
@@ -360,12 +360,12 @@ ping</code></pre></figure>
 
     <span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">mustPlay</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">Player</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Player</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">run</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">while</span><span class="o">(!</span><span class="n">Thread</span><span class="o">.</span><span class="na">interrupted</span><span class="o">())</span> <span class="o">{</span>
             <span class="k">while</span> <span class="o">(!</span><span class="n">mustPlay</span><span class="o">);</span>
 
@@ -377,18 +377,18 @@ ping</code></pre></figure>
         <span class="o">}</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setNextPlayer</span><span class="o">(</span><span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNextPlayer</span><span class="o">(</span><span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">nextPlayer</span> <span class="o">=</span> <span class="n">nextPlayer</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setMustPlay</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">mustPlay</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setMustPlay</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">mustPlay</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">mustPlay</span> <span class="o">=</span> <span class="n">mustPlay</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>En lugar de chequear en cada vuelta del bucle si hemos agotado turnos miramos el estado del flag “interrupted”, y concluimos en caso de que sea true. Tan sencillo como eso.</p>
 
-<h4 id="versin-2b-ms-sobre-interrupt">Versión 2b: Más sobre interrupt</h4>
+<h4 id="versión-2b-más-sobre-interrupt">Versión 2b: Más sobre interrupt</h4>
 
 <p>Antes de finalizar este primer post de la serie, vamos a mirar un poco más en profundidad las implicaciones de interrumpir un thread.</p>
 
@@ -399,7 +399,7 @@ ping</code></pre></figure>
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Player</span> <span class="kd">implements</span> <span class="n">Runnable</span> <span class="o">{</span>
     <span class="c1">//...</span>
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">run</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">while</span><span class="o">(!</span><span class="n">Thread</span><span class="o">.</span><span class="na">interrupted</span><span class="o">())</span> <span class="o">{</span>
             <span class="k">while</span> <span class="o">(!</span><span class="n">mustPlay</span><span class="o">);</span>
 
@@ -424,7 +424,7 @@ ping</code></pre></figure>
 <p>La solución a esto es restablecer el Thread a interrupted:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">while</span><span class="o">(!</span><span class="n">Thread</span><span class="o">.</span><span class="na">interrupted</span><span class="o">())</span> <span class="o">{</span>
         <span class="k">while</span> <span class="o">(!</span><span class="n">mustPlay</span><span class="o">);</span>
 

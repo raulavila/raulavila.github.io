@@ -102,19 +102,19 @@
 
 <p>Seguramente me deje algunas cosas. La idea es, que si alguien nuevo en nuestro proyecto no es capaz de poner a funcionar el sistema sin un soporte constante de los empleados más veteranos (¡ojo! un mínimo soporte es necesario), entonces hay algo que falta en nuestro fichero README.</p>
 
-<h3 id="demasida-documentacin-y-desactualizada">Demasida documentación (y desactualizada)</h3>
+<h3 id="demasida-documentación-y-desactualizada">Demasida documentación (y desactualizada)</h3>
 
 <p>Es el contrapunto de la sección anterior. En las primeras fases de un proyecto escribimos toneladas de documentación, conteniendo requisitos, diseño, etc, en forma de Wiki o en documentos de Word, y según aumenta la carga de trabajo no mantenemos estos documentos, convirtiéndose en una fuente de confusión importante.</p>
 
 <p>En general, considero que es fundamental tener documentada la arquitectura a alto nivel de nuestro proyecto, pero los detalles de implementación deben estar en un solo lugar, el código. Por otro lado, cada vez que os veáis iniciando la escritura de un documento que sabéis llevará tiempo, pensad en el valor que estáis añadiendo, y en la “deuda de tiempo” que estáis contrayendo al escribirlo. Una deuda de tiempo no es más que una acción concreta que nos demandará la dedicación de un tiempo adicional en el futuro. <a href="http://jamesclear.com/time-assets">Aquí</a> podéis leer más sobre esto.</p>
 
-<h3 id="cdigo-muerto-dead-code">Código muerto (dead code)</h3>
+<h3 id="código-muerto-dead-code">Código muerto (dead code)</h3>
 
 <p>Se trata de código que permanece en nuestro proyecto pero no es invocado por nadie, y por tanto, inútil. Mucha gente decide dejar ese código “por si lo necesito en el futuro”. Yo hice esto mucho en el pasado, y la verdad es que nunca me vi recuperando dicho código. Además, existe una cosa llamada control de versiones :) que nos facilita enormemente la labor de recuperar código implementado tiempo atrás.</p>
 
 <p>Este problema pertenece al grupo nivel medio. Con las herramientas actuales es muy sencillo detectar código muerto, y su eliminación es muy sencilla.</p>
 
-<h3 id="cdigo-comentado">Código comentado</h3>
+<h3 id="código-comentado">Código comentado</h3>
 
 <p>Siendo un subconjunto de código muerto, esto me parece aún más aberrante. Por favor, no dejéis nunca código comentado en vuestro software.</p>
 
@@ -124,7 +124,7 @@
 
 <p>Sólo veo un caso en el que hacer esto está justificado, cuando queremos subir código “en progreso”, mientras trabajamos en una nueva funcionalidad. Dicho código no está expuesto al usuario final, y la nueva funcionalidad no estará terminada hasta que dicho tests pase. Cualquier otro caso es una ventana rota, y de gravedad.</p>
 
-<h3 id="utilizar-varias-libreras-para-hacer-la-misma-cosa">Utilizar varias librerías para hacer la misma cosa</h3>
+<h3 id="utilizar-varias-librerías-para-hacer-la-misma-cosa">Utilizar varias librerías para hacer la misma cosa</h3>
 
 <p>Un desarrollador decide añadir una librería de utilidad para una tarea concreta, por ejemplo trabajar con JSON, y elige <a href="https://github.com/FasterXML/jackson">Jackson</a>.</p>
 
@@ -132,7 +132,7 @@
 
 <p>Para evitar este tipo de problemas, es muy importante llevar a cabo <a href="/2015/03/code-reviews/">revisiones de código</a>, ya que en última instancia esto no es más que un problema de comunicación. Si ya es demasiado tarde, y ambas librerías llevan conviviendo un tiempo, más pronto que tarde deberíamos unificar en una por consistencia.</p>
 
-<h3 id="frmato-del-cdigo">Fórmato del código</h3>
+<h3 id="fórmato-del-código">Fórmato del código</h3>
 
 <p>¿Quién no se ha encontrado alguna vez con una clase como esta?:</p>
 
@@ -143,12 +143,12 @@
     <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">cooked</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Ingredient</span><span class="o">&gt;</span> <span class="n">ingredientList</span> <span class="o">=</span> <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">();</span>
 
-    <span class="kd">public</span> <span class="n">DishImpl</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nf">DishImpl</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span>
     <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">add_ingredient</span><span class="o">(</span><span class="n">Ingredient</span> <span class="n">ingredient</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">add_ingredient</span><span class="o">(</span><span class="n">Ingredient</span> <span class="n">ingredient</span><span class="o">)</span>
     <span class="o">{</span>
       <span class="n">Validate</span><span class="o">.</span><span class="na">notNull</span><span class="o">(</span><span class="n">ingredient</span><span class="o">);</span>
 
@@ -158,11 +158,11 @@
       <span class="n">ingredientList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">ingredient</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">mix</span><span class="o">()</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">mix</span><span class="o">()</span>
     <span class="o">{</span>
         <span class="k">if</span><span class="o">(</span><span class="n">ingredientList</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span>
         <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalStateException</span><span class="o">(</span>
                 <span class="s">"There are no ingredients to mix"</span><span class="o">);</span>
         <span class="o">}</span>
 
@@ -173,9 +173,9 @@
         <span class="n">mixed</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">cook</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">cook</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">if</span><span class="o">(!</span><span class="n">mixed</span><span class="o">)</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalStateException</span><span class="o">(</span>
                 <span class="s">"Ingredients are not mixed, please call mix first"</span><span class="o">);</span>
 
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"%s - Cooking...%n"</span><span class="o">,</span>
@@ -184,10 +184,10 @@
         <span class="n">cooked</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">serve</span><span class="o">()</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">serve</span><span class="o">()</span>
     <span class="o">{</span>
       <span class="k">if</span><span class="o">(!</span><span class="n">cooked</span><span class="o">)</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalStateException</span><span class="o">(</span>
             <span class="s">"Dish is not cooked"</span><span class="o">);</span>
 
       <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"%s - Serving...%n"</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span>
@@ -213,7 +213,7 @@
 
 <p>El despliegue de una nueva versión de nuestro proyecto debería estar totalmente automatizado. Idealmente tendremos una tarea en nuestro entorno de integración continua que lleve a cabo todas las acciones necesarias, y que de nosotros solo exiga <strong>pulsar un botón</strong>. Cualquier acción adicional es un desperdicio de tiempo que debe ser analizada para su automatización.</p>
 
-<h3 id="entorno-de-integracin-continua-inestable">Entorno de integración continua inestable</h3>
+<h3 id="entorno-de-integración-continua-inestable">Entorno de integración continua inestable</h3>
 
 <p>Cuando nuestro entorno de integración continua está más tiempo en rojo que en verde, es que algo estamos haciendo mal. Con esto quiero decir, que el 95% del tiempo nuestras tareas (en Jenkins, Concourse, Bamboo, o lo que sea) deben ejecutarse de manera exitosa. Si esto no ocurre hay que parar cualquier trabajo que tengamos entre manos para estabilizar este problema.</p>
 
@@ -235,7 +235,7 @@
 
 <p>No voy a proponer aquí una solución ideal para trabajar con Git, <a href="http://www.creativebloq.com/web-design/choose-right-git-branching-strategy-121518344">hay varias estrategias</a> (aka workflows), pero en ningún caso debéis dejar al libre albedrío de cada persona la estrategia a utilizar.</p>
 
-<h3 id="cdigo-sucio">Código sucio</h3>
+<h3 id="código-sucio">Código sucio</h3>
 
 <p>No voy a entrar en muchos detalles aquí. Casi todos sabemos lo que es código sucio, y como profesionales nunca deberíamos aceptar entregar funcionalidades desarrolladas de forma que su mantenimiento sea más complicado debido a la poca legibilidad del código. No es la primera vez que lo recomiendo (ni será la última), pero si no lo habéis hecho, leed <a href="https://www.amazon.es/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882/ref=sr_1_1?ie=UTF8&amp;qid=1473708316&amp;sr=8-1&amp;keywords=Clean+Code">Clean Code</a> o <a href="https://www.amazon.es/Code-Complete-Practical-Costruction-Professional/dp/0735619670/ref=sr_1_1?ie=UTF8&amp;qid=1473708342&amp;sr=8-1&amp;keywords=Code+Complete">Code Complete</a>.</p>
 
@@ -246,7 +246,7 @@
 
 <p>Me duelen los ojos de verlo :)</p>
 
-<h2 id="conclusin">Conclusión</h2>
+<h2 id="conclusión">Conclusión</h2>
 
 <p>Creo que he cubierto varios apartados importantes del desarrollo que no debemos descuidar. ¿Echáis alguno de menos?</p>
 

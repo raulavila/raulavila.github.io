@@ -66,19 +66,19 @@
 
 <p>Si todos nos reímos cuando vemos estas cosas, ¿por qué no nos sorprendemos cuando desarrollamos una clase que realiza mil y una tareas sin ningún tipo de orden ni concierto? Por ejemplo:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nf">BankUtil</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="n">formatAccount</span><span class="o">(</span><span class="n">String</span> <span class="n">accountNumber</span><span class="o">)</span> <span class="o">{...}</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nf">BankUtil</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">formatAccount</span><span class="o">(</span><span class="n">String</span> <span class="n">accountNumber</span><span class="o">)</span> <span class="o">{...}</span>
 
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="n">isNumber</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{...}</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isNumber</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{...}</span>
 
-    <span class="kd">public</span> <span class="n">PersonDetails</span> <span class="n">getPersonDetails</span><span class="o">(</span><span class="n">Stirng</span> <span class="n">accountNumber</span><span class="o">)</span> <span class="o">{...}</span>
+    <span class="kd">public</span> <span class="n">PersonDetails</span> <span class="nf">getPersonDetails</span><span class="o">(</span><span class="n">Stirng</span> <span class="n">accountNumber</span><span class="o">)</span> <span class="o">{...}</span>
 
     <span class="c1">//...</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>No sigo, ya sabéis a lo que me refiero. Es para evitar cosas como ésta que siempre tengo presente el mantra mencionado más arriba, que no es otra cosa que el Single Responsibility Principle (SRP) o <a href="https://es.wikipedia.org/wiki/Principio_de_responsabilidad_%C3%BAnica">Principio de Responsabilidad Única</a>. Este principio viene a decir (no es la primera vez que lo cito en este blog) que “las únidades de código deben tener sólo una razón para el cambio”, o también “las mejores funciones o módulos son aquellos que tienen una única responsabilidad”. Tras leer esto es posible que nos venga a la cabeza una pregunta…</p>
 
-<h2 id="qu-es-una-responsabilidad">¿Qué es una responsabilidad?</h2>
+<h2 id="qué-es-una-responsabilidad">¿Qué es una responsabilidad?</h2>
 
 <p>Lo de hacer una sola cosa está muy bien, pero en la práctica esto no es tan sencillo. Vamos a empezar con el mínimo nivel en qué podemos definir responsabilidades, las funciones.</p>
 
@@ -92,7 +92,7 @@
 
 <p>Veamos a continuación ejemplos de funciones que no cumplen el SRP:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="p">(</span><span class="n">String</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">(</span><span class="n">String</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">String</span> <span class="n">name</span> <span class="o">=</span> <span class="n">namesById</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
     <span class="n">auditService</span><span class="o">.</span><span class="na">registerAccess</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
     <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
@@ -100,7 +100,7 @@
 
 <p>En efecto, esta función <code class="highlighter-rouge">getName</code> está auditando sus accesos, lo cual puede resultar un poco confuso para los usuarios de nuestro código.</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">parseAndSave</span><span class="p">(</span><span class="n">String</span> <span class="n">messageStr</span><span class="o">)</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">parseAndSave</span><span class="o">(</span><span class="n">String</span> <span class="n">messageStr</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">Message</span> <span class="n">message</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="na">parseMessage</span><span class="o">(</span><span class="n">messageStr</span><span class="o">);</span>
     <span class="n">messageDAO</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
@@ -124,7 +124,7 @@
 
 <p>La idea es que, cada clase deberá satisfacer las necesidades de un rol o actor determinado, <strong>y sólo ese</strong>. Esto se traduce en que si las necesidades de dos actores diferentes cambian al mismo tiempo, es materialmente imposible que dichos cambios apliquen en la misma clase.</p>
 
-<h2 id="por-qu-es-importante">Por qué es importante</h2>
+<h2 id="por-qué-es-importante">Por qué es importante</h2>
 
 <p>En primer lugar, si seguimos este principio jamás se dará la situación de que dos programadores realicen cambios en el mismo fichero si trabajan en tareas diferentes, evitando todo tipo de desagradables conflictos en el control de versiones. Pero esto es una ventaja pequeña comparada con la principal de todas, y que define el conocido como “valor primario del software”:</p>
 
@@ -145,7 +145,7 @@
   <li>Nuestras clases serán extraordinariamente difíciles de testear, principalmente mediante tests unitarios</li>
 </ul>
 
-<h2 id="cmo-conseguirlo">Cómo conseguirlo</h2>
+<h2 id="cómo-conseguirlo">Cómo conseguirlo</h2>
 
 <p>La mejor forma de diseñar clases que cumplan con el SRP es siguiendo dos sencillas reglas:</p>
 
@@ -156,7 +156,7 @@
 
 <p>Precisamente mi tercer mantra está muy relacionado con este último punto, y hablaré de él en el siguiente post.</p>
 
-<h2 id="otros-niveles-de-abstraccin-paquetes-y-aplicaciones">Otros niveles de abstracción: paquetes y aplicaciones</h2>
+<h2 id="otros-niveles-de-abstracción-paquetes-y-aplicaciones">Otros niveles de abstracción: paquetes y aplicaciones</h2>
 
 <p>Tras las clases tenemos los paquetes, y aquí de nuevo deberíamos esforzarnos por crear paquetes bien cohesionados. Sobre este tema, os recomiendo encarecidamente que leáis <a href="http://olivergierke.de/2013/01/whoops-where-did-my-architecture-go/">este esencial post</a>, que explica las diferencias entre layers y slices, y cuál es la mejor forma de diseñar nuestros paquetes para ajustarse a estos criterios. En pocas palabras, viene a decir que no organicéis vuestros paquetes así:</p>
 

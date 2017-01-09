@@ -72,17 +72,17 @@
 
 <p>Siempre me ha llamado la atención que no se preste atención al “acoplamiento temporal” (temporal coupling), quizás porque no es tan importante. De hecho no he encontrado demasiadas referencias en castellano, así que creo que merece la pena repasar en qué consiste y cómo evitarlo cuando sea posible.</p>
 
-<h3 id="diseando-una-api">Diseñando una API</h3>
+<h3 id="diseñando-una-api">Diseñando una API</h3>
 
 <p>Cuando creamos una API, es de recibo hacerlo cuidadosamente de forma que sea clara para los clientes que la vayan a utilizar, que no exponga detalles internos de implementación (para conseguir el bajo acoplamiento), que no abarque más de lo necesario (alta cohesión), y a ser posible que sea intuitiva en su uso. La elección de nombres aquí es muy importante, y en ningún caso nuestros métodos deberían hacer más de lo que el usuario espera de ellos, lo que se conoce como “Principio de la mínima sorpresa” (<a href="http://www.catb.org/esr/writings/taoup/html/ch11s01.html">Principle of Least Surprise</a>).</p>
 
 <p>Vamos a crear una API que prepare un plato para un restaurante. Una primera versión podría ser:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Dish</span> <span class="o">{</span>
-    <span class="kt">void</span> <span class="n">addIngredient</span><span class="o">(</span><span class="n">Ingredient</span> <span class="n">ingredient</span><span class="o">);</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">mix</span><span class="o">();</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">cook</span><span class="o">();</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">serve</span><span class="o">();</span>
+    <span class="kt">void</span> <span class="nf">addIngredient</span><span class="o">(</span><span class="n">Ingredient</span> <span class="n">ingredient</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">mix</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">cook</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">serve</span><span class="o">();</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>Se trata de una interfaz, así que creemos una implementación sencilla:</p>
@@ -94,11 +94,11 @@
     <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">cooked</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Ingredient</span><span class="o">&gt;</span> <span class="n">ingredientList</span> <span class="o">=</span> <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">();</span>
 
-    <span class="kd">public</span> <span class="n">DishImpl</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">DishImpl</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">addIngredient</span><span class="o">(</span><span class="n">Ingredient</span> <span class="n">ingredient</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addIngredient</span><span class="o">(</span><span class="n">Ingredient</span> <span class="n">ingredient</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">Validate</span><span class="o">.</span><span class="na">notNull</span><span class="o">(</span><span class="n">ingredient</span><span class="o">);</span>
 
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"%s - Adding ingredient %s%n"</span><span class="o">,</span>
@@ -106,9 +106,9 @@
         <span class="n">ingredientList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">ingredient</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">mix</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">mix</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">if</span><span class="o">(</span><span class="n">ingredientList</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span><span class="s">"There are no ingredients to mix"</span><span class="o">);</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalStateException</span><span class="o">(</span><span class="s">"There are no ingredients to mix"</span><span class="o">);</span>
 
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"%s - Mixing ingredients: %s%n"</span><span class="o">,</span>
                                 <span class="n">name</span><span class="o">,</span> <span class="n">ingredientList</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
@@ -116,18 +116,18 @@
         <span class="n">mixed</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">cook</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">cook</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">if</span><span class="o">(!</span><span class="n">mixed</span><span class="o">)</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span><span class="s">"Ingredients are not mixed"</span><span class="o">);</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalStateException</span><span class="o">(</span><span class="s">"Ingredients are not mixed"</span><span class="o">);</span>
 
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"%s - Cooking...%n"</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span>
 
         <span class="n">cooked</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">serve</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">serve</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">if</span><span class="o">(!</span><span class="n">cooked</span><span class="o">)</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span><span class="s">"Dish is not cooked"</span><span class="o">);</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalStateException</span><span class="o">(</span><span class="s">"Dish is not cooked"</span><span class="o">);</span>
 
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"%s - Serving...%n"</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span>
 
@@ -140,7 +140,7 @@
 
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">Ingredient</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Ingredient</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
     <span class="o">}</span>
     <span class="c1">//getter, toString...</span>
@@ -157,7 +157,7 @@
 <p>Parece que no está mal. Veamos cómo utilizaríamos la API:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Chef</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">cookPaella</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">cookPaella</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">Dish</span> <span class="n">dish</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DishImpl</span><span class="o">(</span><span class="s">"paella"</span><span class="o">);</span>
 
         <span class="n">dish</span><span class="o">.</span><span class="na">addIngredient</span><span class="o">(</span><span class="k">new</span> <span class="n">Ingredient</span><span class="o">(</span><span class="s">"rice"</span><span class="o">));</span>
@@ -179,12 +179,12 @@ paella - Mixing ingredients: [Ingredient{name='rice'}, Ingredient{name='chicken'
 paella - Cooking...
 paella - Serving...</code></pre></figure>
 
-<h3 id="qu-es-el-acoplamiento-temporal">Qué es el acoplamiento temporal</h3>
+<h3 id="qué-es-el-acoplamiento-temporal">Qué es el acoplamiento temporal</h3>
 
 <p>Vamos a realizar una modificación muy pequeña en la clase <code class="highlighter-rouge">Chef</code>:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Chef</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">cookPaella</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">cookPaella</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">Dish</span> <span class="n">dish</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DishImpl</span><span class="o">(</span><span class="s">"paella"</span><span class="o">);</span>
 
         <span class="n">dish</span><span class="o">.</span><span class="na">addIngredient</span><span class="o">(</span><span class="k">new</span> <span class="n">Ingredient</span><span class="o">(</span><span class="s">"rice"</span><span class="o">));</span>
@@ -220,9 +220,9 @@ Exception in thread "main" java.lang.IllegalStateException: Ingredients are not 
 
 <p>Primero de todo, no siempre es posible evitar completamente el acoplamiento temporal, así que, en caso de que no quede otro remedio la solución es hacerlo patente mediante excepciones explícitas en caso romperlo. Por tanto, la primera medida sería mejorar los mensajes de nuestras excepciones. En nuestro ejemplo, el método <code class="highlighter-rouge">cook</code> podría quedar así:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">cook</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">cook</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">if</span><span class="o">(!</span><span class="n">mixed</span><span class="o">)</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalStateException</span><span class="o">(</span>
                 <span class="s">"Ingredients are not mixed, please call mix first"</span><span class="o">);</span>
 
     <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"%s - Cooking...%n"</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span>
@@ -235,8 +235,8 @@ Exception in thread "main" java.lang.IllegalStateException: Ingredients are not 
 <p>Pero antes de llegar a este punto debemos intentar eliminar los acoplamientos existentes, obligando al usuario a utilizar nuestra API de una forma determinada (= más rígida). En ocasiones mayor rigidez no signfica peor diseño. En el caso concreto de la API <code class="highlighter-rouge">Dish</code>, vamos a obligar al usuario a pasar en el constructor la lista de ingredientes que componen el plato, veamos cómo quedaría:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Dish</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">cook</span><span class="o">();</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">serve</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">cook</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">serve</span><span class="o">();</span>
 <span class="o">}</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">DishImpl</span> <span class="kd">implements</span> <span class="n">Dish</span> <span class="o">{</span>
@@ -246,7 +246,7 @@ Exception in thread "main" java.lang.IllegalStateException: Ingredients are not 
     <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">cooked</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Ingredient</span><span class="o">&gt;</span> <span class="n">ingredientList</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">DishImpl</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Ingredient</span><span class="o">&gt;</span> <span class="n">ingredientList</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">DishImpl</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Ingredient</span><span class="o">&gt;</span> <span class="n">ingredientList</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">Validate</span><span class="o">.</span><span class="na">notEmpty</span><span class="o">(</span><span class="n">ingredientList</span><span class="o">);</span>
 
         <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
@@ -255,7 +255,7 @@ Exception in thread "main" java.lang.IllegalStateException: Ingredients are not 
         <span class="n">mix</span><span class="o">();</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="kt">void</span> <span class="n">mix</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">mix</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"%s - Mixing ingredients: %s%n"</span><span class="o">,</span>
                             <span class="n">name</span><span class="o">,</span>
                             <span class="n">ingredientList</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
@@ -263,9 +263,9 @@ Exception in thread "main" java.lang.IllegalStateException: Ingredients are not 
         <span class="n">mixed</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">cook</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">cook</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">if</span><span class="o">(!</span><span class="n">mixed</span><span class="o">)</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalStateException</span><span class="o">(</span>
                 <span class="s">"Ingredients are not mixed, please call mix first"</span><span class="o">);</span>
 
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"%s - Cooking...%n"</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span>
@@ -273,9 +273,9 @@ Exception in thread "main" java.lang.IllegalStateException: Ingredients are not 
         <span class="n">cooked</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">serve</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">serve</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">if</span><span class="o">(!</span><span class="n">cooked</span><span class="o">)</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalStateException</span><span class="o">(</span>
                 <span class="s">"Dish is not cooked, please call cook first"</span><span class="o">);</span>
 
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="s">"%s - Serving...%n"</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span>
@@ -286,13 +286,13 @@ Exception in thread "main" java.lang.IllegalStateException: Ingredients are not 
 <p>Hemos simplificado la interfaz, de forma que solo contiene los métodos <code class="highlighter-rouge">cook</code> y <code class="highlighter-rouge">serve</code>. Esto maximiza la flexibilidad de las implementaciones, ¡tanto que ni siquiera estamos obligados a utilizar instancias de <code class="highlighter-rouge">Ingredient</code> al uso! El constructor de la implementación obliga a los clientes a pasar una lista de ingredientes, y una vez almacenados localmente los mezcla sin necesidad de que lo hagan los usuarios. ¿No es más claro el uso ahora?</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Chef</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">cookPaella</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">cookPaella</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">Dish</span> <span class="n">dish</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DishImpl</span><span class="o">(</span>
                 <span class="s">"paella"</span><span class="o">,</span>
                 <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">(</span>
-                        <span class="k">new</span> <span class="n">Ingredient</span><span class="o">(</span><span class="s">"rice"</span><span class="o">),</span>
-                        <span class="k">new</span> <span class="n">Ingredient</span><span class="o">(</span><span class="s">"chicken"</span><span class="o">),</span>
-                        <span class="k">new</span> <span class="n">Ingredient</span><span class="o">(</span><span class="s">"peas"</span><span class="o">)</span>
+                        <span class="k">new</span> <span class="nf">Ingredient</span><span class="o">(</span><span class="s">"rice"</span><span class="o">),</span>
+                        <span class="k">new</span> <span class="nf">Ingredient</span><span class="o">(</span><span class="s">"chicken"</span><span class="o">),</span>
+                        <span class="k">new</span> <span class="nf">Ingredient</span><span class="o">(</span><span class="s">"peas"</span><span class="o">)</span>
                 <span class="o">));</span>
 
         <span class="n">dish</span><span class="o">.</span><span class="na">cook</span><span class="o">();</span>

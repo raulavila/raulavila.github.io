@@ -66,7 +66,7 @@
 
 <!--break-->
 
-<h3 id="clases-pblicas">Clases públicas</h3>
+<h3 id="clases-públicas">Clases públicas</h3>
 
 <p>Para los IDEs por defecto todas las clases son públicas. De esta forma, si le decimos a IntelliJ que nos cree una clase, ocurrirá esto:</p>
 
@@ -93,16 +93,16 @@
     <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">MyImmutableClass</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">MyImmutableClass</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">int</span> <span class="n">getId</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">id</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">String</span> <span class="n">getName</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -113,16 +113,16 @@
 
     <span class="kd">public</span> <span class="n">String</span> <span class="n">address</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">MyImmutableDerivedClass</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">MyImmutableDerivedClass</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span>
         <span class="k">this</span><span class="o">.</span><span class="na">address</span> <span class="o">=</span> <span class="n">address</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">String</span> <span class="n">getAddress</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getAddress</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">address</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setAddress</span><span class="o">(</span><span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAddress</span><span class="o">(</span><span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">address</span> <span class="o">=</span> <span class="n">address</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -153,32 +153,32 @@
     <span class="kd">private</span> <span class="n">Collaborator1</span> <span class="n">collaborator1</span><span class="o">;</span>
     <span class="kd">private</span> <span class="n">Collaborator2</span> <span class="n">collaborator2</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">MyClass</span><span class="o">(</span><span class="n">Collaborator1</span> <span class="n">collaborator1</span><span class="o">,</span>
+    <span class="kd">public</span> <span class="nf">MyClass</span><span class="o">(</span><span class="n">Collaborator1</span> <span class="n">collaborator1</span><span class="o">,</span>
                    <span class="n">Collaborator2</span> <span class="n">collaborator2</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">collaborator1</span> <span class="o">=</span> <span class="n">collaborator1</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">collaborator2</span> <span class="o">=</span> <span class="n">collaborator2</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">Collaborator1</span> <span class="n">getCollaborator1</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Collaborator1</span> <span class="nf">getCollaborator1</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">collaborator1</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setCollaborator1</span><span class="o">(</span><span class="n">Collaborator1</span> <span class="n">collaborator1</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCollaborator1</span><span class="o">(</span><span class="n">Collaborator1</span> <span class="n">collaborator1</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">collaborator1</span> <span class="o">=</span> <span class="n">collaborator1</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">Collaborator2</span> <span class="n">getCollaborator2</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Collaborator2</span> <span class="nf">getCollaborator2</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">collaborator2</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setCollaborator2</span><span class="o">(</span><span class="n">Collaborator2</span> <span class="n">collaborator2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCollaborator2</span><span class="o">(</span><span class="n">Collaborator2</span> <span class="n">collaborator2</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">collaborator2</span> <span class="o">=</span> <span class="n">collaborator2</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>Una clase debería exponer el mínimo posible de detalles internos. Así que, de la misma forma que en la primera sección mencionaba que una clase debería tener scope package hasta que requiera ser pública, ahora digo que una clase no debería tener ni getters ni setters hasta que sea necesario. Y cuando lo sea, pensad si realmente es la mejor decisión o hay algo en vuestro diseño que no es adecuado.</p>
 
-<h3 id="mtodo-equals">Método equals</h3>
+<h3 id="método-equals">Método equals</h3>
 
 <p>En general, los IDEs exponen una opción para generar los métodos <code class="highlighter-rouge">equals</code> y <code class="highlighter-rouge">hashCode</code> conjutamente. Esto tiene sentido, ya que no tendría mucho sentido definir un método sin el otro (no entraré en detalles aquí, pero creo que todos entendemos el <a href="http://www.programcreek.com/2011/07/java-equals-and-hashcode-contract/">contrato equals y hashCode</a>).</p>
 
@@ -192,7 +192,7 @@
     <span class="c1">//Constructor, equals, etc</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="n">equals</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">if</span> <span class="o">(</span><span class="k">this</span> <span class="o">==</span> <span class="n">o</span><span class="o">)</span>
             <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
 
@@ -221,12 +221,12 @@
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyDerivedClass</span> <span class="kd">extends</span> <span class="n">MyClass</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">address</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">MyDerivedClass</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">MyDerivedClass</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">,</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span>
         <span class="kd">super</span><span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">name</span><span class="o">);</span>
         <span class="k">this</span><span class="o">.</span><span class="na">address</span> <span class="o">=</span> <span class="n">address</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">String</span> <span class="n">getAddress</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getAddress</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">address</span><span class="o">;</span>
     <span class="o">}</span>
 
@@ -235,14 +235,14 @@
 
 <p>Me ahorro la implementación de <code class="highlighter-rouge">equals</code> y <code class="highlighter-rouge">hashCode</code> en esta segunda clase, porque no lo necesitamos a efectos del ejemplo.</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">MyClass</span> <span class="n">object1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyClass</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="s">"name"</span><span class="o">);</span>
     <span class="n">MyDerivedClass</span> <span class="n">object2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MyDerivedClass</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="s">"name"</span><span class="o">,</span> <span class="s">"address"</span><span class="o">);</span>
 
     <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">areEquals</span><span class="o">(</span><span class="n">object1</span><span class="o">,</span> <span class="n">object2</span><span class="o">));</span>
 <span class="o">}</span>
 
-<span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">areEquals</span><span class="p">(</span><span class="n">MyClass</span> <span class="n">object1</span><span class="o">,</span> <span class="n">MyClass</span> <span class="n">object2</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">areEquals</span><span class="o">(</span><span class="n">MyClass</span> <span class="n">object1</span><span class="o">,</span> <span class="n">MyClass</span> <span class="n">object2</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">object1</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">object2</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
@@ -256,7 +256,7 @@
 
 <p>Se podría discutir que en realidad es adecuado que ocurra esto, ya que se trata de instancias de clases diferentes. ¿Pero tiene realmente esto sentido cuando si interrogamos cada uno de los campos de ambas clases los valores son idénticos? De hecho, una implementación alternative de <code class="highlighter-rouge">areEquals</code> podría ser:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">areEquals</span><span class="p">(</span><span class="n">MyClass</span> <span class="n">object1</span><span class="o">,</span> <span class="n">MyClass</span> <span class="n">object2</span><span class="o">)</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">boolean</span> <span class="nf">areEquals</span><span class="o">(</span><span class="n">MyClass</span> <span class="n">object1</span><span class="o">,</span> <span class="n">MyClass</span> <span class="n">object2</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">object1</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">==</span> <span class="n">object2</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">&amp;&amp;</span>
             <span class="n">object1</span><span class="o">.</span><span class="na">getName</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">object2</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
 <span class="o">}</span></code></pre></figure>
@@ -268,7 +268,7 @@
 <p>En resumidas cuentas, necesitamos buscar una mejor implementación para nuestro método <code class="highlighter-rouge">equals</code>. Y sería esta:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Override</span>
-<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="p">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">equals</span><span class="o">(</span><span class="n">Object</span> <span class="n">o</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="k">this</span> <span class="o">==</span> <span class="n">o</span><span class="o">)</span>
         <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
 

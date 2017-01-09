@@ -96,7 +96,7 @@
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@SpringBootApplication</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorldWebappTddApplication</span> <span class="o">{</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span>
                 <span class="n">HelloWorldWebappTddApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
     <span class="o">}</span>
@@ -113,7 +113,7 @@
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorldWebappTddApplicationTests</span> <span class="o">{</span>
 
 	<span class="nd">@Test</span>
-	<span class="kd">public</span> <span class="kt">void</span> <span class="n">contextLoads</span><span class="o">()</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">contextLoads</span><span class="o">()</span> <span class="o">{</span>
 	<span class="o">}</span>
 
 <span class="o">}</span></code></pre></figure>
@@ -131,7 +131,7 @@
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloWorldWebappTddApplicationTest</span> <span class="o">{</span>
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">junitDefaultRunner</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">junitDefaultRunner</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
 
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -153,12 +153,12 @@
     <span class="kd">public</span> <span class="n">WebDriver</span> <span class="n">webDriver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HtmlUnitDriver</span><span class="o">();</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">WebDriver</span> <span class="n">getDefaultDriver</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">WebDriver</span> <span class="nf">getDefaultDriver</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">webDriver</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">openHelloPage</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">openHelloPage</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="n">goTo</span><span class="o">(</span><span class="s">"http://localhost:8080/hello"</span><span class="o">);</span>
 
         <span class="n">assertThat</span><span class="o">(</span><span class="n">find</span><span class="o">(</span><span class="s">".message"</span><span class="o">).</span><span class="na">getText</span><span class="o">())</span>
@@ -187,7 +187,7 @@
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloControllerTest</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="n">HelloController</span> <span class="n">helloController</span> <span class="o">=</span>
-            <span class="k">new</span> <span class="n">HelloController</span><span class="o">();</span>
+            <span class="k">new</span> <span class="nf">HelloController</span><span class="o">();</span>
 
 <span class="o">}</span></code></pre></figure>
 
@@ -206,14 +206,14 @@
     <span class="kd">private</span> <span class="n">HelloController</span> <span class="n">pageController</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HelloController</span><span class="o">();</span>
 
     <span class="nd">@Before</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="n">mvc</span> <span class="o">=</span> <span class="n">MockMvcBuilders</span>
                 <span class="o">.</span><span class="na">standaloneSetup</span><span class="o">(</span><span class="n">pageController</span><span class="o">)</span>
                 <span class="o">.</span><span class="na">build</span><span class="o">();</span>
     <span class="o">}</span>
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">showHelloPage</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">showHelloPage</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="n">mvc</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">get</span><span class="o">(</span><span class="s">"/hello"</span><span class="o">))</span>
                 <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">status</span><span class="o">().</span><span class="na">isOk</span><span class="o">())</span>
                 <span class="o">.</span><span class="na">andExpect</span><span class="o">(</span><span class="n">view</span><span class="o">().</span><span class="na">name</span><span class="o">(</span><span class="s">"helloView"</span><span class="o">));</span>
@@ -231,7 +231,7 @@ Actual   :404</code></pre></figure>
 <p>Esto se debe a que de momento no estamos mapeando ese endpoint, así que vamos a hacerlo:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">,</span> <span class="n">value</span> <span class="o">=</span> <span class="s">"/hello"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="s">"helloView"</span><span class="o">;</span>
 <span class="o">}</span></code></pre></figure>
 
@@ -297,12 +297,12 @@ Actual   :404</code></pre></figure>
     <span class="kd">public</span> <span class="n">WebDriver</span> <span class="n">webDriver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HtmlUnitDriver</span><span class="o">();</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">WebDriver</span> <span class="n">getDefaultDriver</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">WebDriver</span> <span class="nf">getDefaultDriver</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">webDriver</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">openHelloPage</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">openHelloPage</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="n">goTo</span><span class="o">(</span><span class="s">"http://localhost:8080/hello"</span><span class="o">);</span>
 
         <span class="n">assertThat</span><span class="o">(</span><span class="n">find</span><span class="o">(</span><span class="s">".message"</span><span class="o">).</span><span class="na">getText</span><span class="o">())</span>
@@ -325,12 +325,12 @@ Actual   :404</code></pre></figure>
     <span class="kd">public</span> <span class="n">WebDriver</span> <span class="n">webDriver</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HtmlUnitDriver</span><span class="o">();</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">WebDriver</span> <span class="n">getDefaultDriver</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">WebDriver</span> <span class="nf">getDefaultDriver</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">webDriver</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">openHelloPage</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">openHelloPage</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="n">goTo</span><span class="o">(</span><span class="s">"http://localhost:"</span> <span class="o">+</span> <span class="n">SERVER_PORT</span> <span class="o">+</span> <span class="s">"/hello"</span><span class="o">);</span>
 
         <span class="n">assertThat</span><span class="o">(</span><span class="n">find</span><span class="o">(</span><span class="s">".message"</span><span class="o">).</span><span class="na">getText</span><span class="o">())</span>
@@ -342,7 +342,7 @@ Actual   :404</code></pre></figure>
 
 <p>Si nuestro sistema siguiera creciendo, a nada que añadiéramos una segunda clase con tests de navegador surgirían nuevas ideas para encapsular configuración común, pero no es ese el propósito de este post.</p>
 
-<h3 id="conclusin">Conclusión</h3>
+<h3 id="conclusión">Conclusión</h3>
 
 <p>Comenzamos el post planteando la cuestión de cuál sería el punto de partida para escribir una aplicación siguiendo la metodología TDD. Espero haber dejado clara la respuesta, que no es otra que “por los tests de aceptación, y siguiendo una aproximación top-down para escribir tests en sucesivos niveles”.</p>
 

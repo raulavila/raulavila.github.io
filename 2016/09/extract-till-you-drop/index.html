@@ -76,9 +76,9 @@
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">List</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">people</span> <span class="o">=</span>
              <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">(</span>
-                     <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="s">"Paco"</span><span class="o">,</span> <span class="s">"Madrid"</span><span class="o">),</span>
-                     <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="s">"Pepe"</span><span class="o">,</span> <span class="s">"Madrid"</span><span class="o">),</span>
-                     <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="s">"Luis"</span><span class="o">,</span> <span class="s">"Barcelona"</span><span class="o">));</span>
+                     <span class="k">new</span> <span class="nf">Person</span><span class="o">(</span><span class="s">"Paco"</span><span class="o">,</span> <span class="s">"Madrid"</span><span class="o">),</span>
+                     <span class="k">new</span> <span class="nf">Person</span><span class="o">(</span><span class="s">"Pepe"</span><span class="o">,</span> <span class="s">"Madrid"</span><span class="o">),</span>
+                     <span class="k">new</span> <span class="nf">Person</span><span class="o">(</span><span class="s">"Luis"</span><span class="o">,</span> <span class="s">"Barcelona"</span><span class="o">));</span>
 
 <span class="c1">//...</span>
 
@@ -164,7 +164,7 @@
 <p>El ejemplo de código que viene a continuación fue desarrollado por mí mismo hace unos tres años para un proceso de selección. Se trataba de implementar el juego del ahorcado en una aplicación de Spring MVC, y en su día me pareció que la solución era bastante correcta y legible. Pongo aquí un extracto del método de la clase <code class="highlighter-rouge">Controller</code> que procesaba una apuesta determinada (es decir, intentar acertar una letra):</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="s">"/bet"</span><span class="o">,</span> <span class="n">method</span><span class="o">=</span><span class="n">RequestMethod</span><span class="o">.</span><span class="na">PUT</span><span class="o">)</span>
-<span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">Object</span> <span class="n">playGame</span><span class="o">(</span>
+<span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">Object</span> <span class="nf">playGame</span><span class="o">(</span>
     <span class="nd">@CookieValue</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="s">"hangmanGameId"</span><span class="o">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">false</span><span class="o">)</span> <span class="n">String</span> <span class="n">gameId</span><span class="o">,</span>
     <span class="nd">@RequestBody</span> <span class="n">GameUserView</span> <span class="n">gameUserView</span><span class="o">,</span>
     <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
@@ -215,7 +215,7 @@
 <p>Me he liado la manta a la cabeza, y aplicando mi mantra “extract till you drop”, he generado una nueva versión del código, que hace <strong>exactamente lo mismo</strong>:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="s">"/bet"</span><span class="o">,</span> <span class="n">method</span><span class="o">=</span><span class="n">RequestMethod</span><span class="o">.</span><span class="na">PUT</span><span class="o">)</span>
-<span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">GameUserView</span> <span class="n">playGame</span><span class="o">(</span>
+<span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">GameUserView</span> <span class="nf">playGame</span><span class="o">(</span>
         <span class="nd">@CookieValue</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="s">"hangmanGameId"</span><span class="o">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">false</span><span class="o">)</span> <span class="n">String</span> <span class="n">gameId</span><span class="o">,</span>
         <span class="nd">@RequestBody</span> <span class="n">GameUserView</span> <span class="n">gameUserView</span><span class="o">,</span>
         <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
@@ -231,7 +231,7 @@
     <span class="k">return</span> <span class="n">game</span><span class="o">.</span><span class="na">asUserView</span><span class="o">();</span>
 <span class="o">}</span>
 
-<span class="kd">private</span> <span class="n">Game</span> <span class="nf">fetchGame</span><span class="p">(</span>
+<span class="kd">private</span> <span class="n">Game</span> <span class="nf">fetchGame</span><span class="o">(</span>
     <span class="n">String</span> <span class="n">gameId</span><span class="o">,</span>
     <span class="n">GameUserView</span> <span class="n">gameUserView</span><span class="o">)</span> <span class="o">{</span>
 
@@ -241,29 +241,29 @@
     <span class="n">Game</span> <span class="n">game</span> <span class="o">=</span> <span class="n">gameRepository</span><span class="o">.</span><span class="na">getGame</span><span class="o">(</span><span class="n">gameId</span><span class="o">);</span>
 
     <span class="k">if</span> <span class="o">(</span><span class="n">game</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="n">GameNotFoundException</span><span class="o">();</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">GameNotFoundException</span><span class="o">();</span>
     <span class="o">}</span>
 
     <span class="k">return</span> <span class="n">game</span><span class="o">;</span>
 <span class="o">}</span>
 
-<span class="kd">private</span> <span class="kt">void</span> <span class="nf">verifyGameConsistency</span><span class="p">(</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">verifyGameConsistency</span><span class="o">(</span>
     <span class="n">Game</span> <span class="n">game</span><span class="o">,</span>
     <span class="n">GameUserView</span> <span class="n">gameUserView</span><span class="o">)</span> <span class="o">{</span>
 
     <span class="k">if</span><span class="o">(</span><span class="n">gameIsBeingPlayedConcurrently</span><span class="o">(</span><span class="n">game</span><span class="o">,</span> <span class="n">gameUserView</span><span class="o">))</span> <span class="o">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="n">GameIsPlayedConcurrentlyException</span><span class="o">();</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">GameIsPlayedConcurrentlyException</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span>
 
-<span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">gameIsBeingPlayedConcurrently</span><span class="p">(</span>
+<span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">gameIsBeingPlayedConcurrently</span><span class="o">(</span>
     <span class="n">Game</span> <span class="n">game</span><span class="o">,</span>
     <span class="n">GameUserView</span> <span class="n">gameUserView</span><span class="o">)</span> <span class="o">{</span>
 
     <span class="k">return</span> <span class="n">game</span><span class="o">.</span><span class="na">getState</span><span class="o">()</span> <span class="o">!=</span> <span class="n">gameUserView</span><span class="o">.</span><span class="na">getState</span><span class="o">();</span>
 <span class="o">}</span>
 
-<span class="kd">private</span> <span class="kt">void</span> <span class="nf">playBet</span><span class="p">(</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">playBet</span><span class="o">(</span>
     <span class="n">Game</span> <span class="n">game</span><span class="o">,</span>
     <span class="n">GameUserView</span> <span class="n">gameUserView</span><span class="o">)</span> <span class="o">{</span>
 
@@ -272,10 +272,10 @@
     <span class="kt">boolean</span> <span class="n">valid</span> <span class="o">=</span> <span class="o">!</span><span class="n">game</span><span class="o">.</span><span class="na">play</span><span class="o">(</span><span class="n">characterPlayed</span><span class="o">);</span>
 
     <span class="k">if</span><span class="o">(!</span><span class="n">valid</span><span class="o">)</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="n">InvalidBetPlayedException</span><span class="o">();</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">InvalidBetPlayedException</span><span class="o">();</span>
 <span class="o">}</span>
 
-<span class="kd">private</span> <span class="kt">void</span> <span class="nf">verifyEndState</span><span class="p">(</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">verifyEndState</span><span class="o">(</span>
     <span class="n">Game</span> <span class="n">game</span><span class="o">,</span>
     <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">)</span> <span class="o">{</span>
 
@@ -284,11 +284,11 @@
     <span class="o">}</span>
 <span class="o">}</span>
 
-<span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">cantContinuePlaying</span><span class="p">(</span><span class="n">Game</span> <span class="n">game</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">cantContinuePlaying</span><span class="o">(</span><span class="n">Game</span> <span class="n">game</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">game</span><span class="o">.</span><span class="na">isGameOver</span><span class="o">()</span> <span class="o">||</span> <span class="n">game</span><span class="o">.</span><span class="na">isFinished</span><span class="o">();</span>
 <span class="o">}</span>
 
-<span class="kd">private</span> <span class="kt">void</span> <span class="nf">cleanUpGame</span><span class="p">(</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">cleanUpGame</span><span class="o">(</span>
     <span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span>
     <span class="n">Game</span> <span class="n">game</span><span class="o">)</span> <span class="o">{</span>
 
@@ -298,20 +298,20 @@
 
 <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">GameNotFoundException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
 <span class="nd">@ResponseStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="o">)</span>
-<span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">ErrorInfo</span> <span class="n">gameNotFound</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="n">ErrorInfo</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">UNEXPECTED_SERVER_ERROR</span><span class="o">);</span>
+<span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">ErrorInfo</span> <span class="nf">gameNotFound</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">ErrorInfo</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">UNEXPECTED_SERVER_ERROR</span><span class="o">);</span>
 <span class="o">}</span>
 
 <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">GameIsPlayedConcurrentlyException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
 <span class="nd">@ResponseStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">CONFLICT</span><span class="o">)</span>
-<span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">ErrorInfo</span> <span class="n">gamePlayedConcurrently</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="n">ErrorInfo</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">CONCURRENT_GAMES_ERROR</span><span class="o">);</span>
+<span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">ErrorInfo</span> <span class="nf">gamePlayedConcurrently</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">ErrorInfo</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">CONCURRENT_GAMES_ERROR</span><span class="o">);</span>
 <span class="o">}</span>
 
 <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">InvalidBetPlayedException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
 <span class="nd">@ResponseStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">BAD_REQUEST</span><span class="o">)</span>
-<span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">ErrorInfo</span> <span class="n">invalidBetPlayed</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="n">ErrorInfo</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">INCORRECT_PLAY_ERROR</span><span class="o">);</span>
+<span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">ErrorInfo</span> <span class="nf">invalidBetPlayed</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">ErrorInfo</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">INCORRECT_PLAY_ERROR</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>De acuerdo, ahora tenemos un número mayor de líneas de código. ¿Y qué? Las responsabilidades están perfectamente encapsuladas en pequeñas funciones que realizan una sola cosa, de forma que:</p>
@@ -333,7 +333,7 @@
 <p>Por último, una importante ventaja de esta estrategia de diseño de funciones es la facilidad para llevar a cabo benchmarking o medición del rendimiento de un método determinado. Así, si fuera necesario calcular el tiempo que lleva limpiar el estado del juego al finalizar sólo tendríamos que añadir las anotaciones necesarias al método <code class="highlighter-rouge">cleanUpGame</code> (en el ejemplo utilizo anotaciones del framework <a href="http://tutorials.jenkov.com/java-performance/jmh.html">JMH</a>):</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Benchmark</span>
-<span class="kd">private</span> <span class="kt">void</span> <span class="nf">cleanUpGame</span><span class="p">(</span><span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="n">Game</span> <span class="n">game</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">cleanUpGame</span><span class="o">(</span><span class="n">HttpServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="n">Game</span> <span class="n">game</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">gameRepository</span><span class="o">.</span><span class="na">removeGame</span><span class="o">(</span><span class="n">game</span><span class="o">);</span>
     <span class="n">CookieUtils</span><span class="o">.</span><span class="na">clearCookie</span><span class="o">(</span><span class="n">response</span><span class="o">,</span> <span class="n">Constants</span><span class="o">.</span><span class="na">GAME_ID_COOKIE_NAME</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
@@ -349,20 +349,20 @@
 
     <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">GameNotFoundException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
     <span class="nd">@ResponseStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">ErrorInfo</span> <span class="n">gameNotFound</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="n">ErrorInfo</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">UNEXPECTED_SERVER_ERROR</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">ErrorInfo</span> <span class="nf">gameNotFound</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">ErrorInfo</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">UNEXPECTED_SERVER_ERROR</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">GameIsPlayedConcurrentlyException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
     <span class="nd">@ResponseStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">CONFLICT</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">ErrorInfo</span> <span class="n">gamePlayedConcurrently</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="n">ErrorInfo</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">CONCURRENT_GAMES_ERROR</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">ErrorInfo</span> <span class="nf">gamePlayedConcurrently</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">ErrorInfo</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">CONCURRENT_GAMES_ERROR</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">InvalidBetPlayedException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
     <span class="nd">@ResponseStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">BAD_REQUEST</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">ErrorInfo</span> <span class="n">invalidBetPlayed</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="n">ErrorInfo</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">INCORRECT_PLAY_ERROR</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">ErrorInfo</span> <span class="nf">invalidBetPlayed</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">ErrorInfo</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">INCORRECT_PLAY_ERROR</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
@@ -372,7 +372,7 @@
 
 <p>Por último, tenemos que prestar atención al tamaño de nuestros <code class="highlighter-rouge">packages</code> o <code class="highlighter-rouge">namespaces</code>, que deben estar bien cohesionados, y enfocados en hacer “una sola cosa”. No me extenderé más en esto, porque ya lo mencioné en <a href="/2016/09/haz-una-sola-cosa/">el post anterior</a>.</p>
 
-<h3 id="conclusin-empata">Conclusión: empatía</h3>
+<h3 id="conclusión-empatía">Conclusión: empatía</h3>
 
 <p>Leí hace poco que <a href="https://es.wikipedia.org/wiki/Kent_Beck">Kent Beck</a>, a la pregunta de “¿Cuál es la cualidad más importante del Software?” respondió “Empatía”. Seguir este mantra es la forma más fácil de alcanzar esa empatía, porque nos obligará a pensar permanentemente en el programador que viene detrás de nosotros y en como facilitarle la lectura del código.</p>
 

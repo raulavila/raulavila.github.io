@@ -77,7 +77,7 @@
 <p>Sin embargo, no siempre tener una gran cobertura de tests garantiza que los tests sean de calidad. Lo mejor es verlo con un ejemplo (utilizando un poco de reducción al absurdo):</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MaxCoverage</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kt">int</span> <span class="n">addOne</span><span class="o">(</span><span class="kt">int</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">addOne</span><span class="o">(</span><span class="kt">int</span> <span class="n">number</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="mi">3</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -89,7 +89,7 @@
     <span class="kd">private</span> <span class="n">MaxCoverage</span> <span class="n">maxCoverage</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MaxCoverage</span><span class="o">();</span>
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">testAddOne</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testAddOne</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">maxCoverage</span><span class="o">.</span><span class="na">addOne</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
         <span class="n">assertThat</span><span class="o">(</span><span class="n">result</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="mi">3</span><span class="o">);</span>
     <span class="o">}</span>
@@ -112,7 +112,7 @@
 
 <p>En <a href="http://pitest.org/quickstart/mutators/">este link</a> hay una lista completa de los mutadores utilizados por la herramienta que vamos a utilizar para mostrar un ejemplo práctico de desarrollo utilizando Mutation Testing: <a href="http://pitest.org/">PIT</a>.</p>
 
-<h3 id="mutation-testing-en-la-prctica">Mutation testing en la práctica</h3>
+<h3 id="mutation-testing-en-la-práctica">Mutation testing en la práctica</h3>
 
 <p>Configuremos nuestro proyecto para generar reportes de Mutation Testing con PIT. Optaremos por utilizarlo a través de su plugin de maven, para lo cual tenemos que añadir el siguiente fragmento de código al fichero POM:</p>
 
@@ -138,7 +138,7 @@
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Calculator</span> <span class="o">{</span>
 
-    <span class="kd">public</span> <span class="kt">long</span> <span class="n">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">operand1</span> <span class="o">+</span> <span class="n">operand2</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -154,7 +154,7 @@
     <span class="kd">private</span> <span class="n">Calculator</span> <span class="n">calculator</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Calculator</span><span class="o">();</span>
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">testAdd</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testAdd</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="kt">int</span> <span class="n">operand1</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
         <span class="kt">int</span> <span class="n">operand2</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
 
@@ -175,7 +175,7 @@
 <p>Vamos a arrelgar nuestra clase de test:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testAdd</span><span class="p">(</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testAdd</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
     <span class="kt">int</span> <span class="n">operand1</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
     <span class="kt">int</span> <span class="n">operand2</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
 
@@ -196,7 +196,7 @@
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Calculator</span> <span class="o">{</span>
 
-    <span class="kd">public</span> <span class="kt">long</span> <span class="n">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">,</span> <span class="n">Mode</span> <span class="n">mode</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">,</span> <span class="n">Mode</span> <span class="n">mode</span><span class="o">)</span> <span class="o">{</span>
 
         <span class="k">if</span> <span class="o">(</span><span class="n">mode</span> <span class="o">==</span> <span class="n">ABSOLUTE</span><span class="o">)</span> <span class="o">{</span>
             <span class="n">operand1</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">abs</span><span class="o">(</span><span class="n">operand1</span><span class="o">);</span>
@@ -212,7 +212,7 @@
 <p>El test se mantiene, con la única modificación del parámetro:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testAdd</span><span class="p">(</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testAdd</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
     <span class="kt">int</span> <span class="n">operand1</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
     <span class="kt">int</span> <span class="n">operand2</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
 
@@ -238,7 +238,7 @@
     <span class="kd">private</span> <span class="kt">long</span> <span class="n">expectedResultAbsolute</span><span class="o">;</span>
 
     <span class="nd">@Parameterized</span><span class="o">.</span><span class="na">Parameters</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Collection</span> <span class="n">data</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Collection</span> <span class="nf">data</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">Object</span><span class="o">[][]</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[][]</span> <span class="o">{</span>
                 <span class="o">{</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">4</span> <span class="o">},</span>
                 <span class="o">{</span> <span class="o">-</span><span class="mi">2</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">4</span> <span class="o">},</span>
@@ -249,7 +249,7 @@
         <span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">CalculatorTest</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span>
+    <span class="kd">public</span> <span class="nf">CalculatorTest</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span>
                           <span class="kt">int</span> <span class="n">operand2</span><span class="o">,</span>
                           <span class="kt">long</span> <span class="n">expectedResultStraight</span><span class="o">,</span>
                           <span class="kt">long</span> <span class="n">expectedResultAbsolute</span><span class="o">)</span> <span class="o">{</span>
@@ -262,13 +262,13 @@
 
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">testAddStraight</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testAddStraight</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="kt">long</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">calculator</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">operand1</span><span class="o">,</span> <span class="n">operand2</span><span class="o">,</span> <span class="n">STRAIGHT</span><span class="o">);</span>
         <span class="n">assertThat</span><span class="o">(</span><span class="n">sum</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">expectedResultStraight</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">testAddAbsolute</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testAddAbsolute</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="kt">long</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">calculator</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">operand1</span><span class="o">,</span> <span class="n">operand2</span><span class="o">,</span> <span class="n">ABSOLUTE</span><span class="o">);</span>
         <span class="n">assertThat</span><span class="o">(</span><span class="n">sum</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">expectedResultAbsolute</span><span class="o">);</span>
     <span class="o">}</span>
@@ -277,7 +277,7 @@
 
 <p>En esta ocasión ponemos a prueba datos de diferente naturaleza y en ambos modos de ejecución. De nuevo, PIT vuelve a ser feliz, dando un 100% de mutaciones derribadas.</p>
 
-<h4 id="test-defectuoso-verificacin-de-colaboraciones">Test defectuoso: verificación de colaboraciones</h4>
+<h4 id="test-defectuoso-verificación-de-colaboraciones">Test defectuoso: verificación de colaboraciones</h4>
 
 <p>Por último, añadamos a nuestra calculadora la funcionalidad de auditoría, de forma que todas las llamadas al método add sean registradas en algún sitio (que no importa demasiado a efectos de este post):</p>
 
@@ -285,7 +285,7 @@
 
     <span class="kd">private</span> <span class="n">Audit</span> <span class="n">audit</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AuditImpl</span><span class="o">();</span>
 
-    <span class="kd">public</span> <span class="kt">long</span> <span class="n">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">,</span> <span class="n">Mode</span> <span class="n">mode</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">,</span> <span class="n">Mode</span> <span class="n">mode</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">audit</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%d + %d (%s)"</span><span class="o">,</span> <span class="n">operand1</span><span class="o">,</span> <span class="n">operand2</span><span class="o">,</span> <span class="n">mode</span><span class="o">));</span>
 
         <span class="k">if</span> <span class="o">(</span><span class="n">mode</span> <span class="o">==</span> <span class="n">ABSOLUTE</span><span class="o">)</span> <span class="o">{</span>
@@ -311,7 +311,7 @@
 
     <span class="kd">private</span> <span class="n">Audit</span> <span class="n">audit</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">Calculator</span><span class="o">(</span><span class="n">Audit</span> <span class="n">audit</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Calculator</span><span class="o">(</span><span class="n">Audit</span> <span class="n">audit</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">audit</span> <span class="o">=</span> <span class="n">audit</span><span class="o">;</span>
     <span class="o">}</span>
     <span class="c1">//....</span>
@@ -328,7 +328,7 @@
     <span class="kd">private</span> <span class="n">Calculator</span> <span class="n">calculator</span><span class="o">;</span>
 
     <span class="nd">@Before</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="n">MockitoAnnotations</span><span class="o">.</span><span class="na">initMocks</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
     <span class="o">}</span>
 
@@ -338,7 +338,7 @@
     <span class="kd">private</span> <span class="kt">long</span> <span class="n">expectedResultAbsolute</span><span class="o">;</span>
 
     <span class="nd">@Parameterized</span><span class="o">.</span><span class="na">Parameters</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Collection</span> <span class="n">data</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Collection</span> <span class="nf">data</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">Object</span><span class="o">[][]</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[][]</span> <span class="o">{</span>
                 <span class="o">{</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">4</span> <span class="o">},</span>
                 <span class="o">{</span> <span class="o">-</span><span class="mi">2</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">4</span> <span class="o">},</span>
@@ -349,7 +349,7 @@
         <span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">CalculatorTest</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span>
+    <span class="kd">public</span> <span class="nf">CalculatorTest</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span>
                           <span class="kt">int</span> <span class="n">operand2</span><span class="o">,</span>
                           <span class="kt">long</span> <span class="n">expectedResultStraight</span><span class="o">,</span>
                           <span class="kt">long</span> <span class="n">expectedResultAbsolute</span><span class="o">)</span> <span class="o">{</span>
@@ -362,7 +362,7 @@
 
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">testAddStraight</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testAddStraight</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="kt">long</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">calculator</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">operand1</span><span class="o">,</span> <span class="n">operand2</span><span class="o">,</span> <span class="n">STRAIGHT</span><span class="o">);</span>
         <span class="n">assertThat</span><span class="o">(</span><span class="n">sum</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">expectedResultStraight</span><span class="o">);</span>
 
@@ -371,7 +371,7 @@
     <span class="o">}</span>
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">testAddAbsolute</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testAddAbsolute</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="kt">long</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">calculator</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">operand1</span><span class="o">,</span> <span class="n">operand2</span><span class="o">,</span> <span class="n">ABSOLUTE</span><span class="o">);</span>
         <span class="n">assertThat</span><span class="o">(</span><span class="n">sum</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">expectedResultAbsolute</span><span class="o">);</span>
 

@@ -73,7 +73,7 @@
 
 <p>Otro motivo de confusión, a mi parecer, es que en foros, blogs, etc, se suele tratar el tema en el orden equivocado: IoC =&gt; DI =&gt; DIP. Yo haré justo lo contrario, y comenzaré explicando el Principio de Inversión de dependencias.</p>
 
-<h2 id="principio-de-inversin-de-dependencias">Principio de Inversión de Dependencias</h2>
+<h2 id="principio-de-inversión-de-dependencias">Principio de Inversión de Dependencias</h2>
 
 <p>Este principio, que no sé al 100% si acuñado, pero sí popularizado por <a href="http://en.wikipedia.org/wiki/Robert_Cecil_Martin">Uncle Bob</a>, tiene la siguiente <a href="http://en.wikipedia.org/wiki/Dependency_inversion_principle">definición formal oficial</a>:</p>
 
@@ -87,7 +87,7 @@
 
 <p>Diría que esta definición por sí misma no sirve de mucho, y para entenderlo en condiciones necesitamos un ejemplo plasmado en código y acompañado de algún diagrama UML.</p>
 
-<h4 id="dependencias-en-tiempo-de-compilacin--de-ejecucin">Dependencias en tiempo de compilación / de ejecución</h4>
+<h4 id="dependencias-en-tiempo-de-compilación--de-ejecución">Dependencias en tiempo de compilación / de ejecución</h4>
 
 <p>Para entender este principio primero hay que aprender a distinguir la diferencia entre dependencias en tiempo de compilación (compile time dependencies) y dependencias en tiempo de ejecución (runtime dependencies).</p>
 
@@ -99,7 +99,7 @@
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">BigDecimal</span> <span class="n">price</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">quantity</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">Item</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span>
+    <span class="kd">public</span> <span class="nf">Item</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span>
                 <span class="n">BigDecimal</span> <span class="n">price</span><span class="o">,</span>
                 <span class="kt">int</span> <span class="n">quantity</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
@@ -112,14 +112,14 @@
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ItemDAO</span> <span class="o">{</span>
     <span class="kd">public</span> <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span> <span class="n">items</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">ItemDAO</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">ItemDAO</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">items</span> <span class="o">=</span> <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">(</span>
-                <span class="k">new</span> <span class="n">Item</span><span class="o">(</span><span class="s">"item1"</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">10.00</span><span class="o">),</span> <span class="mi">2</span><span class="o">),</span>
-                <span class="k">new</span> <span class="n">Item</span><span class="o">(</span><span class="s">"item1"</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">20.00</span><span class="o">),</span> <span class="mi">1</span><span class="o">),</span>
-                <span class="k">new</span> <span class="n">Item</span><span class="o">(</span><span class="s">"item1"</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">30.00</span><span class="o">),</span> <span class="mi">3</span><span class="o">));</span>
+                <span class="k">new</span> <span class="nf">Item</span><span class="o">(</span><span class="s">"item1"</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">10.00</span><span class="o">),</span> <span class="mi">2</span><span class="o">),</span>
+                <span class="k">new</span> <span class="nf">Item</span><span class="o">(</span><span class="s">"item1"</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">20.00</span><span class="o">),</span> <span class="mi">1</span><span class="o">),</span>
+                <span class="k">new</span> <span class="nf">Item</span><span class="o">(</span><span class="s">"item1"</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">30.00</span><span class="o">),</span> <span class="mi">3</span><span class="o">));</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span> <span class="n">getItems</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span> <span class="nf">getItems</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">items</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -128,11 +128,11 @@
 
     <span class="kd">private</span> <span class="n">ItemDAO</span> <span class="n">itemDAO</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">InventoryService</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">InventoryService</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">itemDAO</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ItemDAO</span><span class="o">();</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">BigDecimal</span> <span class="n">getTotalAmount</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">BigDecimal</span> <span class="nf">getTotalAmount</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span> <span class="n">items</span> <span class="o">=</span> <span class="n">itemDAO</span><span class="o">.</span><span class="na">getItems</span><span class="o">();</span>
 
         <span class="n">BigDecimal</span> <span class="n">totalAmount</span> <span class="o">=</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">;</span>
@@ -144,7 +144,7 @@
         <span class="k">return</span> <span class="n">totalAmount</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="n">BigDecimal</span> <span class="n">addItemAmountToTotal</span><span class="o">(</span><span class="n">Item</span> <span class="n">item</span><span class="o">,</span> <span class="n">BigDecimal</span> <span class="n">totalAmount</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">BigDecimal</span> <span class="nf">addItemAmountToTotal</span><span class="o">(</span><span class="n">Item</span> <span class="n">item</span><span class="o">,</span> <span class="n">BigDecimal</span> <span class="n">totalAmount</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">BigDecimal</span> <span class="n">price</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="na">getPrice</span><span class="o">();</span>
         <span class="kt">int</span> <span class="n">quantity</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="na">getQuantity</span><span class="o">();</span>
 
@@ -187,7 +187,7 @@
 
 <p>Por tanto hemos desacoplado ambas clases, que se comunican entre ellas mediante un contrato (establecido en la interfaz <code class="highlighter-rouge">ItemDAO</code>). En tiempo de ejecución, sin embargo, la clase <code class="highlighter-rouge">InventoryService</code> seguirá invocando a la implemantación <code class="highlighter-rouge">ItemDAOImpl</code>, por lo que, efectivamente, está ocurriendo que “la dirección del flujo de ejecución es opuesta a la dirección de las dependencias en tiempo de compilación”. En esto consiste el Principio de Inversión de Dependencias.</p>
 
-<h4 id="pero-si-la-dependencia-en-tiempo-de-compilacin-sigue-ah">¡Pero si la dependencia en tiempo de compilación sigue ahí!</h4>
+<h4 id="pero-si-la-dependencia-en-tiempo-de-compilación-sigue-ahí">¡Pero si la dependencia en tiempo de compilación sigue ahí!</h4>
 
 <p>En el punto anterior he omitido el código resultante del nuevo diseño a propósito. Lo primero que puede venir a nuestra mente tras ver el diagrama UML es lo siguiente:</p>
 
@@ -195,7 +195,7 @@
 
     <span class="kd">private</span> <span class="n">ItemDAO</span> <span class="n">itemDAO</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">InventoryService</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">InventoryService</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">itemDAO</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ItemDAOImpl</span><span class="o">();</span>
     <span class="o">}</span>
     <span class="c1">//...</span>
@@ -203,26 +203,26 @@
 
 <p>En este código siguen existiendo dependencias en tiempo de compilación, porque la clase Service sigue siendo responsable de instanciar la implementación concreta del contrato. Y aquí es donde entra en juego la inyección de dependencias.</p>
 
-<h2 id="inyeccin-de-dependencias">Inyección de Dependencias</h2>
+<h2 id="inyección-de-dependencias">Inyección de Dependencias</h2>
 
 <p>El código que implementa el último diagrama UML ajustándose realmente al DIP sería este:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ItemDAO</span> <span class="o">{</span>
-    <span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span> <span class="n">getItems</span><span class="o">();</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span> <span class="nf">getItems</span><span class="o">();</span>
 <span class="o">}</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ItemDAOImpl</span> <span class="kd">implements</span> <span class="n">ItemDAO</span><span class="o">{</span>
     <span class="kd">public</span> <span class="kd">final</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span> <span class="n">items</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">ItemDAOImpl</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">ItemDAOImpl</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">items</span> <span class="o">=</span> <span class="n">Lists</span><span class="o">.</span><span class="na">newArrayList</span><span class="o">(</span>
-                <span class="k">new</span> <span class="n">Item</span><span class="o">(</span><span class="s">"item1"</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">10.00</span><span class="o">),</span> <span class="mi">2</span><span class="o">),</span>
-                <span class="k">new</span> <span class="n">Item</span><span class="o">(</span><span class="s">"item1"</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">20.00</span><span class="o">),</span> <span class="mi">1</span><span class="o">),</span>
-                <span class="k">new</span> <span class="n">Item</span><span class="o">(</span><span class="s">"item1"</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">30.00</span><span class="o">),</span> <span class="mi">3</span><span class="o">));</span>
+                <span class="k">new</span> <span class="nf">Item</span><span class="o">(</span><span class="s">"item1"</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">10.00</span><span class="o">),</span> <span class="mi">2</span><span class="o">),</span>
+                <span class="k">new</span> <span class="nf">Item</span><span class="o">(</span><span class="s">"item1"</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">20.00</span><span class="o">),</span> <span class="mi">1</span><span class="o">),</span>
+                <span class="k">new</span> <span class="nf">Item</span><span class="o">(</span><span class="s">"item1"</span><span class="o">,</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="mf">30.00</span><span class="o">),</span> <span class="mi">3</span><span class="o">));</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span> <span class="n">getItems</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span> <span class="nf">getItems</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">items</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -231,11 +231,11 @@
 
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">ItemDAO</span> <span class="n">itemDAO</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">InventoryService</span><span class="o">(</span><span class="n">ItemDAO</span> <span class="n">itemDAO</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">InventoryService</span><span class="o">(</span><span class="n">ItemDAO</span> <span class="n">itemDAO</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">itemDAO</span> <span class="o">=</span> <span class="n">itemDAO</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">BigDecimal</span> <span class="n">getTotalAmount</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">BigDecimal</span> <span class="nf">getTotalAmount</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span> <span class="n">items</span> <span class="o">=</span> <span class="n">itemDAO</span><span class="o">.</span><span class="na">getItems</span><span class="o">();</span>
 
         <span class="n">BigDecimal</span> <span class="n">totalAmount</span> <span class="o">=</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">;</span>
@@ -247,7 +247,7 @@
         <span class="k">return</span> <span class="n">totalAmount</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="n">BigDecimal</span> <span class="n">addItemAmountToTotal</span><span class="o">(</span><span class="n">Item</span> <span class="n">item</span><span class="o">,</span> <span class="n">BigDecimal</span> <span class="n">totalAmount</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">BigDecimal</span> <span class="nf">addItemAmountToTotal</span><span class="o">(</span><span class="n">Item</span> <span class="n">item</span><span class="o">,</span> <span class="n">BigDecimal</span> <span class="n">totalAmount</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">BigDecimal</span> <span class="n">price</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="na">getPrice</span><span class="o">();</span>
         <span class="kt">int</span> <span class="n">quantity</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="na">getQuantity</span><span class="o">();</span>
 
@@ -268,7 +268,7 @@
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">InventoryService</span> <span class="o">{</span>
 
     <span class="c1">//....</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">InventoryService</span> <span class="n">inventoryService</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InventoryService</span><span class="o">();</span>
         <span class="n">BigDecimal</span> <span class="n">totalAmount</span> <span class="o">=</span> <span class="n">inventoryService</span><span class="o">.</span><span class="na">getTotalAmount</span><span class="o">();</span>
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">totalAmount</span><span class="o">);</span>
@@ -279,7 +279,7 @@
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Assembler</span> <span class="o">{</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">ItemDAO</span> <span class="n">itemDAO</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ItemDAOImpl</span><span class="o">();</span>
         <span class="n">InventoryService</span> <span class="n">inventoryService</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InventoryService</span><span class="o">(</span><span class="n">itemDAO</span><span class="o">);</span>
         <span class="n">BigDecimal</span> <span class="n">totalAmount</span> <span class="o">=</span> <span class="n">inventoryService</span><span class="o">.</span><span class="na">getTotalAmount</span><span class="o">();</span>
@@ -292,7 +292,7 @@
 
 <p>El concepto fue acuñado por <a href="http://es.wikipedia.org/wiki/Martin_Fowler">Martin Fowler</a> en <a href="http://es.wikipedia.org/wiki/Martin_Fowler">este artículo</a>, y en resumen viene a decir que los sistemas diseñador mediante Dependency Injection están controlados por un componente externo que se encarga de instanciar y ensamblar todas sus piezas convenientemente. En general, nosotros jamás desarrollaremos una clase como la <code class="highlighter-rouge">Assembler</code> de mi ejemplo, y dejaremos esta responsabiliad a frameworks como <a href="http://projects.spring.io/spring-framework/">Spring</a>.</p>
 
-<h4 id="aadiendo-spring-al-sistema">Añadiendo Spring al sistema</h4>
+<h4 id="añadiendo-spring-al-sistema">Añadiendo Spring al sistema</h4>
 
 <p>Veamos como quedaría nuestro sistema utilizando Spring. El core de Spring lo forma el conocido como “Inversion of Control Container” (<a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/html/beans.html#beans-basics">IoC container</a>), o más comúnmente denominado <strong>Application Context</strong>. No es mi intención profundizar aquí en cómo funciona Spring, pero, para posibles lectores que nunca hayan trabajado con el framework, el contexto de Spring puede verse a rasgos generales como un contenedor que almacena instancias de clases Java denominadas beans. Dichos beans están etiquetados con un identificador, su clase y la interfaz que implementan, de forma que cuando una clase necesita hacer uso de una instancia que implemente un contrato determinado, Spring realiza una búsqueda en su contexto de un bean que cumpla las características requeridas e inyecta el bean en la clase que lo solicite.</p>
 
@@ -317,7 +317,7 @@
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainApp</span> <span class="o">{</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">ApplicationContext</span> <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassPathXmlApplicationContext</span><span class="o">(</span>
                 <span class="s">"spring-beans.xml"</span><span class="o">);</span>
 
@@ -330,7 +330,7 @@
 
 <p>Como se puede ver, lo único que instancia es el contexto de Spring, y a partir de ahí solicita los servicios que necesita a dicho contexto.</p>
 
-<h2 id="inversin-de-control-inversion-of-control">Inversión de Control (Inversion of Control)</h2>
+<h2 id="inversión-de-control-inversion-of-control">Inversión de Control (Inversion of Control)</h2>
 
 <p>Este concepto es confundido habitualmente con la Inyección de Dependencias (la propia documentación de Spring lo hace), pero en realidad es bastante más amplio.</p>
 
@@ -353,7 +353,7 @@
 
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">ItemDAOImpl</span> <span class="n">itemDAO</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">InventoryService</span><span class="o">(</span><span class="n">ItemDAOImpl</span> <span class="n">itemDAO</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">InventoryService</span><span class="o">(</span><span class="n">ItemDAOImpl</span> <span class="n">itemDAO</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">itemDAO</span> <span class="o">=</span> <span class="n">itemDAO</span><span class="o">;</span>
     <span class="o">}</span>
     <span class="c1">//....</span>
@@ -370,13 +370,13 @@
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">ItemDAO</span> <span class="n">itemDAO</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">BigDecimalCalculator</span> <span class="n">bigDecimalCalculator</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">InventoryService</span><span class="o">(</span><span class="n">ItemDAO</span> <span class="n">itemDAO</span><span class="o">,</span>
+    <span class="kd">public</span> <span class="nf">InventoryService</span><span class="o">(</span><span class="n">ItemDAO</span> <span class="n">itemDAO</span><span class="o">,</span>
                             <span class="n">BigDecimalCalculator</span> <span class="n">bigDecimalCalculator</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">itemDAO</span> <span class="o">=</span> <span class="n">itemDAO</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">bigDecimalCalculator</span> <span class="o">=</span> <span class="n">bigDecimalCalculator</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">BigDecimal</span> <span class="n">getTotalAmount</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">BigDecimal</span> <span class="nf">getTotalAmount</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span> <span class="n">items</span> <span class="o">=</span> <span class="n">itemDAO</span><span class="o">.</span><span class="na">getItems</span><span class="o">();</span>
 
         <span class="n">BigDecimal</span> <span class="n">totalAmount</span> <span class="o">=</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">ZERO</span><span class="o">;</span>
@@ -388,7 +388,7 @@
         <span class="k">return</span> <span class="n">totalAmount</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="n">BigDecimal</span> <span class="n">addItemAmountToTotal</span><span class="o">(</span><span class="n">Item</span> <span class="n">item</span><span class="o">,</span> <span class="n">BigDecimal</span> <span class="n">totalAmount</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">BigDecimal</span> <span class="nf">addItemAmountToTotal</span><span class="o">(</span><span class="n">Item</span> <span class="n">item</span><span class="o">,</span> <span class="n">BigDecimal</span> <span class="n">totalAmount</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">BigDecimal</span> <span class="n">price</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="na">getPrice</span><span class="o">();</span>
         <span class="n">BigDecimal</span> <span class="n">quantity</span> <span class="o">=</span> <span class="n">BigDecimal</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">item</span><span class="o">.</span><span class="na">getQuantity</span><span class="o">());</span>
 
@@ -419,7 +419,7 @@
     <span class="nt">&lt;/bean&gt;</span>
 <span class="nt">&lt;/beans&gt;</span></code></pre></figure>
 
-<h4 id="inyeccin-mediante-setters">Inyección mediante setters</h4>
+<h4 id="inyección-mediante-setters">Inyección mediante setters</h4>
 
 <p>La inyección no tiene por qué hacerse en el constructor. Es posible exponer los atributos de la clase mediante setters, y en ese caso la configuración en el fichero XML es incluso más clara:</p>
 

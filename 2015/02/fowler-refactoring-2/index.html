@@ -70,22 +70,22 @@
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Employee</span> <span class="o">{</span>
 
-    <span class="kd">protected</span> <span class="n">Employee</span><span class="o">()</span> <span class="o">{}</span>
+    <span class="kd">protected</span> <span class="nf">Employee</span><span class="o">()</span> <span class="o">{}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Employee</span> <span class="n">create</span><span class="o">(</span><span class="n">EmployeeType</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Employee</span> <span class="nf">create</span><span class="o">(</span><span class="n">EmployeeType</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">switch</span> <span class="o">(</span><span class="n">type</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">case</span> <span class="nl">ENGINEER:</span>
-                <span class="k">return</span> <span class="k">new</span> <span class="n">Engineer</span><span class="o">();</span>
+                <span class="k">return</span> <span class="k">new</span> <span class="nf">Engineer</span><span class="o">();</span>
             <span class="k">case</span> <span class="nl">SALESMAN:</span>
-                <span class="k">return</span> <span class="k">new</span> <span class="n">Salesman</span><span class="o">();</span>
+                <span class="k">return</span> <span class="k">new</span> <span class="nf">Salesman</span><span class="o">();</span>
             <span class="k">case</span> <span class="nl">MANAGER:</span>
-                <span class="k">return</span> <span class="k">new</span> <span class="n">Manager</span><span class="o">();</span>
+                <span class="k">return</span> <span class="k">new</span> <span class="nf">Manager</span><span class="o">();</span>
             <span class="k">default</span><span class="o">:</span>
-                <span class="k">throw</span> <span class="k">new</span> <span class="n">AssertionError</span><span class="o">();</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">AssertionError</span><span class="o">();</span>
         <span class="o">}</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">EmployeeType</span> <span class="n">getType</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">EmployeeType</span> <span class="nf">getType</span><span class="o">();</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>Y digo más o menos porque en el libro, en lugar de utilizar una enumeración para las diferentes categorías de empleados se utilizan constantes de tipo int. En la época en que fue escrito el libro no existían las enumeraciones en Java, por lo que me he permitido actualizar esa propuesta final de la forma en que considero habría quedado con enumeraciones.</p>
@@ -94,7 +94,7 @@
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Manager</span> <span class="kd">extends</span> <span class="n">Employee</span> <span class="o">{</span>
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">EmployeeType</span> <span class="n">getType</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">EmployeeType</span> <span class="nf">getType</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">EmployeeType</span><span class="o">.</span><span class="na">MANAGER</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -112,16 +112,16 @@
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">enum</span> <span class="n">EmployeeFactory</span> <span class="o">{</span>
     <span class="n">INSTANCE</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">Employee</span> <span class="n">create</span><span class="o">(</span><span class="n">EmployeeType</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Employee</span> <span class="nf">create</span><span class="o">(</span><span class="n">EmployeeType</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">switch</span> <span class="o">(</span><span class="n">type</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">case</span> <span class="nl">ENGINEER:</span>
-                <span class="k">return</span> <span class="k">new</span> <span class="n">Engineer</span><span class="o">();</span>
+                <span class="k">return</span> <span class="k">new</span> <span class="nf">Engineer</span><span class="o">();</span>
             <span class="k">case</span> <span class="nl">SALESMAN:</span>
-                <span class="k">return</span> <span class="k">new</span> <span class="n">Salesman</span><span class="o">();</span>
+                <span class="k">return</span> <span class="k">new</span> <span class="nf">Salesman</span><span class="o">();</span>
             <span class="k">case</span> <span class="nl">MANAGER:</span>
-                <span class="k">return</span> <span class="k">new</span> <span class="n">Manager</span><span class="o">();</span>
+                <span class="k">return</span> <span class="k">new</span> <span class="nf">Manager</span><span class="o">();</span>
             <span class="k">default</span><span class="o">:</span>
-                <span class="k">throw</span> <span class="k">new</span> <span class="n">AssertionError</span><span class="o">();</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">AssertionError</span><span class="o">();</span>
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -131,14 +131,14 @@
 <p>De esta forma la clase Employee se ha quedado sin métodos implementados, y con un método abstracto, getType. Esto suena sospechosamente a interfaz:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Employee</span> <span class="o">{</span>
-    <span class="n">EmployeeType</span> <span class="n">getType</span><span class="o">();</span>
+    <span class="n">EmployeeType</span> <span class="nf">getType</span><span class="o">();</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>Por lo que las diferentes clases de empleado pasarán a ser implementaciones de la interfaz:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">class</span> <span class="nc">Manager</span> <span class="kd">implements</span> <span class="n">Employee</span> <span class="o">{</span>
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">EmployeeType</span> <span class="n">getType</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">EmployeeType</span> <span class="nf">getType</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">EmployeeType</span><span class="o">.</span><span class="na">MANAGER</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -159,21 +159,21 @@
                     <span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">EmployeeType</span><span class="o">.</span><span class="na">MANAGER</span><span class="o">,</span> <span class="n">Manager</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
                     <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 
-    <span class="kd">public</span> <span class="n">Employee</span> <span class="n">create</span><span class="o">(</span><span class="n">EmployeeType</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Employee</span> <span class="nf">create</span><span class="o">(</span><span class="n">EmployeeType</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">validateType</span><span class="o">(</span><span class="n">type</span><span class="o">);</span>
         <span class="k">try</span> <span class="o">{</span>
             <span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Employee</span><span class="o">&gt;</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">typeClassMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">type</span><span class="o">);</span>
             <span class="k">return</span> <span class="n">clazz</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
         <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InstantiationException</span> <span class="o">|</span> <span class="n">IllegalAccessException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="s">"Unexpected error instantiating employee!"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">"Unexpected error instantiating employee!"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="kt">void</span> <span class="n">validateType</span><span class="o">(</span><span class="n">EmployeeType</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">validateType</span><span class="o">(</span><span class="n">EmployeeType</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">Validate</span><span class="o">.</span><span class="na">notNull</span><span class="o">(</span><span class="n">type</span><span class="o">,</span> <span class="s">"Parameter type can't be null"</span><span class="o">);</span>
 
         <span class="k">if</span> <span class="o">(!</span><span class="n">typeClassMap</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">type</span><span class="o">))</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="s">"Type is not associated to a concrete class"</span><span class="o">);</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">"Type is not associated to a concrete class"</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
 
@@ -197,27 +197,27 @@
 
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">EmployeeType</span><span class="o">,</span> <span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Employee</span><span class="o">&gt;&gt;</span> <span class="n">typeClassMap</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">EmployeeFactoryConfigurable</span><span class="o">(</span>
+    <span class="kd">public</span> <span class="nf">EmployeeFactoryConfigurable</span><span class="o">(</span>
         <span class="n">Map</span><span class="o">&lt;</span><span class="n">EmployeeType</span><span class="o">,</span> <span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Employee</span><span class="o">&gt;&gt;</span> <span class="n">typeClassMap</span><span class="o">)</span> <span class="o">{</span>
 
         <span class="k">this</span><span class="o">.</span><span class="na">typeClassMap</span> <span class="o">=</span> <span class="n">typeClassMap</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">Employee</span> <span class="n">create</span><span class="o">(</span><span class="n">EmployeeType</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Employee</span> <span class="nf">create</span><span class="o">(</span><span class="n">EmployeeType</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">validateType</span><span class="o">(</span><span class="n">type</span><span class="o">);</span>
         <span class="k">try</span> <span class="o">{</span>
             <span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Employee</span><span class="o">&gt;</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">typeClassMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">type</span><span class="o">);</span>
             <span class="k">return</span> <span class="n">clazz</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
         <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InstantiationException</span> <span class="o">|</span> <span class="n">IllegalAccessException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="s">"Unexpected error instantiating employee!"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">"Unexpected error instantiating employee!"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="kt">void</span> <span class="n">validateType</span><span class="o">(</span><span class="n">EmployeeType</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">validateType</span><span class="o">(</span><span class="n">EmployeeType</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">Validate</span><span class="o">.</span><span class="na">notNull</span><span class="o">(</span><span class="n">type</span><span class="o">,</span> <span class="s">"Parameter type can't be null"</span><span class="o">);</span>
 
         <span class="k">if</span> <span class="o">(!</span><span class="n">typeClassMap</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">type</span><span class="o">))</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="s">"Type is not associated to a concrete class"</span><span class="o">);</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">"Type is not associated to a concrete class"</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
 
@@ -232,7 +232,7 @@
     <span class="kd">private</span> <span class="n">EmployeeFactoryConfigurable</span> <span class="n">employeeFactory</span><span class="o">;</span>
 
     <span class="nd">@Before</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="n">Map</span><span class="o">&lt;</span><span class="n">EmployeeType</span><span class="o">,</span> <span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Employee</span><span class="o">&gt;&gt;</span> <span class="n">typeClassMap</span> <span class="o">=</span>
                 <span class="k">new</span> <span class="n">ImmutableMap</span><span class="o">.</span><span class="na">Builder</span><span class="o">&lt;</span><span class="n">EmployeeType</span><span class="o">,</span> <span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Employee</span><span class="o">&gt;&gt;()</span>
                         <span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">EmployeeType</span><span class="o">.</span><span class="na">ENGINEER</span><span class="o">,</span> <span class="n">Engineer</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
@@ -244,7 +244,7 @@
     <span class="o">}</span>
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">testCreateEmployees</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testCreateEmployees</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
 
         <span class="n">Employee</span> <span class="n">manager</span> <span class="o">=</span> <span class="n">employeeFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">EmployeeType</span><span class="o">.</span><span class="na">MANAGER</span><span class="o">);</span>
         <span class="n">assertThat</span><span class="o">(</span><span class="n">manager</span><span class="o">.</span><span class="na">getType</span><span class="o">()).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">EmployeeType</span><span class="o">.</span><span class="na">MANAGER</span><span class="o">);</span>

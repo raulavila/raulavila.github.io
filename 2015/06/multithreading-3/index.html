@@ -90,7 +90,7 @@
 <span class="o">}</span>
 <span class="c1">//...</span></code></pre></figure>
 
-<h4 id="gestin-de-threads--thread-pools">Gestión de threads / Thread pools</h4>
+<h4 id="gestión-de-threads--thread-pools">Gestión de threads / Thread pools</h4>
 
 <p>Además de engorroso, no encapsular la gestión de threads convenientemente nos lleva a código poco cohesionado, ya que estamos ligando la lógica del juego en sí a la gestión de la concurrencia. Como añadido, crear theads es algo costoso a nivel de rendimiento, y en aplicaciones más complejas conlleva una carga importante en el rendimiento final de nuestras aplicaciones.</p>
 
@@ -111,13 +111,13 @@
   <li>Scheduled Thread Pool (<code class="highlighter-rouge">newScheduledThreadPool</code>): se utiliza para programar la ejecución de tareas. Devuelve una instancia de <a href="http://docs.oracle.com/javase/7/docs/api/java/util/concurrent/ScheduledExecutorService.html">ScheduledExecutorService</a>, ya que <code class="highlighter-rouge">ExecutorService</code> no expone métodos adecuados para programar tareas futuras, tan solo para ejecutarlas tan pronto como sea posible</li>
 </ul>
 
-<h3 id="ping-pong-versin-5-pool-de-threads">Ping Pong, Versión 5: Pool de threads</h3>
+<h3 id="ping-pong-versión-5-pool-de-threads">Ping Pong, Versión 5: Pool de threads</h3>
 
 <p>Sin necesidad de realizar modificaciones en la clase <code class="highlighter-rouge">Player</code> podemos adaptar nuestra clase <code class="highlighter-rouge">Game</code> para que utilice un pool de threads en lugar de encargarse ella de la engorrosa tarea de crear, arrancar y parar hilos. Veamos cómo quedaría:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Game</span> <span class="o">{</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">Lock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReentrantLock</span><span class="o">();</span>
 
         <span class="n">Player</span> <span class="n">player1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Player</span><span class="o">(</span><span class="s">"ping"</span><span class="o">,</span> <span class="n">lock</span><span class="o">);</span>
@@ -142,7 +142,7 @@
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Game finished!"</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">sleep</span><span class="o">(</span><span class="kt">long</span> <span class="n">ms</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">sleep</span><span class="o">(</span><span class="kt">long</span> <span class="n">ms</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">try</span> <span class="o">{</span>
             <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">ms</span><span class="o">);</span>
         <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
@@ -216,7 +216,7 @@ pong</code></pre></figure>
   <li>Los actores que pueden influir en la apertura de la barrera invocarán <code class="highlighter-rouge">countDown</code> cuando se cumplan las condiciones adecuadas para liberarla. En general deben cumplirse <strong>N</strong> condiciones para que la apertura tenga lugar</li>
 </ol>
 
-<h3 id="versin-6-barreras-de-entrada--salida">Versión 6: Barreras de entrada / salida</h3>
+<h3 id="versión-6-barreras-de-entrada--salida">Versión 6: Barreras de entrada / salida</h3>
 
 <p>En esta nueva versión deberemos modificar tanto <code class="highlighter-rouge">Game</code> como <code class="highlighter-rouge">Player</code>. Veamos como quedarían:</p>
 
@@ -236,7 +236,7 @@ pong</code></pre></figure>
 
     <span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">play</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">Player</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">,</span>
+    <span class="kd">public</span> <span class="nf">Player</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">,</span>
                   <span class="n">Lock</span> <span class="n">lock</span><span class="o">,</span>
                   <span class="n">CountDownLatch</span> <span class="n">entryBarrier</span><span class="o">,</span>
                   <span class="n">CountDownLatch</span> <span class="n">exitBarrier</span><span class="o">)</span> <span class="o">{</span>
@@ -249,12 +249,12 @@ pong</code></pre></figure>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">run</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">if</span><span class="o">(</span><span class="n">entryBarrierOpen</span><span class="o">())</span>
             <span class="n">play</span><span class="o">();</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="n">entryBarrierOpen</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">entryBarrierOpen</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">try</span> <span class="o">{</span>
             <span class="n">entryBarrier</span><span class="o">.</span><span class="na">await</span><span class="o">();</span>
             <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
@@ -265,7 +265,7 @@ pong</code></pre></figure>
         <span class="o">}</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="kt">void</span> <span class="n">play</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">play</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">while</span> <span class="o">(!</span><span class="n">Thread</span><span class="o">.</span><span class="na">interrupted</span><span class="o">())</span> <span class="o">{</span>
             <span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
 
@@ -287,12 +287,12 @@ pong</code></pre></figure>
         <span class="n">exitBarrier</span><span class="o">.</span><span class="na">countDown</span><span class="o">();</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setNextPlayer</span><span class="o">(</span><span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNextPlayer</span><span class="o">(</span><span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">nextPlayer</span> <span class="o">=</span> <span class="n">nextPlayer</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">nextTurn</span> <span class="o">=</span> <span class="n">nextPlayer</span><span class="o">.</span><span class="na">myTurn</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setPlay</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">play</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPlay</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">play</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">play</span> <span class="o">=</span> <span class="n">play</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -303,7 +303,7 @@ pong</code></pre></figure>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Game</span> <span class="o">{</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">CountDownLatch</span> <span class="n">entryBarrier</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CountDownLatch</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
         <span class="n">CountDownLatch</span> <span class="n">exitBarrier</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CountDownLatch</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
 
@@ -342,7 +342,7 @@ pong</code></pre></figure>
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Game finished!"</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">sleep</span><span class="o">(</span><span class="kt">long</span> <span class="n">ms</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">sleep</span><span class="o">(</span><span class="kt">long</span> <span class="n">ms</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">try</span> <span class="o">{</span>
             <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">ms</span><span class="o">);</span>
         <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>

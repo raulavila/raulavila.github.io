@@ -83,7 +83,7 @@
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PersonProcessor</span> <span class="o">{</span>
 
-    <span class="kd">public</span> <span class="n">String</span> <span class="n">process</span><span class="o">(</span><span class="n">Person</span> <span class="n">person</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">process</span><span class="o">(</span><span class="n">Person</span> <span class="n">person</span><span class="o">)</span> <span class="o">{</span>
         <span class="c1">//...</span>
     <span class="o">}</span>    
 <span class="o">}</span>    </code></pre></figure>
@@ -91,7 +91,7 @@
 <p>El proceso ejecutado no viene al caso, solo importa saber que según los contenidos de la instancia <code class="highlighter-rouge">Person</code>, la salida será una u otra. Según he comentado anteriormente, nuestro código de producción nunca generará instancias de persona directamente, que serán pobladas automáticamente por el framework de acceso a datos que utilicemos. Pero en un test unitario somos nosotros quienes deberemos hacer esto, es decir, buscamos algo así:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">processRaul</span><span class="p">(</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">processRaul</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
     <span class="n">Person</span> <span class="n">raul</span> <span class="o">=</span> <span class="c1">//create person...</span>
 
     <span class="n">String</span> <span class="n">processResult</span> <span class="o">=</span> <span class="n">personProcessor</span><span class="o">.</span><span class="na">process</span><span class="o">(</span><span class="n">raul</span><span class="o">);</span>
@@ -127,7 +127,7 @@
 
 <p>No sé a vosotros, pero a mí personalmente este tipo de código siempre me ha parecido muy poco directo y nada claro de leer rápidamente para hacerse una idea de los contenidos del objeto de dominio instanciado.</p>
 
-<h2 id="alternativas-a-la-instanciacin-directa">Alternativas a la instanciación directa</h2>
+<h2 id="alternativas-a-la-instanciación-directa">Alternativas a la instanciación directa</h2>
 
 <p>Existen varias alternativas para crear estos objetos de forma más clara, pero la mayoría de ellas requieren añadir librerías adicionales a nuestros tests (cosa que, por otro lado, tampoco es el fin del mundo). Echemos un vistazo rápido a estas soluciones.</p>
 
@@ -156,7 +156,7 @@ expone Groovy para las clases de forma automática:</p>
 
 <p>Podemos almacenar el contenido del objeto en un fichero en formato <a href="https://es.wikipedia.org/wiki/JSON">JSON</a> o <a href="https://es.wikipedia.org/wiki/YAML">YAML</a>, y deserializar estos ficheros en nuestros tests utilizando librerías como <a href="https://es.wikipedia.org/wiki/Gson">GSon</a> o <a href="http://yamlbeans.sourceforge.net/">YAML Beans</a>. Echad un vistazo a los links para comprobar como sería el proceso (bastante sencillo por otro lado). El punto negativo de esta solución es que nos obliga a navegar entre ficheros de texto y nuestro código de test para entender qué está ocurriendo realmente.</p>
 
-<h3 id="crear-factoras-de-test">Crear factorías de test</h3>
+<h3 id="crear-factorías-de-test">Crear factorías de test</h3>
 
 <p>Por último, y si queremos evitar añadir dependencias o frameworks adicionales para una tarea que debería ser bastante sencilla, podemos crear factorías de test que nos asistan en la creación de nuestros objetos de dominio.</p>
 
@@ -164,7 +164,7 @@ expone Groovy para las clases de forma automática:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PersonTestFactory</span> <span class="o">{</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="n">createRaul</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="nf">createRaul</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">Person</span> <span class="n">raul</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">();</span>
         <span class="c1">//...</span>
     <span class="o">}</span>
@@ -204,7 +204,7 @@ expone Groovy para las clases de forma automática:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PersonTestFactory</span> <span class="o">{</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="n">person</span><span class="o">(</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="nf">person</span><span class="o">(</span>
             <span class="n">String</span> <span class="n">name</span><span class="o">,</span>
             <span class="n">String</span> <span class="n">phoneNumber</span><span class="o">,</span>
             <span class="n">Person</span> <span class="n">nextOfKin</span><span class="o">,</span>
@@ -220,7 +220,7 @@ expone Groovy para las clases de forma automática:</p>
         <span class="k">return</span> <span class="n">person</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="n">person</span><span class="o">(</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="nf">person</span><span class="o">(</span>
             <span class="n">String</span> <span class="n">name</span><span class="o">,</span>
             <span class="n">String</span> <span class="n">phoneNumber</span><span class="o">)</span> <span class="o">{</span>
 
@@ -230,27 +230,27 @@ expone Groovy para las clases de forma automática:</p>
         <span class="k">return</span> <span class="n">person</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">name</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">name</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">phoneNumber</span><span class="o">(</span><span class="n">String</span> <span class="n">phoneNumber</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">phoneNumber</span><span class="o">(</span><span class="n">String</span> <span class="n">phoneNumber</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">phoneNumber</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="n">nextOfKin</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">phoneNumber</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">person</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">phoneNumber</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="nf">nextOfKin</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">phoneNumber</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">person</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">phoneNumber</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">children</span><span class="o">(</span><span class="n">Person</span><span class="o">...</span> <span class="n">child</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="nf">children</span><span class="o">(</span><span class="n">Person</span><span class="o">...</span> <span class="n">child</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">child</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="n">child</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">phoneNumber</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="n">person</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">phoneNumber</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="nf">child</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="n">String</span> <span class="n">phoneNumber</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nf">person</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="n">phoneNumber</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">additionalDetails</span><span class="o">(</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="nf">additionalDetails</span><span class="o">(</span>
             <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;...</span><span class="na">entries</span><span class="o">)</span> <span class="o">{</span>
 
         <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
@@ -262,16 +262,16 @@ expone Groovy para las clases de forma automática:</p>
         <span class="k">return</span> <span class="n">map</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">detail</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">,</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="nf">detail</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">,</span>
                                                    <span class="n">String</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">Maps</span><span class="o">.</span><span class="na">immutableEntry</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">detailName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">detailName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">detailValue</span><span class="o">(</span><span class="n">String</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">detailValue</span><span class="o">(</span><span class="n">String</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
 
     <span class="o">}</span>

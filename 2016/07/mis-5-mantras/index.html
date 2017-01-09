@@ -111,7 +111,7 @@
 
 <p>Veamos un ejemplo muy sencillo, el siguiente código devuelve un saludo a mostrar a un usuario según su perfil:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">String</span> <span class="nf">fetchGreetingMessage</span><span class="p">(</span><span class="n">String</span> <span class="n">role</span><span class="o">)</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">String</span> <span class="nf">fetchGreetingMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">role</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">String</span> <span class="n">greeting</span><span class="o">;</span>
 
     <span class="k">if</span> <span class="o">(</span><span class="s">"MANAGER"</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">role</span><span class="o">))</span> <span class="o">{</span>
@@ -121,7 +121,7 @@
     <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="s">"EMPLOYEE"</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">role</span><span class="o">))</span> <span class="o">{</span>
         <span class="n">greeting</span> <span class="o">=</span> <span class="s">"Hello Employee!"</span><span class="o">;</span>
     <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="s">"Unrecognized role!"</span><span class="o">);</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">"Unrecognized role!"</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="k">return</span> <span class="n">greeting</span><span class="o">;</span>
@@ -138,11 +138,11 @@
                             <span class="o">.</span><span class="na">build</span><span class="o">();</span>
 
 
-    <span class="kd">public</span> <span class="n">String</span> <span class="n">fetchGreetingMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">role</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">fetchGreetingMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">role</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">greetingByRole</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">role</span><span class="o">))</span> <span class="o">{</span>
             <span class="k">return</span> <span class="n">greetingByRole</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">role</span><span class="o">);</span>
         <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="s">"Unrecognized role!"</span><span class="o">);</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">"Unrecognized role!"</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>

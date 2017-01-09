@@ -89,7 +89,7 @@
 
 <p><img src="/public/pictures/producer-consumer.jpg" alt="Producer-consumer" /></p>
 
-<h3 id="implementacin-del-buffer">Implementación del buffer</h3>
+<h3 id="implementación-del-buffer">Implementación del buffer</h3>
 <p>Es el factor más importante para que este patrón funcione como es debido. Al ejecutarse los actores en diferentes threads, dependiendo de la acción que realicen sobre el ítem los ritmos de trabajo pueden ser bastante diferentes. De cara a la configuración del buffer esto implica que:</p>
 
 <ul>
@@ -154,8 +154,8 @@
 <p>Pasemos a ver la implementación. Para poder realizar una comparativa del funcionamiento de las diferentes API’s de Java expuestas más arriba, hemos abstraído el buffer en nuestra propia interfaz:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Buffer</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="o">{</span>
-    <span class="kt">void</span> <span class="n">put</span><span class="o">(</span><span class="n">E</span> <span class="n">element</span><span class="o">);</span>
-    <span class="n">E</span> <span class="n">take</span><span class="o">();</span>
+    <span class="kt">void</span> <span class="nf">put</span><span class="o">(</span><span class="n">E</span> <span class="n">element</span><span class="o">);</span>
+    <span class="n">E</span> <span class="nf">take</span><span class="o">();</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>Con dos implementaciones, la primera respaldada por una <code class="highlighter-rouge">BlockingQueue</code>:</p>
@@ -164,26 +164,26 @@
 
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">BlockingQueue</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">queue</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">BlockingQueueBuffer</span><span class="o">(</span><span class="n">BlockingQueue</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">queue</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">BlockingQueueBuffer</span><span class="o">(</span><span class="n">BlockingQueue</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">queue</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">queue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">put</span><span class="o">(</span><span class="n">E</span> <span class="n">element</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">put</span><span class="o">(</span><span class="n">E</span> <span class="n">element</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">try</span> <span class="o">{</span>
             <span class="n">queue</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">element</span><span class="o">);</span>
         <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">E</span> <span class="n">take</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">E</span> <span class="nf">take</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">try</span> <span class="o">{</span>
             <span class="n">E</span> <span class="n">element</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="na">take</span><span class="o">();</span>
             <span class="k">return</span> <span class="n">element</span><span class="o">;</span>
         <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -193,26 +193,26 @@
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TransferQueueBuffer</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">Buffer</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">TransferQueue</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">queue</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">TransferQueueBuffer</span><span class="o">(</span><span class="n">TransferQueue</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">queue</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">TransferQueueBuffer</span><span class="o">(</span><span class="n">TransferQueue</span><span class="o">&lt;</span><span class="n">E</span><span class="o">&gt;</span> <span class="n">queue</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">queue</span> <span class="o">=</span> <span class="n">queue</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">put</span><span class="o">(</span><span class="n">E</span> <span class="n">element</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">put</span><span class="o">(</span><span class="n">E</span> <span class="n">element</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">try</span> <span class="o">{</span>
             <span class="n">queue</span><span class="o">.</span><span class="na">transfer</span><span class="o">(</span><span class="n">element</span><span class="o">);</span>
         <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">E</span> <span class="n">take</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">E</span> <span class="nf">take</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">try</span> <span class="o">{</span>
             <span class="n">E</span> <span class="n">element</span> <span class="o">=</span> <span class="n">queue</span><span class="o">.</span><span class="na">take</span><span class="o">();</span>
             <span class="k">return</span> <span class="n">element</span><span class="o">;</span>
         <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -227,20 +227,20 @@
     <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
     <span class="kd">private</span> <span class="n">State</span> <span class="n">state</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">Dish</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Dish</span><span class="o">(</span><span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
         <span class="n">state</span> <span class="o">=</span> <span class="n">State</span><span class="o">.</span><span class="na">CREATED</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">int</span> <span class="n">getId</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getId</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">id</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">State</span> <span class="n">getState</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">State</span> <span class="nf">getState</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">state</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setState</span><span class="o">(</span><span class="n">State</span> <span class="n">state</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setState</span><span class="o">(</span><span class="n">State</span> <span class="n">state</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">state</span> <span class="o">=</span> <span class="n">state</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -252,23 +252,23 @@
 
     <span class="kd">private</span> <span class="kt">long</span> <span class="n">threadId</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">UnitOfWork</span><span class="o">(</span><span class="n">T</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">UnitOfWork</span><span class="o">(</span><span class="n">T</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">item</span> <span class="o">=</span> <span class="n">item</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">T</span> <span class="n">getItem</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">T</span> <span class="nf">getItem</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">item</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setItem</span><span class="o">(</span><span class="n">T</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setItem</span><span class="o">(</span><span class="n">T</span> <span class="n">item</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">item</span> <span class="o">=</span> <span class="n">item</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">long</span> <span class="n">getThreadId</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">getThreadId</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">threadId</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setThreadId</span><span class="o">(</span><span class="kt">long</span> <span class="n">threadId</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setThreadId</span><span class="o">(</span><span class="kt">long</span> <span class="n">threadId</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">threadId</span> <span class="o">=</span> <span class="n">threadId</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -283,12 +283,12 @@
 
     <span class="kd">private</span> <span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">createdDishesBuffer</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">Creator</span><span class="o">(</span><span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">createdDishesBuffer</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Creator</span><span class="o">(</span><span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">createdDishesBuffer</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">createdDishesBuffer</span> <span class="o">=</span> <span class="n">createdDishesBuffer</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">run</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
             <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Creator: creating dish..."</span><span class="o">);</span>
 
@@ -315,14 +315,14 @@
     <span class="kd">private</span> <span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">createdDishesBuffer</span><span class="o">;</span>
     <span class="kd">private</span> <span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">washedDishesBuffer</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">Washer</span><span class="o">(</span><span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">createdDishesBuffer</span><span class="o">,</span>
+    <span class="kd">public</span> <span class="nf">Washer</span><span class="o">(</span><span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">createdDishesBuffer</span><span class="o">,</span>
                   <span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">washedDishesBuffer</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">createdDishesBuffer</span> <span class="o">=</span> <span class="n">createdDishesBuffer</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">washedDishesBuffer</span> <span class="o">=</span> <span class="n">washedDishesBuffer</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">run</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">try</span> <span class="o">{</span>
             <span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
                 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Washer: waiting to take dish"</span><span class="o">);</span>
@@ -350,7 +350,7 @@
                                     <span class="s">" put into buffer"</span><span class="o">);</span>
             <span class="o">}</span>
         <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
 
@@ -360,12 +360,12 @@
 
     <span class="kd">private</span> <span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">washedDishesBuffer</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">Dryer</span><span class="o">(</span><span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">washedDishesBuffer</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Dryer</span><span class="o">(</span><span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">washedDishesBuffer</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">washedDishesBuffer</span> <span class="o">=</span> <span class="n">washedDishesBuffer</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">run</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">try</span> <span class="o">{</span>
             <span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
                 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Dryer: waiting to take dish"</span><span class="o">);</span>
@@ -386,7 +386,7 @@
                                     <span class="s">" is dry (done)"</span><span class="o">);</span>
             <span class="o">}</span>
         <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
 
@@ -404,7 +404,7 @@
 
 <h3 id="caso-1-utilizando-arrayblockingqueue">Caso 1: utilizando ArrayBlockingQueue</h3>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">createdDishesQueue</span> <span class="o">=</span>
           <span class="k">new</span> <span class="n">BlockingQueueBuffer</span><span class="o">&lt;&gt;(</span>
                   <span class="k">new</span> <span class="n">ArrayBlockingQueue</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;(</span><span class="mi">2</span><span class="o">));</span>
@@ -417,9 +417,9 @@
     <span class="n">Washer</span> <span class="n">washer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Washer</span><span class="o">(</span><span class="n">createdDishesQueue</span><span class="o">,</span> <span class="n">washedDishesQueue</span><span class="o">);</span>
     <span class="n">Dryer</span> <span class="n">dryer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Dryer</span><span class="o">(</span><span class="n">washedDishesQueue</span><span class="o">);</span>
 
-    <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="n">creator</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-    <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="n">washer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-    <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="n">dryer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+    <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">creator</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+    <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">washer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+    <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">dryer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>Hemos limitado el tamaño de los buffer a dos unidades. Cuando ejecutamos esta aplicación el resultado es:</p>
@@ -458,10 +458,10 @@ Dryer: dish 0 is dry (done)</code></pre></figure>
 <span class="n">Washer</span> <span class="n">washer2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Washer</span><span class="o">(</span><span class="n">createdDishesQueue</span><span class="o">,</span> <span class="n">washedDishesQueue</span><span class="o">);</span>
 <span class="n">Dryer</span> <span class="n">dryer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Dryer</span><span class="o">(</span><span class="n">washedDishesQueue</span><span class="o">);</span>
 
-<span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="n">creator</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-<span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="n">washer1</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-<span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="n">washer2</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-<span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="n">dryer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span></code></pre></figure>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">creator</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">washer1</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">washer2</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">dryer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span></code></pre></figure>
 
 <p>Sin embargo, no parece resultar una solución óptima del todo, de hecho al arrancar el sistema <code class="highlighter-rouge">Creator</code> queda bloqueado varios segundos de nuevo tras crear el ítem 5 en esta ocasión (ya que el 1 y 2 son consumidos inmediatamente por los dos threads “washer”). Por supuesto, deberíamos incrementar el tamaño del buffer (2 es una medida escasa, utilizada sólo a modo de ejemplo), pero en tal caso deberemos jugar también con el número de instancias de los actores, y la optimización es compleja.</p>
 
@@ -479,9 +479,9 @@ Dryer: dish 0 is dry (done)</code></pre></figure>
 <span class="n">Washer</span> <span class="n">washer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Washer</span><span class="o">(</span><span class="n">createdDishesQueue</span><span class="o">,</span> <span class="n">washedDishesQueue</span><span class="o">);</span>
 <span class="n">Dryer</span> <span class="n">dryer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Dryer</span><span class="o">(</span><span class="n">washedDishesQueue</span><span class="o">);</span>
 
-<span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="n">creator</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-<span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="n">washer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-<span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="n">dryer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span></code></pre></figure>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">creator</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">washer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">dryer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span></code></pre></figure>
 
 <p>En este caso los buffer son de tamaño ilimitado, y ¡las consecuencias son desastrosas! Debido a que la creación de ítems por parte de <code class="highlighter-rouge">Creator</code> es casi inmediata, antes de que que se termine de procesar el primer ítem por <code class="highlighter-rouge">Washer</code>, ¡se llegan a crear cientos de miles de ítems! De hecho, la salida por consola es irreproducible en este post debido a su magnitud. Mal asunto.</p>
 
@@ -489,7 +489,7 @@ Dryer: dish 0 is dry (done)</code></pre></figure>
 
 <h3 id="caso-3-utilizando-linkedtransferqueue">Caso 3: utilizando LinkedTransferQueue</h3>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">Buffer</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;</span> <span class="n">createdDishesQueue</span> <span class="o">=</span>
             <span class="k">new</span> <span class="n">TransferQueueBuffer</span><span class="o">&lt;&gt;(</span>
                     <span class="k">new</span> <span class="n">LinkedTransferQueue</span><span class="o">&lt;</span><span class="n">UnitOfWork</span><span class="o">&lt;</span><span class="n">Dish</span><span class="o">&gt;&gt;());</span>
@@ -502,9 +502,9 @@ Dryer: dish 0 is dry (done)</code></pre></figure>
     <span class="n">Washer</span> <span class="n">washer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Washer</span><span class="o">(</span><span class="n">createdDishesQueue</span><span class="o">,</span> <span class="n">washedDishesQueue</span><span class="o">);</span>
     <span class="n">Dryer</span> <span class="n">dryer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Dryer</span><span class="o">(</span><span class="n">washedDishesQueue</span><span class="o">);</span>
 
-    <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="n">creator</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-    <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="n">washer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-    <span class="k">new</span> <span class="n">Thread</span><span class="o">(</span><span class="n">dryer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+    <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">creator</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+    <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">washer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+    <span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">dryer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>Esta es la salida de consola obtenida al ejecutar esta aplicación:</p>
@@ -543,14 +543,14 @@ Dryer: dish 1 is dry (done)</code></pre></figure>
 <span class="n">Washer</span> <span class="n">washer4</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Washer</span><span class="o">(</span><span class="n">createdDishesQueue</span><span class="o">,</span> <span class="n">washedDishesQueue</span><span class="o">);</span>
 <span class="n">Dryer</span> <span class="n">dryer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Dryer</span><span class="o">(</span><span class="n">washedDishesQueue</span><span class="o">);</span>
 
-<span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="n">creator</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-<span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="n">washer1</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-<span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="n">washer2</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-<span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="n">washer3</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-<span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="n">washer4</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
-<span class="k">new</span> <span class="nf">Thread</span><span class="p">(</span><span class="n">dryer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span></code></pre></figure>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">creator</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">washer1</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">washer2</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">washer3</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">washer4</span><span class="o">).</span><span class="na">start</span><span class="o">();</span>
+<span class="k">new</span> <span class="nf">Thread</span><span class="o">(</span><span class="n">dryer</span><span class="o">).</span><span class="na">start</span><span class="o">();</span></code></pre></figure>
 
-<h3 id="conclusin">Conclusión</h3>
+<h3 id="conclusión">Conclusión</h3>
 
 <p>La API concurrency de Java ofrece diversas alternativas para resolver los problemas tradicionales de multithreading, lo cual no quita que sigan siendo extraordinariamente complejos en ocasiones. Nunca es tarea fácil analizar y mejorar el rendimiento de este tipo de aplicaciones, pero cuanto menor sea el número de puntos a los que hay que prestar atención más sencilla será esta optimización.</p>
 

@@ -86,11 +86,11 @@
         <span class="k">this</span><span class="o">.</span><span class="na">salary</span> <span class="o">=</span> <span class="n">salary</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">String</span> <span class="n">getValue</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getValue</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">int</span> <span class="n">getSalary</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getSalary</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">salary</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -109,17 +109,17 @@
 
     <span class="kd">private</span> <span class="n">Operation</span> <span class="n">operation</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">Calculator</span><span class="o">(</span><span class="n">Operation</span> <span class="n">operation</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Calculator</span><span class="o">(</span><span class="n">Operation</span> <span class="n">operation</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">operation</span> <span class="o">=</span> <span class="n">operation</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">int</span> <span class="n">performOperation</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">performOperation</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span>
                                 <span class="kt">int</span> <span class="n">operand2</span><span class="o">)</span> <span class="o">{</span>
 
         <span class="k">return</span> <span class="n">operation</span><span class="o">.</span><span class="na">perform</span><span class="o">(</span><span class="n">operand1</span><span class="o">,</span> <span class="n">operand2</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setOperation</span><span class="o">(</span><span class="n">Operation</span> <span class="n">operation</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setOperation</span><span class="o">(</span><span class="n">Operation</span> <span class="n">operation</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">operation</span> <span class="o">=</span> <span class="n">operation</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -130,25 +130,25 @@
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">enum</span> <span class="n">Operation</span> <span class="o">{</span>
     <span class="n">ADD</span><span class="o">(</span><span class="s">"+"</span><span class="o">)</span> <span class="o">{</span>
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">int</span> <span class="n">perform</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">perform</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">return</span> <span class="n">operand1</span> <span class="o">+</span> <span class="n">operand2</span><span class="o">;</span>
         <span class="o">}</span>
     <span class="o">},</span>
     <span class="n">SUBSTRACT</span><span class="o">(</span><span class="s">"-"</span><span class="o">){</span>
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">int</span> <span class="n">perform</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">perform</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">return</span> <span class="n">operand1</span> <span class="o">-</span> <span class="n">operand2</span><span class="o">;</span>
         <span class="o">}</span>
     <span class="o">},</span>
     <span class="n">MULTIPLY</span><span class="o">(</span><span class="s">"*"</span><span class="o">){</span>
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">int</span> <span class="n">perform</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">perform</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">return</span> <span class="n">operand1</span> <span class="o">*</span> <span class="n">operand2</span><span class="o">;</span>
         <span class="o">}</span>
     <span class="o">},</span>
     <span class="n">DIVIDE</span><span class="o">(</span><span class="s">"/"</span><span class="o">){</span>
         <span class="nd">@Override</span>
-        <span class="kd">public</span> <span class="kt">int</span> <span class="n">perform</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">public</span> <span class="kt">int</span> <span class="nf">perform</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">return</span> <span class="n">operand1</span> <span class="o">/</span> <span class="n">operand2</span><span class="o">;</span>
         <span class="o">}</span>
     <span class="o">};</span>
@@ -159,11 +159,11 @@
         <span class="k">this</span><span class="o">.</span><span class="na">operator</span> <span class="o">=</span> <span class="n">operator</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">String</span> <span class="n">getOperator</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getOperator</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">operator</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">int</span> <span class="n">perform</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">int</span> <span class="nf">perform</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">);</span>
 <span class="o">}</span>
    </code></pre></figure>
 
@@ -175,8 +175,8 @@
    <span class="c1">//....</span>
    <span class="n">VERY_COMPLEX_OPERATION</span><span class="o">;</span>
    <span class="c1">//....</span>
-   <span class="kd">public</span> <span class="kt">int</span> <span class="n">perform</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">){</span>
-      <span class="k">throw</span> <span class="k">new</span> <span class="n">UnsupportedOperationException</span><span class="o">();</span>
+   <span class="kd">public</span> <span class="kt">int</span> <span class="nf">perform</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">){</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nf">UnsupportedOperationException</span><span class="o">();</span>
    <span class="o">}</span>
 <span class="o">}</span>
  </code></pre></figure>
@@ -214,15 +214,15 @@
         <span class="k">this</span><span class="o">.</span><span class="na">next</span> <span class="o">=</span> <span class="n">next</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">String</span> <span class="n">getValue</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getValue</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">value</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">OvenState</span> <span class="n">getNext</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">OvenState</span> <span class="nf">getNext</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">next</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="n">hasNext</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasNext</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">next</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -236,27 +236,27 @@
 
     <span class="kd">private</span> <span class="n">OvenState</span> <span class="n">state</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">Oven</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Oven</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">reset</span><span class="o">();</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">reset</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">reset</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">state</span> <span class="o">=</span> <span class="n">OvenState</span><span class="o">.</span><span class="na">BEGIN</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">click</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">click</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">if</span><span class="o">(</span><span class="n">hasFinished</span><span class="o">())</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalStateException</span><span class="o">(</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalStateException</span><span class="o">(</span>
                     <span class="s">"Oven has finished cooking"</span><span class="o">);</span>
 
         <span class="n">state</span> <span class="o">=</span> <span class="n">state</span><span class="o">.</span><span class="na">getNext</span><span class="o">();</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">String</span> <span class="n">getState</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getState</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">state</span><span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="n">hasFinished</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasFinished</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="o">!</span><span class="n">state</span><span class="o">.</span><span class="na">hasNext</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -292,13 +292,13 @@
 
 <p>Siguiendo con mi manía de desacoplar al máximo, ¡el horno ni siquiera tendría por qué saber el valor del estado inicial! Para eso habría que declarar un método estátido en OvenState:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="n">OvenState</span> <span class="nf">getInitialState</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="n">OvenState</span> <span class="nf">getInitialState</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">BEGIN</span><span class="o">;</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>Y en Oven:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">reset</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">reset</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">state</span> <span class="o">=</span> <span class="n">OvenState</span><span class="o">.</span><span class="na">getInitialState</span><span class="o">();</span>
 <span class="o">}</span></code></pre></figure>
 
@@ -356,7 +356,7 @@
         <span class="k">this</span><span class="o">.</span><span class="na">type</span> <span class="o">=</span> <span class="n">type</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="n">hasValidTypeFor</span><span class="o">(</span><span class="n">Object</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasValidTypeFor</span><span class="o">(</span><span class="n">Object</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
         <span class="o">}</span>
@@ -364,11 +364,11 @@
         <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">isAssignableFrom</span><span class="o">(</span><span class="n">type</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">String</span> <span class="n">getParamName</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getParamName</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">paramName</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">String</span> <span class="n">getTypeName</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getTypeName</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">type</span><span class="o">.</span><span class="na">getSimpleName</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -378,24 +378,24 @@
 <p>La clase DAO, por tanto, delegaría toda la lógica al valor del enumerado que quiera almacenar el cliente:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ConfigDAO</span> <span class="o">{</span>
-    <span class="kt">void</span> <span class="n">save</span><span class="o">(</span><span class="n">ConfigParam</span> <span class="n">param</span><span class="o">,</span> <span class="n">Object</span> <span class="n">value</span><span class="o">);</span>
+    <span class="kt">void</span> <span class="nf">save</span><span class="o">(</span><span class="n">ConfigParam</span> <span class="n">param</span><span class="o">,</span> <span class="n">Object</span> <span class="n">value</span><span class="o">);</span>
 <span class="o">}</span>
 
 <span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">AbstractConfigDAO</span> <span class="kd">implements</span> <span class="n">ConfigDAO</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">save</span><span class="o">(</span><span class="n">ConfigParam</span> <span class="n">param</span><span class="o">,</span> <span class="n">Object</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">save</span><span class="o">(</span><span class="n">ConfigParam</span> <span class="n">param</span><span class="o">,</span> <span class="n">Object</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">validate</span><span class="o">(</span><span class="n">param</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
 
         <span class="n">doSave</span><span class="o">(</span><span class="n">param</span><span class="o">.</span><span class="na">getParamName</span><span class="o">(),</span> <span class="n">value</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">private</span> <span class="kt">void</span> <span class="n">validate</span><span class="o">(</span><span class="n">ConfigParam</span> <span class="n">param</span><span class="o">,</span> <span class="n">Object</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">validate</span><span class="o">(</span><span class="n">ConfigParam</span> <span class="n">param</span><span class="o">,</span> <span class="n">Object</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">Validate</span><span class="o">.</span><span class="na">notNull</span><span class="o">(</span><span class="n">param</span><span class="o">,</span> <span class="s">"Param can't be null"</span><span class="o">);</span>
         <span class="n">Validate</span><span class="o">.</span><span class="na">notNull</span><span class="o">(</span><span class="n">value</span><span class="o">,</span> <span class="s">"Value can't be null"</span><span class="o">);</span>
 
         <span class="k">if</span> <span class="o">(!</span><span class="n">param</span><span class="o">.</span><span class="na">hasValidTypeFor</span><span class="o">(</span><span class="n">value</span><span class="o">))</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span>
                     <span class="n">param</span><span class="o">.</span><span class="na">getParamName</span><span class="o">()+</span>
                             <span class="s">" value must be an instance of "</span> <span class="o">+</span>
                             <span class="n">param</span><span class="o">.</span><span class="na">getTypeName</span><span class="o">());</span>
@@ -403,7 +403,7 @@
 
     <span class="o">}</span>
 
-    <span class="kd">protected</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="n">doSave</span><span class="o">(</span><span class="n">String</span> <span class="n">paramName</span><span class="o">,</span> <span class="n">Object</span> <span class="n">value</span><span class="o">);</span>
+    <span class="kd">protected</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">doSave</span><span class="o">(</span><span class="n">String</span> <span class="n">paramName</span><span class="o">,</span> <span class="n">Object</span> <span class="n">value</span><span class="o">);</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>La clase <code class="highlighter-rouge">AbstractConfigDAO</code> es una implementación del <a href="http://en.wikipedia.org/wiki/Template_method_pattern">Template method pattern</a>, y sería necesario completar el “algoritmo” con una implementación concreta del método <code class="highlighter-rouge">doSave</code>. En el código para este ejemplo me olvido por completo de almacenar nada (el cometido de este post no es hablar de persistencia de datos en Java :) ),por lo que he creado una implementación Dummy:</p>
@@ -411,7 +411,7 @@
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DummyConfigDAO</span> <span class="kd">extends</span> <span class="n">AbstractConfigDAO</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="kt">void</span> <span class="n">doSave</span><span class="o">(</span><span class="n">String</span> <span class="n">paramName</span><span class="o">,</span> <span class="n">Object</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="kt">void</span> <span class="nf">doSave</span><span class="o">(</span><span class="n">String</span> <span class="n">paramName</span><span class="o">,</span> <span class="n">Object</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Saving param "</span> <span class="o">+</span> <span class="n">paramName</span> <span class="o">+</span>
                                 <span class="s">" with value "</span> <span class="o">+</span> <span class="n">value</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
     <span class="o">}</span>
@@ -421,12 +421,12 @@
 <p>En los tests se ve muy bien lo claro que quedan los clientes utilizando esta aproximación:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testCorrectSystemName</span><span class="p">(</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testCorrectSystemName</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
     <span class="n">configDAO</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">ConfigParam</span><span class="o">.</span><span class="na">SYSTEM_NAME</span><span class="o">,</span> <span class="s">"mySystem"</span><span class="o">);</span>
 <span class="o">}</span>
 
 <span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testIncorrectSystemName</span><span class="p">(</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testIncorrectSystemName</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
     <span class="n">expectedException</span><span class="o">.</span><span class="na">expect</span><span class="o">(</span><span class="n">IllegalArgumentException</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
     <span class="n">expectedException</span><span class="o">.</span><span class="na">expectMessage</span><span class="o">(</span>
             <span class="s">"systemName value must be an instance of String"</span><span class="o">);</span>
@@ -435,7 +435,7 @@
 <span class="o">}</span>
  </code></pre></figure>
 
-<h3 id="conclusin">Conclusión</h3>
+<h3 id="conclusión">Conclusión</h3>
 
 <p>Espero que con este post haya quedado demostradada la flexibilidad de los enumerados en Java, y la claridad que dan al código si se usan convenientemente. Me he dejado algún uso en el tintero, como puede ser la implementación del patrón Singleton, <a href="http://javarevisited.blogspot.co.uk/2012/07/why-enum-singleton-are-better-in-java.html">pero este tema ya está cubierto de sobra.</a></p>
 

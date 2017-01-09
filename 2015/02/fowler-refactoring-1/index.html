@@ -83,16 +83,16 @@
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">Date</span> <span class="n">start</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">Date</span> <span class="n">end</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">DateRange</span><span class="o">(</span><span class="n">Date</span> <span class="n">start</span><span class="o">,</span> <span class="n">Date</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">DateRange</span><span class="o">(</span><span class="n">Date</span> <span class="n">start</span><span class="o">,</span> <span class="n">Date</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">start</span> <span class="o">=</span> <span class="n">start</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">end</span> <span class="o">=</span> <span class="n">end</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">Date</span> <span class="n">getStart</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Date</span> <span class="nf">getStart</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">start</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">Date</span> <span class="n">getEnd</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Date</span> <span class="nf">getEnd</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">end</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -100,7 +100,7 @@
 <p>¿Por qué es desafortunado este ejemplo? ¡Porque esta clase no es inmutable en absoluto! Veamos:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testInmutableClass</span><span class="p">(</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testInmutableClass</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
     <span class="n">Date</span> <span class="n">start</span> <span class="o">=</span> <span class="n">parse</span><span class="o">(</span><span class="s">"2001-01-01"</span><span class="o">);</span>
     <span class="n">Date</span> <span class="n">end</span> <span class="o">=</span> <span class="n">parse</span><span class="o">(</span><span class="s">"2001-01-02"</span><span class="o">);</span>
 
@@ -130,24 +130,24 @@
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">Date</span> <span class="n">start</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">final</span> <span class="n">Date</span> <span class="n">end</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">DateRangeInmutable</span><span class="o">(</span><span class="n">Date</span> <span class="n">start</span><span class="o">,</span> <span class="n">Date</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">DateRangeInmutable</span><span class="o">(</span><span class="n">Date</span> <span class="n">start</span><span class="o">,</span> <span class="n">Date</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">start</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="n">start</span><span class="o">.</span><span class="na">getTime</span><span class="o">());</span>
         <span class="k">this</span><span class="o">.</span><span class="na">end</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="n">end</span><span class="o">.</span><span class="na">getTime</span><span class="o">());</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">Date</span> <span class="n">getStart</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="n">start</span><span class="o">.</span><span class="na">getTime</span><span class="o">());</span>
+    <span class="kd">public</span> <span class="n">Date</span> <span class="nf">getStart</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Date</span><span class="o">(</span><span class="n">start</span><span class="o">.</span><span class="na">getTime</span><span class="o">());</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">Date</span> <span class="n">getEnd</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="n">end</span><span class="o">.</span><span class="na">getTime</span><span class="o">());</span>
+    <span class="kd">public</span> <span class="n">Date</span> <span class="nf">getEnd</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Date</span><span class="o">(</span><span class="n">end</span><span class="o">.</span><span class="na">getTime</span><span class="o">());</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
 <p>En el siguiente test se puede comprobar como la clase es realmente inmutable:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testInmutableClass</span><span class="p">(</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testInmutableClass</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
     <span class="n">Date</span> <span class="n">start</span> <span class="o">=</span> <span class="n">parse</span><span class="o">(</span><span class="s">"2001-01-01"</span><span class="o">);</span>
     <span class="n">Date</span> <span class="n">end</span> <span class="o">=</span> <span class="n">parse</span><span class="o">(</span><span class="s">"2001-01-02"</span><span class="o">);</span>
 

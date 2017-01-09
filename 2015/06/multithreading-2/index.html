@@ -74,12 +74,12 @@
 
     <span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">mustPlay</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">Player</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Player</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">run</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">while</span><span class="o">(!</span><span class="n">Thread</span><span class="o">.</span><span class="na">interrupted</span><span class="o">())</span> <span class="o">{</span>
             <span class="k">while</span> <span class="o">(!</span><span class="n">mustPlay</span><span class="o">);</span>
 
@@ -91,11 +91,11 @@
         <span class="o">}</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setNextPlayer</span><span class="o">(</span><span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNextPlayer</span><span class="o">(</span><span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">nextPlayer</span> <span class="o">=</span> <span class="n">nextPlayer</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setMustPlay</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">mustPlay</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setMustPlay</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">mustPlay</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">mustPlay</span> <span class="o">=</span> <span class="n">mustPlay</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -104,7 +104,7 @@
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="k">while</span><span class="o">(!</span><span class="n">mustPlay</span><span class="o">);</span></code></pre></figure>
 
-<h4 id="espera-activa">Espera activa</h4>
+<h5 id="espera-activa">Espera activa</h5>
 
 <p>Esta instrucción es un ejemplo de “espera activa” o <a href="https://en.wikipedia.org/wiki/Busy_waiting">“Busy Waiting”</a>, y no es más que la comprobación infinita de una condición, evitando el progreso de la aplicación hasta que sea cierta. El problema de este enfoque es que nuestro hilo sobrecarga de forma excesiva a la CPU, ya que para el <a href="http://www.javatpoint.com/thread-scheduler-in-java">Thread Scheduler</a> no hay nada que le impida progresar, por lo que siempre que existen recursos lo mantiene en su estado “Running” (<a href="http://www.uml-diagrams.org/examples/java-6-thread-state-machine-diagram-example.html">aquí tenéis un buen diagrama de estados de los threads en Java</a>). El resultado es un uso de recursos excesivo e injustificado.</p>
 
@@ -116,7 +116,7 @@
 
 <p>Este estado susceptible de ser modificado por más de un thread debe protegrese mediante el uso de una sección crítica (<a href="https://en.wikipedia.org/wiki/Critical_section">critical section</a>). Java ofrece diferentes mecanismos parar implementar secciones críticas, y en este post veremos los más importantes.</p>
 
-<h3 id="versin-3-intrinsic-locking">Versión 3: Intrinsic locking</h3>
+<h3 id="versión-3-intrinsic-locking">Versión 3: Intrinsic locking</h3>
 
 <p>El mecanismo más antiguo implementado en Java para la creación de secciones críticas es conocido como <a href="https://docs.oracle.com/javase/tutorial/essential/concurrency/locksync.html">Intrinsic Locking</a>, o Monitor Locking. A grandes rasgos, cada objeto creado en Java tiene asociado un lock (intrinsic lock o monitor lock) que puede ser utilizado con fines de exclusión en nuestros threads mediante el uso de la keyword <code class="highlighter-rouge">synchronized</code>:</p>
 
@@ -192,14 +192,14 @@
 
     <span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">play</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">Player</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">,</span>
+    <span class="kd">public</span> <span class="nf">Player</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">,</span>
                   <span class="n">Object</span> <span class="n">lock</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">lock</span> <span class="o">=</span> <span class="n">lock</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">run</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">while</span><span class="o">(!</span><span class="n">Thread</span><span class="o">.</span><span class="na">interrupted</span><span class="o">())</span> <span class="o">{</span>
             <span class="kd">synchronized</span> <span class="o">(</span><span class="n">lock</span><span class="o">)</span> <span class="o">{</span>
                 <span class="k">try</span> <span class="o">{</span>
@@ -220,11 +220,11 @@
         <span class="o">}</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setNextPlayer</span><span class="o">(</span><span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNextPlayer</span><span class="o">(</span><span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">nextPlayer</span> <span class="o">=</span> <span class="n">nextPlayer</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setPlay</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">play</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPlay</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">play</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">play</span> <span class="o">=</span> <span class="n">play</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -235,7 +235,7 @@
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Game</span> <span class="o">{</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
 
         <span class="n">Object</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">();</span>
 
@@ -278,13 +278,13 @@
 
 <span class="o">}</span></code></pre></figure>
 
-<h3 id="versin-4-locks-explcitos-y-condiciones">Versión 4. Locks explícitos y condiciones</h3>
+<h3 id="versión-4-locks-explícitos-y-condiciones">Versión 4. Locks explícitos y condiciones</h3>
 
 <p>Java expone en su API concurrency una interfaz, <code class="highlighter-rouge">Lock</code>, que permite implementar los mismos mecanismos de exclusión vistos mediante el uso de intrinsic locks, pero con un acercamiento diferente.</p>
 
 <p>La implementación principal de <code class="highlighter-rouge">Lock</code> es <code class="highlighter-rouge">ReentrantLock</code>. El nombre se debe a que los locks en Java son reentrantes, por lo que una vez adquirido por un thread, si el mismo thread realiza un nuevo intento de adquirirlo este no fracasa. Lo que haremos será implementar los mismos ejemplos vistos más arriba con esta API.</p>
 
-<h4 id="secciones-crticas">Secciones críticas</h4>
+<h4 id="secciones-críticas">Secciones críticas</h4>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="n">Lock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReentrantLock</span><span class="o">();</span>
 <span class="c1">//...</span>
@@ -335,7 +335,7 @@
 
     <span class="kd">private</span> <span class="kd">volatile</span> <span class="kt">boolean</span> <span class="n">play</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">Player</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">,</span>
+    <span class="kd">public</span> <span class="nf">Player</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">,</span>
                   <span class="n">Lock</span> <span class="n">lock</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">lock</span> <span class="o">=</span> <span class="n">lock</span><span class="o">;</span>
@@ -343,7 +343,7 @@
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">run</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">while</span><span class="o">(!</span><span class="n">Thread</span><span class="o">.</span><span class="na">interrupted</span><span class="o">())</span> <span class="o">{</span>
             <span class="n">lock</span><span class="o">.</span><span class="na">lock</span><span class="o">();</span>
 
@@ -363,12 +363,12 @@
         <span class="o">}</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setNextPlayer</span><span class="o">(</span><span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNextPlayer</span><span class="o">(</span><span class="n">Player</span> <span class="n">nextPlayer</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">nextPlayer</span> <span class="o">=</span> <span class="n">nextPlayer</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">nextTurn</span> <span class="o">=</span> <span class="n">nextPlayer</span><span class="o">.</span><span class="na">myTurn</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setPlay</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">play</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPlay</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">play</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">play</span> <span class="o">=</span> <span class="n">play</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -377,7 +377,7 @@
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Game</span> <span class="o">{</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">Lock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReentrantLock</span><span class="o">();</span>
 
         <span class="n">Player</span> <span class="n">player1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Player</span><span class="o">(</span><span class="s">"ping"</span><span class="o">,</span> <span class="n">lock</span><span class="o">);</span>
@@ -438,7 +438,7 @@ Game finished!</code></pre></figure>
 
     <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">NUM_PLAYERS</span> <span class="o">=</span> <span class="mi">6</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="n">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">Lock</span> <span class="n">lock</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ReentrantLock</span><span class="o">();</span>
 
         <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">NUM_PLAYERS</span><span class="o">;</span>

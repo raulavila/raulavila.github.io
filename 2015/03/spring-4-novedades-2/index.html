@@ -76,12 +76,12 @@
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">RestController32</span> <span class="o">{</span>
 
     <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/greeting32"</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">String</span> <span class="n">getGreeting</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">String</span> <span class="nf">getGreeting</span><span class="o">()</span> <span class="o">{</span>
     	<span class="k">return</span> <span class="s">"Hello world - Spring 32"</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/items32"</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">getItems</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nd">@ResponseBody</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getItems</span><span class="o">()</span> <span class="o">{</span>
     	<span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">"item1 - Spring 32"</span><span class="o">,</span><span class="s">"item2 - Spring 32"</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -95,12 +95,12 @@
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">RestController32</span> <span class="o">{</span>
 
     <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/greeting32"</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="n">getGreeting</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getGreeting</span><span class="o">()</span> <span class="o">{</span>
     	<span class="k">return</span> <span class="s">"Hello world - Spring 4"</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/items32"</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">getItems</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getItems</span><span class="o">()</span> <span class="o">{</span>
     	<span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">"item1 - Spring 4"</span><span class="o">,</span><span class="s">"item2 - Spring 4"</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -111,12 +111,12 @@
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">RestController4</span> <span class="o">{</span>
 
     <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/greeting4"</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="n">getGreeting</span><span class="o">(</span><span class="n">ZoneId</span> <span class="n">zoneId</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getGreeting</span><span class="o">(</span><span class="n">ZoneId</span> <span class="n">zoneId</span><span class="o">)</span> <span class="o">{</span>
     	<span class="k">return</span> <span class="s">"Hello world - Spring 4. TimeZone: "</span><span class="o">+</span><span class="n">zoneId</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/items4"</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">getItems</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getItems</span><span class="o">()</span> <span class="o">{</span>
     	<span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">"item1 - Spring 4"</span><span class="o">,</span><span class="s">"item2 - Spring 4"</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -128,7 +128,7 @@
 <p>En Spring existía la clase <code class="highlighter-rouge">RestTemplate</code>, que sirve para consumir API’s REST de forma sencilla:</p>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Test</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSyncRestTemplate</span><span class="p">(</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testSyncRestTemplate</span><span class="o">()</span> <span class="o">{</span>
     <span class="n">RestTemplate</span> <span class="n">restTemplate</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RestTemplate</span><span class="o">();</span>
 
     <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">response</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">getForEntity</span><span class="o">(</span>
@@ -178,12 +178,12 @@
 <span class="n">futureEntity</span><span class="o">.</span><span class="na">addCallback</span><span class="o">(</span>
 		<span class="k">new</span> <span class="n">ListenableFutureCallback</span><span class="o">&lt;</span><span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;&gt;()</span> <span class="o">{</span>
 			<span class="nd">@Override</span>
-			<span class="kd">public</span> <span class="kt">void</span> <span class="n">onSuccess</span><span class="o">(</span><span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
+			<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onSuccess</span><span class="o">(</span><span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">result</span><span class="o">)</span> <span class="o">{</span>
 				<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Received!: "</span> <span class="o">+</span> <span class="n">result</span><span class="o">.</span><span class="na">getBody</span><span class="o">());</span>
 			<span class="o">}</span>
 
 			<span class="nd">@Override</span>
-			<span class="kd">public</span> <span class="kt">void</span> <span class="n">onFailure</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
+			<span class="kd">public</span> <span class="kt">void</span> <span class="nf">onFailure</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span>
 				<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Fail!"</span><span class="o">);</span>
 			<span class="o">}</span>
 		<span class="o">});</span></code></pre></figure>
@@ -200,7 +200,7 @@
 
 <p>El ejemplo que mostraré está basado en <a href="http://spring.io/guides/gs/messaging-stomp-websocket/">la documentación de Spring</a>, pero sin utilizar Spring Boot. No explicaré paso a paso el proceso, ya que la documentación es bastante buena, sólo haré hincapié en los principales aspectos a tener en cuenta para configurar una aplicación con WebSockets.</p>
 
-<h5 id="configuracin-de-websockets-en-la-aplicacin">Configuración de WebSockets en la aplicación</h5>
+<h5 id="configuración-de-websockets-en-la-aplicación">Configuración de WebSockets en la aplicación</h5>
 
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="nd">@Configuration</span>
 <span class="nd">@EnableWebSocketMessageBroker</span>
@@ -208,13 +208,13 @@
 		<span class="kd">extends</span> <span class="n">AbstractWebSocketMessageBrokerConfigurer</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">configureMessageBroker</span><span class="o">(</span><span class="n">MessageBrokerRegistry</span> <span class="n">config</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">configureMessageBroker</span><span class="o">(</span><span class="n">MessageBrokerRegistry</span> <span class="n">config</span><span class="o">)</span> <span class="o">{</span>
     	<span class="n">config</span><span class="o">.</span><span class="na">enableSimpleBroker</span><span class="o">(</span><span class="s">"/topic"</span><span class="o">);</span>
     	<span class="n">config</span><span class="o">.</span><span class="na">setApplicationDestinationPrefixes</span><span class="o">(</span><span class="s">"/app"</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">registerStompEndpoints</span><span class="o">(</span><span class="n">StompEndpointRegistry</span> <span class="n">registry</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">registerStompEndpoints</span><span class="o">(</span><span class="n">StompEndpointRegistry</span> <span class="n">registry</span><span class="o">)</span> <span class="o">{</span>
     	<span class="n">registry</span><span class="o">.</span><span class="na">addEndpoint</span><span class="o">(</span><span class="s">"/hello"</span><span class="o">).</span><span class="na">withSockJS</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -240,9 +240,9 @@
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">GreetingController</span> <span class="o">{</span>
     <span class="nd">@MessageMapping</span><span class="o">(</span><span class="s">"/hello"</span><span class="o">)</span>
     <span class="nd">@SendTo</span><span class="o">(</span><span class="s">"/topic/greetings"</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">Greeting</span> <span class="n">greeting</span><span class="o">(</span><span class="n">HelloMessage</span> <span class="n">message</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Greeting</span> <span class="nf">greeting</span><span class="o">(</span><span class="n">HelloMessage</span> <span class="n">message</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
     	<span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">3000</span><span class="o">);</span> <span class="c1">// simulated delay</span>
-    	<span class="k">return</span> <span class="k">new</span> <span class="n">Greeting</span><span class="o">(</span><span class="s">"Hello, "</span> <span class="o">+</span> <span class="n">message</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">"!"</span><span class="o">);</span>
+    	<span class="k">return</span> <span class="k">new</span> <span class="nf">Greeting</span><span class="o">(</span><span class="s">"Hello, "</span> <span class="o">+</span> <span class="n">message</span><span class="o">.</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">"!"</span><span class="o">);</span>
     <span class="o">}</span>
 
 <span class="o">}</span></code></pre></figure>
@@ -256,7 +256,7 @@
 
 <p>Por lo demás, el método espera recibir una instancia correcta de <code class="highlighter-rouge">HelloMessage</code>, y devolverá una instancia de <code class="highlighter-rouge">Greeting</code></p>
 
-<h5 id="configuracin-de-cliente-javascript">Configuración de cliente (Javascript)</h5>
+<h5 id="configuración-de-cliente-javascript">Configuración de cliente (Javascript)</h5>
 
 <p>(he omitido algunas partes del código que sí está subido a GitHub por claridad)</p>
 

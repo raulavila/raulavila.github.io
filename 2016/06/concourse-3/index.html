@@ -213,7 +213,7 @@ cp target/hello-world-0.0.1-SNAPSHOT.jar ../cf-deploy-files</code></pre></figure
 
 <p>La última tarea del job <code class="highlighter-rouge">job-cf-deploy</code>, <code class="highlighter-rouge">put</code>, va asociada al recurso <code class="highlighter-rouge">cloud-foundry</code>, y creo que resulta evidente lo que hace. En la jerga CF ejecuta un <code class="highlighter-rouge">cf push</code>, es decir, la subida de los contenidos configurados en el fichero <code class="highlighter-rouge">manifest.yml</code> que se le pasa como parámetro.</p>
 
-<h3 id="configuracin-de-variables">Configuración de variables</h3>
+<h3 id="configuración-de-variables">Configuración de variables</h3>
 
 <p>No hay prácticamente nada en este pipeline que no haya sido cubierto en las entregas anteriores, excepto una cosa. Os preguntaréis dónde estamos configurando los valores de los parámetros asociados al resource <code class="highlighter-rouge">cloud-foundry</code>:</p>
 

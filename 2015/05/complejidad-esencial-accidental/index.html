@@ -92,7 +92,7 @@
 
 <p>En fin, podríamos seguir hasta el infinito. Como asumo que casi todos aquí somos programadores, voy a poner un último ejemplo. El problema consiste en implementar un método que sume todos los números de un array de enteros, devolviendo el resultado. Fácil, ¿verdad? Muchos harían algo así:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">long</span> <span class="nf">sum</span><span class="p">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">long</span> <span class="nf">sum</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">long</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
 
     <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">number</span> <span class="o">:</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
@@ -104,11 +104,11 @@
 
 <p>Pero otra forma de hacerlo sería esta:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">long</span> <span class="nf">sum</span><span class="p">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">sum</span><span class="o">(</span><span class="n">numbers</span><span class="o">,</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">long</span> <span class="nf">sum</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nf">sum</span><span class="o">(</span><span class="n">numbers</span><span class="o">,</span> <span class="n">numbers</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
 <span class="o">}</span>
 
-<span class="kd">private</span> <span class="kt">long</span> <span class="nf">sum</span><span class="p">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">,</span> <span class="kt">int</span> <span class="n">length</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">private</span> <span class="kt">long</span> <span class="nf">sum</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">numbers</span><span class="o">,</span> <span class="kt">int</span> <span class="n">length</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">length</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
     <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
@@ -118,7 +118,7 @@
 
 <p>Creo que no es necesario mencionar qué solución ha añadido mayor complejidad accidental, ¿verdad? Diréis que nadie implementaría este algoritmo así…y mi respuesta es que durante años desarrollando software me he encontrado con compañeros que entregaban código absolutamente enrevesado para solucionar problemas muy sencillos. En su libro <a href="http://www.amazon.co.uk/The-Clean-Coder-Professional-Programmers/dp/0137081073">The Clean Coder</a> (creo recordar), Uncle Bob decía que nuestra profesión está llena de personas dispuestas a demostrar cada día que tienen un cerebro del tamaño de un planeta, y yo me he encontrado con varios casos así, por no hablar de vérmelas con código de este estilo:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">long</span> <span class="nf">sum</span><span class="p">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">a</span><span class="o">)</span> <span class="o">{</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">long</span> <span class="nf">sum</span><span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">a</span><span class="o">)</span> <span class="o">{</span>
     <span class="kt">long</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
 
     <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">b</span> <span class="o">:</span> <span class="n">a</span><span class="o">)</span> <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">b</span><span class="o">;</span>

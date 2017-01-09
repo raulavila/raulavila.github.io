@@ -80,11 +80,11 @@
 
     <span class="kd">private</span> <span class="n">Audit</span> <span class="n">audit</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">Calculator</span><span class="o">(</span><span class="n">Audit</span> <span class="n">audit</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Calculator</span><span class="o">(</span><span class="n">Audit</span> <span class="n">audit</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">audit</span> <span class="o">=</span> <span class="n">audit</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">long</span> <span class="n">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">,</span> <span class="n">Mode</span> <span class="n">mode</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">long</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span> <span class="kt">int</span> <span class="n">operand2</span><span class="o">,</span> <span class="n">Mode</span> <span class="n">mode</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">audit</span><span class="o">.</span><span class="na">register</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%d + %d (%s)"</span><span class="o">,</span>
                         <span class="n">operand1</span><span class="o">,</span>
                         <span class="n">operand2</span><span class="o">,</span>
@@ -116,7 +116,7 @@
     <span class="kd">private</span> <span class="n">Calculator</span> <span class="n">calculator</span><span class="o">;</span>
 
     <span class="nd">@Before</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setUp</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="n">MockitoAnnotations</span><span class="o">.</span><span class="na">initMocks</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
     <span class="o">}</span>
 
@@ -126,7 +126,7 @@
     <span class="kd">private</span> <span class="kt">long</span> <span class="n">expectedResultAbsolute</span><span class="o">;</span>
 
     <span class="nd">@Parameterized</span><span class="o">.</span><span class="na">Parameters</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Collection</span> <span class="n">data</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Collection</span> <span class="nf">data</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">Object</span><span class="o">[][]</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[][]</span> <span class="o">{</span>
                 <span class="o">{</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">4</span> <span class="o">},</span>
                 <span class="o">{</span> <span class="o">-</span><span class="mi">2</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">4</span> <span class="o">},</span>
@@ -137,7 +137,7 @@
         <span class="k">return</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">CalculatorTest</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span>
+    <span class="kd">public</span> <span class="nf">CalculatorTest</span><span class="o">(</span><span class="kt">int</span> <span class="n">operand1</span><span class="o">,</span>
                           <span class="kt">int</span> <span class="n">operand2</span><span class="o">,</span>
                           <span class="kt">long</span> <span class="n">expectedResultStraight</span><span class="o">,</span>
                           <span class="kt">long</span> <span class="n">expectedResultAbsolute</span><span class="o">)</span> <span class="o">{</span>
@@ -150,7 +150,7 @@
 
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">testAddStraight</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testAddStraight</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="kt">long</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">calculator</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">operand1</span><span class="o">,</span> <span class="n">operand2</span><span class="o">,</span> <span class="n">STRAIGHT</span><span class="o">);</span>
         <span class="n">assertThat</span><span class="o">(</span><span class="n">sum</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">expectedResultStraight</span><span class="o">);</span>
 
@@ -159,7 +159,7 @@
     <span class="o">}</span>
 
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="n">testAddAbsolute</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testAddAbsolute</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="kt">long</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">calculator</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">operand1</span><span class="o">,</span> <span class="n">operand2</span><span class="o">,</span> <span class="n">ABSOLUTE</span><span class="o">);</span>
         <span class="n">assertThat</span><span class="o">(</span><span class="n">sum</span><span class="o">).</span><span class="na">isEqualTo</span><span class="o">(</span><span class="n">expectedResultAbsolute</span><span class="o">);</span>
 

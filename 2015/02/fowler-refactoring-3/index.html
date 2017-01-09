@@ -64,7 +64,7 @@
 
 <!--break-->
 
-<h3 id="inline-temp-pg-119">Inline Temp (pág. 119)</h3>
+<h3 id="inline-temp-pág-119">Inline Temp (pág. 119)</h3>
 
 <p>Este refactoring es bastante sencillo, en el libro de Fowler se propone reemplazar</p>
 
@@ -82,7 +82,7 @@
 <figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">final</span> <span class="kt">double</span> <span class="n">basePrice</span> <span class="o">=</span> <span class="n">anOrder</span><span class="o">.</span><span class="na">basePrice</span><span class="o">();</span>
 <span class="k">return</span> <span class="o">(</span><span class="n">basePrice</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="o">);</span></code></pre></figure>
 
-<h3 id="replace-subclass-with-fields-pg-232">Replace Subclass with Fields (pág. 232)</h3>
+<h3 id="replace-subclass-with-fields-pág-232">Replace Subclass with Fields (pág. 232)</h3>
 
 <p>Este refactoring, <a href="http://refactoring.com/catalog/replaceSubclassWithFields.html">descrito en la web de Fowler</a>, pretende eliminar jerarquías innecesarias, pero no diría que el resultado es especiamente brillante:</p>
 
@@ -90,24 +90,24 @@
     <span class="kd">private</span> <span class="kd">final</span> <span class="kt">boolean</span> <span class="n">male</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kd">final</span> <span class="kt">char</span> <span class="n">code</span><span class="o">;</span>
 
-    <span class="kd">private</span> <span class="n">Person</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">male</span><span class="o">,</span> <span class="kt">char</span> <span class="n">code</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nf">Person</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">male</span><span class="o">,</span> <span class="kt">char</span> <span class="n">code</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">male</span> <span class="o">=</span> <span class="n">male</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">code</span> <span class="o">=</span> <span class="n">code</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="n">createMale</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="kc">true</span><span class="o">,</span> <span class="sc">'M'</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="nf">createMale</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Person</span><span class="o">(</span><span class="kc">true</span><span class="o">,</span> <span class="sc">'M'</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="n">createFemale</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="sc">'F'</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="nf">createFemale</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Person</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="sc">'F'</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="n">isMale</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isMale</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">male</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">char</span> <span class="n">getCode</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">char</span> <span class="nf">getCode</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">code</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
@@ -131,7 +131,7 @@
         <span class="k">this</span><span class="o">.</span><span class="na">code</span> <span class="o">=</span> <span class="n">code</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">char</span> <span class="n">getCode</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">char</span> <span class="nf">getCode</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">code</span><span class="o">;</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -139,27 +139,27 @@
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="n">Gender</span> <span class="n">gender</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="n">Person</span><span class="o">(</span><span class="n">Gender</span> <span class="n">gender</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Person</span><span class="o">(</span><span class="n">Gender</span> <span class="n">gender</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">gender</span> <span class="o">=</span> <span class="n">gender</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">boolean</span> <span class="n">isMale</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isMale</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">gender</span> <span class="o">==</span> <span class="n">Gender</span><span class="o">.</span><span class="na">MALE</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">char</span> <span class="n">getCode</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">char</span> <span class="nf">getCode</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">gender</span><span class="o">.</span><span class="na">getCode</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">PersonFactory</span> <span class="o">{</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="n">createMale</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">Gender</span><span class="o">.</span><span class="na">MALE</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="nf">createMale</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Person</span><span class="o">(</span><span class="n">Gender</span><span class="o">.</span><span class="na">MALE</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="n">createFemale</span><span class="o">()</span> <span class="o">{</span>
-        <span class="k">return</span> <span class="k">new</span> <span class="n">Person</span><span class="o">(</span><span class="n">Gender</span><span class="o">.</span><span class="na">FEMALE</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Person</span> <span class="nf">createFemale</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Person</span><span class="o">(</span><span class="n">Gender</span><span class="o">.</span><span class="na">FEMALE</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span></code></pre></figure>
 
@@ -171,16 +171,16 @@
 
 <p>En el refactoring “Replace Constructor with Factory Method” (pág 304), se crea un método factory genérico de la siguiente forma:</p>
 
-<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="n">Employee</span> <span class="nf">create</span><span class="p">(</span><span class="n">String</span> <span class="n">name</span><span class="o">){</span>
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="n">Employee</span> <span class="nf">create</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">){</span>
     <span class="k">try</span> <span class="o">{</span>
         <span class="k">return</span> <span class="o">(</span><span class="n">Employee</span><span class="o">)</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">name</span><span class="o">).</span><span class="na">newInstance</span><span class="o">();</span>
     <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span><span class="s">"Unable to instantiate"</span> <span class="o">+</span> <span class="n">name</span><span class="o">);</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"Unable to instantiate"</span> <span class="o">+</span> <span class="n">name</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 
 <span class="c1">//....</span>
-   <span class="k">return</span> <span class="n">create</span><span class="o">(</span><span class="s">"Engineer"</span><span class="o">);</span>
+   <span class="k">return</span> <span class="nf">create</span><span class="o">(</span><span class="s">"Engineer"</span><span class="o">);</span>
 <span class="c1">//....</span></code></pre></figure>
 
 <p>Esta forma de crear instancias es totalmente inadecuada, porque se pierde seguridad de tipos (<a href="http://en.wikipedia.org/wiki/Type_safety">type safety</a>). Lo mejor del caso es que el propio Fowler lo reconoce nada más plantear la alternativa. Bajo mi punto de vista, esta forma de instanciar objetos solo estaría justificada si el parámetro del método create está configurado fuera del ámbito de la aplicación (por ejemplo, en una base de datos). En tal caso, sería imprescindible cubrir con tests dicha configuración para evitar errores en tiempo de ejecución.</p>
