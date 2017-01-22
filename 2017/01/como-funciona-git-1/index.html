@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <meta name="description" content="Cómo funciona Git por dentro (primera parte)">
+  
+
+  <title>
+    
+      Cómo funciona Git (parte 1)
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Raúl Ávila" href="/atom.xml">
+
+</head>
+
+
+  <body>
+
+    <div class="container content">
+      <header class="masthead">
+        <h1 class="masthead-title">
+          <a href="/" title="Home">Raúl Ávila</a>
+        </h1>
+
+            <small><a href="/sobre-mi">Sobre mí</a></small>
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/archivos">Archivos</a></small>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title">Cómo funciona Git (parte 1)</h1>
+  <time datetime="2017-01-22T00:00:00+00:00" class="post-date">22/01/2017</time>
+  <div class="post-tags">
+    
+    | <a href="/tag/git">git</a> |
+    
+  </div>
+  <div class="post-share">
+    <a class="twitter-share-button"
+    data-via="_Raul_Avila"
+    data-count="none"
+    href="https://twitter.com/share">Tweet</a>
+  </div>
+  <p>El sábado pasado estuve en un workshop sobre <a href="https://git-scm.com/">Git</a> impartido por el gran <a href="https://twitter.com/theNeomatrix369">Mani</a> en la <a href="https://twitter.com/theNeomatrix369">London Software Craftmanship Community</a>. Me sirvió para consolidar de manera más o menos definitiva los conocimientos sobre esta herramienta que he ido adquiriendo con la práctica durante casi tres años ya.</p>
+
+<p>Al volver a casa, me picó el gusanillo en relación al funcionamiento interno de Git, así que he estado investigando un poco, y plasmaré lo aprendido en esta serie de posts. Personalmente, he descubierto que conocer este funcionamiento interno es muy útil para tener menos miedo a la magia de Git, porque, en el fondo, los principios más importantes no tienen demasiado misterio. Asumo que, si estás leyendo esto, es porque posees un conocimiento de Git “medio”, en caso contrario os recomiendo empezar <a href="http://gitimmersion.com/">por aquí</a> y volver después a este post.</p>
+
+<!--break-->
+
+<h2 id="qué-es-git-estructura-básica">Qué es Git. Estructura básica</h2>
+
+<p>Git es una herramienta de control de versiones distribuida, pero en última instancia no es más que un gestor de contenido, y en este post entenderéis por qué.</p>
+
+<p>El núcleo de Git no es ni más ni menos que un mapa clave-valor de toda la vida, donde las claves son valores hash generados mediante el <a href="https://en.wikipedia.org/wiki/SHA-1">algoritmo SHA1</a>, y los valores pueden ser varias cosas. En este post nos centraremos en los diferentes tipos de valor que Git puede almacenar.</p>
+
+<p>Supongo que os será familiar, pero una clave hash SHA1 es algo así:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">cf23df2207d99a74fbe169e3eba035e633b65d94</code></pre></figure>
+
+<p>Es decir, una serie de 40 caracteres, que Git generará a partir del contenido que almacenemos en el valor correspondiente. Esto significa que, a mismo valor, misma clave hash generada. Para hacer la prueba sólo tenéis que utilizar uno de los conocidos como “plumbing commands” en Git, <code class="highlighter-rouge">hash-object</code>, de la siguiente forma:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">echo Hello World | git hash-object --stdin</code></pre></figure>
+
+<p>Comando que generará el valor <code class="highlighter-rouge">557db03de997c86a4a028e1ebd3a1ceb225be238</code>, desde cualquier máquina, y por supuesto, de forma idempotente.</p>
+
+<p>El comando <code class="highlighter-rouge">hash-object</code> puede invocarse sin necesidad de estar en un repositorio de Git y funcionará sin problemas. Para seguir clarificando conceptos, sin embargo, vamos a crear un repositorio de Git, para trabajar desde allí (lo que conseguimos con <code class="highlighter-rouge">git init</code> en cualquier carpeta, preferentemente vacía).</p>
+
+<p>Más o menos todos sabemos que inicializar un directorio como repositorio de Git crea una carpeta <code class="highlighter-rouge">.git</code> con varias cosas, aquí tenemos una captura de una versión recién creada:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">.git
+├── HEAD
+├── branches
+├── config
+├── description
+├── hooks
+│   ├── applypatch-msg.sample
+│   ├── commit-msg.sample
+│   ├── post-update.sample
+│   ├── pre-applypatch.sample
+│   ├── pre-commit.sample
+│   ├── pre-push.sample
+│   ├── pre-rebase.sample
+│   ├── pre-receive.sample
+│   ├── prepare-commit-msg.sample
+│   └── update.sample
+├── info
+│   └── exclude
+├── objects
+│   ├── info
+│   └── pack
+└── refs
+    ├── heads
+    └── tags</code></pre></figure>
+
+<p>Muchas de ellas las iremos desgranando en esta serie. La subcarpeta más importante, y la que contiene el mapa clave-valor que he mencionado más arriba, es <code class="highlighter-rouge">objects</code>. Vemos que, de momento, <code class="highlighter-rouge">objects</code> está vacía, tan solo tiene dos sucarpetas, <code class="highlighter-rouge">info</code> y <code class="highlighter-rouge">pack</code>, también vacías, y que vamos a ignorar por ahora.</p>
+
+<h2 id="guardando-objetos">Guardando objetos</h2>
+
+<p>Vamos a utilizar de nuevo <code class="highlighter-rouge">hash-object</code> para almacenar una entrada con el valor “Hello World” en <code class="highlighter-rouge">objects</code>. Esto lo podemos conseguir de la siguiente manera:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">$ echo Hello World | git hash-object --stdin -w
+557db03de997c86a4a028e1ebd3a1ceb225be238</code></pre></figure>
+
+<p>Aunque la salida del comando es la misma que conseguimos al lanzarlo sin la opción <code class="highlighter-rouge">-w</code>, ha ocurrido algo interesante. Analicemos de nuevo el contenido de <code class="highlighter-rouge">objects</code>:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">├── objects
+│   ├── 55
+│   │   └── 7db03de997c86a4a028e1ebd3a1ceb225be238
+│   ├── info
+│   └── pack</code></pre></figure>
+
+<p>Vemos que ahora tenemos una carpeta, <code class="highlighter-rouge">55</code>, con un fichero, <code class="highlighter-rouge">7db03de997c86a4a028e1ebd3a1ceb225be238</code>. Es decir, Git ha tomado los dos primeros caracteres de la clave hash generada a partir del valor “Hello World”, ha creado una carpeta, y con el resto de la clave ha creado un fichero. El contenido de este fichero no se puede inspeccionar con un editor de texto, pero sí existe un comando de Git que nos permite visualizar su contenido fácilmente, <code class="highlighter-rouge">cat-file</code>:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">$ git cat-file -p 557db03de997c86a4a028e1ebd3a1ceb225be238
+Hello World
+
+$ git cat-file -p 557db03
+Hello World</code></pre></figure>
+
+<p>He repetido el comando dos veces, la segunda de manera simplificada, para demostrar que, si nuestro repositorio Git no tiene dos claves que empiecen por <code class="highlighter-rouge">557db03</code> es posible trabajar con las claves simplificadas igualmente. Podemos bajar hasta a cuatro caracteres si queremos, pero lo normal es simplificar a 6 o 7, cifra que prácticamente elimina la posibilidad de tener duplicados en un mismo repositorio.</p>
+
+<p>El comando <code class="highlighter-rouge">cat-file</code> también permite interrogar por el tipo del valor, veamos qué obtenemos:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">$ git cat-file -t 557db03
+blob</code></pre></figure>
+
+<p>En efecto, el tipo de nuestro valor es <strong>blob</strong>, que viene a ser un array de bytes sin más, y es el tipo que se utiliza para almacenar los ficheros que todos subimos a nuestro control de versiones, sean binarios o código fuente. Es uno de los cuatro tipos que Git puede almacenar en su repositorio. Sí, habéis leído bien, Git sólo maneja cuatro tipos de datos.</p>
+
+<p>Vamos a ir dibujando un diagrama de nuestro repositorio sobre la marcha. De momento, lo que tenemos es:</p>
+
+<p><img src="/public/pictures/git-internals/git-blob.jpg" alt="Git Blob" /></p>
+
+<h2 id="primer-commit">Primer commit</h2>
+
+<p>Aunque hemos utilizado un “plumbing command” para guardar algo en el repositorio, esta no es para nada la forma habitual de utilizar Git. En el 100% de los casos, crearemos un fichero con algún contenido, así que vamos a ello:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">$ echo Hello World &gt; hello.txt
+
+$ git add .
+
+$ git commit -m "First commit"
+[master (root-commit) d1ee121] First commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 hello.txt</code></pre></figure>
+
+<p>Como ya he comentado anteriormente, se presupone cierto conocimiento de la herramienta, por lo que no entraré en detalles de lo que estoy haciendo en cada paso. Tan sólo añadir que, nuestra carpeta <code class="highlighter-rouge">objects</code> ha permanecido inmutable hasta el último commando, es decir, hasta el momento en que hemos hecho commit, donde ha quedado así:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">├── objects
+│   ├── 55
+│   │   └── 7db03de997c86a4a028e1ebd3a1ceb225be238
+│   ├── 97
+│   │   └── b49d4c943e3715fe30f141cc6f27a8548cee0e
+│   ├── d1
+│   │   └── ee121d5fe96b891ac0cc695498f31c0a4a7664
+│   ├── info
+│   └── pack</code></pre></figure>
+
+<p>Es decir, se han añadido cuatro entradas nuevas al mapa clave-valor. Vamos a inspeccionar cada una de ellas.</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">557db03</code> sigue siendo la entrada que añadimos manualmente, es decir, el blob “Hello World”</p>
+  </li>
+  <li>
+    <p>Vamos a utilizar el comando <code class="highlighter-rouge">git log</code> para conocer la clave hash que se ha asociado al commit:</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">$ git log -1
+commit d1ee121d5fe96b891ac0cc695498f31c0a4a7664
+Author: RaulAvila &lt;xxxxxx@gmail.com&gt;
+Date:   Sun Jan 22 18:50:55 2017 +0000
+
+    First commit</code></pre></figure>
+
+<p>La clave hash simplificada del commit es <code class="highlighter-rouge">d1ee121</code>. Veamos qué obtenemos con <code class="highlighter-rouge">cat-file</code>, de la misma forma en que hicimos con el blob:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">$ git cat-file -t d1ee121
+commit
+
+$ git cat-file -p d1ee121
+tree 97b49d4c943e3715fe30f141cc6f27a8548cee0e
+author RaulAvila &lt;xxxxxx@gmail.com&gt; 1485111055 +0000
+committer RaulAvila &lt;xxxxxx@gmail.com&gt; 1485111055 +0000
+
+First commit</code></pre></figure>
+
+<p>Es decir, el tipo del valor asociado a <code class="highlighter-rouge">d1ee121</code> es <strong>commit</strong>, por lo que acabamos de descubrir el segundo tipo de datos que puede almacenar Git. El contenido del fichero, además de la información que muestra el comando <code class="highlighter-rouge">git log</code>, hace referencia a un “tree”, con un código hash, que “casualmente” también encontramos en la carpeta <code class="highlighter-rouge">objects</code>, <code class="highlighter-rouge">97b49d4</code>. Así que vamos a inspeccionar este hash:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">$ git cat-file -t 97b49d4
+tree
+
+$ git cat-file -p 97b49d4
+100644 blob 557db03de997c86a4a028e1ebd3a1ceb225be238	hello.txt</code></pre></figure>
+
+<ul>
+  <li>Acabamos de descubrir el tercer tipo de datos, <strong>tree</strong>, que viene a ser el equivalente a una carpeta en una estructura de ficheros de toda la vida. De hecho si mostramos el contenido del valor de esta entrada tree, lo que tenemos es una lista de ficheros, donde la primera columna son permisos de acceso, la segunda el tipo del valor (que puede ser un blob u otro tree), la tercera la clave hash que lo identifica, y la segunda el nombre del fichero. Muy parecido a la salida de <code class="highlighter-rouge">ls</code> en Unix, ¿verdad? Seguro que ya os habéis dado cuenta de la naturaleza recursiva de esta estructura, puesto que un tree puede contener otros trees a varios niveles, además de ficheros “normales”, o blobs. A modo de ejemplo, esta podría ser una salida perfectamente válida del comando <code class="highlighter-rouge">cat-file -p</code> sobre un valor tree:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">100644 blob 557db03de997c86a4a028e1ebd3a1ceb225be238     hello.txt
+040000 tree f27fede2220bcd326aee3e86ddfd4ebd0fe58cb9     src</code></pre></figure>
+
+<p>Es decir, un fichero y otra carpeta, que a su vez puede contener más ficheros.</p>
+
+<p>En este punto ya hemos visto que nuestra carpeta <code class="highlighter-rouge">objects</code> tiene tres entradas:</p>
+
+<ol>
+  <li><code class="highlighter-rouge">557db03</code>, el valor “Hello World” que almacenamos de forma manual antes de crear nuestro primer fichero + commit</li>
+  <li><code class="highlighter-rouge">d1ee121</code> contiene toda la información de nuestro primer commit, con un tree directamente asociado al commit, a modo de root</li>
+  <li><code class="highlighter-rouge">97b49d4</code> es el mencionado tree, y contiene un fichero de nombre “hello.txt”, que está asociado al hash <code class="highlighter-rouge">557db03</code></li>
+</ol>
+
+<p>¡Un momento! ¿Habéis notado algo? El valor hash asociado al fichero “hello.txt” es exactamente el mismo que nosotros añadimos manualmente antes de hacer un commit. En efecto, Git ha detectado que el contenido del fichero es el mismo que el que ya existe en esa entrada del repositorio (más que nada porque el valor hash generado es idéntico), ¡y la ha reutilizado! De hecho, la entrada <code class="highlighter-rouge">557db03</code> contiene sólo el blob “Hello World”, sin ninguna información del nombre del fichero que lo contiene. Esta información es propiedad del objeto tree que referencie a dicho blob.</p>
+
+<p>Si completamos el diagrama, asociando los diferentes valores, nos quedaría algo así:</p>
+
+<p><img src="/public/pictures/git-internals/git-first-commit.jpg" alt="Git Blob" /></p>
+
+<h2 id="tags">Tags</h2>
+
+<p>Comenté anteriormente que Git puede almacenar cuatro tipos de datos, pero de momento sólo hemos visto tres. El tipo que nos queda es más difícil de introducir de manera “casual”, y es <strong>tag</strong>. Supongo que estaréis familiarizados con los tags de Git, para marcar un commit concreto que nos interesa. Vamos a hacerlo con este primer commit:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">$ git tag -a first -m "First Commit"</code></pre></figure>
+
+<p>Tras hacer esto, los cambios dentro de nuestra carpeta <code class="highlighter-rouge">.git</code> se pueden ver aquí:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">├── objects
+│   ├── 04
+│   │   └── 50100369ff9e0b980dfc6ae42aaeb1de6890f6
+│   ├── 55
+│   │   └── 7db03de997c86a4a028e1ebd3a1ceb225be238
+│   ├── 97
+│   │   └── b49d4c943e3715fe30f141cc6f27a8548cee0e
+│   ├── d1
+│   │   └── ee121d5fe96b891ac0cc695498f31c0a4a7664
+│   ├── info
+│   └── pack
+└── refs
+    ├── heads
+    │   └── master
+    └── tags
+        └── first</code></pre></figure>
+
+<p>Son los siguientes:</p>
+
+<ul>
+  <li>Tenemos un nuevo valor en <code class="highlighter-rouge">objects</code>, <code class="highlighter-rouge">0450100</code>, una inspección con <code class="highlighter-rouge">cat-file</code> nos da lo siguiente:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">$ git cat-file -t 0450100
+tag
+
+$ git cat-file -p 0450100
+object d1ee121d5fe96b891ac0cc695498f31c0a4a7664
+type commit
+tag first
+tagger RaulAvila &lt;xxxxxx@gmail.com&gt; 1485112874 +0000
+
+First Commit</code></pre></figure>
+
+<p>Es decir, el valor es del tipo <strong>tag</strong>, como hemos adelantado, y apunta al objeto <code class="highlighter-rouge">d1ee121</code>, que no es más que el commit en el que estábamos cuando creamos el tag. Este valor también contiene la descripción que añadimos al tag cuando lo creamos.</p>
+
+<ul>
+  <li>En la carpeta <code class="highlighter-rouge">.git/refs/tags</code> tenemos un nuevo fichero, <code class="highlighter-rouge">first</code>, que podemos inspeccionar con un editor de texto o el comando <code class="highlighter-rouge">cat</code>:</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">$ cat .git/refs/tags/first
+0450100369ff9e0b980dfc6ae42aaeb1de6890f6</code></pre></figure>
+
+<p>Está claro que este fichero no es más que un alias que contiene una referencia al hash del tag creado, ni más ni menos.</p>
+
+<p>Con esto, actualicemos nuestro diagrama:</p>
+
+<p><img src="/public/pictures/git-internals/git-first-commit-tag.jpg" alt="Git Blob" /></p>
+
+<p>Terminamos esta primera entrega sobre el funcionamiento interno de Git. En la siguiente veremos cómo Git añade nuevos commits al histórico, revisaremos los tipos de datos durante el proceso, y veremos cómo se realiza la gestion de ramas.</p>
+
+</article>
+
+<aside class="related">
+  <h2>Otros posts en este blog</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2017/01/yo-fui-un-mal-programador/">
+            You fui un mal programador
+            <small><time datetime="2017-01-09T00:00:00+00:00">09/01/2017</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2017/01/propositos-2017/">
+            Mis propósitos para 2017
+            <small><time datetime="2017-01-01T00:00:00+00:00">01/01/2017</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2016/12/aprender-ingles/">
+            Aprender inglés
+            <small><time datetime="2016-12-22T00:00:00+00:00">22/12/2016</time></small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</aside>
+
+        
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'raulavila'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </main>
+
+      <footer class="footer">
+        <small>
+          &copy; <time datetime="2017">2017</time> Raúl Ávila. Blog creado con <a href="http://jekyllrb.com">Jekyll</a>.
+          Plantilla basada en <a href="http://getpoole.com">Poole</a>.
+          <a href="/atom.xml">Atom Feed</a></a>.
+          <br>
+        </small>
+      </footer>
+    </div>
+
+  <script>
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58942569-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>

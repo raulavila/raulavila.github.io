@@ -4,13 +4,254 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-01-15T14:00:04+00:00</updated>
+ <updated>2017-01-22T20:04:31+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Cómo funciona Git (parte 1)</title>
+   <link href="http://www.raulavila.com/2017/01/como-funciona-git-1/"/>
+   <updated>2017-01-22T00:00:00+00:00</updated>
+   <id>http://www.raulavila.com/2017/01/como-funciona-git-1</id>
+   <content type="html">&lt;p&gt;El sábado pasado estuve en un workshop sobre &lt;a href=&quot;https://git-scm.com/&quot;&gt;Git&lt;/a&gt; impartido por el gran &lt;a href=&quot;https://twitter.com/theNeomatrix369&quot;&gt;Mani&lt;/a&gt; en la &lt;a href=&quot;https://twitter.com/theNeomatrix369&quot;&gt;London Software Craftmanship Community&lt;/a&gt;. Me sirvió para consolidar de manera más o menos definitiva los conocimientos sobre esta herramienta que he ido adquiriendo con la práctica durante casi tres años ya.&lt;/p&gt;
+
+&lt;p&gt;Al volver a casa, me picó el gusanillo en relación al funcionamiento interno de Git, así que he estado investigando un poco, y plasmaré lo aprendido en esta serie de posts. Personalmente, he descubierto que conocer este funcionamiento interno es muy útil para tener menos miedo a la magia de Git, porque, en el fondo, los principios más importantes no tienen demasiado misterio. Asumo que, si estás leyendo esto, es porque posees un conocimiento de Git “medio”, en caso contrario os recomiendo empezar &lt;a href=&quot;http://gitimmersion.com/&quot;&gt;por aquí&lt;/a&gt; y volver después a este post.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;h2 id=&quot;qué-es-git-estructura-básica&quot;&gt;Qué es Git. Estructura básica&lt;/h2&gt;
+
+&lt;p&gt;Git es una herramienta de control de versiones distribuida, pero en última instancia no es más que un gestor de contenido, y en este post entenderéis por qué.&lt;/p&gt;
+
+&lt;p&gt;El núcleo de Git no es ni más ni menos que un mapa clave-valor de toda la vida, donde las claves son valores hash generados mediante el &lt;a href=&quot;https://en.wikipedia.org/wiki/SHA-1&quot;&gt;algoritmo SHA1&lt;/a&gt;, y los valores pueden ser varias cosas. En este post nos centraremos en los diferentes tipos de valor que Git puede almacenar.&lt;/p&gt;
+
+&lt;p&gt;Supongo que os será familiar, pero una clave hash SHA1 es algo así:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;cf23df2207d99a74fbe169e3eba035e633b65d94&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Es decir, una serie de 40 caracteres, que Git generará a partir del contenido que almacenemos en el valor correspondiente. Esto significa que, a mismo valor, misma clave hash generada. Para hacer la prueba sólo tenéis que utilizar uno de los conocidos como “plumbing commands” en Git, &lt;code class=&quot;highlighter-rouge&quot;&gt;hash-object&lt;/code&gt;, de la siguiente forma:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;echo Hello World | git hash-object --stdin&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Comando que generará el valor &lt;code class=&quot;highlighter-rouge&quot;&gt;557db03de997c86a4a028e1ebd3a1ceb225be238&lt;/code&gt;, desde cualquier máquina, y por supuesto, de forma idempotente.&lt;/p&gt;
+
+&lt;p&gt;El comando &lt;code class=&quot;highlighter-rouge&quot;&gt;hash-object&lt;/code&gt; puede invocarse sin necesidad de estar en un repositorio de Git y funcionará sin problemas. Para seguir clarificando conceptos, sin embargo, vamos a crear un repositorio de Git, para trabajar desde allí (lo que conseguimos con &lt;code class=&quot;highlighter-rouge&quot;&gt;git init&lt;/code&gt; en cualquier carpeta, preferentemente vacía).&lt;/p&gt;
+
+&lt;p&gt;Más o menos todos sabemos que inicializar un directorio como repositorio de Git crea una carpeta &lt;code class=&quot;highlighter-rouge&quot;&gt;.git&lt;/code&gt; con varias cosas, aquí tenemos una captura de una versión recién creada:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;.git
+├── HEAD
+├── branches
+├── config
+├── description
+├── hooks
+│   ├── applypatch-msg.sample
+│   ├── commit-msg.sample
+│   ├── post-update.sample
+│   ├── pre-applypatch.sample
+│   ├── pre-commit.sample
+│   ├── pre-push.sample
+│   ├── pre-rebase.sample
+│   ├── pre-receive.sample
+│   ├── prepare-commit-msg.sample
+│   └── update.sample
+├── info
+│   └── exclude
+├── objects
+│   ├── info
+│   └── pack
+└── refs
+    ├── heads
+    └── tags&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Muchas de ellas las iremos desgranando en esta serie. La subcarpeta más importante, y la que contiene el mapa clave-valor que he mencionado más arriba, es &lt;code class=&quot;highlighter-rouge&quot;&gt;objects&lt;/code&gt;. Vemos que, de momento, &lt;code class=&quot;highlighter-rouge&quot;&gt;objects&lt;/code&gt; está vacía, tan solo tiene dos sucarpetas, &lt;code class=&quot;highlighter-rouge&quot;&gt;info&lt;/code&gt; y &lt;code class=&quot;highlighter-rouge&quot;&gt;pack&lt;/code&gt;, también vacías, y que vamos a ignorar por ahora.&lt;/p&gt;
+
+&lt;h2 id=&quot;guardando-objetos&quot;&gt;Guardando objetos&lt;/h2&gt;
+
+&lt;p&gt;Vamos a utilizar de nuevo &lt;code class=&quot;highlighter-rouge&quot;&gt;hash-object&lt;/code&gt; para almacenar una entrada con el valor “Hello World” en &lt;code class=&quot;highlighter-rouge&quot;&gt;objects&lt;/code&gt;. Esto lo podemos conseguir de la siguiente manera:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ echo Hello World | git hash-object --stdin -w
+557db03de997c86a4a028e1ebd3a1ceb225be238&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Aunque la salida del comando es la misma que conseguimos al lanzarlo sin la opción &lt;code class=&quot;highlighter-rouge&quot;&gt;-w&lt;/code&gt;, ha ocurrido algo interesante. Analicemos de nuevo el contenido de &lt;code class=&quot;highlighter-rouge&quot;&gt;objects&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;├── objects
+│   ├── 55
+│   │   └── 7db03de997c86a4a028e1ebd3a1ceb225be238
+│   ├── info
+│   └── pack&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Vemos que ahora tenemos una carpeta, &lt;code class=&quot;highlighter-rouge&quot;&gt;55&lt;/code&gt;, con un fichero, &lt;code class=&quot;highlighter-rouge&quot;&gt;7db03de997c86a4a028e1ebd3a1ceb225be238&lt;/code&gt;. Es decir, Git ha tomado los dos primeros caracteres de la clave hash generada a partir del valor “Hello World”, ha creado una carpeta, y con el resto de la clave ha creado un fichero. El contenido de este fichero no se puede inspeccionar con un editor de texto, pero sí existe un comando de Git que nos permite visualizar su contenido fácilmente, &lt;code class=&quot;highlighter-rouge&quot;&gt;cat-file&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git cat-file -p 557db03de997c86a4a028e1ebd3a1ceb225be238
+Hello World
+
+$ git cat-file -p 557db03
+Hello World&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;He repetido el comando dos veces, la segunda de manera simplificada, para demostrar que, si nuestro repositorio Git no tiene dos claves que empiecen por &lt;code class=&quot;highlighter-rouge&quot;&gt;557db03&lt;/code&gt; es posible trabajar con las claves simplificadas igualmente. Podemos bajar hasta a cuatro caracteres si queremos, pero lo normal es simplificar a 6 o 7, cifra que prácticamente elimina la posibilidad de tener duplicados en un mismo repositorio.&lt;/p&gt;
+
+&lt;p&gt;El comando &lt;code class=&quot;highlighter-rouge&quot;&gt;cat-file&lt;/code&gt; también permite interrogar por el tipo del valor, veamos qué obtenemos:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git cat-file -t 557db03
+blob&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;En efecto, el tipo de nuestro valor es &lt;strong&gt;blob&lt;/strong&gt;, que viene a ser un array de bytes sin más, y es el tipo que se utiliza para almacenar los ficheros que todos subimos a nuestro control de versiones, sean binarios o código fuente. Es uno de los cuatro tipos que Git puede almacenar en su repositorio. Sí, habéis leído bien, Git sólo maneja cuatro tipos de datos.&lt;/p&gt;
+
+&lt;p&gt;Vamos a ir dibujando un diagrama de nuestro repositorio sobre la marcha. De momento, lo que tenemos es:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-blob.jpg&quot; alt=&quot;Git Blob&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;primer-commit&quot;&gt;Primer commit&lt;/h2&gt;
+
+&lt;p&gt;Aunque hemos utilizado un “plumbing command” para guardar algo en el repositorio, esta no es para nada la forma habitual de utilizar Git. En el 100% de los casos, crearemos un fichero con algún contenido, así que vamos a ello:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ echo Hello World &amp;gt; hello.txt
+
+$ git add .
+
+$ git commit -m &quot;First commit&quot;
+[master (root-commit) d1ee121] First commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 hello.txt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Como ya he comentado anteriormente, se presupone cierto conocimiento de la herramienta, por lo que no entraré en detalles de lo que estoy haciendo en cada paso. Tan sólo añadir que, nuestra carpeta &lt;code class=&quot;highlighter-rouge&quot;&gt;objects&lt;/code&gt; ha permanecido inmutable hasta el último commando, es decir, hasta el momento en que hemos hecho commit, donde ha quedado así:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;├── objects
+│   ├── 55
+│   │   └── 7db03de997c86a4a028e1ebd3a1ceb225be238
+│   ├── 97
+│   │   └── b49d4c943e3715fe30f141cc6f27a8548cee0e
+│   ├── d1
+│   │   └── ee121d5fe96b891ac0cc695498f31c0a4a7664
+│   ├── info
+│   └── pack&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Es decir, se han añadido cuatro entradas nuevas al mapa clave-valor. Vamos a inspeccionar cada una de ellas.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;557db03&lt;/code&gt; sigue siendo la entrada que añadimos manualmente, es decir, el blob “Hello World”&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Vamos a utilizar el comando &lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt; para conocer la clave hash que se ha asociado al commit:&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git log -1
+commit d1ee121d5fe96b891ac0cc695498f31c0a4a7664
+Author: RaulAvila &amp;lt;xxxxxx@gmail.com&amp;gt;
+Date:   Sun Jan 22 18:50:55 2017 +0000
+
+    First commit&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;La clave hash simplificada del commit es &lt;code class=&quot;highlighter-rouge&quot;&gt;d1ee121&lt;/code&gt;. Veamos qué obtenemos con &lt;code class=&quot;highlighter-rouge&quot;&gt;cat-file&lt;/code&gt;, de la misma forma en que hicimos con el blob:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git cat-file -t d1ee121
+commit
+
+$ git cat-file -p d1ee121
+tree 97b49d4c943e3715fe30f141cc6f27a8548cee0e
+author RaulAvila &amp;lt;xxxxxx@gmail.com&amp;gt; 1485111055 +0000
+committer RaulAvila &amp;lt;xxxxxx@gmail.com&amp;gt; 1485111055 +0000
+
+First commit&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Es decir, el tipo del valor asociado a &lt;code class=&quot;highlighter-rouge&quot;&gt;d1ee121&lt;/code&gt; es &lt;strong&gt;commit&lt;/strong&gt;, por lo que acabamos de descubrir el segundo tipo de datos que puede almacenar Git. El contenido del fichero, además de la información que muestra el comando &lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt;, hace referencia a un “tree”, con un código hash, que “casualmente” también encontramos en la carpeta &lt;code class=&quot;highlighter-rouge&quot;&gt;objects&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;97b49d4&lt;/code&gt;. Así que vamos a inspeccionar este hash:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git cat-file -t 97b49d4
+tree
+
+$ git cat-file -p 97b49d4
+100644 blob 557db03de997c86a4a028e1ebd3a1ceb225be238	hello.txt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Acabamos de descubrir el tercer tipo de datos, &lt;strong&gt;tree&lt;/strong&gt;, que viene a ser el equivalente a una carpeta en una estructura de ficheros de toda la vida. De hecho si mostramos el contenido del valor de esta entrada tree, lo que tenemos es una lista de ficheros, donde la primera columna son permisos de acceso, la segunda el tipo del valor (que puede ser un blob u otro tree), la tercera la clave hash que lo identifica, y la segunda el nombre del fichero. Muy parecido a la salida de &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; en Unix, ¿verdad? Seguro que ya os habéis dado cuenta de la naturaleza recursiva de esta estructura, puesto que un tree puede contener otros trees a varios niveles, además de ficheros “normales”, o blobs. A modo de ejemplo, esta podría ser una salida perfectamente válida del comando &lt;code class=&quot;highlighter-rouge&quot;&gt;cat-file -p&lt;/code&gt; sobre un valor tree:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;100644 blob 557db03de997c86a4a028e1ebd3a1ceb225be238     hello.txt
+040000 tree f27fede2220bcd326aee3e86ddfd4ebd0fe58cb9     src&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Es decir, un fichero y otra carpeta, que a su vez puede contener más ficheros.&lt;/p&gt;
+
+&lt;p&gt;En este punto ya hemos visto que nuestra carpeta &lt;code class=&quot;highlighter-rouge&quot;&gt;objects&lt;/code&gt; tiene tres entradas:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;557db03&lt;/code&gt;, el valor “Hello World” que almacenamos de forma manual antes de crear nuestro primer fichero + commit&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;d1ee121&lt;/code&gt; contiene toda la información de nuestro primer commit, con un tree directamente asociado al commit, a modo de root&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;97b49d4&lt;/code&gt; es el mencionado tree, y contiene un fichero de nombre “hello.txt”, que está asociado al hash &lt;code class=&quot;highlighter-rouge&quot;&gt;557db03&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;¡Un momento! ¿Habéis notado algo? El valor hash asociado al fichero “hello.txt” es exactamente el mismo que nosotros añadimos manualmente antes de hacer un commit. En efecto, Git ha detectado que el contenido del fichero es el mismo que el que ya existe en esa entrada del repositorio (más que nada porque el valor hash generado es idéntico), ¡y la ha reutilizado! De hecho, la entrada &lt;code class=&quot;highlighter-rouge&quot;&gt;557db03&lt;/code&gt; contiene sólo el blob “Hello World”, sin ninguna información del nombre del fichero que lo contiene. Esta información es propiedad del objeto tree que referencie a dicho blob.&lt;/p&gt;
+
+&lt;p&gt;Si completamos el diagrama, asociando los diferentes valores, nos quedaría algo así:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-first-commit.jpg&quot; alt=&quot;Git Blob&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;tags&quot;&gt;Tags&lt;/h2&gt;
+
+&lt;p&gt;Comenté anteriormente que Git puede almacenar cuatro tipos de datos, pero de momento sólo hemos visto tres. El tipo que nos queda es más difícil de introducir de manera “casual”, y es &lt;strong&gt;tag&lt;/strong&gt;. Supongo que estaréis familiarizados con los tags de Git, para marcar un commit concreto que nos interesa. Vamos a hacerlo con este primer commit:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git tag -a first -m &quot;First Commit&quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Tras hacer esto, los cambios dentro de nuestra carpeta &lt;code class=&quot;highlighter-rouge&quot;&gt;.git&lt;/code&gt; se pueden ver aquí:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;├── objects
+│   ├── 04
+│   │   └── 50100369ff9e0b980dfc6ae42aaeb1de6890f6
+│   ├── 55
+│   │   └── 7db03de997c86a4a028e1ebd3a1ceb225be238
+│   ├── 97
+│   │   └── b49d4c943e3715fe30f141cc6f27a8548cee0e
+│   ├── d1
+│   │   └── ee121d5fe96b891ac0cc695498f31c0a4a7664
+│   ├── info
+│   └── pack
+└── refs
+    ├── heads
+    │   └── master
+    └── tags
+        └── first&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Son los siguientes:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Tenemos un nuevo valor en &lt;code class=&quot;highlighter-rouge&quot;&gt;objects&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;0450100&lt;/code&gt;, una inspección con &lt;code class=&quot;highlighter-rouge&quot;&gt;cat-file&lt;/code&gt; nos da lo siguiente:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git cat-file -t 0450100
+tag
+
+$ git cat-file -p 0450100
+object d1ee121d5fe96b891ac0cc695498f31c0a4a7664
+type commit
+tag first
+tagger RaulAvila &amp;lt;xxxxxx@gmail.com&amp;gt; 1485112874 +0000
+
+First Commit&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Es decir, el valor es del tipo &lt;strong&gt;tag&lt;/strong&gt;, como hemos adelantado, y apunta al objeto &lt;code class=&quot;highlighter-rouge&quot;&gt;d1ee121&lt;/code&gt;, que no es más que el commit en el que estábamos cuando creamos el tag. Este valor también contiene la descripción que añadimos al tag cuando lo creamos.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;En la carpeta &lt;code class=&quot;highlighter-rouge&quot;&gt;.git/refs/tags&lt;/code&gt; tenemos un nuevo fichero, &lt;code class=&quot;highlighter-rouge&quot;&gt;first&lt;/code&gt;, que podemos inspeccionar con un editor de texto o el comando &lt;code class=&quot;highlighter-rouge&quot;&gt;cat&lt;/code&gt;:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ cat .git/refs/tags/first
+0450100369ff9e0b980dfc6ae42aaeb1de6890f6&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Está claro que este fichero no es más que un alias que contiene una referencia al hash del tag creado, ni más ni menos.&lt;/p&gt;
+
+&lt;p&gt;Con esto, actualicemos nuestro diagrama:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-first-commit-tag.jpg&quot; alt=&quot;Git Blob&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Terminamos esta primera entrega sobre el funcionamiento interno de Git. En la siguiente veremos cómo Git añade nuevos commits al histórico, revisaremos los tipos de datos durante el proceso, y veremos cómo se realiza la gestion de ramas.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>You fui un mal programador</title>
@@ -990,121 +1231,6 @@
 &lt;h2 id=&quot;conclusión&quot;&gt;Conclusión&lt;/h2&gt;
 
 &lt;p&gt;No creo que la lectura de este artículo convenza a nadie para introducir pair programming en su día a día, pero sí espero que haya quedado claro por qué es una práctica muy recomendable. Para profundizar más, echad un vistazo al &lt;a href=&quot;https://www.amazon.es/Extreme-Programming-Explained-Embrace-Embracing/dp/0321278658/ref=sr_1_1&quot;&gt;libro de Kent Beck sobre Extreme Programming&lt;/a&gt;.&lt;/p&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>Mis cinco mantras</title>
-   <link href="http://www.raulavila.com/2016/07/mis-5-mantras/"/>
-   <updated>2016-07-27T00:00:00+01:00</updated>
-   <id>http://www.raulavila.com/2016/07/mis-5-mantras</id>
-   <content type="html">&lt;p&gt;En mi día a día, cuando estoy desarrollando software, cosa que ocurre la mayor parte del tiempo, intento seguir una serie de principios y buenas prácticas de cara a producir código con la máxima calidad. La mayoría conocemos, al menos de oídas, cuales son esos principios, aunque no siempre los apliquemos: &lt;a href=&quot;https://en.wikipedia.org/wiki/Don%27t_repeat_yourself&quot;&gt;DRY&lt;/a&gt;, &lt;a href=&quot;https://es.wikipedia.org/wiki/SOLID&quot;&gt;SOLID&lt;/a&gt;, etc.&lt;/p&gt;
-
-&lt;p&gt;Siglas aparte, y a un nivel algo diferente, con el paso de los años he ido interiorizando una serie de mantras que están presentes en mi cabeza de forma permanente, y creo que me han sido de gran ayuda para mejorar como programador. Últimamente, y gracias al entorno de pair programming en que me muevo, los he empezado a dar aún más importancia, ya que en varias ocasiones me he visto en la tesitura de tener que explicar sus beneficios al que fuera mi compañero en ese momento.&lt;/p&gt;
-
-&lt;p&gt;En este post pasaré lista a estos “mantras”, que en general no son más que lecciones aprendidas en determinados libros o video-tutoriales, y que han ido calando en mi subconsciente. Me permitiré la licencia de ponerlos en inglés, ya que así los aprendí y así los utilizo, y los listaré por orden de importancia.&lt;/p&gt;
-
-&lt;!--break--&gt;
-
-&lt;h2 id=&quot;dont-leave-broken-windows&quot;&gt;Don’t leave broken windows&lt;/h2&gt;
-
-&lt;p&gt;“No dejes ventanas rotas”. Sin lugar a dudas la sección más importante del libro &lt;a href=&quot;https://www.amazon.co.uk/Pragmatic-Programmer-Andrew-Hunt/dp/020161622X&quot;&gt;The Pragmatic Programmer&lt;/a&gt;, donde lo leí por primera vez.&lt;/p&gt;
-
-&lt;p&gt;Resulta que está (¿científicamente?) demostrado que, cuando un edificio está abandonado, puede aguantar un tiempo razonable sin que la gente que lo ve a diario se percate de la situación. Pero siempre llega un momento donde se produce un hecho crucial que lo cambia todo: una ventana rota. Dicha ventana, al tratarse de un edificio abandonado, no es reparada, por lo que rápidamente se hace patente la situación de abandono, los vándalos comienzan a hacer de las suyas, irrumpen en el edificio…y el deterioro es imparable.&lt;/p&gt;
-
-&lt;p&gt;Exactamente la misma idea debe aplicarse al desarrollo software. Cuando tomamos determinados atajos para entregar algo en el menor tiempo posible, y nuestro código refleja claramente nuestro descuido, los que vengan después (que podemos ser nosotros mismos, programadores que compartan equipo en este momento u otros por llegar) sacarán como lectura que no es tan importante ser cuidadosos con el código que producimos, y poco a poco, y cada vez más rápido, nuestra aplicación o sistema se irá deteriorando.&lt;/p&gt;
-
-&lt;p&gt;Ejemplos de ventanas rotas pueden ser cosas tan flagrantes como no escribir tests automatizados de una nueva funcionalidad, pero también otras menos importantes a priori como no ser consistentes en nuestro estilo de codificación (utilizar diferentes indentaciones, formatear los bloques de forma diferente, etc) o no eliminar dependencias que nuestro código ha dejado de utilizar.&lt;/p&gt;
-
-&lt;p&gt;Por favor, no dejéis ventanas rotas. ¡Ojo!, que no estoy hablando de &lt;a href=&quot;https://es.wikipedia.org/wiki/Deuda_t%C3%A9cnica&quot;&gt;deuda técnica&lt;/a&gt;, que puede estar justificada en determinadas circunstancias (siempre que seamos conscientes de estar incurriendo en dicha deuda y volvamos a ella en el futuro).&lt;/p&gt;
-
-&lt;h2 id=&quot;do-one-thing-do-it-well-and-do-it-only&quot;&gt;Do one thing, do it well and do it only&lt;/h2&gt;
-
-&lt;p&gt;“Haz una cosa, hazla bien, y sólo esa”. Este mantra se lo debo a &lt;a href=&quot;https://twitter.com/unclebobmartin&quot;&gt;Uncle Bob&lt;/a&gt;, y no es más que el &lt;a href=&quot;https://en.wikipedia.org/wiki/Single_responsibility_principle&quot;&gt;Single Responsibility Principle&lt;/a&gt; formulado de forma pegadiza :)&lt;/p&gt;
-
-&lt;p&gt;No creo que sea necesario profundizar mucho aquí. Nunca, &lt;strong&gt;nunca&lt;/strong&gt;, debemos añadir más de una responsabilidad a nuestros métodos o clases. En general, mi norma es que si necesitas una conjunción (“y…”, “o…”) para describir lo que hace un determinado método, tu método está haciendo demasiadas cosas.&lt;/p&gt;
-
-&lt;p&gt;Otra forma de ver esto es pensar desde la perspectiva de los diferentes actores involucrados en nuestro sistema. Cada actor podrá motivar cambios en nuestro código, y nosotros deberemos diseñarlo de forma que los cambios de opinión de cada actor pueda motivar cambios en un lugar perfectamente aislado. Ejemplos de actores pueden ser: nuestro sistema de transporte (http, colas de mensajes…), el equipo de seguridad de nuestra empresa, los diseñadores gráficos, nuestro sistema de bases de datos…muy heterogéneo vaya.&lt;/p&gt;
-
-&lt;h2 id=&quot;extract-till-you-drop&quot;&gt;Extract till you drop&lt;/h2&gt;
-
-&lt;p&gt;Algo así como “extrae hasta que te caigas a pedazos”. También se lo debo a Uncle Bob, y en su serie de videos &lt;a href=&quot;https://cleancoders.com/&quot;&gt;Clean Coders&lt;/a&gt; lo complementa con esta sentencia:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;ol&gt;
-    &lt;li&gt;Methods should be small&lt;/li&gt;
-    &lt;li&gt;They should be smaller than that&lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Dice nuestro buen amigo que un método no debería tener más de cuatro o cinco líneas de código. Yo creo que quizás se pase un poquito, pero la verdad es que, personalmente, cuando veo que un método tiene más de 10 líneas ya empiezo a sospechar.&lt;/p&gt;
-
-&lt;p&gt;Extraer nuestro código en métodos pequeños es extremadamente sencillo hoy día con los IDE’s, y el resultado, si lo hacemos bien, es infinitamente mejor. Por otra parte esto no sólo aplica a métodos, también a clases e incluso a paquetes o módulos.&lt;/p&gt;
-
-&lt;p&gt;Me voy a ahorrar un ejemplo, ya que no me veo capaz de hacerlo mejor que &lt;a href=&quot;https://sites.google.com/site/unclebobconsultingllc/one-thing-extract-till-you-drop&quot;&gt;el autor de este mantra&lt;/a&gt;. Y por favor, si no lo habéis hecho ya, leed &lt;a href=&quot;https://www.amazon.es/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882&quot;&gt;Clean Code&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;abstractions-in-code-details-in-data&quot;&gt;Abstractions in code, details in data&lt;/h2&gt;
-
-&lt;p&gt;“Abstracciones en código, detalles en datos”. Esto lo aprendí en el curso &lt;a href=&quot;http://www.jbrains.ca/permalink/the-worlds-best-intro-to-tdd-demo-video&quot;&gt;“World’s best intro to TDD”&lt;/a&gt;, aunque indirectamente lo venía aplicando en determinadas circunstancias.&lt;/p&gt;
-
-&lt;p&gt;La clave de este mantra es que, cuando nos vemos codificando un método o clase con diferentes caminos de ejecución que dependen de datos de entrada o del contexto en que nuestro código se está ejecutando, suele ser posible abstraer los datos concretos fuera de nuestro código. De esta forma disminuimos la &lt;a href=&quot;https://es.wikipedia.org/wiki/Complejidad_ciclom%C3%A1tica&quot;&gt;complejidad ciclomática&lt;/a&gt; y facilitamos el testing, dos grandes beneficios que mejorarán infinitamente la calidad de nuestro software.&lt;/p&gt;
-
-&lt;p&gt;Veamos un ejemplo muy sencillo, el siguiente código devuelve un saludo a mostrar a un usuario según su perfil:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fetchGreetingMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;role&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;greeting&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;MANAGER&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;role&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;greeting&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Hello Manager!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;GUEST&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;role&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;greeting&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Hello Guest!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;EMPLOYEE&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;role&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;greeting&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Hello Employee!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;RuntimeException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Unrecognized role!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;greeting&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Estoy seguro de que os habéis encontrado con métodos de similar estructura más de una vez. Una alternativa que se adhiera a este principio podría ser:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;GreetingService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;greetingByRole&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
-                &lt;span class=&quot;n&quot;&gt;ImmutableMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-                                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;MANAGER&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Hello Manager!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-                                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;GUEST&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Hello Guest!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-                                &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;EMPLOYEE&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Hello Employee!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-                            &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fetchGreetingMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;role&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;greetingByRole&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;containsKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;role&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;greetingByRole&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;role&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;RuntimeException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Unrecognized role!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Claramente, los beneficios de este diseño es que nuestro método se ha convertido en inmutable (adhiriéndose de paso, al &lt;a href=&quot;https://en.wikipedia.org/wiki/Open/closed_principle&quot;&gt;Open Closed Principle&lt;/a&gt;), sólo contiene dos caminos de ejecución en lugar de cuatro, y si necesitamos añadir nuevos roles (con sus saludos) solo tendremos que añadir una nueva entrada al Map &lt;code class=&quot;highlighter-rouge&quot;&gt;greetingByRole&lt;/code&gt;, mientras que en la primera versión deberíamos modificar el método para cada nuevo rol.&lt;/p&gt;
-
-&lt;p&gt;Podría discutirse que la clase &lt;code class=&quot;highlighter-rouge&quot;&gt;GreetingService&lt;/code&gt; sigue sin ser inmutable, pero esto podríamos solucionarlo extrayendo la información del mapa en ficheros de configuración o de propiedades, por ejemplo, e inyectando un mapa equivalente creado por el contenedor de inyección de dependencias.&lt;/p&gt;
-
-&lt;h2 id=&quot;make-it-work-make-it-better-make-it-pretty&quot;&gt;Make it work, make it better, make it pretty&lt;/h2&gt;
-
-&lt;p&gt;“Haz que funcione, hazlo mejor, hazlo bonito”. Esto lo he aprendido recientemente, y es el enfoque que utilizamos en mi empresa durante el desarrollo mediante TDD. Cuando tenemos que desarrollar una determinada funcionalidad solemos seguir estos pasos:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Comenzamos escribiendo los tests que la describan y guíen nuestra codificación y diseño&lt;/li&gt;
-  &lt;li&gt;Nuestro objetivo es conseguir que nuestros tests se ejecuten de forma exitosa (make it work)&lt;/li&gt;
-  &lt;li&gt;Una vez conseguido nos paramos a pensar en si el diseño puede mejorar (make it better)&lt;/li&gt;
-  &lt;li&gt;Y una vez llevados a cabo los refactorings que consideremos oportunos, eliminamos de nuestro código cualquier “ventana rota” para dejarlo lo más limpio posible (make it pretty)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Encuentro este enfoque increíblemente efectivo, pero la verdad es que no tiene sentido si no trabajáis con TDD, así que en tal caso, &lt;a href=&quot;/2016/01/aprendiendo-TDD/&quot;&gt;empezad por ahí&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Y con esto termino mis mantras. Si tú tienes otros, estaría encantado de que los añadieras en la sección de comentarios.&lt;/p&gt;
 </content>
  </entry>
  
