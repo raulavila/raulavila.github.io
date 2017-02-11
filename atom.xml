@@ -4,13 +4,224 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-01-29T12:28:04+00:00</updated>
+ <updated>2017-02-11T14:22:49+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Cómo funciona Git (parte 2)</title>
+   <link href="http://www.raulavila.com/2017/02/como-funciona-git-2/"/>
+   <updated>2017-02-11T00:00:00+00:00</updated>
+   <id>http://www.raulavila.com/2017/02/como-funciona-git-2</id>
+   <content type="html">&lt;p&gt;En &lt;a href=&quot;/2017/01/como-funciona-git-1/&quot;&gt;el primer post de esta serie&lt;/a&gt; comenzamos a destripar el funcionamiento interno de Git, revisando los diferentes tipos de datos que Git soporta internamente. Si no lo habéis leído &lt;a href=&quot;/2017/01/como-funciona-git-1/&quot;&gt;deberíais empezar por ahí&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Dejamos nuestro repositorio en el siguiente estado:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;.
+└── hello.txt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Es decir, un directorio con un fichero &lt;code class=&quot;highlighter-rouge&quot;&gt;hello.txt&lt;/code&gt;, fichero que contiene el texto “Hello World”. Tras hacer nuestro primer commit y añadir un tag, nos quedó la siguiente estructura interna:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-first-commit-tag.jpg&quot; alt=&quot;Git Blob&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Seguiremos trabajando desde aquí.&lt;/p&gt;
+
+&lt;h2 id=&quot;segundo-commit&quot;&gt;Segundo commit&lt;/h2&gt;
+
+&lt;p&gt;Vamos a añadir una nueva carpeta &lt;code class=&quot;highlighter-rouge&quot;&gt;greetings&lt;/code&gt;, que contendrá un fichero, &lt;code class=&quot;highlighter-rouge&quot;&gt;hello2.txt&lt;/code&gt; con el mismo texto “Hello World”:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ mkdir greetings
+
+$ cd greetings
+
+$ cp ../hello.txt .
+
+$ mv hello.txt hello2.txt
+
+$ cd ..
+
+$ tree
+.
+├── greetings
+│   └── hello2.txt
+└── hello.txt
+
+1 directory, 2 files
+
+$ git commit -m &quot;Second commit&quot;
+[master 284c288] Second commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 greetings/hello2.txt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Tras estas operaciones, nuestra carpeta &lt;code class=&quot;highlighter-rouge&quot;&gt;.git/objects&lt;/code&gt; contiene ahora 7 objetos:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;├── objects
+│   ├── 04
+│   │   └── 50100369ff9e0b980dfc6ae42aaeb1de6890f6
+│   ├── 28
+│   │   └── 4c288acedfc52626386bbf134465f073cf2990
+│   ├── 4a
+│   │   └── f5100442a48dd4b8a53e4cb05b848d0336d8d7
+│   ├── 55
+│   │   └── 7db03de997c86a4a028e1ebd3a1ceb225be238
+│   ├── 97
+│   │   └── b49d4c943e3715fe30f141cc6f27a8548cee0e
+│   ├── d1
+│   │   └── ee121d5fe96b891ac0cc695498f31c0a4a7664
+│   ├── ee
+│   │   └── 6b307ad7ed6204ec4331aa38c04ea73b684287
+│   ├── info
+│   └── pack&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Comparando con la versión anterior, tenemos tres nuevos objetos, vamos a revisarlos de forma individual, y comprobar cómo ha quedado la estructura en forma de árbol.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;284c28&lt;/code&gt;, es el objeto que contiene la información del segundo commit:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git cat-file -t 284c28
+commit
+
+$ git cat-file -p 284c28
+tree ee6b307ad7ed6204ec4331aa38c04ea73b684287
+parent d1ee121d5fe96b891ac0cc695498f31c0a4a7664
+author RaulAvila &amp;lt;xxxxx@gmail.com&amp;gt; 1486816422 +0000
+committer RaulAvila &amp;lt;xxxxx@gmail.com&amp;gt; 1486816422 +0000
+
+Second commit&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Este commit se diferencia del primero en que tiene un parent, &lt;code class=&quot;highlighter-rouge&quot;&gt;d1ee12&lt;/code&gt;, que no es más que el primer commit. Esta es la forma en que Git controla el histórico enlazando commit sucesivos. También vemos que nuestro commit referencia a un nuevo tree, &lt;code class=&quot;highlighter-rouge&quot;&gt;ee6b30&lt;/code&gt;, el segundo objeto añadido con este commit:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git cat-file -t ee6b30
+tree
+
+$ git cat-file -p ee6b30
+040000 tree 4af5100442a48dd4b8a53e4cb05b848d0336d8d7	greetings
+100644 blob 557db03de997c86a4a028e1ebd3a1ceb225be238	hello.txt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Este objeto tree es el nuevo root de nuestro proyecto. Vemos que este root ahora contiene el fichero &lt;code class=&quot;highlighter-rouge&quot;&gt;hello.txt&lt;/code&gt;, que no ha cambiado respecto al primer commit, por lo que sigue estando contenido en el objecto &lt;code class=&quot;highlighter-rouge&quot;&gt;557db0&lt;/code&gt;, y la nueva carpeta, que está almacenada en git como un nuevo objeto tree, &lt;code class=&quot;highlighter-rouge&quot;&gt;4af510&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git cat-file -t 4af510
+tree
+
+$ git cat-file -p 4af510
+100644 blob 557db03de997c86a4a028e1ebd3a1ceb225be238	hello2.txt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;El contenido de la carpeta es un puntero al contenido (blob) del nuevo fichero, de nombre &lt;code class=&quot;highlighter-rouge&quot;&gt;hello2.txt&lt;/code&gt;. ¿Notáis algo llamativo? En efecto, el hash al que apunta este tree es también &lt;code class=&quot;highlighter-rouge&quot;&gt;557db0&lt;/code&gt;, esto es así porque ambos ficheros contienen la misma información, de forma que el hash calculado es idéntico.&lt;/p&gt;
+
+&lt;p&gt;Con todo esto, veamos cómo queda nuestro árbol de objetos:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-second-commit.jpg&quot; alt=&quot;Git Blob&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Este va a ser el diagrama más complicado que veremos en la serie, y espero que más o menos haya quedado claro. Git intenta reutilizar toda la información que sea posible al añadir nuevos commits, y así, el blob “Hello World” es apuntado desde tres lugares diferentes (el fichero del primer commit, el mismo fichero del segundo, y el nuevo fichero del segundo). De esta forma se minimiza la cantidad de datos creados por cada cambio. Además, las carpetas &lt;code class=&quot;highlighter-rouge&quot;&gt;info&lt;/code&gt; y &lt;code class=&quot;highlighter-rouge&quot;&gt;pack&lt;/code&gt; se utilizan en procesos de compresión que no cubriremos aquí (para empezar, porque no los conozco todavía :)).&lt;/p&gt;
+
+&lt;p&gt;A continuación veremos una de las funcionalidades más potentes de Git, y os asombraréis de lo sencilla que es su implementación.&lt;/p&gt;
+
+&lt;h2 id=&quot;ramas&quot;&gt;Ramas&lt;/h2&gt;
+
+&lt;p&gt;Para comprender bien el funcionamiento de las ramas (branches) en Git, vamos a simplificar el diagrama de la estructura que hemos ido creando, y nos quedaremos únicamente con los commits:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-commit-history-1.jpg&quot; alt=&quot;Git Blob&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Todos sabemos que cuando iniciamos un proyecto Git, este nos crea con nuestro primer commit una única rama de nombre &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;. Internamente, una rama es algo tan tonto como un pequeño ficherito que apunta a un commit, ni más ni menos, es decir, un alias:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ cat .git/refs/heads/master
+284c288acedfc52626386bbf134465f073cf2990&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Como véis, el contenido de este fichero es el hash del último commit que hemos realizado:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-master.jpg&quot; alt=&quot;Git Blob&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;La gran diferencia entre tags y ramas es que los tags son inmutables, mientras que las ramas están “vivas”, avanzando con cada commit añadido a la historia.&lt;/p&gt;
+
+&lt;p&gt;Vamos a crear una nueva rama apuntando al mismo commit:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git branch develop
+
+$ cat .git/refs/heads/develop
+284c288acedfc52626386bbf134465f073cf2990&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Sin demasiadas sorpresas, la nueva rama apunta al commit en que nos encontramos, coincidendo con &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;, es decir:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-master-develop.jpg&quot; alt=&quot;Git Blob&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;La pregunta aquí es qué rama será la que avanzará si añadimos un nuevo commit, veámoslo en vivo:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ echo &quot;Goodbye&quot; &amp;gt; goodbye.txt
+
+$ git add .
+
+$ git commit -m &quot;Third commit&quot;
+[master aa90e47] Third commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 goodbye.txt
+
+$ cat .git/refs/heads/master
+aa90e471ababde242281c833fffea255f69dd28a
+
+$ cat .git/refs/heads/develop
+284c288acedfc52626386bbf134465f073cf2990
+
+$ git branch
+  develop
+* master&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;En efecto, seguimos en &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;, porque &lt;code class=&quot;highlighter-rouge&quot;&gt;git branch&lt;/code&gt; tan solo crea una rama en el actual commit sin ponerla como rama activa. Para conseguir esto deberíamos hacer:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git checkout develop
+Switched to branch 'develop'
+
+$ git branch
+* develop
+  master&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Ahora sí, nuestra rama activa es develop, y si añadimos un nuevo commit no será asociado a master hasta que realicemos un merge o un rebase (volveremos sobre esto en el siguiente post). Como alternativa, podríamos crear una nueva rama y movernos a ella en un paso con &lt;code class=&quot;highlighter-rouge&quot;&gt;git checkout -b rama&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;¿Cómo almacena Git la información de la rama activa? Pues muy sencillo, en el fichero &lt;code class=&quot;highlighter-rouge&quot;&gt;.git/HEAD&lt;/code&gt;, que en realidad no es más que un fichero de texto apuntando al lugar en que nos encontramos dentro del histórico (es decir, un puntero a un puntero). De hecho este fichero no tiene por qué apuntar a una rama, puede hacerlo a un commit determinado si hacemos un &lt;code class=&quot;highlighter-rouge&quot;&gt;git checkout &amp;lt;hash&amp;gt;&lt;/code&gt;, lo que se conoce como “detached HEAD”. Veamos varios ejemplos de esto:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git branch
+* develop
+  master
+
+$ cat .git/HEAD
+ref: refs/heads/develop
+
+$ git checkout master
+Switched to branch 'master'
+
+$ cat .git/HEAD
+ref: refs/heads/master
+
+$ git checkout aa90e47
+Note: checking out 'aa90e47'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b &amp;lt;new-branch-name&amp;gt;
+
+HEAD is now at aa90e47... Third commit
+
+$ cat .git/HEAD
+aa90e471ababde242281c833fffea255f69dd28a
+
+$ git checkout develop
+Previous HEAD position was aa90e47... Third commit
+Switched to branch 'develop'&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Tras este mareo, este es la instantánea de nuestro histórico:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-head.jpg&quot; alt=&quot;Git Blob&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Lo dejamos aquí por hoy. En el último post de la serie veremos cómo funcionan &lt;code class=&quot;highlighter-rouge&quot;&gt;merge&lt;/code&gt; y &lt;code class=&quot;highlighter-rouge&quot;&gt;rebase&lt;/code&gt;, y finalizaremos con la sincronización con repositorios remotos.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>¿Volver?</title>
@@ -292,7 +503,7 @@ First Commit&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-first-commit-tag.jpg&quot; alt=&quot;Git Blob&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Terminamos esta primera entrega sobre el funcionamiento interno de Git. En la siguiente veremos cómo Git añade nuevos commits al histórico, revisaremos los tipos de datos durante el proceso, y veremos cómo se realiza la gestion de ramas.&lt;/p&gt;
+&lt;p&gt;Terminamos esta primera entrega sobre el funcionamiento interno de Git. &lt;a href=&quot;/2017/02/como-funciona-git-2/&quot;&gt;En la siguiente&lt;/a&gt; veremos cómo Git añade nuevos commits al histórico, revisaremos los tipos de datos durante el proceso, y veremos cómo se realiza la gestion de ramas.&lt;/p&gt;
 </content>
  </entry>
  
@@ -1024,205 +1235,6 @@ First Commit&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;p&gt;Creo que queda clara la idea, y si queréis profundizar &lt;a href=&quot;http://olivergierke.de/2013/01/whoops-where-did-my-architecture-go/&quot;&gt;ya sabéis&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Para terminar, pasemos al nivel de aplicación, algo que quizás puede sonar extraño, pero no lo es tanto en este mundo donde los &lt;a href=&quot;http://martinfowler.com/articles/microservices.html&quot;&gt;microservicios&lt;/a&gt; son el último grito. Este nivel puede que sea el único donde os diga de inicio que reconsideréis bien vuestra decisión antes de decidir desplegar una responsabilidad única como una aplicación independiente. Esa no fue la idea con la que surgieron los microservicios, y os remito a &lt;a href=&quot;http://highscalability.com/blog/2014/4/8/microservices-not-a-free-lunch.html&quot;&gt;este otro excelente post&lt;/a&gt; para que tengáis en cuenta todas las consideraciones necesarias en el momento que os decidáis por esta arquitectura.&lt;/p&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>Ventanas rotas</title>
-   <link href="http://www.raulavila.com/2016/09/ventanas-rotas/"/>
-   <updated>2016-09-12T00:00:00+01:00</updated>
-   <id>http://www.raulavila.com/2016/09/ventanas-rotas</id>
-   <content type="html">&lt;p&gt;En un &lt;a href=&quot;/2016/07/mis-5-mantras/&quot;&gt;post reciente&lt;/a&gt; repasaba cinco mantras que tengo muy presentes a diario cuando desarrollo software. Pasé un poco por encima de todos ellos, pero me quedó la sensación de que hay mucho que rascar y en lo que debería entrar en detalle.&lt;/p&gt;
-
-&lt;p&gt;Así que en este post y alguno que vendrá profundizaré en todos, o casi todos, estos mantras. Comenzamos con las ventanas rotas (&lt;code class=&quot;highlighter-rouge&quot;&gt;Don't leave broken windows&lt;/code&gt;).&lt;/p&gt;
-
-&lt;!--break--&gt;
-
-&lt;h2 id=&quot;niveles-o-gravedad-de-ventanas-rotas&quot;&gt;Niveles (o gravedad) de ventanas rotas&lt;/h2&gt;
-
-&lt;p&gt;Si no habéis leído &lt;a href=&quot;/2016/07/mis-5-mantras/&quot;&gt;el post a que me refiero más arriba&lt;/a&gt;, echadle un vistazo para saber que es una ventana rota…¿ya?&lt;/p&gt;
-
-&lt;p&gt;Bien, como todo en esta vida, no hay nada completamente blanco ni negro, sino diferentes tonos de grises. Lo mismo ocurre con estos descuidos que deterioran nuestro código, los hay muy flagrantes, mientras que otros podrían pasarse por alto (aunque no deberíamos). Como programadores, y para obtener el máximo valor posible de nuestro tiempo, debemos saber actuar consecuentemente según la gravedad de lo que veamos.&lt;/p&gt;
-
-&lt;p&gt;Siguiendo con el símil del edificio, sería algo así como diferenciar entre una ventana deteriorada en la primera planta o el bajo, que es una llamada clara a los vándalos para llevar a cabo sus fechorías, frente a una ventana rota en la buhardilla de un edificio de siete plantas. Ambos desperfectos deben repararse, pero el segundo quizás pueda esperar un poco más, según las prioridades que tengamos en ese momento.&lt;/p&gt;
-
-&lt;p&gt;Según esto, y para simplificar al máximo, digamos que habrá tres posibles niveles de ventanas rotas:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Grave: se trata de problemas flagrantes que, si los dejamos estar, llevarán de manera irremediable y rápida a un deterioro de nuestro código y/o proyecto. Deben repararse cuanto antes, tan pronto como sean detectados&lt;/li&gt;
-  &lt;li&gt;Medio: son problemas que saltan a la vista, pero que pueden posponerse un tiempo razonable, por ejemplo, como tareas en nuestro siguiente sprint o iteración. En ningún caso deben posponerse eternamente (“ya lo haremos en el siguiente sprint…”), pues en tal caso daría a entender que como equipo no nos preocupa excesivamente la calidad de nuestro software&lt;/li&gt;
-  &lt;li&gt;Leve: son pequeños problemas o descuidos con los que podemos vivir, y que sin embargo, la mayoría de las veces son extremadamente fáciles de resolver. No tiene sentido añadir su resolución como tareas a nuestro backlog, ya que no debería tomar más de 10 o 20 minutos. Si nuestra estimación es mayor, deberíamos considerar el problema como de nivel medio&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;ejemplos-de-ventanas-rotas&quot;&gt;Ejemplos de ventanas rotas&lt;/h2&gt;
-
-&lt;p&gt;A continuación pasaré a listar una serie de problemas que he venido viendo en mis últimos años como programador, y que entran claramente en la categoría de ventanas rotas. Muchos de ellos los he detectado en mis primeros días en el proyecto, cuando trato de familiarizarme con el código, y normalmente intento arreglarlos en la medida de lo posible antes de ponerme manos a la obra con el día a día.&lt;/p&gt;
-
-&lt;h3 id=&quot;fichero-readme&quot;&gt;Fichero README&lt;/h3&gt;
-
-&lt;p&gt;Tener un fichero README en nuestros repositorios de código es &lt;strong&gt;fundamental&lt;/strong&gt;. A veces parece que la gente se agarra como un clavo ardiendo al &lt;a href=&quot;http://agilemanifesto.org/&quot;&gt;Agile Manifesto&lt;/a&gt; cuando dice que hay que priorizar “Working Software over comprehensive documentation”, y lo traducen como “No es necesario documentar”.&lt;/p&gt;
-
-&lt;p&gt;Esto es una atrocidad. Por favor, desde el día cero, escribid y mantened un fichero README que contenga información básica como:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Resumen de nuestra aplicación (en dos o tres líneas, en qué consiste y qué problema resuelve)&lt;/li&gt;
-  &lt;li&gt;Cómo construir el proyecto&lt;/li&gt;
-  &lt;li&gt;Cómo y dónde desplegar el proyecto&lt;/li&gt;
-  &lt;li&gt;Cómo testear el código (automática, y en menor medida, manualmente)&lt;/li&gt;
-  &lt;li&gt;Qué dependencias existen (base de datos, message broker, etc), y cómo conectarse a ellas&lt;/li&gt;
-  &lt;li&gt;Estrategia de versionado&lt;/li&gt;
-  &lt;li&gt;Convenciones a utilizar (por ejemplo, formato de los mensajes de commit, link a guía de estilo, etc)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Seguramente me deje algunas cosas. La idea es, que si alguien nuevo en nuestro proyecto no es capaz de poner a funcionar el sistema sin un soporte constante de los empleados más veteranos (¡ojo! un mínimo soporte es necesario), entonces hay algo que falta en nuestro fichero README.&lt;/p&gt;
-
-&lt;h3 id=&quot;demasida-documentación-y-desactualizada&quot;&gt;Demasida documentación (y desactualizada)&lt;/h3&gt;
-
-&lt;p&gt;Es el contrapunto de la sección anterior. En las primeras fases de un proyecto escribimos toneladas de documentación, conteniendo requisitos, diseño, etc, en forma de Wiki o en documentos de Word, y según aumenta la carga de trabajo no mantenemos estos documentos, convirtiéndose en una fuente de confusión importante.&lt;/p&gt;
-
-&lt;p&gt;En general, considero que es fundamental tener documentada la arquitectura a alto nivel de nuestro proyecto, pero los detalles de implementación deben estar en un solo lugar, el código. Por otro lado, cada vez que os veáis iniciando la escritura de un documento que sabéis llevará tiempo, pensad en el valor que estáis añadiendo, y en la “deuda de tiempo” que estáis contrayendo al escribirlo. Una deuda de tiempo no es más que una acción concreta que nos demandará la dedicación de un tiempo adicional en el futuro. &lt;a href=&quot;http://jamesclear.com/time-assets&quot;&gt;Aquí&lt;/a&gt; podéis leer más sobre esto.&lt;/p&gt;
-
-&lt;h3 id=&quot;código-muerto-dead-code&quot;&gt;Código muerto (dead code)&lt;/h3&gt;
-
-&lt;p&gt;Se trata de código que permanece en nuestro proyecto pero no es invocado por nadie, y por tanto, inútil. Mucha gente decide dejar ese código “por si lo necesito en el futuro”. Yo hice esto mucho en el pasado, y la verdad es que nunca me vi recuperando dicho código. Además, existe una cosa llamada control de versiones :) que nos facilita enormemente la labor de recuperar código implementado tiempo atrás.&lt;/p&gt;
-
-&lt;p&gt;Este problema pertenece al grupo nivel medio. Con las herramientas actuales es muy sencillo detectar código muerto, y su eliminación es muy sencilla.&lt;/p&gt;
-
-&lt;h3 id=&quot;código-comentado&quot;&gt;Código comentado&lt;/h3&gt;
-
-&lt;p&gt;Siendo un subconjunto de código muerto, esto me parece aún más aberrante. Por favor, no dejéis nunca código comentado en vuestro software.&lt;/p&gt;
-
-&lt;h3 id=&quot;tests-ignorados&quot;&gt;Tests ignorados&lt;/h3&gt;
-
-&lt;p&gt;Se trata de tests que un día fallaron, y para continuar con lo que estábamos haciendo sin rommper nuestro entorno de integración continua, les añadimos un &lt;code class=&quot;highlighter-rouge&quot;&gt;@Ignore&lt;/code&gt;, sin especificar claramente el motivo. Más adelante, cuando alguien ve el &lt;code class=&quot;highlighter-rouge&quot;&gt;@Ignore&lt;/code&gt;, lo quita, y ve que el test falla, lo vuelve a poner, así que se queda ahí, para siempre.&lt;/p&gt;
-
-&lt;p&gt;Sólo veo un caso en el que hacer esto está justificado, cuando queremos subir código “en progreso”, mientras trabajamos en una nueva funcionalidad. Dicho código no está expuesto al usuario final, y la nueva funcionalidad no estará terminada hasta que dicho tests pase. Cualquier otro caso es una ventana rota, y de gravedad.&lt;/p&gt;
-
-&lt;h3 id=&quot;utilizar-varias-librerías-para-hacer-la-misma-cosa&quot;&gt;Utilizar varias librerías para hacer la misma cosa&lt;/h3&gt;
-
-&lt;p&gt;Un desarrollador decide añadir una librería de utilidad para una tarea concreta, por ejemplo trabajar con JSON, y elige &lt;a href=&quot;https://github.com/FasterXML/jackson&quot;&gt;Jackson&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Más tarde, otro desarrollador diferente necesita trabajar con JSON y decide añadir &lt;a href=&quot;https://github.com/google/gson&quot;&gt;GSON&lt;/a&gt; al proyecto. ¡Por lo que tenemos dos librerías para hacer la misma cosa!&lt;/p&gt;
-
-&lt;p&gt;Para evitar este tipo de problemas, es muy importante llevar a cabo &lt;a href=&quot;/2015/03/code-reviews/&quot;&gt;revisiones de código&lt;/a&gt;, ya que en última instancia esto no es más que un problema de comunicación. Si ya es demasiado tarde, y ambas librerías llevan conviviendo un tiempo, más pronto que tarde deberíamos unificar en una por consistencia.&lt;/p&gt;
-
-&lt;h3 id=&quot;fórmato-del-código&quot;&gt;Fórmato del código&lt;/h3&gt;
-
-&lt;p&gt;¿Quién no se ha encontrado alguna vez con una clase como esta?:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;DishImpl&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Dish&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mixed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cooked&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ingredient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ingredientList&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Lists&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;newArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;DishImpl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;add_ingredient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ingredient&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ingredient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;Validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;notNull&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ingredient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-      &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%s - Adding ingredient %s%n&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                        &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                        &lt;span class=&quot;n&quot;&gt;ingredient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;ingredientList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ingredient&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mix&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ingredientList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isEmpty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;IllegalStateException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                &lt;span class=&quot;s&quot;&gt;&quot;There are no ingredients to mix&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%s - Mixing ingredients: %s%n&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                            &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                            &lt;span class=&quot;n&quot;&gt;ingredientList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toString&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;mixed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;cook&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mixed&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;IllegalStateException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-                &lt;span class=&quot;s&quot;&gt;&quot;Ingredients are not mixed, please call mix first&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%s - Cooking...%n&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
-                            &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-        &lt;span class=&quot;n&quot;&gt;cooked&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;serve&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cooked&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;IllegalStateException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-            &lt;span class=&quot;s&quot;&gt;&quot;Dish is not cooked&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-      &lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%s - Serving...%n&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Vemos ciertas incosistencias en el código, como dos formas diferentes de colocar las llaves de inicio y fin de bloque (en algunos casos está en una línea separada y en otros no), dos formas de indentar el código, dos formas de formatear sentencias &lt;code class=&quot;highlighter-rouge&quot;&gt;if&lt;/code&gt; con una sola instrucción en su bloque (con llaves o sin ellas), diferentes convenciones para nombrar los métodos (camel case y guiones bajos), etc.&lt;/p&gt;
-
-&lt;p&gt;Es muy importante que todos los programadores se pongan de acuerdo en una guía de estilo a seguir, y la respeten. La máxima aquí debería ser que nadie pueda decir quién ha escrito un fragmento de código basándose en el estilo.&lt;/p&gt;
-
-&lt;p&gt;En Internet es muy fácil encontrar buenos ejemplos de estas guías como referencia, por ejemplo &lt;a href=&quot;https://google.github.io/styleguide/javaguide.html&quot;&gt;la de Google&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;insuficiente-cobertura-de-tests&quot;&gt;Insuficiente cobertura de tests&lt;/h3&gt;
-
-&lt;p&gt;Si seguís la metdología TDD esto no debería suponer un gran problema, pero en caso contrario puede darse que nuestros tests solo cubran un 60-70% de nuestro código de producción (¡o aún menos!).&lt;/p&gt;
-
-&lt;p&gt;En los criterios de aceptación de nuestras historias de usuario debería estar siempre bien claro que una historia no se puede entregar si disiminuye la cobertura de tests, que en ningún caso debería bajar de un 90-95%. Y si baja, habría que analizar los motivos.&lt;/p&gt;
-
-&lt;p&gt;En cualquier caso, la cobertura de tests jamás debería ser un fin en sí mismo, sino una medida de calidad, así que cuidado con esto.&lt;/p&gt;
-
-&lt;h3 id=&quot;acciones-manuales-en-los-despliegues&quot;&gt;Acciones manuales en los despliegues&lt;/h3&gt;
-
-&lt;p&gt;El despliegue de una nueva versión de nuestro proyecto debería estar totalmente automatizado. Idealmente tendremos una tarea en nuestro entorno de integración continua que lleve a cabo todas las acciones necesarias, y que de nosotros solo exiga &lt;strong&gt;pulsar un botón&lt;/strong&gt;. Cualquier acción adicional es un desperdicio de tiempo que debe ser analizada para su automatización.&lt;/p&gt;
-
-&lt;h3 id=&quot;entorno-de-integración-continua-inestable&quot;&gt;Entorno de integración continua inestable&lt;/h3&gt;
-
-&lt;p&gt;Cuando nuestro entorno de integración continua está más tiempo en rojo que en verde, es que algo estamos haciendo mal. Con esto quiero decir, que el 95% del tiempo nuestras tareas (en Jenkins, Concourse, Bamboo, o lo que sea) deben ejecutarse de manera exitosa. Si esto no ocurre hay que parar cualquier trabajo que tengamos entre manos para estabilizar este problema.&lt;/p&gt;
-
-&lt;h3 id=&quot;imports-no-utilizados&quot;&gt;Imports no utilizados&lt;/h3&gt;
-
-&lt;p&gt;Esto es muy típico y muy fácil de evitar. Añadimos una sentencia &lt;code class=&quot;highlighter-rouge&quot;&gt;import&lt;/code&gt; a nuestro fichero de clase porque lo necesitamos en un momento determinado. Pero más adelante eliminamos el código (porque estamos refactorizando y nos lo llevamos a otro lado, por ejemplo), dejando allí la sentencia &lt;code class=&quot;highlighter-rouge&quot;&gt;import&lt;/code&gt;, que es completamente inútil.&lt;/p&gt;
-
-&lt;p&gt;Eliminar “unused imports” es muy sencillo en los IDEs actuales. Existen atajos de teclado que lo hacen de forma instantánea, e incluso la opción de activar &lt;a href=&quot;http://stackoverflow.com/questions/19026756/how-configure-optimize-imports-on-the-fly-without-rearrange-import-statements&quot;&gt;opciones&lt;/a&gt; que escanean permanentemente nuestro código y eliminan los que no necesitemos.&lt;/p&gt;
-
-&lt;h3 id=&quot;dependencias-no-utilizadas&quot;&gt;Dependencias no utilizadas&lt;/h3&gt;
-
-&lt;p&gt;Mientras que el punto anterior entra dentro de los problemas leves, tener dependencias en nuestro código que han dejado de utilizarse abre la puerta a potenciales problemas que además pueden ser muy difíciles de detectar, debido a conflictos entre dependencias transitivas, por ejemplo.&lt;/p&gt;
-
-&lt;p&gt;Tan pronto como dejéis de utilizar una dependencia, eliminadla de vuestro proyecto (del fichero &lt;code class=&quot;highlighter-rouge&quot;&gt;pom&lt;/code&gt; de Maven, por ejemplo).&lt;/p&gt;
-
-&lt;h3 id=&quot;estrategia-de-git-sin-determinar&quot;&gt;Estrategia de Git sin determinar&lt;/h3&gt;
-
-&lt;p&gt;Sin haber establecido una directrices claras sobre como trabajar con Git, cada desarrollador toma sus propias decisiones, y nos encontramos con un repositorio Git plagado de ramas (muchas muertas tras ser fusionadas con master), montones de merges, etc.&lt;/p&gt;
-
-&lt;p&gt;No voy a proponer aquí una solución ideal para trabajar con Git, &lt;a href=&quot;http://www.creativebloq.com/web-design/choose-right-git-branching-strategy-121518344&quot;&gt;hay varias estrategias&lt;/a&gt; (aka workflows), pero en ningún caso debéis dejar al libre albedrío de cada persona la estrategia a utilizar.&lt;/p&gt;
-
-&lt;h3 id=&quot;código-sucio&quot;&gt;Código sucio&lt;/h3&gt;
-
-&lt;p&gt;No voy a entrar en muchos detalles aquí. Casi todos sabemos lo que es código sucio, y como profesionales nunca deberíamos aceptar entregar funcionalidades desarrolladas de forma que su mantenimiento sea más complicado debido a la poca legibilidad del código. No es la primera vez que lo recomiendo (ni será la última), pero si no lo habéis hecho, leed &lt;a href=&quot;https://www.amazon.es/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882/ref=sr_1_1?ie=UTF8&amp;amp;qid=1473708316&amp;amp;sr=8-1&amp;amp;keywords=Clean+Code&quot;&gt;Clean Code&lt;/a&gt; o &lt;a href=&quot;https://www.amazon.es/Code-Complete-Practical-Costruction-Professional/dp/0735619670/ref=sr_1_1?ie=UTF8&amp;amp;qid=1473708342&amp;amp;sr=8-1&amp;amp;keywords=Code+Complete&quot;&gt;Code Complete&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Cómo última nota en este apartado, por favor no hagáis algo de lo que yo mismo me declaro culpable de haber incurrido muchas veces en el pasado: ¡mezclar inglés y español! Idealmente todo nuestro código debería estar en inglés, pero si utilizáis español para nombrar variables o métodos nunca mezcléis, dando lugar a engendros como:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;iniciar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Me duelen los ojos de verlo :)&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusión&quot;&gt;Conclusión&lt;/h2&gt;
-
-&lt;p&gt;Creo que he cubierto varios apartados importantes del desarrollo que no debemos descuidar. ¿Echáis alguno de menos?&lt;/p&gt;
 </content>
  </entry>
  

@@ -9,10 +9,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
   
+  <meta name="description" content="Cómo funciona Git por dentro (segunda parte)">
+  
 
   <title>
     
-      Raúl Ávila
+      Cómo funciona Git (parte 2)
     
   </title>
 
@@ -44,18 +46,21 @@
       </header>
 
       <main>
-        <div class="posts">
-  
-  <article class="post">
-    <h1 class="post-title">
-      <a href="/2017/02/como-funciona-git-2/">
-        Cómo funciona Git (parte 2)
-      </a>
-    </h1>
-
-    <time datetime="2017-02-11T00:00:00+00:00" class="post-date index-date">11/02/2017</time>    
-
-    <p>En <a href="/2017/01/como-funciona-git-1/">el primer post de esta serie</a> comenzamos a destripar el funcionamiento interno de Git, revisando los diferentes tipos de datos que Git soporta internamente. Si no lo habéis leído <a href="/2017/01/como-funciona-git-1/">deberíais empezar por ahí</a>.</p>
+        <article class="post">
+  <h1 class="post-title">Cómo funciona Git (parte 2)</h1>
+  <time datetime="2017-02-11T00:00:00+00:00" class="post-date">11/02/2017</time>
+  <div class="post-tags">
+    
+    | <a href="/tag/git">git</a> |
+    
+  </div>
+  <div class="post-share">
+    <a class="twitter-share-button"
+    data-via="_Raul_Avila"
+    data-count="none"
+    href="https://twitter.com/share">Tweet</a>
+  </div>
+  <p>En <a href="/2017/01/como-funciona-git-1/">el primer post de esta serie</a> comenzamos a destripar el funcionamiento interno de Git, revisando los diferentes tipos de datos que Git soporta internamente. Si no lo habéis leído <a href="/2017/01/como-funciona-git-1/">deberíais empezar por ahí</a>.</p>
 
 <p>Dejamos nuestro repositorio en el siguiente estado:</p>
 
@@ -259,96 +264,57 @@ Switched to branch 'develop'</code></pre></figure>
 
 <p>Lo dejamos aquí por hoy. En el último post de la serie veremos cómo funcionan <code class="highlighter-rouge">merge</code> y <code class="highlighter-rouge">rebase</code>, y finalizaremos con la sincronización con repositorios remotos.</p>
 
+</article>
+
+<aside class="related">
+  <h2>Otros posts en este blog</h2>
+  <ul class="related-posts">
     
-  </article>
-
-  
-  <article class="post">
-    <h1 class="post-title">
-      <a href="/2017/01/volver/">
-        ¿Volver?
-      </a>
-    </h1>
-
-    <time datetime="2017-01-29T00:00:00+00:00" class="post-date index-date">29/01/2017</time>    
-
-    <p>Escribo este post inspirado por los correos dominicales de <a href="http://us2.campaign-archive1.com/?u=374c664073e1a1fa3deca53b4&amp;id=33d5cc4ff8&amp;e=b93d18ec09">David Bonilla</a> y <a href="http://us2.campaign-archive1.com/?u=6a0dd93f8651955858ab8633f&amp;id=a9ff5e4957&amp;e=96ff600f8b">Jerónimo Palacios</a>, ambos titulados igual: “Volver”. Jerónimo acaba de trasladar su “base de operaciones” a Granada, su ciudad de origen si no recuerdo mal, aunque seguirá trabajando en toda Europa. Y Bonilla analiza la emigración masiva que se dió en España a primeros de la década, cómo muchos informáticos tomaron la decisión de marcharse aún teniendo trabajo de sobra en nuestro país, y si se dan las condiciones para que vuelvan.</p>
-
-
+      <li>
+        <h3>
+          <a href="/2017/01/volver/">
+            ¿Volver?
+            <small><time datetime="2017-01-29T00:00:00+00:00">29/01/2017</time></small>
+          </a>
+        </h3>
+      </li>
     
-      <a href="/2017/01/volver/">[...Leer más...]</a>
+      <li>
+        <h3>
+          <a href="/2017/01/como-funciona-git-1/">
+            Cómo funciona Git (parte 1)
+            <small><time datetime="2017-01-22T00:00:00+00:00">22/01/2017</time></small>
+          </a>
+        </h3>
+      </li>
     
-  </article>
-
-  
-  <article class="post">
-    <h1 class="post-title">
-      <a href="/2017/01/como-funciona-git-1/">
-        Cómo funciona Git (parte 1)
-      </a>
-    </h1>
-
-    <time datetime="2017-01-22T00:00:00+00:00" class="post-date index-date">22/01/2017</time>    
-
-    <p>El sábado pasado estuve en un workshop sobre <a href="https://git-scm.com/">Git</a> impartido por el gran <a href="https://twitter.com/theNeomatrix369">Mani</a> en la <a href="https://twitter.com/theNeomatrix369">London Software Craftmanship Community</a>. Me sirvió para consolidar de manera más o menos definitiva los conocimientos sobre esta herramienta que he ido adquiriendo con la práctica durante casi tres años ya.</p>
-
-<p>Al volver a casa, me picó el gusanillo en relación al funcionamiento interno de Git, así que he estado investigando un poco, y plasmaré lo aprendido en esta serie de posts. Personalmente, he descubierto que conocer este funcionamiento interno es muy útil para tener menos miedo a la magia de Git, porque, en el fondo, los principios más importantes no tienen demasiado misterio. Asumo que, si estás leyendo esto, es porque posees un conocimiento de Git “medio”, en caso contrario os recomiendo empezar <a href="http://gitimmersion.com/">por aquí</a> y volver después a este post.</p>
-
-
+      <li>
+        <h3>
+          <a href="/2017/01/yo-fui-un-mal-programador/">
+            You fui un mal programador
+            <small><time datetime="2017-01-09T00:00:00+00:00">09/01/2017</time></small>
+          </a>
+        </h3>
+      </li>
     
-      <a href="/2017/01/como-funciona-git-1/">[...Leer más...]</a>
-    
-  </article>
-
-  
-  <article class="post">
-    <h1 class="post-title">
-      <a href="/2017/01/yo-fui-un-mal-programador/">
-        You fui un mal programador
-      </a>
-    </h1>
-
-    <time datetime="2017-01-09T00:00:00+00:00" class="post-date index-date">09/01/2017</time>    
-
-    <p>Yo fui un mal programador. Cuando terminé la carrera, como primero de promoción, pensé que ya había cumplido mi parte, y que las empresas deberían reconocer mi valía de inmediato, por lo que cuando nadie valoró ese detalle en mi CV, me cabreé. La verdad es que no me costó demasiado encontrar mi primer trabajo, el sector se encontraba en la parte alta de un ciclo, aunque ni por asomo se acercaba a la locura que estamos viviendo ahora.</p>
-
-
-    
-      <a href="/2017/01/yo-fui-un-mal-programador/">[...Leer más...]</a>
-    
-  </article>
-
-  
-  <article class="post">
-    <h1 class="post-title">
-      <a href="/2017/01/propositos-2017/">
-        Mis propósitos para 2017
-      </a>
-    </h1>
-
-    <time datetime="2017-01-01T00:00:00+00:00" class="post-date index-date">01/01/2017</time>    
-
-    <p>¡Feliz 2017! Es la primera vez que escribo un post en un primero de Enero, cosa que sólo fue posible hacer en 2016 ya que este blog nació a finales de Enero de 2015 :) El motivo de encontrarme en pijama tecleando unas palabras es que, animado por la <a href="http://us2.campaign-archive2.com/?u=374c664073e1a1fa3deca53b4&amp;id=f0e4a3e3ec&amp;e=b93d18ec09">Bonilista</a> y otros blogs de tuiteros que sigo, he decidido plasmar en un post mis objetivos para este año que empieza, y que será bastante desafiante para mí, sobre todo a nivel profesional.</p>
-
-
-    
-      <a href="/2017/01/propositos-2017/">[...Leer más...]</a>
-    
-  </article>
-
-  
-</div>
-
-<div class="pagination">
-  
-    <a class="pagination-item older" href="/page2">Anteriores</a>
-  
-  
-    <span class="pagination-item newer">Siguientes</span>
-  
-</div>
+  </ul>
+</aside>
 
         
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'raulavila'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
       </main>
 
       <footer class="footer">
