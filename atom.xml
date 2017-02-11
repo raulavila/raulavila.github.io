@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-02-11T14:22:49+00:00</updated>
+ <updated>2017-02-11T14:24:48+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -29,6 +29,8 @@
 &lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-first-commit-tag.jpg&quot; alt=&quot;Git Blob&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Seguiremos trabajando desde aquí.&lt;/p&gt;
+
+&lt;!--break--&gt;
 
 &lt;h2 id=&quot;segundo-commit&quot;&gt;Segundo commit&lt;/h2&gt;
 
