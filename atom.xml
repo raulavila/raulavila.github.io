@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-02-11T14:24:48+00:00</updated>
+ <updated>2017-02-14T22:41:40+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -53,6 +53,8 @@ $ tree
 └── hello.txt
 
 1 directory, 2 files
+
+$ git add .
 
 $ git commit -m &quot;Second commit&quot;
 [master 284c288] Second commit
