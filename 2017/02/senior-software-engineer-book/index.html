@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <meta name="description" content="Un resumen del libro The Senior Software Engineer, de David Bryan Copeland">
+  
+
+  <title>
+    
+      The Senior Software Engineer (el libro)
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Raúl Ávila" href="/atom.xml">
+
+</head>
+
+
+  <body>
+
+    <div class="container content">
+      <header class="masthead">
+        <h1 class="masthead-title">
+          <a href="/" title="Home">Raúl Ávila</a>
+        </h1>
+
+            <small><a href="/sobre-mi">Sobre mí</a></small>
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/archivos">Archivos</a></small>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title">The Senior Software Engineer (el libro)</h1>
+  <time datetime="2017-02-26T00:00:00+00:00" class="post-date">26/02/2017</time>
+  <div class="post-tags">
+    
+    | <a href="/tag/libros">libros</a> |
+    
+  </div>
+  <div class="post-share">
+    <a class="twitter-share-button"
+    data-via="_Raul_Avila"
+    data-count="none"
+    href="https://twitter.com/share">Tweet</a>
+  </div>
+  <p><img src="/public/pictures/sse.jpg" alt="SSE" /></p>
+
+<p>Acabo de terminar el libro <a href="https://www.amazon.co.uk/Senior-Software-Engineer-Practices-Effective/dp/0990702804/ref=sr_1_1?">“The Senior Software Engineer: 11 Practices of an Effective Technical Leader”</a>, escrito por David Bryant Copeland, y me ha gustado tanto que he decidido dedicarle un breve post para animaros a leerlo.</p>
+
+<p>El libro me lo recomendaron en el foro interno de mi empresa, como guía para enfocar correctamente el nuevo rol que me ha tocado este año, pero una vez finalizado, me atrevo a decir que más que una guía para Technical Leaders es un playbook para que un programador con algo de experiencia (pongamos un par de años) sepa encarrilar los siguientes pasos de su carrera.</p>
+
+<!--break-->
+
+<h2 id="resultados">Resultados</h2>
+
+<p>El autor comienza hablando de la importancia de entregar resultados en nuestro puesto de trabajo. Esto es algo con lo que me identifico de pleno, creo que se malgasta muchísimo tiempo en la oficina, con conversaciones infructuosas, <a href="/2015/04/reuniones/">reuniones</a> interminables de las que no se saca ninguna acción en concreto, implementación de nuevas funcionalidades que introducen un montón de bugs y restan más que suman, etc.</p>
+
+<p>Se describe cómo es mucho mejor tardar más tiempo en responder un email con una respuesta concreta que responder rápidamente con un “ya te miro esto”. Quizás lo primera cause algo de ansiedad en la persona que nos está preguntando o pidiendo algo, pero tras comprobar la consistencia con la que respondemos de forma clara y concisa pasado un tiempo, nuestra reputación nos empezará a preceder, eliminando este factor.</p>
+
+<h2 id="tdd">TDD</h2>
+
+<p>Los siguientes capítulos se centran en el proceso a seguir para solucionar bugs e implementar nuevas funcionalidades en un sistema existente. Para conseguir la máxima efectividad el proceso recomendado no es otro que <a href="/2015/08/primera-experiencia-tdd/">Test Driven Development</a>. La gran diferencia entre solucionar un simple bug y añadir una nueva feature al sistema es el papel de los tests de aceptación en el proceso, que en el caso de los bugs no suelen hacer acto de presencia, aunque yo añadiría que dependiendo del bug podrían hacerlo.</p>
+
+<p>En segundo lugar es muy importante una comunicación constante con las diferentes partes implicadas en nuestro proyecto (stakeholders en inglés). Un canal defectuoso aquí puede tener consecuencias muy negativas en el resultado entregado.</p>
+
+<p>Se hace también hincapié en la importancia de las revisiones de código antes de liberar el código. <a href="/2015/03/code-reviews/">Yo hablé de esto</a> hace un par de años, aunque en este punto de mi carrera creo que el <a href="/2016/08/pair-programming/">Pair Programming</a> es más efectivo.</p>
+
+<p>Para terminar, conviene no perder de vista el riesgo de una optimización excesiva (over-engineering) en la fase de refactoring en el proceso TDD. Esto es algo en lo que yo he caído más de una vez. El refactoring debe ser un medio para conseguir nuestros objetivos, y no un fin. En uno de los apéndices se trata de forma explícita este tema de nuevo, bajo el título “Refactoring Responsable”.</p>
+
+<h2 id="deuda-técnica">Deuda técnica</h2>
+
+<p>Se describe la diferencia entre Deuda Técnica y “Código chapucero” (sloppy code), que en mi opinión es bastante importante. Todos sabemos cuando no estamos poniendo el suficiente empeño en generar código mantenible, pero en ocasiones es necesario incurrir en deuda técnica porque es la mejor decisión que se puede tomar en ese momento dadas las circunstancias.</p>
+
+<p>Podéis encontrar cientos de referencias sobre <a href="https://martinfowler.com/bliki/TechnicalDebt.html">Deuda Técnica</a> en Internet, y conviene que sepáis manejar convenientemente este concepto si os dedicáis profesionalmente al Software. En pocas palabras, deuda técnica es un compromiso que estamos tomando en forma de decisión técnica, para cumplir objetivos a corto plazo, y que sabemos tendremos que arreglar en el futuro a un coste mayor, de la misma forma que un préstamo bancario nos puede sacar de un apuro hoy pero se traducirá en una cantidad mayor de dinero desembolsado a la larga.</p>
+
+<p>La diferencia entre Deuda Técnica y código chapucero, es que para este último hay pocas excusas. En mi artículo de <a href="/2016/09/ventanas-rotas/">Ventanas Rotas</a> doy un repaso a varios ejemplos de esto.</p>
+
+<h2 id="comunicación">Comunicación</h2>
+
+<p>La comunicación con nuestros compañeros de trabajo, sean técnicos o no, es muy importante. Para conseguir una comunicación efectiva, la empatía es muy importante, y debemos adaptar nuestro discurso al oyente. Así, que por favor, nunca más le digáis a una persona de negocio algo como:</p>
+
+<blockquote>
+  <p>Necesitamos refactorizar la capa de persistencia, porque exixten problemas de latencia causados por Hibernate. Además, nuestro pool de threads no está correctamente dimensionado</p>
+</blockquote>
+
+<p>Supongo que sabéis a lo que me refiero. Es necesario además distinguir las diferentes prioridades dentro de cada perfil con el que tenemos que tratar, y buscar un balance entre todas esas prioridades para encontrar una solución de consenso.</p>
+
+<h2 id="arrancar-un-proyecto">Arrancar un proyecto</h2>
+
+<p>El capítulo sobre arrancar un proyecto desde cero es quizás uno de los mejores del libro, y trata los diferentes desafíos que nos encontraremos a la hora de iniciar un “greenfield project”:</p>
+
+<ul>
+  <li>Comprender el problema: aquí los “stakeholders” son fundamentales, y el mayor problema que nos vamos a encontrar es que muchas veces no saben exactamente lo que quieren.</li>
+  <li>Analizar el nuevo rol de nuestro sistema dentro de la arquitectura global de nuestra empresa: las integraciones más sencillas pueden complicarse sobremanera, y hablo desde mi experiencia personal (una vez nos llevó un mes completo implementar un proceso de login para un aplicación nueva de una empresa financiera, debido a restricciones de seguridad).</li>
+  <li>Elegir el stack tecnológico, cosa que puede resultar más complicada de lo que parece, ya que la decisión está condicionada por el conocimiento dentro del equipo, preferencias históricas en nuestra empresa, nivel de familiarización dentro del equipo de operaciones, etc.</li>
+  <li>Esbozar una arquitectura a alto nivel del nuevo sistema.</li>
+  <li>Crear una versión mínima de la aplicación y desplegarla, lo que el libro <a href="https://www.amazon.co.uk/s/ref=nb_sb_ss_i_1_14">GOOS</a> define como “Walking Skeleton”. En mi opinión, este paso es importantísimo, y hay que intentar tocar el mayor número posible de factores que puedan afectar a nuestra aplicación (Continuous Integration pipeline, third parties, librerías, persistencia, etc).</li>
+  <li>Iniciar el desarrollo de las historias de usuario.</li>
+</ul>
+
+<p>Personalmente añadiría la escritura de una versión inicial del fichero README, que no solo sirva de guía para los nuevos desarrolladores que se incorporen al sistema, también como punto de referencia para que nadie pierda de vista la importancia de mantener un fichero README en condiciones. <a href="https://jesuslc.com/2016/07/12/como-escribir-un-readme-que-mole/">Jesús L.C. escribió de esto</a> hace poco.</p>
+
+<h2 id="escribir">Escribir</h2>
+
+<p>Escribir de forma adecuada es imprescindible para avanzar en nuestra carrera, ya que se trata de una habilidad que deberemos utilizar en correos electrónicos, ficheros README, documentación, etc. Hay una sección muy interesante sobre cómo escribir emails de la forma más efectiva posible. En pocas palabras, viene a decir que la gente no suele leer los emails completos (¿os sorprende?), así que no pidáis o preguntéis más de una cosa por mensaje, y tratad de ofrecer alternativas (“¿prefieres la opción A o la opción B?”) para que el lector tenga que pararse a pensar el menor tiempo posible. En mi TODO list tengo la escritura de emails como tema pendiente, y volveré a ello en algún momento.</p>
+
+<h2 id="entrevistar">Entrevistar</h2>
+
+<p>Entrevistar a candidatos puede llegar a ser una parte muy importante en nuestro día a día. El libro describe una forma muy definida para realizar un proceso de selección (muy similar al estándar que se utiliza en muchas empresa de Londres, <a href="/2015/04/trabajo-londres/">y que describí aquí</a>).</p>
+
+<p>Personalmente, añado que entrevistar candidatos es de las labores más complicadas que nos pueden asignar. La demanda en nuestro sector es altísima, y encontrar gente muy buena se convierte en una empresa increíblemente dura. Los mayores dilemas que me he encontrado ocurrieron cuando no tenía claro si la persona era apta o no para el puesto. Para descargar de responsabilidad a los entrevistadores el libro recomienda intentar involucrar a varias personas en el proceso, de forma que todas deben estar de acuerdo en la decisión final. Esto se traduce en que existe “derecho de veto”, lo cual puede ser también una carga si tú eres la única persona vetando al candidato :).</p>
+
+<h2 id="productividad">Productividad</h2>
+
+<p>En este capítulo se describe un proceso para gestionar las interrupciones, tan presentes en los trabajos de oficina, de una manera efectiva. Recomienda no consultar el correo electrónico impulsivamente, sino hacerlo en momentos previamente decididos, y que encajen bien en el flujo de la metodología TDD, como por ejemplo cuando acabamos de refactorizar una nueva funcionalidad, o acabamos de definir un test fallido.</p>
+
+<h2 id="liderar-equipos">Liderar equipos</h2>
+
+<p>Este capítulo es el más extenso de todos, y diría que peca un poco de no profundizar demasiado en determinados aspectos de esta labor tan compleja. Se comentan temas como:</p>
+
+<ul>
+  <li>Estructura inicial del equipo: cuando todo es caos, y el mejor enfoque es constituir un equipo pequeño (dos desarrolladores, por ejemplo), y que vaya creciendo según se gane tracción.</li>
+  <li>Afrontar el aspecto más problemático dentro del rol de Team Leader, que no es otro que la comunicación de estimaciones a la gente de negocio. En mi opinión, una de las mejores formas (y más divertidas) de aprender como tratar este tema es <a href="https://skillsmatter.com/skillscasts/8557-estimation-what-when-why-by-robert-martin">viendo esta presentación de Uncle Bob</a> (en la que por cierto, podéis buscarme entre el público :D).</li>
+  <li>Marcar un ritmo en el proyecto, mediante breves reuniones semanales donde el equipo presenta su trabajo (en mi empresa esto lo conocemos como <a href="https://content.pivotal.io/blog/running-an-ipm">IPM</a>).</li>
+  <li>Realizar revisiones de código efectivas, de manera que resulte productiva para todos los desarrolladores y no genere rencillas. El principal consejo aquí es comentar el código directamente sin mencionar o dirigirse directamente a la persona que lo escribió (por ejemplo: “este código podría ser más claro si extrayéramos este bloque a un método independiente” vs “este método te ha quedado demasiado largo”).</li>
+</ul>
+
+<h2 id="producción">Producción</h2>
+
+<p>Finalmente tendremos nuestro sistema en producción, y en este punto es muy importante que nuestra aplicación genere información de manera adecuada para gestionar de manera correcta incidencias, buscar puntos de mejora, etc. Se describe el proceso para generar logs, alertas y estadísticas, y se hace hincapié en la importancia de escribir código tolerante a fallos.</p>
+
+<h2 id="conclusiones">Conclusiones</h2>
+
+<p>No dejéis pasar este libro, es un compendio excelente de buenas prácticas a seguir para convertirnos en buenos programadores, y además incluye una lista de lectura con libros y artículos que sirven de complemento perfecto para continuar aprendiendo. Me extraña bastante no verlo más a menudo en recopilaciones de libros que todo desarrollador debería leer, y espero que el tiempo le haga justicia (se publicó inicialmente en 2014).</p>
+
+</article>
+
+<aside class="related">
+  <h2>Otros posts en este blog</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2017/02/como-funciona-git-2/">
+            Cómo funciona Git (parte 2)
+            <small><time datetime="2017-02-11T00:00:00+00:00">11/02/2017</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2017/01/volver/">
+            ¿Volver?
+            <small><time datetime="2017-01-29T00:00:00+00:00">29/01/2017</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2017/01/como-funciona-git-1/">
+            Cómo funciona Git (parte 1)
+            <small><time datetime="2017-01-22T00:00:00+00:00">22/01/2017</time></small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</aside>
+
+        
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'raulavila'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </main>
+
+      <footer class="footer">
+        <small>
+          &copy; <time datetime="2017">2017</time> Raúl Ávila. Blog creado con <a href="http://jekyllrb.com">Jekyll</a>.
+          Plantilla basada en <a href="http://getpoole.com">Poole</a>.
+          <a href="/atom.xml">Atom Feed</a></a>.
+          <br>
+        </small>
+      </footer>
+    </div>
+
+  <script>
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58942569-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>

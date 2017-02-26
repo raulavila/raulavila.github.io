@@ -4,13 +4,110 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-02-14T22:41:40+00:00</updated>
+ <updated>2017-02-26T15:33:33+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>The Senior Software Engineer (el libro)</title>
+   <link href="http://www.raulavila.com/2017/02/senior-software-engineer-book/"/>
+   <updated>2017-02-26T00:00:00+00:00</updated>
+   <id>http://www.raulavila.com/2017/02/senior-software-engineer</id>
+   <content type="html">&lt;p&gt;&lt;img src=&quot;/public/pictures/sse.jpg&quot; alt=&quot;SSE&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Acabo de terminar el libro &lt;a href=&quot;https://www.amazon.co.uk/Senior-Software-Engineer-Practices-Effective/dp/0990702804/ref=sr_1_1?&quot;&gt;“The Senior Software Engineer: 11 Practices of an Effective Technical Leader”&lt;/a&gt;, escrito por David Bryant Copeland, y me ha gustado tanto que he decidido dedicarle un breve post para animaros a leerlo.&lt;/p&gt;
+
+&lt;p&gt;El libro me lo recomendaron en el foro interno de mi empresa, como guía para enfocar correctamente el nuevo rol que me ha tocado este año, pero una vez finalizado, me atrevo a decir que más que una guía para Technical Leaders es un playbook para que un programador con algo de experiencia (pongamos un par de años) sepa encarrilar los siguientes pasos de su carrera.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;h2 id=&quot;resultados&quot;&gt;Resultados&lt;/h2&gt;
+
+&lt;p&gt;El autor comienza hablando de la importancia de entregar resultados en nuestro puesto de trabajo. Esto es algo con lo que me identifico de pleno, creo que se malgasta muchísimo tiempo en la oficina, con conversaciones infructuosas, &lt;a href=&quot;/2015/04/reuniones/&quot;&gt;reuniones&lt;/a&gt; interminables de las que no se saca ninguna acción en concreto, implementación de nuevas funcionalidades que introducen un montón de bugs y restan más que suman, etc.&lt;/p&gt;
+
+&lt;p&gt;Se describe cómo es mucho mejor tardar más tiempo en responder un email con una respuesta concreta que responder rápidamente con un “ya te miro esto”. Quizás lo primera cause algo de ansiedad en la persona que nos está preguntando o pidiendo algo, pero tras comprobar la consistencia con la que respondemos de forma clara y concisa pasado un tiempo, nuestra reputación nos empezará a preceder, eliminando este factor.&lt;/p&gt;
+
+&lt;h2 id=&quot;tdd&quot;&gt;TDD&lt;/h2&gt;
+
+&lt;p&gt;Los siguientes capítulos se centran en el proceso a seguir para solucionar bugs e implementar nuevas funcionalidades en un sistema existente. Para conseguir la máxima efectividad el proceso recomendado no es otro que &lt;a href=&quot;/2015/08/primera-experiencia-tdd/&quot;&gt;Test Driven Development&lt;/a&gt;. La gran diferencia entre solucionar un simple bug y añadir una nueva feature al sistema es el papel de los tests de aceptación en el proceso, que en el caso de los bugs no suelen hacer acto de presencia, aunque yo añadiría que dependiendo del bug podrían hacerlo.&lt;/p&gt;
+
+&lt;p&gt;En segundo lugar es muy importante una comunicación constante con las diferentes partes implicadas en nuestro proyecto (stakeholders en inglés). Un canal defectuoso aquí puede tener consecuencias muy negativas en el resultado entregado.&lt;/p&gt;
+
+&lt;p&gt;Se hace también hincapié en la importancia de las revisiones de código antes de liberar el código. &lt;a href=&quot;/2015/03/code-reviews/&quot;&gt;Yo hablé de esto&lt;/a&gt; hace un par de años, aunque en este punto de mi carrera creo que el &lt;a href=&quot;/2016/08/pair-programming/&quot;&gt;Pair Programming&lt;/a&gt; es más efectivo.&lt;/p&gt;
+
+&lt;p&gt;Para terminar, conviene no perder de vista el riesgo de una optimización excesiva (over-engineering) en la fase de refactoring en el proceso TDD. Esto es algo en lo que yo he caído más de una vez. El refactoring debe ser un medio para conseguir nuestros objetivos, y no un fin. En uno de los apéndices se trata de forma explícita este tema de nuevo, bajo el título “Refactoring Responsable”.&lt;/p&gt;
+
+&lt;h2 id=&quot;deuda-técnica&quot;&gt;Deuda técnica&lt;/h2&gt;
+
+&lt;p&gt;Se describe la diferencia entre Deuda Técnica y “Código chapucero” (sloppy code), que en mi opinión es bastante importante. Todos sabemos cuando no estamos poniendo el suficiente empeño en generar código mantenible, pero en ocasiones es necesario incurrir en deuda técnica porque es la mejor decisión que se puede tomar en ese momento dadas las circunstancias.&lt;/p&gt;
+
+&lt;p&gt;Podéis encontrar cientos de referencias sobre &lt;a href=&quot;https://martinfowler.com/bliki/TechnicalDebt.html&quot;&gt;Deuda Técnica&lt;/a&gt; en Internet, y conviene que sepáis manejar convenientemente este concepto si os dedicáis profesionalmente al Software. En pocas palabras, deuda técnica es un compromiso que estamos tomando en forma de decisión técnica, para cumplir objetivos a corto plazo, y que sabemos tendremos que arreglar en el futuro a un coste mayor, de la misma forma que un préstamo bancario nos puede sacar de un apuro hoy pero se traducirá en una cantidad mayor de dinero desembolsado a la larga.&lt;/p&gt;
+
+&lt;p&gt;La diferencia entre Deuda Técnica y código chapucero, es que para este último hay pocas excusas. En mi artículo de &lt;a href=&quot;/2016/09/ventanas-rotas/&quot;&gt;Ventanas Rotas&lt;/a&gt; doy un repaso a varios ejemplos de esto.&lt;/p&gt;
+
+&lt;h2 id=&quot;comunicación&quot;&gt;Comunicación&lt;/h2&gt;
+
+&lt;p&gt;La comunicación con nuestros compañeros de trabajo, sean técnicos o no, es muy importante. Para conseguir una comunicación efectiva, la empatía es muy importante, y debemos adaptar nuestro discurso al oyente. Así, que por favor, nunca más le digáis a una persona de negocio algo como:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Necesitamos refactorizar la capa de persistencia, porque exixten problemas de latencia causados por Hibernate. Además, nuestro pool de threads no está correctamente dimensionado&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Supongo que sabéis a lo que me refiero. Es necesario además distinguir las diferentes prioridades dentro de cada perfil con el que tenemos que tratar, y buscar un balance entre todas esas prioridades para encontrar una solución de consenso.&lt;/p&gt;
+
+&lt;h2 id=&quot;arrancar-un-proyecto&quot;&gt;Arrancar un proyecto&lt;/h2&gt;
+
+&lt;p&gt;El capítulo sobre arrancar un proyecto desde cero es quizás uno de los mejores del libro, y trata los diferentes desafíos que nos encontraremos a la hora de iniciar un “greenfield project”:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Comprender el problema: aquí los “stakeholders” son fundamentales, y el mayor problema que nos vamos a encontrar es que muchas veces no saben exactamente lo que quieren.&lt;/li&gt;
+  &lt;li&gt;Analizar el nuevo rol de nuestro sistema dentro de la arquitectura global de nuestra empresa: las integraciones más sencillas pueden complicarse sobremanera, y hablo desde mi experiencia personal (una vez nos llevó un mes completo implementar un proceso de login para un aplicación nueva de una empresa financiera, debido a restricciones de seguridad).&lt;/li&gt;
+  &lt;li&gt;Elegir el stack tecnológico, cosa que puede resultar más complicada de lo que parece, ya que la decisión está condicionada por el conocimiento dentro del equipo, preferencias históricas en nuestra empresa, nivel de familiarización dentro del equipo de operaciones, etc.&lt;/li&gt;
+  &lt;li&gt;Esbozar una arquitectura a alto nivel del nuevo sistema.&lt;/li&gt;
+  &lt;li&gt;Crear una versión mínima de la aplicación y desplegarla, lo que el libro &lt;a href=&quot;https://www.amazon.co.uk/s/ref=nb_sb_ss_i_1_14&quot;&gt;GOOS&lt;/a&gt; define como “Walking Skeleton”. En mi opinión, este paso es importantísimo, y hay que intentar tocar el mayor número posible de factores que puedan afectar a nuestra aplicación (Continuous Integration pipeline, third parties, librerías, persistencia, etc).&lt;/li&gt;
+  &lt;li&gt;Iniciar el desarrollo de las historias de usuario.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Personalmente añadiría la escritura de una versión inicial del fichero README, que no solo sirva de guía para los nuevos desarrolladores que se incorporen al sistema, también como punto de referencia para que nadie pierda de vista la importancia de mantener un fichero README en condiciones. &lt;a href=&quot;https://jesuslc.com/2016/07/12/como-escribir-un-readme-que-mole/&quot;&gt;Jesús L.C. escribió de esto&lt;/a&gt; hace poco.&lt;/p&gt;
+
+&lt;h2 id=&quot;escribir&quot;&gt;Escribir&lt;/h2&gt;
+
+&lt;p&gt;Escribir de forma adecuada es imprescindible para avanzar en nuestra carrera, ya que se trata de una habilidad que deberemos utilizar en correos electrónicos, ficheros README, documentación, etc. Hay una sección muy interesante sobre cómo escribir emails de la forma más efectiva posible. En pocas palabras, viene a decir que la gente no suele leer los emails completos (¿os sorprende?), así que no pidáis o preguntéis más de una cosa por mensaje, y tratad de ofrecer alternativas (“¿prefieres la opción A o la opción B?”) para que el lector tenga que pararse a pensar el menor tiempo posible. En mi TODO list tengo la escritura de emails como tema pendiente, y volveré a ello en algún momento.&lt;/p&gt;
+
+&lt;h2 id=&quot;entrevistar&quot;&gt;Entrevistar&lt;/h2&gt;
+
+&lt;p&gt;Entrevistar a candidatos puede llegar a ser una parte muy importante en nuestro día a día. El libro describe una forma muy definida para realizar un proceso de selección (muy similar al estándar que se utiliza en muchas empresa de Londres, &lt;a href=&quot;/2015/04/trabajo-londres/&quot;&gt;y que describí aquí&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;Personalmente, añado que entrevistar candidatos es de las labores más complicadas que nos pueden asignar. La demanda en nuestro sector es altísima, y encontrar gente muy buena se convierte en una empresa increíblemente dura. Los mayores dilemas que me he encontrado ocurrieron cuando no tenía claro si la persona era apta o no para el puesto. Para descargar de responsabilidad a los entrevistadores el libro recomienda intentar involucrar a varias personas en el proceso, de forma que todas deben estar de acuerdo en la decisión final. Esto se traduce en que existe “derecho de veto”, lo cual puede ser también una carga si tú eres la única persona vetando al candidato :).&lt;/p&gt;
+
+&lt;h2 id=&quot;productividad&quot;&gt;Productividad&lt;/h2&gt;
+
+&lt;p&gt;En este capítulo se describe un proceso para gestionar las interrupciones, tan presentes en los trabajos de oficina, de una manera efectiva. Recomienda no consultar el correo electrónico impulsivamente, sino hacerlo en momentos previamente decididos, y que encajen bien en el flujo de la metodología TDD, como por ejemplo cuando acabamos de refactorizar una nueva funcionalidad, o acabamos de definir un test fallido.&lt;/p&gt;
+
+&lt;h2 id=&quot;liderar-equipos&quot;&gt;Liderar equipos&lt;/h2&gt;
+
+&lt;p&gt;Este capítulo es el más extenso de todos, y diría que peca un poco de no profundizar demasiado en determinados aspectos de esta labor tan compleja. Se comentan temas como:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Estructura inicial del equipo: cuando todo es caos, y el mejor enfoque es constituir un equipo pequeño (dos desarrolladores, por ejemplo), y que vaya creciendo según se gane tracción.&lt;/li&gt;
+  &lt;li&gt;Afrontar el aspecto más problemático dentro del rol de Team Leader, que no es otro que la comunicación de estimaciones a la gente de negocio. En mi opinión, una de las mejores formas (y más divertidas) de aprender como tratar este tema es &lt;a href=&quot;https://skillsmatter.com/skillscasts/8557-estimation-what-when-why-by-robert-martin&quot;&gt;viendo esta presentación de Uncle Bob&lt;/a&gt; (en la que por cierto, podéis buscarme entre el público :D).&lt;/li&gt;
+  &lt;li&gt;Marcar un ritmo en el proyecto, mediante breves reuniones semanales donde el equipo presenta su trabajo (en mi empresa esto lo conocemos como &lt;a href=&quot;https://content.pivotal.io/blog/running-an-ipm&quot;&gt;IPM&lt;/a&gt;).&lt;/li&gt;
+  &lt;li&gt;Realizar revisiones de código efectivas, de manera que resulte productiva para todos los desarrolladores y no genere rencillas. El principal consejo aquí es comentar el código directamente sin mencionar o dirigirse directamente a la persona que lo escribió (por ejemplo: “este código podría ser más claro si extrayéramos este bloque a un método independiente” vs “este método te ha quedado demasiado largo”).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;producción&quot;&gt;Producción&lt;/h2&gt;
+
+&lt;p&gt;Finalmente tendremos nuestro sistema en producción, y en este punto es muy importante que nuestra aplicación genere información de manera adecuada para gestionar de manera correcta incidencias, buscar puntos de mejora, etc. Se describe el proceso para generar logs, alertas y estadísticas, y se hace hincapié en la importancia de escribir código tolerante a fallos.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusiones&quot;&gt;Conclusiones&lt;/h2&gt;
+
+&lt;p&gt;No dejéis pasar este libro, es un compendio excelente de buenas prácticas a seguir para convertirnos en buenos programadores, y además incluye una lista de lectura con libros y artículos que sirven de complemento perfecto para continuar aprendiendo. Me extraña bastante no verlo más a menudo en recopilaciones de libros que todo desarrollador debería leer, y espero que el tiempo le haga justicia (se publicó inicialmente en 2014).&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Cómo funciona Git (parte 2)</title>
@@ -1086,159 +1183,6 @@ First Commit&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;h3 id=&quot;conclusión-empatía&quot;&gt;Conclusión: empatía&lt;/h3&gt;
 
 &lt;p&gt;Leí hace poco que &lt;a href=&quot;https://es.wikipedia.org/wiki/Kent_Beck&quot;&gt;Kent Beck&lt;/a&gt;, a la pregunta de “¿Cuál es la cualidad más importante del Software?” respondió “Empatía”. Seguir este mantra es la forma más fácil de alcanzar esa empatía, porque nos obligará a pensar permanentemente en el programador que viene detrás de nosotros y en como facilitarle la lectura del código.&lt;/p&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>Haz una sola cosa</title>
-   <link href="http://www.raulavila.com/2016/09/haz-una-sola-cosa/"/>
-   <updated>2016-09-19T00:00:00+01:00</updated>
-   <id>http://www.raulavila.com/2016/09/haz-una-sola-cosa</id>
-   <content type="html">&lt;p&gt;Ya sabéis que tengo &lt;a href=&quot;/2016/07/mis-5-mantras/&quot;&gt;5 mantras para escribir un mejor software&lt;/a&gt; (aunque es posible que esta cifra aumente con el tiempo :)). En este post profundizaré un poco en el segundo “Do one thing, do it well, and do it only”.&lt;/p&gt;
-
-&lt;p&gt;Diría que este principio no aplica solamente al software. La historia está llena de fracasos en productos desarrollados para hacer más de una cosa, pero ninguna de ella demasiado bien. En la mayoría de casos, además, consideramos tales inventos como auténticos engendros, como el &lt;a href=&quot;http://www.hola.com/actualidad/2013073166071/panther-coche-anfibio/&quot;&gt;coche anfibio&lt;/a&gt;, la &lt;a href=&quot;https://www.amazon.com/String-Bass-Double-Neck-Guitar/dp/B001F1UFL2&quot;&gt;guitarra / bajo&lt;/a&gt;, o la &lt;a href=&quot;https://www.amazon.es/Wenger-19201-Navaja-suiza/dp/B000R0JDSI&quot;&gt;super-navaja de Amazon&lt;/a&gt;.&lt;/p&gt;
-
-&lt;!--break--&gt;
-
-&lt;p&gt;Si todos nos reímos cuando vemos estas cosas, ¿por qué no nos sorprendemos cuando desarrollamos una clase que realiza mil y una tareas sin ningún tipo de orden ni concierto? Por ejemplo:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;BankUtil&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;formatAccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accountNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{...}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;isNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{...}&lt;/span&gt;
-
-    &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PersonDetails&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getPersonDetails&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Stirng&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;accountNumber&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{...}&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;//...&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;No sigo, ya sabéis a lo que me refiero. Es para evitar cosas como ésta que siempre tengo presente el mantra mencionado más arriba, que no es otra cosa que el Single Responsibility Principle (SRP) o &lt;a href=&quot;https://es.wikipedia.org/wiki/Principio_de_responsabilidad_%C3%BAnica&quot;&gt;Principio de Responsabilidad Única&lt;/a&gt;. Este principio viene a decir (no es la primera vez que lo cito en este blog) que “las únidades de código deben tener sólo una razón para el cambio”, o también “las mejores funciones o módulos son aquellos que tienen una única responsabilidad”. Tras leer esto es posible que nos venga a la cabeza una pregunta…&lt;/p&gt;
-
-&lt;h2 id=&quot;qué-es-una-responsabilidad&quot;&gt;¿Qué es una responsabilidad?&lt;/h2&gt;
-
-&lt;p&gt;Lo de hacer una sola cosa está muy bien, pero en la práctica esto no es tan sencillo. Vamos a empezar con el mínimo nivel en qué podemos definir responsabilidades, las funciones.&lt;/p&gt;
-
-&lt;p&gt;Una función tiene una única responsabilidad si:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Su nombre es perfectamente descriptivo de lo que hace&lt;/li&gt;
-  &lt;li&gt;Dicho nombre no tiene conjunciones (And / Or / But), por lo que métodos como &lt;code class=&quot;highlighter-rouge&quot;&gt;washAndClean()&lt;/code&gt; no cumplirían el SRP&lt;/li&gt;
-  &lt;li&gt;Preferiblemente no tiene efectos secundarios, y con esto quiero decir que no hará nada que no esperemos dado el nombre de la función y leyendo sus argumentos y tipo de retorno&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Veamos a continuación ejemplos de funciones que no cumplen el SRP:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;namesById&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;auditService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;registerAccess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;En efecto, esta función &lt;code class=&quot;highlighter-rouge&quot;&gt;getName&lt;/code&gt; está auditando sus accesos, lo cual puede resultar un poco confuso para los usuarios de nuestro código.&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;parseAndSave&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;messageStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;Message&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;parseMessage&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;messageStr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;messageDAO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;En este ejemplo es evidente que estamos llevando a cabo dos tareas bien diferentes, pero, ¿por qué deberíamos rediseñar esta función? ¿Qué define una responsabilidad? Para entender bien esto, pasemos al siguiente nivel de abstracción, las clases.&lt;/p&gt;
-
-&lt;h2 id=&quot;clases-y-responsabilidades&quot;&gt;Clases y responsabilidades&lt;/h2&gt;
-
-&lt;p&gt;Una clase puede ser definida de muchas maneras, pero nadie se llevará las manos a la cabeza si la defino aquí como “familia de funciones con un objetivo bien definido”. Este objetivo no es otra cosa que la responsabilidad de la clase, y dicha responsabilidad no es más que la implementación de una serie de soluciones a las necesidades de un &lt;strong&gt;actor&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Un actor es la personificación de un rol determinado que interactúa con nuestro sistema, y que es la audiencia de una responsabilidad determinada. Esta definición es muy flexible, y puede abarcar desde:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;El usuario final de una aplicación de móvil, y que puede dictaminar, tras un A/B testing, que es más adecuado ubicar un botón en la parte superior o inferior de la pantalla&lt;/li&gt;
-  &lt;li&gt;Sistemas externos con los que interactúamos a través de una API REST, y que pueden cambiar su contrato, haciéndonos modificar nuestros clientes de dicha API&lt;/li&gt;
-  &lt;li&gt;Los contables de nuestra empresa, que pueden añadir nuevos conceptos a contabilizar en un documento determinado que estemos generando&lt;/li&gt;
-  &lt;li&gt;Los arquitectos software de nuestra empresa, que por capricho pueden decidir cambiar un framework determinado y obligarnos a rehacer la implementación de una funcionalidad concreta para adaptarse a dicho framework&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Es decir, un rol abarca aspectos muy heterogéneos.&lt;/p&gt;
-
-&lt;p&gt;La idea es que, cada clase deberá satisfacer las necesidades de un rol o actor determinado, &lt;strong&gt;y sólo ese&lt;/strong&gt;. Esto se traduce en que si las necesidades de dos actores diferentes cambian al mismo tiempo, es materialmente imposible que dichos cambios apliquen en la misma clase.&lt;/p&gt;
-
-&lt;h2 id=&quot;por-qué-es-importante&quot;&gt;Por qué es importante&lt;/h2&gt;
-
-&lt;p&gt;En primer lugar, si seguimos este principio jamás se dará la situación de que dos programadores realicen cambios en el mismo fichero si trabajan en tareas diferentes, evitando todo tipo de desagradables conflictos en el control de versiones. Pero esto es una ventaja pequeña comparada con la principal de todas, y que define el conocido como “valor primario del software”:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“Software is soft” (Uncle Bob)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Así es, el software es “blando”, se puede moldear y modificar según nuestras necesidades. Si en un momento determinado esto deja de ocurrir el software perderá su principal valor y dejará de servirnos, porque en el mundo actual el cambio es constante y debemos adaptarnos a él tan rápido como sea posible, y de forma sostenible.&lt;/p&gt;
-
-&lt;p&gt;Este principio es incluso más importante que el “valor secundario del software”, y que viene a decir “el software debe satisfacer las necesidades del usuario”. Por increíble que parezca, el primer valor es más importante, porque si se da la situación de que un sistema que acabamos de desarrollar no satisface completamente las necesidades del usuario, siempre será posible transformarlo (“moldearlo”) para que así sea, y cuánto mejor diseñado esté más sencillo será.&lt;/p&gt;
-
-&lt;p&gt;Volviendo al SRP, si una clase no lo cumple ocurrirán las siguientes cosas:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;El número de líneas de código de la clase comenzará a crecer sin ningún tipo de estrategia que limite el crecimiento&lt;/li&gt;
-  &lt;li&gt;Nuestra clase necesitará utilizar diferentes colaboradores muy heterogéneos (ejemplo: un cliente http, y una API de acceso a base de datos, entre otros). Esto hace que a la larga, decisiones que sólo deberían afectar a una pequeña porción de código tienen un efecto en cadena devastador&lt;/li&gt;
-  &lt;li&gt;Comenzaremos a compartir código entre diferentes responsabilidades, código que acoplará cosas que no deberían estarlo. Por ejemplo, una función de utilidad para parsear un mensaje determinado, utilizada a la vez tras extraer el cuerpo en una respuesta HTTP y un mensaje de la base de datos. Si por algún motivo, el contrato de la API REST cambia pero los mensajes en base de datos permanecen inalterados el impacto será relativamente grande&lt;/li&gt;
-  &lt;li&gt;Nuestras clases serán extraordinariamente difíciles de testear, principalmente mediante tests unitarios&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;cómo-conseguirlo&quot;&gt;Cómo conseguirlo&lt;/h2&gt;
-
-&lt;p&gt;La mejor forma de diseñar clases que cumplan con el SRP es siguiendo dos sencillas reglas:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Desarrollo mediante TDD: los tests unitarios son la mejor forma de poner presión sobre nuestro diseño para que nuestras clases tengan responsabilidades bien definidas&lt;/li&gt;
-  &lt;li&gt;Refactorizando: la refactorización de nuestro código, para aumentar su legibilidad es clave. En ocasiones, mediante el refactoring emergen responsabilidades que se nos habían pasado por alto&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Precisamente mi tercer mantra está muy relacionado con este último punto, y hablaré de él en el siguiente post.&lt;/p&gt;
-
-&lt;h2 id=&quot;otros-niveles-de-abstracción-paquetes-y-aplicaciones&quot;&gt;Otros niveles de abstracción: paquetes y aplicaciones&lt;/h2&gt;
-
-&lt;p&gt;Tras las clases tenemos los paquetes, y aquí de nuevo deberíamos esforzarnos por crear paquetes bien cohesionados. Sobre este tema, os recomiendo encarecidamente que leáis &lt;a href=&quot;http://olivergierke.de/2013/01/whoops-where-did-my-architecture-go/&quot;&gt;este esencial post&lt;/a&gt;, que explica las diferencias entre layers y slices, y cuál es la mejor forma de diseñar nuestros paquetes para ajustarse a estos criterios. En pocas palabras, viene a decir que no organicéis vuestros paquetes así:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;model
-    &lt;ul&gt;
-      &lt;li&gt;Account&lt;/li&gt;
-      &lt;li&gt;Client&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;service
-    &lt;ul&gt;
-      &lt;li&gt;AccountService&lt;/li&gt;
-      &lt;li&gt;ClientService&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;repository
-    &lt;ul&gt;
-      &lt;li&gt;AccountDAO&lt;/li&gt;
-      &lt;li&gt;ClientDAO&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Sino así:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;account
-    &lt;ul&gt;
-      &lt;li&gt;Account&lt;/li&gt;
-      &lt;li&gt;AccountService&lt;/li&gt;
-      &lt;li&gt;AccountDAO&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;client
-    &lt;ul&gt;
-      &lt;li&gt;Client&lt;/li&gt;
-      &lt;li&gt;ClientService&lt;/li&gt;
-      &lt;li&gt;ClientDAO&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Creo que queda clara la idea, y si queréis profundizar &lt;a href=&quot;http://olivergierke.de/2013/01/whoops-where-did-my-architecture-go/&quot;&gt;ya sabéis&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Para terminar, pasemos al nivel de aplicación, algo que quizás puede sonar extraño, pero no lo es tanto en este mundo donde los &lt;a href=&quot;http://martinfowler.com/articles/microservices.html&quot;&gt;microservicios&lt;/a&gt; son el último grito. Este nivel puede que sea el único donde os diga de inicio que reconsideréis bien vuestra decisión antes de decidir desplegar una responsabilidad única como una aplicación independiente. Esa no fue la idea con la que surgieron los microservicios, y os remito a &lt;a href=&quot;http://highscalability.com/blog/2014/4/8/microservices-not-a-free-lunch.html&quot;&gt;este otro excelente post&lt;/a&gt; para que tengáis en cuenta todas las consideraciones necesarias en el momento que os decidáis por esta arquitectura.&lt;/p&gt;
 </content>
  </entry>
  
