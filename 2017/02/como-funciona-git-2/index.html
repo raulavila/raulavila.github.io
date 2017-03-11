@@ -69,7 +69,7 @@
 
 <p>Es decir, un directorio con un fichero <code class="highlighter-rouge">hello.txt</code>, fichero que contiene el texto “Hello World”. Tras hacer nuestro primer commit y añadir un tag, nos quedó la siguiente estructura interna:</p>
 
-<p><img src="/public/pictures/git-internals/git-first-commit-tag.jpg" alt="Git Blob" /></p>
+<p><img src="/public/pictures/git-internals/git-first-commit-tag.jpg" alt="Git" /></p>
 
 <p>Seguiremos trabajando desde aquí.</p>
 
@@ -160,7 +160,7 @@ $ git cat-file -p 4af510
 
 <p>Con todo esto, veamos cómo queda nuestro árbol de objetos:</p>
 
-<p><img src="/public/pictures/git-internals/git-second-commit.jpg" alt="Git Blob" /></p>
+<p><img src="/public/pictures/git-internals/git-second-commit.jpg" alt="Git" /></p>
 
 <p>Este va a ser el diagrama más complicado que veremos en la serie, y espero que más o menos haya quedado claro. Git intenta reutilizar toda la información que sea posible al añadir nuevos commits, y así, el blob “Hello World” es apuntado desde tres lugares diferentes (el fichero del primer commit, el mismo fichero del segundo, y el nuevo fichero del segundo). De esta forma se minimiza la cantidad de datos creados por cada cambio. Además, las carpetas <code class="highlighter-rouge">info</code> y <code class="highlighter-rouge">pack</code> se utilizan en procesos de compresión que no cubriremos aquí (para empezar, porque no los conozco todavía :)).</p>
 
@@ -170,7 +170,7 @@ $ git cat-file -p 4af510
 
 <p>Para comprender bien el funcionamiento de las ramas (branches) en Git, vamos a simplificar el diagrama de la estructura que hemos ido creando, y nos quedaremos únicamente con los commits:</p>
 
-<p><img src="/public/pictures/git-internals/git-commit-history-1.jpg" alt="Git Blob" /></p>
+<p><img src="/public/pictures/git-internals/git-commit-history-1.jpg" alt="Git" /></p>
 
 <p>Todos sabemos que cuando iniciamos un proyecto Git, este nos crea con nuestro primer commit una única rama de nombre <code class="highlighter-rouge">master</code>. Internamente, una rama es algo tan tonto como un pequeño ficherito que apunta a un commit, ni más ni menos, es decir, un alias:</p>
 
@@ -179,7 +179,7 @@ $ git cat-file -p 4af510
 
 <p>Como véis, el contenido de este fichero es el hash del último commit que hemos realizado:</p>
 
-<p><img src="/public/pictures/git-internals/git-master.jpg" alt="Git Blob" /></p>
+<p><img src="/public/pictures/git-internals/git-master.jpg" alt="Git" /></p>
 
 <p>La gran diferencia entre tags y ramas es que los tags son inmutables, mientras que las ramas están “vivas”, avanzando con cada commit añadido a la historia.</p>
 
@@ -192,7 +192,7 @@ $ cat .git/refs/heads/develop
 
 <p>Sin demasiadas sorpresas, la nueva rama apunta al commit en que nos encontramos, coincidendo con <code class="highlighter-rouge">master</code>, es decir:</p>
 
-<p><img src="/public/pictures/git-internals/git-master-develop.jpg" alt="Git Blob" /></p>
+<p><img src="/public/pictures/git-internals/git-master-develop.jpg" alt="Git" /></p>
 
 <p>La pregunta aquí es qué rama será la que avanzará si añadimos un nuevo commit, veámoslo en vivo:</p>
 
@@ -264,15 +264,24 @@ Switched to branch 'develop'</code></pre></figure>
 
 <p>Tras este mareo, este es la instantánea de nuestro histórico:</p>
 
-<p><img src="/public/pictures/git-internals/git-head.jpg" alt="Git Blob" /></p>
+<p><img src="/public/pictures/git-internals/git-head.jpg" alt="Git" /></p>
 
-<p>Lo dejamos aquí por hoy. En el último post de la serie veremos cómo funcionan <code class="highlighter-rouge">merge</code> y <code class="highlighter-rouge">rebase</code>, y finalizaremos con la sincronización con repositorios remotos.</p>
+<p>Lo dejamos aquí por hoy. <a href="/2017/03/como-funciona-git-3/">En el último post de la serie</a> veremos cómo funcionan <code class="highlighter-rouge">merge</code> y <code class="highlighter-rouge">rebase</code>, y finalizaremos con la sincronización con repositorios remotos.</p>
 
 </article>
 
 <aside class="related">
   <h2>Otros posts en este blog</h2>
   <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2017/03/como-funciona-git-3/">
+            Cómo funciona Git (parte 3)
+            <small><time datetime="2017-03-11T00:00:00+00:00">11/03/2017</time></small>
+          </a>
+        </h3>
+      </li>
     
       <li>
         <h3>
@@ -288,15 +297,6 @@ Switched to branch 'develop'</code></pre></figure>
           <a href="/2017/01/volver/">
             ¿Volver?
             <small><time datetime="2017-01-29T00:00:00+00:00">29/01/2017</time></small>
-          </a>
-        </h3>
-      </li>
-    
-      <li>
-        <h3>
-          <a href="/2017/01/como-funciona-git-1/">
-            Cómo funciona Git (parte 1)
-            <small><time datetime="2017-01-22T00:00:00+00:00">22/01/2017</time></small>
           </a>
         </h3>
       </li>
