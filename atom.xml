@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-03-11T12:42:09+00:00</updated>
+ <updated>2017-03-11T12:52:25+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -152,6 +152,16 @@ Fast-forward
 &lt;p&gt;Espero que tenga sentido lo que ha ocurrido ahora, Git ha detectado el merge que tuvo lugar en develop, por lo que para fusionar &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt; en &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; le basta con hacer un fast-forward, moviendo el puntero de la rama al “merge commit”, es decir:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-merge-3.jpg&quot; alt=&quot;Git&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Por cierto, tras todo este proceso, nuestro repositorio ha quedado tal que así:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ tree
+.
+├── goodbye.txt
+├── goodbye_develop.txt
+├── greetings
+│   └── hello2.txt
+└── hello.txt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h2 id=&quot;rebase&quot;&gt;Rebase&lt;/h2&gt;
 

@@ -196,6 +196,16 @@ Fast-forward
 
 <p><img src="/public/pictures/git-internals/git-merge-3.jpg" alt="Git" /></p>
 
+<p>Por cierto, tras todo este proceso, nuestro repositorio ha quedado tal que así:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">$ tree
+.
+├── goodbye.txt
+├── goodbye_develop.txt
+├── greetings
+│   └── hello2.txt
+└── hello.txt</code></pre></figure>
+
 <h2 id="rebase">Rebase</h2>
 
 <p><a href="https://git-scm.com/docs/git-rebase">Git rebase</a> es uno de los comandos más potentes de Git, pero también el más peligroso. No es más que una forma diferente de fusionar el contenido de dos ramas, siguiendo una estrategia bastante agresiva: reescribir la historia, sin añadir ningún commit adicional, como sí hacía merge. El mejor articulo para entender las diferencias entre <code class="highlighter-rouge">merge</code> y <code class="highlighter-rouge">rebase</code> <a href="https://www.atlassian.com/git/tutorials/merging-vs-rebasing">es este</a>, no es mi intención cubrir con mucho detalle algo que ya se ha discutido hasta la saciedad, sino mostrar cuál es el proceso interno en el repositorio de Git.</p>
