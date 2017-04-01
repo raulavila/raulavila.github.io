@@ -4,13 +4,113 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-03-11T12:52:25+00:00</updated>
+ <updated>2017-04-01T14:29:57+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>La comunicación en proyectos Software</title>
+   <link href="http://www.raulavila.com/2017/04/comunicacion-proyectos-software/"/>
+   <updated>2017-04-01T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2017/04/comunicacion</id>
+   <content type="html">&lt;p&gt;Esta semana hará tres meses que inicié mi andadura como Anchor en un proyecto de mi empresa. Además de algo estresante, diría que la experiencia está siendo muy buena en todos los sentidos, y me está sirviendo para aprender un montón de cosas. Quizás la más importante de todas ellas sea como gestionar la comunicación dentro de un equipo de forma eficiente, y en este post voy a repasar muchas de las conclusiones que he ido sacando en claro.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;h2 id=&quot;comunicación-síncrona&quot;&gt;Comunicación síncrona&lt;/h2&gt;
+
+&lt;p&gt;Comunicación síncrona es aquella en la que el intercambio de mensajes e impresiones ocurre en tiempo real, lo que incluye:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Conversaciones directas en persona&lt;/li&gt;
+  &lt;li&gt;Conversaciones telefónicas&lt;/li&gt;
+  &lt;li&gt;Reuniones&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;conversaciones-en-persona&quot;&gt;Conversaciones en persona&lt;/h3&gt;
+
+&lt;p&gt;Es, en mi opinión, el canal más importante de comunicación, y el que debe funcionar con mayor fluidez. Me atrevería a afirmar con rotundidad que ninguna forma de comunicación supera al intercambio de impresiones entre dos personas realmente implicadas en la discusión, y es por eso que seguiré defendiendo a capa y espada el &lt;a href=&quot;/2016/08/pair-programming/&quot;&gt;Pair Programming&lt;/a&gt;. Me resulta gracioso pensar ahora que el trabajar con Pair Programming casi el 100% del tiempo me hizo dudar un poco antes de unirme a una empresa que lo practicaba, mientras que en este momento de mi carrera creo que difícilmente aceptaría una oferta de desarrollador para una empresa donde no se practique.&lt;/p&gt;
+
+&lt;p&gt;Fuera del Pair Programming, las conversaciones en persona deben ocurrir siempre que sea necesario, y para ello es fundamental tener al equipo trabajando en el mismo espacio, a poder ser con pizarras compartidas donde se puedan esbozar ideas y diagramas con facilidad. Es importante ser respetuosos con el trabajo de los demás si nos dirigimos a una persona para discutir o preguntar algo, con esto quiero decir que nunca interrumpáis directamente sin antes preguntar con educación “¿Tienes un segundo?” o similar. Si no es el momento adecuado, debemos entenderlo y esperar. La &lt;a href=&quot;https://es.wikipedia.org/wiki/T%C3%A9cnica_Pomodoro&quot;&gt;Técnica Pomodoro&lt;/a&gt; puede ser realmente útil en este punto, de forma que durante un pomodoro no es posible interrumpir lo que alguien esté haciendo.&lt;/p&gt;
+
+&lt;p&gt;También creo que es importante no desviarse demasiado del tema de discusión principal. Ocurre en ocasiones que se empieza tratando un punto A, y en mitad de la conversación saltamos a B, luego a C, y terminamos en F después de una hora. Esta conversaciones no suelen ser excesivamente productivas (¡aunque siempre hay excepciones!), y es importante rectificar el curso si detectamos una pérdida de rumbo excesiva.&lt;/p&gt;
+
+&lt;h3 id=&quot;conversaciones-telefónicas&quot;&gt;Conversaciones telefónicas&lt;/h3&gt;
+
+&lt;p&gt;No me extenderé mucho aquí, ya que el uso del teléfono en mi empresa es CERO. Esto es posible porque siempre presionamos para tener al equipo completo en el mismo espacio (como acabo de mencionar). En cualquier caso, por mi experiencia pasada sí tengo algo que aportar a este punto, y es que se deberían evitar tanto como sea posible las llamadas telefónicas “a puerta fría”, es decir, sin aviso previo, sobre todo si es para tratar un tema más o menos en profundidad (como por ejemplo realizar un seguimiento por parte de un manager que esté en otra oficina). Este tipo de llamadas tienen un impacto muy grande en el trabajo que el receptor de la llamanda pueda estar realizando, y creo que deberían programarse en el calendario de la misma forma que una reunión presencial de seguimiento.&lt;/p&gt;
+
+&lt;p&gt;Otro de los grandes problemas de las conversaciones telefónicas es que son efímeras y no suelen dejar ningún rastro. La memoria humana no es perfecta y es caprichosa, pudiendo crear todo tipo de confusiones.&lt;/p&gt;
+
+&lt;p&gt;El único caso donde creo que se pueden justificar las llamadas telefónicas repentinas es cuando está ocurriendo una incidencia grave que requiere atención inmediata.&lt;/p&gt;
+
+&lt;h3 id=&quot;reuniones&quot;&gt;Reuniones&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;/2015/04/reuniones/&quot;&gt;Ya toqué este tema&lt;/a&gt; hace un par de años, pero creo que estoy en posición de añadir nuevas puntualizaciones a lo que entonces dije.&lt;/p&gt;
+
+&lt;p&gt;Siendo franco, yo siempre he detestado las reuiones. Opinaba que en la mayoría de los casos no sirven para gran cosa, pero esa perspectiva ha cambiado ligeramente desde que ya no trabajo en desarrollo el 100% del tiempo. Mi punto de vista en la actualidad es que las reuniones son necesarias &lt;strong&gt;mientras sean productivas&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Empezaré con unas puntualizaciones rápidas sobre las reuniones fijas que suelen existir en casi todos los procesos ágiles:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Stand-up: debería tener lugar a primera hora de la mañana. Quizás no a las 9 en punto, para no forzar una puntualidad excesiva y el consiguiente estrés asociado en las grandes ciudades, pero definitivamente antes de las 10. Esta reunión debe ser &lt;strong&gt;corta&lt;/strong&gt;, así que por favor, evitad dar detalles técnicos innecesarios sobre lo que hicísteis el día anterior, y que dependiendo del tamaño del equipo puede estirar la duración de la stand-up hasta unos 40 minutos (!!!). El principal cometido de la stand-up debería ser compartir a grooso modo el trabajo que estamos haciendo, y lanzar preguntas sobre determinados temas que nos puedan estar bloqueando.&lt;/li&gt;
+  &lt;li&gt;Reunión de planificación: en mi empresa las iteraciones son de una semana, y la reunión de planificación dura una hora. Las historias de usuario deberían llegar tan maduradas como sea posible en cuanto a la descripción y los criterios de aceptación, de forma que el equipo pueda puntuar el máximo número posible. En mi experiencia, lleva un tiempo agilizar este proceso.&lt;/li&gt;
+  &lt;li&gt;Retrospectivas: dura otra hora, y repasamos las cosas buenas, malas, y reguleras que han ocurrido durante la semana, centrándonos sobre todo en sentimientos (lo cual representamos con tres columnas: cara sonriente, cara triste, y meh). En esta reunión debemos ser tan abiertos y claros como sea posible, y lo más importante de todo, &lt;strong&gt;debemos extraer acciones a tener en cuenta para la siguiente iteración&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Todas estas reuniones no deberían llevar más de 3 horas por semana a todo el equipo. El principal problema de muchos proyectos, y donde creo que hay que poner el foco, son las reuniones que caen fuera de este grupo. Intentaré resumir los anti-patrones que, a mi parecer, debemos evitar:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Demasiada gente convocada: no, no hace falta que todos los desarrolladores estén presentes en reuniones para discutir temas como las proyecciones de futuras fechas de entrega (el típico roadmap), el descubrimiento de nuevos requisitos, la toma de decisiones con la división de seguridad da empresa, etc. El tiempo que los desarrolladores están, ejem, desarrollando, debería maximizarse tanto como sea posible, y para eso existen roles (llámese Team Leader, Anchor, o lo que sea), cuya labor es proteger al equipo de estas conversaciones.&lt;/li&gt;
+  &lt;li&gt;Reuniones sin decisión de acciones asociada: toda reunión debe terminar con acciones a seguir por una o más personas (que puede incluso ser todo el equipo). Estas decisiones deberían quedar reflejadas en algún sitio (JIRA, Pivotal Tracker, Trello), y no sólo en los cuadernos de los asistentes. En ocasiones, dependiendo de la audiencia, es recomendable enviar un correo a modo de resumen con estas acciones.&lt;/li&gt;
+  &lt;li&gt;Reuniones de larga duración sin breaks: sinceramente, yo soy incapaz de mantener la atención de manera continuada durante más de 70 minutos. No digo esta cifra al azar, en mi experiencia, a la hora y cuarto no puedo seguir conectado. Los descansos son necesarios, y ni siquiera necesitamos que sean muy largos, 5-10 minutos cada hora, no solo no restan, sino que suman efectividad a la reunión.&lt;/li&gt;
+  &lt;li&gt;Reuniones sin preparación previa: nunca debemos ir a una reunión sin preparar por encima el tema que se va a tratar. Sin preparación, alguno de los presentes tendrá mucho más contexto que nosotros, tomará la batuta de la discusión, y la reunión avanzará sin discusión real, puesto que no nos atreveremos a rebatir sus argumentos por miedo a quedar en ridículo.&lt;/li&gt;
+  &lt;li&gt;Reuniones con varias personas en remoto: esto no es fácil de evitar en muchas ocasiones, pero el hecho de tener gente en otra localización diferente (presente al teléfono o Skype) dificulta mucho determinadas conversaciones, además de hacer imposible el uso de la pizarra física si fuera necesaria. Repito, un punto difícil de evitar, pero que conviene mencionar.&lt;/li&gt;
+  &lt;li&gt;Reuniones que se desvían del tema principal: aspecto que ya comenté en la comunicación entre personas de este mismo artículo, pero que cobra una dimensión incluso mayor en las reuniones. Si nos desvíamos en exceso del tema principal, pueden que gastemos el tiempo de la reunión por completo sin llegar a ningún lado. De ahí la importancia de establecer una agenda clara, y mantener la conversación enfocada.&lt;/li&gt;
+  &lt;li&gt;Gente con el portátil / móvil en la sala: aspecto peliagudo de evitar, debido al funcionamiento de muchas empresas. El mayor problema que veo a esto es que, quizás debido a las &lt;a href=&quot;https://es.wikipedia.org/wiki/Neurona_especular&quot;&gt;neuronas espejo&lt;/a&gt;, cuando alguien empieza a interactuar con su ordenador o teléfono, siempre hay gente que va detrás :), lo cual nos lleva a la pregunta de si es realmente necesario que esas personas estén presentes en la reunión.&lt;/li&gt;
+  &lt;li&gt;Personas presentes la reunión entera que sólo son necesarios para un punto en concreto: esta guerra la llevo luchando desde que trabajaba en España hace años. Por aquel entonces, mi empresa se dedicaba a la consultoría medioambiental, y yo era el programador de las webs que desarrollábamos. Pues bien, llegué a tragarme reuniones de 5 horas donde las 4 primeras se centraban en normativas y legislaciones, temas que ni me iban ni me venían, y en la última hora pasábamos a discutir los aspectos de la web. Hay que intentar optimizar el tiempo que la gente pasa en reuniones, y no debería estar mal visto para nada el hecho de que una persona empiece en la reunión y la abandone a los 10-20 minutos de empezar, cosa que, por algún extraño motivo, parece realmente complicado de implementar.&lt;/li&gt;
+  &lt;li&gt;Timing: las reuniones deben convocarse con un tiempo razonable, para permitir prepararla a los asistentes, y si la reunión pasa a ser innecesaria por algún motivo debe cancelarse tan pronto lo sepamos. La cancelación tardía de reuniones (no es infrecuente recibir cancelaciones una hora o incluso cinco minutos antes de la reunión) puede resultar muy contraproducente para todos los invitados, que quizás hayan planeado su mañana o tarde en torno a ese evento.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;comunicación-asíncrona&quot;&gt;Comunicación asíncrona&lt;/h2&gt;
+
+&lt;p&gt;A diferencia de la comunicación síncrona, en la asíncrona enviamos un mensaje sin esperar respuesta inmediata. Esta forma de comunicación es quizás menos fluida, pero sin embargo no tiene un impacto tan directo en la productividad, ya que queda en cada persona como manejar estos canales. Las dos herramientas principales dentro de esta categoría son:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Mensajería instantánea&lt;/li&gt;
+  &lt;li&gt;Email&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;mensajería-instantánea&quot;&gt;Mensajería instantánea&lt;/h3&gt;
+
+&lt;p&gt;No hay empresa que no tenga un sistema de este tipo, llámese Lync, Hipchat o Slack, aunque parece que este último está monopolizando esta categoría últimamente.&lt;/p&gt;
+
+&lt;p&gt;No tengo gran cosa que aportar en esta categoría, quizás resaltar la necesidad de crear canales específicos dentro de un proyecto determinado, de forma que los desarrolladores no discutan temas técnicos en el canal principal (a la vista de Product Managers y gente de negocio), por ejemplo.&lt;/p&gt;
+
+&lt;p&gt;Personalmente, no utilizo la mensajería instantánea muy a menudo, ya que donde realmente es útil es en proyectos donde el equipo está distribuido, lo cual nunca ha sido mi caso.&lt;/p&gt;
+
+&lt;p&gt;Un último consejo: todas las empresas tienen acceso al registro de las conversaciones que dejéis en este tipo de sistemas, así que cuidado con las cosas que digáis :D.&lt;/p&gt;
+
+&lt;h3 id=&quot;email&quot;&gt;Email&lt;/h3&gt;
+
+&lt;p&gt;Existen varias consideraciones a tener en cuenta sobre el uso del correo electrónico. La verdad es que este tema daría para un libro, pero intentaré condensar los puntos más importantes:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;No asumas que la gente va a leer tu correo: en efecto, la gente está muy ocupada, recibe muchos correos, y muchas veces no tiene tiempo que dedicarle a ese mensaje que tú crees es de importancia capital. El mayor riesgo en este punto es que un correo se quede marcado como leído en la bandeja de entrada sin que ese hecho haya ocurrido realmente. Para mitigar el riesgo de que tu correo sea ignorado, es crucial intentar ser conciso, el efecto “correo marcado como leído sin leer” es más probable cuanto más largo sea el correo. Otra forma de mitigar esto es marcar en negrita una pregunta o aspecto concreto que sea de importancia capital y/o necesite una respuesta en algún momento.&lt;/li&gt;
+  &lt;li&gt;La gente reenvía los correos: no creo que os pille por sorpresa, pero lo menciono por si acaso, para que no lo olvidéis. Las consecuencias más nefastas que he experimentado en mi carrera a este respecto es cuando alguien reenvía una conversación kilométrica para que el destinatario eche un vistazo al email más reciente de la cadena, y se da la situación de que en algún punto de la discusión se hablan de temas, digamos “delicados”. Es por esto que debemos ser extremadamente cuidadosos con lo que escribimos en nuestros emails, evitando en la medida de lo posible la ironía, el sarcasmo, y menciones a terceros que se salgan de la objetividad y contengan un componente emocional.&lt;/li&gt;
+  &lt;li&gt;Si tienes tres preguntas que hacer, envía tres correos: los correos son leídos normalmente a gran velocidad, y si el correo contiene varias preguntas es probable que no todas sean respondidas (si es que alguna es respondida). Por ello debemos centrarnos en un aspecto muy concreto del que necesitemos aclaración en cada correo, y si queremos incrementar la probabilidad de respuesta, podemos marcarlo en negrita. Una vez leí en un artículo que la mejor forma de incrementar las probabilidades de que el destinatario de un correo responda a una petición es finalizando con “Gracias por adelantado”. No estoy en posición de defender la fiabilidad de esto, pero ahí lo dejo :).&lt;/li&gt;
+  &lt;li&gt;Relee y relee antes de escribir, a poder ser en voz alta, o mejor, pide a otra persona que lo relea contigo. Esto ayuda mucho a detectar frases poco claras, falta de información, o a corregir el tono incorrecto en algún punto tratado.&lt;/li&gt;
+  &lt;li&gt;Si necesitamos adjuntar un documento importante que pueda evolucionar en el tiempo, plantearos la necesidad de poner ese documento en un espacio compartido (Confluence, Google Drive…), de forma que no se generen confusiones con diferentes versiones circulando. Si no queda otra que adjuntarlo, añadid un número de versión, y madurad bien el documento antes de pulsar “Send”, quizás dejando el correo escrito una tarde y revisándolo en la mañana siguiente antes de enviar.&lt;/li&gt;
+  &lt;li&gt;El correo electrónico no es un chat, nunca esperes que la gente responda inmediatamente. Evita en la medida de lo posible el envío de correos para preguntar si un correo anterior ha sido leído, y de hacerlo, deja pasar un tiempo prudencial (no menos de una semana / 10 días).&lt;/li&gt;
+  &lt;li&gt;Nunca dejes un tema de gran importancia a expensas de recibir respuesta a un correo, utiliza otros canales para esto.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Con esto termino mi repaso a las diferentes formas de comunicación en proyectos de empresa. Si pensáis que me he dejado alguna, o si creéis necesario puntualizar algún aspecto de los tratados, estaré encantado de seguir discutiendo en los comentarios.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Cómo funciona Git (parte 3)</title>
@@ -1021,72 +1121,6 @@ First Commit&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;p&gt;Me vuelvo a casa con una sonrisa de oreja a oreja, y muchas ganas de repetir, ¡hasta el año que viene!&lt;/p&gt;
 
 &lt;p&gt;(&lt;a href=&quot;https://2016.codemotion.es/agenda.html&quot;&gt;Aquí os dejo la agenda de la conferencia&lt;/a&gt;, que además contiene links a las charlas que fueron grabadas)&lt;/p&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>Perdón por la ausencia</title>
-   <link href="http://www.raulavila.com/2016/11/perdon-por-la-ausencia/"/>
-   <updated>2016-11-12T00:00:00+00:00</updated>
-   <id>http://www.raulavila.com/2016/11/perdon-por-la-ausencia</id>
-   <content type="html">&lt;p&gt;El último mes y medio ha sido una auténtica locura, y no he podido dedicar al blog todo el tiempo que sería necesario para publicar artículos de mediana calidad. Mi intención es estar en la brecha de nuevo, al menos hasta el obligado parón navideño.&lt;/p&gt;
-
-&lt;p&gt;Voy a repasar a modo de bitácora las diferentes cosas que me he traído entre manos últimamente, no como excusa, sino para dejar plasmadas las diferentes cosas que he aprendido o hecho.&lt;/p&gt;
-
-&lt;!--break--&gt;
-
-&lt;h2 id=&quot;mis-cinco-mantras-la-presentación&quot;&gt;Mis cinco mantras: la presentación&lt;/h2&gt;
-
-&lt;p&gt;Los que me seguís sabéis que tengo &lt;a href=&quot;/2016/07/mis-5-mantras/&quot;&gt;5 mantras para escribir software&lt;/a&gt;. Cuando escribí el post hace unos meses pensé que el tema daba para una presentación pública, así que me lié la manta a la cabeza, la propuse a la &lt;a href=&quot;http://www.meetup.com/london-software-craftsmanship/?chapter_analytics_code=UA-19049790-1&quot;&gt;London Software Craftmanship Community&lt;/a&gt;, y me la aceptaron para una de sus sesiones mensuales. Muchas gracias desde aquí a esta increíble comunidad por darme la oportunidad de estrenarme públicamente con una charla en condiciones (anteriormente había dado algún “lightning talk”).&lt;/p&gt;
-
-&lt;p&gt;La verdad es que hubo ciertos momentos de nerviosismo mientras daba forma a las diapositivas (&lt;a href=&quot;http://es.slideshare.net/Ralvila/my-five-mantras-to-write-better-software&quot;&gt;aquí las tenéis&lt;/a&gt;), hablar en público ya es complicado de por sí, y si añades hacerlo en un idioma que no es el tuyo, los motivos de preocupación se multiplican.&lt;/p&gt;
-
-&lt;p&gt;Pero en esta vida, como diría mi amado/odiado &lt;a href=&quot;https://twitter.com/jsonmez&quot;&gt;John Somnez&lt;/a&gt;, si quieres crecer hay que hacer cosas que te hagan sentir incómodo, así que seguí adelante sin miramientos. Trabajar en Pivotal fue una gran ventaja durante la preparación, mi empresa favorece en gran medida este tipo de iniciativas, y nos deja hacer ensayos delante de toda la oficina a la hora de comer, además de tener compañeros dispuestos a dar feedback. Muchas gracias también a Pivotal por el apoyo.&lt;/p&gt;
-
-&lt;p&gt;La presentación diría que fue razonablemente bien, pero aprendí varias lecciones importantes:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;No importa cuanto prepares todo con antelación, siempre habrá imprevistos de última hora. El dia de la presentación me enteré de que me iban a grabar (!!), cosa que me puso bastante nervioso. No es lo mismo dar una charla para un grupo de personas, que darla además para una cámara que dejará registrado lo que hagas para siempre. En cualquier caso, creo que capeé el tema razonablemente bien&lt;/li&gt;
-  &lt;li&gt;Si el evento tiene varias charlas, y te dan a elegir, intenta ser primero. Normalmente, los tiempos suelen ser bastante ajustados para terminar el evento, y como me tocó ser último (porque el otro speaker era bastante experimentado y saltó a elegir el primer turno), a falta de diez minutos para terminar mi presentación, y aunque iba bien de tiempo, los organizadores empezaron a hacerme gestos que me pusieron algo nervioso. Esto se puede ver en el vídeo que grabaron, en la última parte meto muchos más gambazos que en la primera&lt;/li&gt;
-  &lt;li&gt;Nunca confíes en la vista del presentador de Powerpoint / Keynote. No sabes de antemano como será la distribución de la sala, y en mi caso, la mesa me quedaba bastante lejos de donde yo debía estar de pie. Por suerte, las notas del presentador son algo a lo que no presto mucha atención, pero si pensáis confiar en ellas, mejor no lo hagáis&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Lo de ser grabado a posteriori ha sido incluso beneficioso, no me veo ni de lejos tan lamentable como yo pensaba, y ver mi propia presentación me ha servido para tomar notas de los puntos a mejorar. &lt;a href=&quot;https://skillsmatter.com/skillscasts/8851-lscc-meetup&quot;&gt;Aquí dejo el vídeo&lt;/a&gt;, por si os interesa ver a quien escribe :)&lt;/p&gt;
-
-&lt;h2 id=&quot;uncodebar&quot;&gt;Uncodebar&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://codebar.io/&quot;&gt;Codebar&lt;/a&gt; es un meetup londinense cuyo principal objetivo es ayudar a nuevos programadores a introducirse en el mundillo y aprender. Funciona mucho con el modelo de mentorado, y cualquier persona con experiencia puede unirse a ellos para colaborar. Muchos de los actuales mentores empezaron como mentorados hace un par de años, y tengo la impresión, sin ser un miembro activo del grupo, de que funcionan bastante bien.&lt;/p&gt;
-
-&lt;p&gt;Uncodebar es una Open Conference que organizan cada año (este creo que ha sido el segundo). Mi empresa ofrecía las oficinas para alojarla, así que me ofrecí como voluntario. Mis principales tareas tuvieron lugar el propio día de la conferencia, ya que anteriormente los organizadores se encargaron de prácticamente todo.&lt;/p&gt;
-
-&lt;p&gt;Si no conocéis el formato Open Conference, la idea es que no hay agenda cerrada, y los propios asistentes proponen charlas el mismo día de la conferencia. Este formato, que puede parecer un poco loco, tiene un par de ventajas importantes:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;La gente se presenta al evento con muchísimas ganas de disfrutar y pasar un buen día, ya que nadie madruga un sábado para ir a algo de mala gana, ¡y más cuando no hay agenda! Así que el ambiente es fantástico&lt;/li&gt;
-  &lt;li&gt;El formato de muchas sesiones es de discusión o workshop más que de presentación pura, por lo que siempre surgen conversaciones interesantes&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Personalmente, aproveché para repetir mi presentación, con bastante buena acogida, ya que el público era generalmente principiante / nivel medio. También aprendí que organizar eventos conlleva un trabajo bastante importante, pequeñas cosas que damos por sentadas cuando llegamos al lugar de la conferencia llevan horas de preparación detrás. El mismo día de la conferencia me encargué con otra persona de preparar el cuadrante de las charlas en una pared, y caray, nos llevó su buena hora para que quedara aceptable. Mi aplauso desde aquí a todas las personas que sacrifican horas de su vida para organizar este tipo de tinglados&lt;/p&gt;
-
-&lt;h2 id=&quot;global-day-of-code-retreat&quot;&gt;Global Day of Code Retreat&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;/2015/11/code-retreat-2015/&quot;&gt;Ya estuve aquí el año pasado&lt;/a&gt;, y me gustó tanto la experiencia que repetí. ¡Pero es que este año ha sido incluso mejor! El evento tuvo lugar en un par de oficinas de Londres, y yo me decidí por ir a la de &lt;a href=&quot;https://codurance.com/&quot;&gt;Codurance&lt;/a&gt;, la empresa de &lt;a href=&quot;https://twitter.com/sandromancuso&quot;&gt;Sandro Mancuso&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;El formato del evento es exactamente el mismo cada año, así que si queréis conocer más detalles, &lt;a href=&quot;/2015/11/code-retreat-2015/&quot;&gt;hacedlo en mi post antiguo&lt;/a&gt;. Si algo me gustó de este año es que, al tener mucha más experiencia en pair programming y TDD, estuve en posición de enseñar muchas cosas a varias personas que venían con la idea de introducirse en estas prácticas. Y creedme, es muy satisfactorio escuchar palabras de agradecimiento después de una sesión de pair programming.&lt;/p&gt;
-
-&lt;p&gt;Yo también aprendí varias cosas, es curioso como diferentes programadores afrontan el mismo problema desde distintos puntos de vista. También tuve oportunidad de dar mis primeros pasos con Ruby (lenguaje que, todo hay que decirlo, no me llama sobremanera), refrescar Groovy, Scala…en fin, una jornada muy disfrutable.&lt;/p&gt;
-
-&lt;p&gt;Por último añadir que había bastantes españoles en el evento, ¡lo cual demuestra que somos un país de personas muy inquietas!&lt;/p&gt;
-
-&lt;h2 id=&quot;the-practical-dev&quot;&gt;The Practical Dev&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://dev.to/&quot;&gt;The Practical Dev&lt;/a&gt; es una web colaborativa donde cualquiera puede escribir posts relacionados con el desarrollo software. Cuando empecé con mi blog (¡hace casi dos años ya!) tuve muchas dudas sobre si escribir en español o en inglés, pero me decanté por el español porque me resulta más cómodo y rápido, y porque me gustaría ayudar a gente con peores conocimientos de inglés, ya que buenos blogs en inglés hay miles.&lt;/p&gt;
-
-&lt;p&gt;Sin embargo siempre me picó pensar que determinados posts publicados eran de suficiente calidad para tener un buen alcance si los hubiera escrito en inglés. Llegué incluso a plantearme combinar los dos idiomas en el blog, pero eso le habría dado poca consistencia. Así que recientemente me vino a la cabeza la idea de traducir estos posts de los que me siento más orgulloso y publicarlos en medios como &lt;a href=&quot;https://medium.com/&quot;&gt;Medium&lt;/a&gt; o &lt;a href=&quot;https://dev.to/&quot;&gt;The Practical Dev&lt;/a&gt;, decidiéndome finalmente por este último al estar más centrado a una comunidad muy específica (los desarrolladores).&lt;/p&gt;
-
-&lt;p&gt;Mi primer post publicado es &lt;a href=&quot;https://dev.to/raulavila/my-experience-with-pair-programming&quot;&gt;My Experience with Pair Programming&lt;/a&gt;, y es una traducción &lt;a href=&quot;/2016/08/pair-programming/&quot;&gt;del que escribí aquí&lt;/a&gt;. Lo bueno de estas plataformas es que la audiencia la tienes ganada de antemano, y mi post tuvo 200 interacciones en total en Twitter, lo cual está bien para ser el primero, así que seguiré publicando en el futuro.&lt;/p&gt;
-
-&lt;p&gt;Las próximas semanas se presentan entretenidas, viajaré al &lt;a href=&quot;https://2016.codemotion.es/&quot;&gt;Codemotion&lt;/a&gt; en Madrid, a finales de Noviembre tendrá lugar la &lt;a href=&quot;https://sites.google.com/site/ljcopenconference/&quot;&gt;LJC Open Conference&lt;/a&gt;, y con eso me parece que daré por cerrado mi año, ¡porque vaya otoño me estoy pegando! :) Y repito, espero escribir algo más, aunque sean recapitulaciones de eventos.&lt;/p&gt;
 </content>
  </entry>
  
