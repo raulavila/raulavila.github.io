@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-04-06T22:26:36+01:00</updated>
+ <updated>2017-04-06T22:28:29+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -19,7 +19,7 @@
    <id>http://www.raulavila.com/2017/04/como-trabajamos-pivotal</id>
    <content type="html">&lt;p&gt;Hace algo más de un año comencé a trabajar en &lt;a href=&quot;https://pivotal.io/&quot;&gt;Pivotal&lt;/a&gt;, una empresa donde no he dejado de aprender desde el día uno. A finales de 2016, tras descubrir la web &lt;a href=&quot;http://www.wedotdd.com/&quot;&gt;We Do TDD&lt;/a&gt; (una gran iniciativa) y unirme al canal de Slack, se me ofreció la posibilidad de ser entrevistado para describir la forma en que trabajamos, cómo utilizamos TDD, etc. Acepté en paralelo al mismo tiempo que un compañero de Berlín (Oleksii, más conocido como &lt;a href=&quot;http://www.tddfellow.com/&quot;&gt;That TDD Fellow&lt;/a&gt;), por lo que decidimos hacer la entrevista conjunta, cosa que, por otra parte, encaja bastante bien con la cultura de nuestra empresa, donde el pair programming es una constante.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;(http://www.wedotdd.com/interviews/companies/22)&quot;&gt;La entrevista fue publicada recientemente&lt;/a&gt;, y me he permitido la licencia de publicar un post con la única intención de publicitarla :).&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.wedotdd.com/interviews/companies/22&quot;&gt;La entrevista fue publicada recientemente&lt;/a&gt;, y me he permitido la licencia de publicar un post con la única intención de publicitarla :).&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.wedotdd.com/interviews/companies/22&quot;&gt;Entrevista en We Do TDD (en inglés)&lt;/a&gt;.&lt;/p&gt;
 </content>
