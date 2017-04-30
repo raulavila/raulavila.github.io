@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-04-30T14:27:02+01:00</updated>
+ <updated>2017-04-30T14:38:26+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -478,7 +478,7 @@ Fast-forward
 
 &lt;p&gt;Repito, esta explicación es muy “a grosso”, y entrar en detalles requeriría un artículo en condiciones.&lt;/p&gt;
 
-&lt;p&gt;Finalizo aquí este post de la serie. Mi intención inicial era cubrir la forma en que Git trabaja con repositorios remotos, pero creo que desembocaría en un artículo demasiado largo y poco cohesionado. Así que lo haré en el siguiente, y ahora sí, último post de la serie.&lt;/p&gt;
+&lt;p&gt;Finalizo aquí este post de la serie. Mi intención inicial era cubrir la forma en que Git trabaja con repositorios remotos, pero creo que desembocaría en un artículo demasiado largo y poco cohesionado. Así que lo haré en el siguiente, y ahora sí, &lt;a href=&quot;/2017/04/como-funciona-git-4/&quot;&gt;último post de la serie&lt;/a&gt;.&lt;/p&gt;
 </content>
  </entry>
  
