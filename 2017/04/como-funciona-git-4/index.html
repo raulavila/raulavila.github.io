@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8">
+  <link href="http://gmpg.org/xfn/11" rel="profile">
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+  <meta name="description" content="Cómo funciona Git por dentro (cuarta parte)">
+  
+
+  <title>
+    
+      Cómo funciona Git (y 4)
+    
+  </title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/public/css/poole.css">
+  <link rel="stylesheet" href="/public/css/syntax.css">
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/public/apple-touch-icon-precomposed.png">
+  <link rel="shortcut icon" href="/public/favicon.ico">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/atom+xml" title="Raúl Ávila" href="/atom.xml">
+
+</head>
+
+
+  <body>
+
+    <div class="container content">
+      <header class="masthead">
+        <h1 class="masthead-title">
+          <a href="/" title="Home">Raúl Ávila</a>
+        </h1>
+
+            <small><a href="/sobre-mi">Sobre mí</a></small>
+            &nbsp;&nbsp;&nbsp;
+            <small><a href="/archivos">Archivos</a></small>
+      </header>
+
+      <main>
+        <article class="post">
+  <h1 class="post-title">Cómo funciona Git (y 4)</h1>
+  <time datetime="2017-04-30T00:00:00+01:00" class="post-date">30/04/2017</time>
+  <div class="post-tags">
+    
+    | <a href="/tag/git">git</a> |
+    
+  </div>
+  <div class="post-share">
+    <a class="twitter-share-button"
+    data-via="_Raul_Avila"
+    data-count="none"
+    href="https://twitter.com/share">Tweet</a>
+  </div>
+  <p>Tenía pendiente escribir la última parte de esta serie desde hace tiempo. Tras revisar <a href="/2017/03/como-funciona-git-3/">cómo Git gestiona merge y rebase</a>, queda por ver la forma en que Git gestiona la capa de distribución, es decir, el trabajo y sincronización con repositorios remotos.</p>
+
+<p>Como ya sabemos, Git es un sistema de control distribuido de versiones, donde cada persona no tiene más que una copia completa del repositorio. Es decir, cada usuario que clone un repositorio Git tendrá una copia de la carpeta <code class="highlighter-rouge">.git</code>, carpeta que contiene montones de cosas, según vimos en anteriores posts de la serie.</p>
+
+<p>Normalmente el repositorio que sirve de referencia para todos los usuarios estará alojado en algún sistema como <a href="https://github.com/">GitHub</a>, <a href="https://bitbucket.org/">BitBucket</a> o <a href="https://about.gitlab.com/">GitLab</a>, de forma que cuando queremos empezar a trabajar con un proyecto haremos un <code class="highlighter-rouge">git clone</code> de ese repositorio “remoto”. Será con esta versión “de referencia” con la que nosotros sincronizaremos nuestros cambios.</p>
+
+<p>Internamente, Git almacena cierta información relacionada con este repositorio remoto en el fichero <code class="highlighter-rouge">.git/config</code>. Veamos, por ejemplo, lo que este fichero contiene para el caso del repositorio donde alojo el código de este blog:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[remote "origin"]
+	url = https://github.com/raulavila/blog-source-code.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+	remote = origin
+	merge = refs/heads/master</code></pre></figure>
+
+<p>Las dos secciones importantes son las últimas, el <code class="highlighter-rouge">core</code> existirá incluso tras crear un repositorio Git local sin llegar a sincronizarlo con un remoto. Como véis, define ciertas características de donde está alojado <code class="highlighter-rouge">origin</code>, que es el nombre por defecto que Git asocia al repositorio remoto principal (ahora volvemos a esto). También vemos información que mapea nuestra rama <code class="highlighter-rouge">master</code> con el repositorio remoto <code class="highlighter-rouge">origin</code>.</p>
+
+<p>Git permite asociar varios repositorios remotos a un repositorio local, <a href="https://help.github.com/articles/adding-a-remote/">tal y como está descrito aquí</a>, aunque no es algo que recomiende especialmente. Cada uno de los remotos deberá tener un alias designado, siendo <code class="highlighter-rouge">origin</code> el primer alias por defecto que utiliza Git.</p>
+
+<p>Sigamos. Recordemos que los objetos de Git en general, y los commits en particular, son inmutables. Y lo son tanto en local como en remoto, por tanto (y me estoy repitiendo), clonar un repositorio se trae a local una copia de todos estos commits. Lo que no es inmutable en absoluto es una rama (un puntero a un commmit, a fin de cuentas), y aquí es donde entra en juego la capa de distribución de Git.</p>
+
+<p>En efecto, lo que ocurre en nuestro repositorio local es que Git crea dos copias de la rama en cuestion, una versión local y una remota. Supongamos que estamos trabajando con <code class="highlighter-rouge">master</code>, tras hacer Git clone de un repositorio con una historia en dicha rama, lo que tenemos es:</p>
+
+<p><img src="/public/pictures/git-internals/git-remotes-1.jpg" alt="Git Remotes" /></p>
+
+<p>Es decir, existe una rama llamada <code class="highlighter-rouge">origin/master</code>, apuntando al último commit del repositorio remoto, que en este caso es el mismo que tenemos en local. La información de esta rama <code class="highlighter-rouge">origin/master</code> está contenida en el fichero <code class="highlighter-rouge">.git/refs/remotes/origin/master</code>:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">$ cat .git/refs/remotes/origin/master
+aa90e471ababde242281c833fffea255f69dd28a
+
+$ git show-ref master
+aa90e471ababde242281c833fffea255f69dd28a refs/heads/master
+aa90e471ababde242281c833fffea255f69dd28a refs/remotes/origin/master
+
+$ cat .git/HEAD
+ref: refs/heads/master
+
+$ cat .git/refs/heads/master
+aa90e471ababde242281c833fffea255f69dd28a</code></pre></figure>
+
+<p>El comando <code class="highlighter-rouge">show-ref &lt;rama&gt;</code> nos muestra información del commit al que apunta la rama en cuestión tanto en local como en remoto. El resto de comandos del ejemplo creo que deberían estar claros a estas alturas si habéis seguido esta serie.</p>
+
+<h2 id="sincronizando-con-el-repositorio-remoto">Sincronizando con el repositorio remoto</h2>
+
+<p>Los “problemillas” en Git suelen surgir de vez en cuando a la hora de sincronizar nuestro repositorio local con el remoto. Durante el resto del post vamos a revisar diferentes escenarios.</p>
+
+<h3 id="escenario-1">Escenario 1</h3>
+
+<p>Ocurre cuando somos los únicos trabajando en <code class="highlighter-rouge">master</code>:</p>
+
+<p><img src="/public/pictures/git-internals/git-remotes-2.jpg" alt="Git remotes" /></p>
+
+<p>Vemos en la imagen como hemos añadido un nuevo commit (2), que ha hecho moverse los punteros <code class="highlighter-rouge">HEAD</code> y <code class="highlighter-rouge">master</code>, pero no el puntero <code class="highlighter-rouge">origin/master</code>. Esto es así porque en el repositorio remoto, la rama <code class="highlighter-rouge">master</code> sigue exactamente igual. En este escenario, sincronizar ambos repositorios es tan sencillo como hacer <code class="highlighter-rouge">git push</code>, y nuestro repositorio quedará así:</p>
+
+<p><img src="/public/pictures/git-internals/git-remotes-3.jpg" alt="Git remotes" /></p>
+
+<p>Si cualquier otro usuario trabajando con este repositorio, pero sin haber hecho ningún commit adicional en <code class="highlighter-rouge">master</code>, hiciera <code class="highlighter-rouge">git pull</code>, Git resolvería la situación fácilmente, desembocando en el mismo diagrama. Los problemillas empiezan a surgir cuando ese segundo usuario sí ha hecho algún que otro commit.</p>
+
+<h3 id="escenario-2">Escenario 2</h3>
+
+<p><img src="/public/pictures/git-internals/git-remotes-4.jpg" alt="Git remotes" /></p>
+
+<p>Espero que el diagrama esté más o menos claro. En este escenario, un segundo usuario ha hecho un commit (3) en su rama <code class="highlighter-rouge">master</code> local, y la rama <code class="highlighter-rouge">master</code> remota ya contiene el commit (2) que el usuario anterior incluyó en su push. Pero, para ese segundo usuario (el que tiene el commit (3)), su puntero <code class="highlighter-rouge">origin/master</code> no ha cambiado, ya que no hemos sincronizado, de forma que si intentamos hacer <code class="highlighter-rouge">git push</code>, Git detectará que la rama <code class="highlighter-rouge">master</code> remota no está sincronizada con nuestra rama <code class="highlighter-rouge">origin/master</code> local, y nos dará un conflicto / error:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">$ git push
+To github.com:raulavila/dummy.git
+ ! [rejected]        master -&gt; master (fetch first)
+error: failed to push some refs to 'git@github.com:raulavila/dummy.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.</code></pre></figure>
+
+<p>Ante esta situación podemos optar por la solución bestia, que es invocar el comando <code class="highlighter-rouge">git push -f</code> (force push). Con esto estaremos indicando a Git que nuestra rama <code class="highlighter-rouge">master</code> es la buena, y que sobrescriba toda la historia de <code class="highlighter-rouge">master</code> en <code class="highlighter-rouge">origin</code> para que coincida con la copia en local. Como os podéis imaginar, esto es muy, muy peligroso. Personalmente, la única situación en la que he encontrado una buena justificación para hacerlo es cuando yo soy la única persona trabajando en una rama diferente de <code class="highlighter-rouge">master</code>, pero en la que llevo a cabo rebases de <code class="highlighter-rouge">master</code> con frecuencia. Al hacer rebase reescribo la historia de mi rama, y si hago push a la remota, habrá divergencias todo el tiempo. Pero al ser yo la única persona que trabaja en esa rama, sé con seguridad que no hay problema en forzar un push.</p>
+
+<p>Una estrategia más segura, es hacerlo en dos pasos:</p>
+
+<p>1 - Invocar el comando <code class="highlighter-rouge">git-fetch</code>, que sincroniza los contenidos de las ramas <code class="highlighter-rouge">origin/*</code> en local, sin llevárselos a las versiones locales. Lo sé, es confuso, pero espero que lo entendáis mejor con el diagrama:</p>
+
+<p><img src="/public/pictures/git-internals/git-remotes-5.jpg" alt="Git remotes" /></p>
+
+<p>Fijaos en que <code class="highlighter-rouge">origin/master</code>, ha pasado del commit (1) al (2), es decir, nuestro Git local ya está al tanto de los nuevos cambios en remoto. Viendo la salida de <code class="highlighter-rouge">show-ref</code>, podemos ver cómo los commits de <code class="highlighter-rouge">master</code> y <code class="highlighter-rouge">origin/master</code> son diferentes:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">$ git show-ref master
+9232aacf90cd50182e7608b5b051250c97ab109d refs/heads/master
+0e0a1c2800d295e25b7766a8b66fc681be3a2f07 refs/remotes/origin/master</code></pre></figure>
+
+<p>2 - Hacer un merge de las ramas <code class="highlighter-rouge">master</code> y <code class="highlighter-rouge">origin/master</code> (<code class="highlighter-rouge">git merge origin/master</code>):</p>
+
+<p><img src="/public/pictures/git-internals/git-remotes-6.jpg" alt="Git remotes" /></p>
+
+<p>Vemos que ahora hemos resuelto el problema, ya que el “merge commit” tiene como padre el último commit en la rama remota <code class="highlighter-rouge">master</code>. Por lo que si nadie ha añadido nuevos commmits en dicha rama, ahora sí, podremos hacer <code class="highlighter-rouge">git push</code> sin problemas.</p>
+
+<p>En realidad, estas dos acciones pueden llevarse a cabo de una, con el comando <code class="highlighter-rouge">git pull</code>, que seguro todos conocéis. En su versión por defecto, este comando no hace más que un fetch + merge, de la forma en que hemos visto.</p>
+
+<p>Si recordáis <a href="/2017/03/como-funciona-git-3/">el anterior artículo</a>, podemos utilizar rebase como alternativa a merge para fusionar ramas. Esto tiene ventajas y desventajas, no olvidéis que vamos a reescribir la historia, pero en el caso de que vayamos añadiendo sucesivos commits en nuestra versión local, antes de hacer push me parece una buena práctica hacer un rebase de la <code class="highlighter-rouge">master</code> remota en lugar del merge que hemos visto. Así conseguiremos una historia más limpia, sin merge commits innecesarios y sin ramas cruzándose.</p>
+
+<p>Para conseguir esto, aunque es posible hacer fetch + rebase, la forma rápida es mediante el comando <code class="highlighter-rouge">git pull --rebase</code>. En nuestro ejemplo, si hiciéramos esto en lugar de pull sin más, la foto final quedaría así:</p>
+
+<p><img src="/public/pictures/git-internals/git-remotes-7.jpg" alt="Git remotes" /></p>
+
+<p>Siendo ahora el commit (2) exactamente el mismo que existe en el <code class="highlighter-rouge">master</code> remoto, y (3) una reescritura llevada a cabo durante la operación de rebase. Para terminar, sería necesario sincronizarlo todo con <code class="highlighter-rouge">git push</code>:</p>
+
+<p><img src="/public/pictures/git-internals/git-remotes-8.jpg" alt="Git remotes" /></p>
+
+<h3 id="escenario-3-lo-mismo-pero-con-conflictos">Escenario 3: lo mismo, pero con conflictos</h3>
+
+<p>Si surgen conflictos durante las operaciones de merge o rebase, no hay ninguna diferencia entre el proceso que se lleva a cabo para solucionarlos durante una sincronización con el repositorio remoto respecto a lo que ocurre durante una fusión entre ramas. Por tanto, os remito de nuevo a la breve descripción al respecto que aparecía <a href="/2017/03/como-funciona-git-3/">en el anterior post de la serie</a>.</p>
+
+<h2 id="conclusiones">Conclusiones</h2>
+
+<p>Espero que esta seria os haya servido de ayuda para perder el miedo a Git. Personalmente, conocer todos estos detalles sobre el funcionamiento de la herramienta ha conseguido que cuando surge un conflicto no pierda los nervios de forma inmediata, como sí me ocurría antaño :).</p>
+
+</article>
+
+<aside class="related">
+  <h2>Otros posts en este blog</h2>
+  <ul class="related-posts">
+    
+      <li>
+        <h3>
+          <a href="/2017/04/como-trabajamos-pivotal/">
+            Cómo trabajamos en Pivotal
+            <small><time datetime="2017-04-06T00:00:00+01:00">06/04/2017</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2017/04/comunicacion-proyectos-software/">
+            La comunicación en proyectos Software
+            <small><time datetime="2017-04-01T00:00:00+01:00">01/04/2017</time></small>
+          </a>
+        </h3>
+      </li>
+    
+      <li>
+        <h3>
+          <a href="/2017/03/como-funciona-git-3/">
+            Cómo funciona Git (parte 3)
+            <small><time datetime="2017-03-11T00:00:00+00:00">11/03/2017</time></small>
+          </a>
+        </h3>
+      </li>
+    
+  </ul>
+</aside>
+
+        
+<div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'raulavila'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+      </main>
+
+      <footer class="footer">
+        <small>
+          &copy; <time datetime="2017">2017</time> Raúl Ávila. Blog creado con <a href="http://jekyllrb.com">Jekyll</a>.
+          Plantilla basada en <a href="http://getpoole.com">Poole</a>.
+          <a href="/atom.xml">Atom Feed</a></a>.
+          <br>
+        </small>
+      </footer>
+    </div>
+
+  <script>
+window.twttr=(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],t=window.twttr||{};if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);t._e=[];t.ready=function(f){t._e.push(f);};return t;}(document,"script","twitter-wjs"));
+</script>
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58942569-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+  </body>
+</html>

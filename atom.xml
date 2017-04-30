@@ -4,13 +4,141 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-04-06T22:28:29+01:00</updated>
+ <updated>2017-04-30T14:20:44+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Cómo funciona Git (y 4)</title>
+   <link href="http://www.raulavila.com/2017/04/como-funciona-git-4/"/>
+   <updated>2017-04-30T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2017/04/como-funciona-git-4</id>
+   <content type="html">&lt;p&gt;Tenía pendiente escribir la última parte de esta serie desde hace tiempo. Tras revisar &lt;a href=&quot;/2017/03/como-funciona-git-3/&quot;&gt;cómo Git gestiona merge y rebase&lt;/a&gt;, queda por ver la forma en que Git gestiona la capa de distribución, es decir, el trabajo y sincronización con repositorios remotos.&lt;/p&gt;
+
+&lt;p&gt;Como ya sabemos, Git es un sistema de control distribuido de versiones, donde cada persona no tiene más que una copia completa del repositorio. Es decir, cada usuario que clone un repositorio Git tendrá una copia de la carpeta &lt;code class=&quot;highlighter-rouge&quot;&gt;.git&lt;/code&gt;, carpeta que contiene montones de cosas, según vimos en anteriores posts de la serie.&lt;/p&gt;
+
+&lt;p&gt;Normalmente el repositorio que sirve de referencia para todos los usuarios estará alojado en algún sistema como &lt;a href=&quot;https://github.com/&quot;&gt;GitHub&lt;/a&gt;, &lt;a href=&quot;https://bitbucket.org/&quot;&gt;BitBucket&lt;/a&gt; o &lt;a href=&quot;https://about.gitlab.com/&quot;&gt;GitLab&lt;/a&gt;, de forma que cuando queremos empezar a trabajar con un proyecto haremos un &lt;code class=&quot;highlighter-rouge&quot;&gt;git clone&lt;/code&gt; de ese repositorio “remoto”. Será con esta versión “de referencia” con la que nosotros sincronizaremos nuestros cambios.&lt;/p&gt;
+
+&lt;p&gt;Internamente, Git almacena cierta información relacionada con este repositorio remoto en el fichero &lt;code class=&quot;highlighter-rouge&quot;&gt;.git/config&lt;/code&gt;. Veamos, por ejemplo, lo que este fichero contiene para el caso del repositorio donde alojo el código de este blog:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+	ignorecase = true
+	precomposeunicode = true
+[remote &quot;origin&quot;]
+	url = https://github.com/raulavila/blog-source-code.git
+	fetch = +refs/heads/*:refs/remotes/origin/*
+[branch &quot;master&quot;]
+	remote = origin
+	merge = refs/heads/master&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Las dos secciones importantes son las últimas, el &lt;code class=&quot;highlighter-rouge&quot;&gt;core&lt;/code&gt; existirá incluso tras crear un repositorio Git local sin llegar a sincronizarlo con un remoto. Como véis, define ciertas características de donde está alojado &lt;code class=&quot;highlighter-rouge&quot;&gt;origin&lt;/code&gt;, que es el nombre por defecto que Git asocia al repositorio remoto principal (ahora volvemos a esto). También vemos información que mapea nuestra rama &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; con el repositorio remoto &lt;code class=&quot;highlighter-rouge&quot;&gt;origin&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Git permite asociar varios repositorios remotos a un repositorio local, &lt;a href=&quot;https://help.github.com/articles/adding-a-remote/&quot;&gt;tal y como está descrito aquí&lt;/a&gt;, aunque no es algo que recomiende especialmente. Cada uno de los remotos deberá tener un alias designado, siendo &lt;code class=&quot;highlighter-rouge&quot;&gt;origin&lt;/code&gt; el primer alias por defecto que utiliza Git.&lt;/p&gt;
+
+&lt;p&gt;Sigamos. Recordemos que los objetos de Git en general, y los commits en particular, son inmutables. Y lo son tanto en local como en remoto, por tanto (y me estoy repitiendo), clonar un repositorio se trae a local una copia de todos estos commits. Lo que no es inmutable en absoluto es una rama (un puntero a un commmit, a fin de cuentas), y aquí es donde entra en juego la capa de distribución de Git.&lt;/p&gt;
+
+&lt;p&gt;En efecto, lo que ocurre en nuestro repositorio local es que Git crea dos copias de la rama en cuestion, una versión local y una remota. Supongamos que estamos trabajando con &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;, tras hacer Git clone de un repositorio con una historia en dicha rama, lo que tenemos es:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-remotes-1.jpg&quot; alt=&quot;Git Remotes&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Es decir, existe una rama llamada &lt;code class=&quot;highlighter-rouge&quot;&gt;origin/master&lt;/code&gt;, apuntando al último commit del repositorio remoto, que en este caso es el mismo que tenemos en local. La información de esta rama &lt;code class=&quot;highlighter-rouge&quot;&gt;origin/master&lt;/code&gt; está contenida en el fichero &lt;code class=&quot;highlighter-rouge&quot;&gt;.git/refs/remotes/origin/master&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ cat .git/refs/remotes/origin/master
+aa90e471ababde242281c833fffea255f69dd28a
+
+$ git show-ref master
+aa90e471ababde242281c833fffea255f69dd28a refs/heads/master
+aa90e471ababde242281c833fffea255f69dd28a refs/remotes/origin/master
+
+$ cat .git/HEAD
+ref: refs/heads/master
+
+$ cat .git/refs/heads/master
+aa90e471ababde242281c833fffea255f69dd28a&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;El comando &lt;code class=&quot;highlighter-rouge&quot;&gt;show-ref &amp;lt;rama&amp;gt;&lt;/code&gt; nos muestra información del commit al que apunta la rama en cuestión tanto en local como en remoto. El resto de comandos del ejemplo creo que deberían estar claros a estas alturas si habéis seguido esta serie.&lt;/p&gt;
+
+&lt;h2 id=&quot;sincronizando-con-el-repositorio-remoto&quot;&gt;Sincronizando con el repositorio remoto&lt;/h2&gt;
+
+&lt;p&gt;Los “problemillas” en Git suelen surgir de vez en cuando a la hora de sincronizar nuestro repositorio local con el remoto. Durante el resto del post vamos a revisar diferentes escenarios.&lt;/p&gt;
+
+&lt;h3 id=&quot;escenario-1&quot;&gt;Escenario 1&lt;/h3&gt;
+
+&lt;p&gt;Ocurre cuando somos los únicos trabajando en &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-remotes-2.jpg&quot; alt=&quot;Git remotes&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Vemos en la imagen como hemos añadido un nuevo commit (2), que ha hecho moverse los punteros &lt;code class=&quot;highlighter-rouge&quot;&gt;HEAD&lt;/code&gt; y &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;, pero no el puntero &lt;code class=&quot;highlighter-rouge&quot;&gt;origin/master&lt;/code&gt;. Esto es así porque en el repositorio remoto, la rama &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; sigue exactamente igual. En este escenario, sincronizar ambos repositorios es tan sencillo como hacer &lt;code class=&quot;highlighter-rouge&quot;&gt;git push&lt;/code&gt;, y nuestro repositorio quedará así:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-remotes-3.jpg&quot; alt=&quot;Git remotes&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Si cualquier otro usuario trabajando con este repositorio, pero sin haber hecho ningún commit adicional en &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;, hiciera &lt;code class=&quot;highlighter-rouge&quot;&gt;git pull&lt;/code&gt;, Git resolvería la situación fácilmente, desembocando en el mismo diagrama. Los problemillas empiezan a surgir cuando ese segundo usuario sí ha hecho algún que otro commit.&lt;/p&gt;
+
+&lt;h3 id=&quot;escenario-2&quot;&gt;Escenario 2&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-remotes-4.jpg&quot; alt=&quot;Git remotes&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Espero que el diagrama esté más o menos claro. En este escenario, un segundo usuario ha hecho un commit (3) en su rama &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; local, y la rama &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; remota ya contiene el commit (2) que el usuario anterior incluyó en su push. Pero, para ese segundo usuario (el que tiene el commit (3)), su puntero &lt;code class=&quot;highlighter-rouge&quot;&gt;origin/master&lt;/code&gt; no ha cambiado, ya que no hemos sincronizado, de forma que si intentamos hacer &lt;code class=&quot;highlighter-rouge&quot;&gt;git push&lt;/code&gt;, Git detectará que la rama &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; remota no está sincronizada con nuestra rama &lt;code class=&quot;highlighter-rouge&quot;&gt;origin/master&lt;/code&gt; local, y nos dará un conflicto / error:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git push
+To github.com:raulavila/dummy.git
+ ! [rejected]        master -&amp;gt; master (fetch first)
+error: failed to push some refs to 'git@github.com:raulavila/dummy.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Ante esta situación podemos optar por la solución bestia, que es invocar el comando &lt;code class=&quot;highlighter-rouge&quot;&gt;git push -f&lt;/code&gt; (force push). Con esto estaremos indicando a Git que nuestra rama &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; es la buena, y que sobrescriba toda la historia de &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; en &lt;code class=&quot;highlighter-rouge&quot;&gt;origin&lt;/code&gt; para que coincida con la copia en local. Como os podéis imaginar, esto es muy, muy peligroso. Personalmente, la única situación en la que he encontrado una buena justificación para hacerlo es cuando yo soy la única persona trabajando en una rama diferente de &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;, pero en la que llevo a cabo rebases de &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; con frecuencia. Al hacer rebase reescribo la historia de mi rama, y si hago push a la remota, habrá divergencias todo el tiempo. Pero al ser yo la única persona que trabaja en esa rama, sé con seguridad que no hay problema en forzar un push.&lt;/p&gt;
+
+&lt;p&gt;Una estrategia más segura, es hacerlo en dos pasos:&lt;/p&gt;
+
+&lt;p&gt;1 - Invocar el comando &lt;code class=&quot;highlighter-rouge&quot;&gt;git-fetch&lt;/code&gt;, que sincroniza los contenidos de las ramas &lt;code class=&quot;highlighter-rouge&quot;&gt;origin/*&lt;/code&gt; en local, sin llevárselos a las versiones locales. Lo sé, es confuso, pero espero que lo entendáis mejor con el diagrama:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-remotes-5.jpg&quot; alt=&quot;Git remotes&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Fijaos en que &lt;code class=&quot;highlighter-rouge&quot;&gt;origin/master&lt;/code&gt;, ha pasado del commit (1) al (2), es decir, nuestro Git local ya está al tanto de los nuevos cambios en remoto. Viendo la salida de &lt;code class=&quot;highlighter-rouge&quot;&gt;show-ref&lt;/code&gt;, podemos ver cómo los commits de &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; y &lt;code class=&quot;highlighter-rouge&quot;&gt;origin/master&lt;/code&gt; son diferentes:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git show-ref master
+9232aacf90cd50182e7608b5b051250c97ab109d refs/heads/master
+0e0a1c2800d295e25b7766a8b66fc681be3a2f07 refs/remotes/origin/master&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;2 - Hacer un merge de las ramas &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; y &lt;code class=&quot;highlighter-rouge&quot;&gt;origin/master&lt;/code&gt; (&lt;code class=&quot;highlighter-rouge&quot;&gt;git merge origin/master&lt;/code&gt;):&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-remotes-6.jpg&quot; alt=&quot;Git remotes&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Vemos que ahora hemos resuelto el problema, ya que el “merge commit” tiene como padre el último commit en la rama remota &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;. Por lo que si nadie ha añadido nuevos commmits en dicha rama, ahora sí, podremos hacer &lt;code class=&quot;highlighter-rouge&quot;&gt;git push&lt;/code&gt; sin problemas.&lt;/p&gt;
+
+&lt;p&gt;En realidad, estas dos acciones pueden llevarse a cabo de una, con el comando &lt;code class=&quot;highlighter-rouge&quot;&gt;git pull&lt;/code&gt;, que seguro todos conocéis. En su versión por defecto, este comando no hace más que un fetch + merge, de la forma en que hemos visto.&lt;/p&gt;
+
+&lt;p&gt;Si recordáis &lt;a href=&quot;/2017/03/como-funciona-git-3/&quot;&gt;el anterior artículo&lt;/a&gt;, podemos utilizar rebase como alternativa a merge para fusionar ramas. Esto tiene ventajas y desventajas, no olvidéis que vamos a reescribir la historia, pero en el caso de que vayamos añadiendo sucesivos commits en nuestra versión local, antes de hacer push me parece una buena práctica hacer un rebase de la &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; remota en lugar del merge que hemos visto. Así conseguiremos una historia más limpia, sin merge commits innecesarios y sin ramas cruzándose.&lt;/p&gt;
+
+&lt;p&gt;Para conseguir esto, aunque es posible hacer fetch + rebase, la forma rápida es mediante el comando &lt;code class=&quot;highlighter-rouge&quot;&gt;git pull --rebase&lt;/code&gt;. En nuestro ejemplo, si hiciéramos esto en lugar de pull sin más, la foto final quedaría así:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-remotes-7.jpg&quot; alt=&quot;Git remotes&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Siendo ahora el commit (2) exactamente el mismo que existe en el &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; remoto, y (3) una reescritura llevada a cabo durante la operación de rebase. Para terminar, sería necesario sincronizarlo todo con &lt;code class=&quot;highlighter-rouge&quot;&gt;git push&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-remotes-8.jpg&quot; alt=&quot;Git remotes&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;escenario-3-lo-mismo-pero-con-conflictos&quot;&gt;Escenario 3: lo mismo, pero con conflictos&lt;/h3&gt;
+
+&lt;p&gt;Si surgen conflictos durante las operaciones de merge o rebase, no hay ninguna diferencia entre el proceso que se lleva a cabo para solucionarlos durante una sincronización con el repositorio remoto respecto a lo que ocurre durante una fusión entre ramas. Por tanto, os remito de nuevo a la breve descripción al respecto que aparecía &lt;a href=&quot;/2017/03/como-funciona-git-3/&quot;&gt;en el anterior post de la serie&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusiones&quot;&gt;Conclusiones&lt;/h2&gt;
+
+&lt;p&gt;Espero que esta seria os haya servido de ayuda para perder el miedo a Git. Personalmente, conocer todos estos detalles sobre el funcionamiento de la herramienta ha conseguido que cuando surge un conflicto no pierda los nervios de forma inmediata, como sí me ocurría antaño :).&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Cómo trabajamos en Pivotal</title>
@@ -1006,84 +1134,6 @@ First Commit&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Creo que lo dejaré aquí, sé que será casi imposible conseguir todo lo que pretendo, pero siempre hay que apuntar alto, ¿verdad? A finales de año repasaré cómo ha ido todo, y veré si tuvo sentido escribir esto.&lt;/p&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>Aprender inglés</title>
-   <link href="http://www.raulavila.com/2016/12/aprender-ingles/"/>
-   <updated>2016-12-22T00:00:00+00:00</updated>
-   <id>http://www.raulavila.com/2016/12/aprender-ingles</id>
-   <content type="html">&lt;p&gt;Un lector me pidió hace unas semanas que escribiera un post sobre cómo aprendí inglés. Y aunque este blog es básicamente tecnológico, el conocimiento de este idioma es fundamental para desarrollar una carrera en nuestro mundillo, así que no creo que sea un tema demasiado off-topic para hablar de él.&lt;/p&gt;
-
-&lt;h2 id=&quot;mis-precedentes&quot;&gt;Mis precedentes&lt;/h2&gt;
-
-&lt;p&gt;Yo siempre he sido muy negado con los idiomas. Diría que es algo que compartimos el 95% (o más) de los españoles. Con la perspectiva del tiempo, está claro que todo viene del nefasto sistema educativo español, donde la asignatura de inglés consiste básicamente en estudiar la gramática y los verbos irregulares año tras año, sin hacer ningún tipo de hincapié en la conversación o el listening. Añadamos a esto que en España se doblan películas y series, y aunque en la última década esto ha mejorado gracias al DVD y TDT, la mentalidad sigue siendo parecida, y por norma general nos resulta más cómodo el doblaje que los subtítulos.&lt;/p&gt;
-
-&lt;!--break--&gt;
-
-&lt;p&gt;Hace algunos años comencé a darme cuenta de que mi carrera profesional estaba algo estancada, y uno de los principales motivos era mi escasa soltura con el inglés. Así que me puse manos a la obra, de una vez por todas, para conseguir un nivel razonable. Este nivel me sirvió para &lt;a href=&quot;/2015/04/trabajo-londres/&quot;&gt;dar el salto a Londres&lt;/a&gt;, donde voy para tres años, así que podría decir que conseguí lo que quería.&lt;/p&gt;
-
-&lt;h2 id=&quot;disciplina&quot;&gt;Disciplina&lt;/h2&gt;
-
-&lt;p&gt;Aprender un segundo idioma es extremadamente complicado, y lo más importante para conseguirlo es &lt;strong&gt;la disciplina&lt;/strong&gt;. Asignad un tiempo diario al estudio del inglés, y no os salgáis de esa rutina por nada del mundo. Quizás se pueda tolerar no hacerlo un día por semana, pero no más. Ese tiempo diario no tiene qué ser excesivo, aunque depende de vuestro objetivo de aprendizaje, pero debería estar entre un mínimo de 30 minutos y un máximo de 90. Más tiempo podría resultar contraproducente, y generar un efecto hastío demasiado pronto. Esto es así porque los resultados se consiguen con mucha lentitud, y sólo son perceptibles cuando os comparáis con vosotros mismos un año atrás.&lt;/p&gt;
-
-&lt;h2 id=&quot;clases-one-to-one&quot;&gt;Clases one to one&lt;/h2&gt;
-
-&lt;p&gt;Se puede aprender inglés sin gastar demasiado dinero, pero una mínima inversión es necesaria. De nuevo, depende de vuestros objetivos, pero si queréis alcanzar un nivel conversacional es imposible hacerlo sin un desemboloso razonable. Mi principal consejo aquí es que os olvidéis de las academias tradicionales, con clases por grupos donde solo una persona de diez tiene inglés como primera lengua. Buscad profesores que os den clases one to one. Si vivís en una ciudad como Madrid o Barcelona debería ser fácil &lt;a href=&quot;https://www.tusclasesparticulares.com/&quot;&gt;encontrar esta opción de forma presencial&lt;/a&gt;, pero en estos días que vivimos mi opción favorita son las clases por Skype, ya que no suponen desplazamiento para ninguna de las partes. Los precios por hora pueden variar entre 18 y 30 euros (al menos esto fue lo que pagué en su día), pero no creo que haya hecho una mejor inversión jamás. Sin ánimo de dar publicidad a nadie, yo fui alumno de dos academias online: &lt;a href=&quot;http://www.ebpai.com/&quot;&gt;EBPAI&lt;/a&gt;, y una que acabo de descubrir que ya no existe :). Mi profesora en EBPAI fue &lt;a href=&quot;https://twitter.com/monicats&quot;&gt;Mónica Stocker&lt;/a&gt;, creadora de &lt;a href=&quot;http://elblogdelingles.blogspot.com.es/&quot;&gt;El Blog Para Aprender Inglés&lt;/a&gt;, y nunca le estaré lo suficiente agradecido por la ayuda prestada, tanto con el inglés como por su particular coaching, que me ayudó a creer en mí mismo como poca gente había hecho en el pasado. Su blog es altamente recomendable, lleno de estupendos consejos para persistir en esta empresa tan complicada.&lt;/p&gt;
-
-&lt;p&gt;El rendimiento que se puede obtener de una buena profesora durante una hora de clase es algo que nada podrá igualar, ni clases en grupo, ni horas de estudio, ni ver series o películas en VO…es el único punto que yo consideraría innegociable. Dependendiendo de vuestro presupuesto haría una o dos horas por semana.&lt;/p&gt;
-
-&lt;h2 id=&quot;intercambios-de-idioma&quot;&gt;Intercambios de idioma&lt;/h2&gt;
-
-&lt;p&gt;Para poder hablar con nativos eliminando el gasto de las clases particulares, tenemos la opción de hacer intercambios de idiomas. Se trata de conversaciones por Skype con personas de otros países (idealmente nativos ingleses o americanos), interesadas en aprender español, de forma que se reparte el tiempo de conversación entre uno y otro idioma.&lt;/p&gt;
-
-&lt;p&gt;Existen varias webs que facilitan contactar con estas personas, yo utilicé fundamentalmente &lt;a href=&quot;https://www.mylanguageexchange.com/&quot;&gt;My Language Exchange&lt;/a&gt;, que tiene el pequeño problema de ser de pago. Otras alternativas pueder ser &lt;a href=&quot;http://www.speaking24.com/&quot;&gt;Speaking24&lt;/a&gt; o &lt;a href=&quot;https://sharedlingo.com/&quot;&gt;SharedLingo&lt;/a&gt;, aunque hay muchas más (en más de tres años desde que dejé de tener estos intercambios seguramente hayan salido muchas nuevas).&lt;/p&gt;
-
-&lt;p&gt;Mi consejo aquí es que no cejéis en el empeño a la hora de encontrar un buen compañero. La gente en general es demasiado volátil, y cuesta dar con alguien que tenga el mismo interés que nosotros. Yo tuve suerte (en realidad la busqué, mandando cientos de solicitudes), y durante año y medio aproximadamente quedaba cada semana con una chica americana para hablar durante hora y media. Lo que resultó complicado a la larga fue que su nivel de español era peor que mi nivel de inglés, y ella sentía que el beneficio obtenido no estaba equilibrado, así que dejamos de hablar, aunque hemos mantenido el contacto por correo.&lt;/p&gt;
-
-&lt;h2 id=&quot;la-gramática&quot;&gt;La gramática&lt;/h2&gt;
-
-&lt;p&gt;Si sentís que vuestra gramática no está demasiado pulida, comprad (y estudiad, claro) el libro &lt;a href=&quot;https://www.amazon.es/English-Grammar-Answers-Interactive-eBook/dp/1107539331/ref=sr_1_1&quot;&gt;English Grammar in Use&lt;/a&gt;. Con eso debería ser suficiente.&lt;/p&gt;
-
-&lt;h2 id=&quot;listening&quot;&gt;Listening&lt;/h2&gt;
-
-&lt;p&gt;Llegamos al tema más complicado, el listening. Tras casi tres años viviendo en UK aún tengo problemas con esto, existen muchos y variados acentos, y en muchas ocasiones no es nada sencillo seguir con facilidad lo que otra persona está diciendo.&lt;/p&gt;
-
-&lt;p&gt;La mejor forma de mejorar el listening es practicar, practicar y practicar, sin descanso. Cualquier momento es bueno, el camino al trabajo o la universidad, el gimnasio, momentos de ocio viendo series o películas…A nivel más “académico” os recomiendo los siguientes recursos:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.engvid.com/&quot;&gt;English Videos&lt;/a&gt;: profesores de diferentes países y acentos dando clases de inglés, de gramática, vocabulario, use of english…de todo, vaya&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.bbc.co.uk/learningenglish/&quot;&gt;BBC Learning English&lt;/a&gt;: página para aprender inglés de la BBC. Es inglés británico, y hay muchísimas secciones, pero mi favorita, y la que más he utilizado, es “6 minute English”. Son audios de 6 minutos donde dos personas hablan de un tema en concreto, y están muy muy bien. Podéis poneros como objetivo diario escuchar dos programas de 6 minute English varias veces, por ejemplo&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.elllo.org/&quot;&gt;Elllo&lt;/a&gt;: es una web con cientos de audios muy breves (de 1 a 2 minutos es lo normal), con conversaciones informales y en varios acentos. Lo mejor, en mi opinión, es que son conversaciones muy reales, no parece en ningún momento que estén adaptando el nivel de cara al aprendizaje, como a veces si puede pasar con los audios de la BBC&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;leer&quot;&gt;Leer&lt;/h2&gt;
-
-&lt;p&gt;Comprad un Kindle y leed en inglés. La ventaja de utilizar un libro electrónico es la comodidad de instalar un diccionario y buscar al instante palabras desconocidas, además del acceso inmediato a millones de obras de todo tipo en Amazon. No tenéis por qué leer novela, de hecho diría que este género es más complicado si vuestro nivel no es muy avanzado, pero podéis hacerlo perfectamente si es lo que más disfrutáis. La clave a la hora de leer en otro idioma es que os interese el tema, nada más.&lt;/p&gt;
-
-&lt;h2 id=&quot;recursos-adicionales&quot;&gt;Recursos adicionales&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://es.duolingo.com/&quot;&gt;Duolingo&lt;/a&gt;: no lo he utilizado, pero todo el mundo lo recomienda encarecidamente, así que aquí lo dejo&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://www.howjsay.com/&quot;&gt;Howjsay&lt;/a&gt;: web donde podéis introducir palabras para conocer su pronunciación. Si una palabra se pronuncia de forma diferente en inglés británico y americano te salen las dos. Muy útil&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;vivir-en-otro-país&quot;&gt;Vivir en otro país&lt;/h2&gt;
-
-&lt;p&gt;Nada puede igualar a vivir un tiempo en otro país para adquirir soltura con un idioma. El problema es que puede no ser una opción factible, pero si lo es, aunque sea por unos meses, deberíais hacerlo. Personalmente, irme a vivir a Londres es quizás la mejor decisión que haya tomado en mi vida, y conozco a muy poca gente que se arrepienta de haber dado ese paso.&lt;/p&gt;
-
-&lt;h2 id=&quot;motivación&quot;&gt;Motivación&lt;/h2&gt;
-
-&lt;p&gt;Si no tenéis un motivo de peso para estudiar inglés terminaréis abandonando. Así que mi último consejo es que busquéis ese motivo, y lo tengáis siempre presente en momentos de flaqueza, que los tendréis con seguridad, porque aprender inglés no es nada sencillo. Aquí dejo una lista de motivos:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Mejorar profesionalmente (más dinero, acceso a mejores puestos)&lt;/li&gt;
-  &lt;li&gt;Viajar con toda comodidad: con español e inglés como idiomas es muy sencillo moverse por casi todo el mundo&lt;/li&gt;
-  &lt;li&gt;Tener acceso a toda la información de alta calidad en inglés que existe en internet: inglés es el idioma de internet, y no encontraréis en español ni una décima parte de la información que encontraréis en inglés&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;¡Mucho ánimo!&lt;/p&gt;
 </content>
  </entry>
  
