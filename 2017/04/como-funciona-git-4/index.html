@@ -64,6 +64,8 @@
 
 <p>Como ya sabemos, Git es un sistema de control distribuido de versiones, donde cada persona no tiene más que una copia completa del repositorio. Es decir, cada usuario que clone un repositorio Git tendrá una copia de la carpeta <code class="highlighter-rouge">.git</code>, carpeta que contiene montones de cosas, según vimos en anteriores posts de la serie.</p>
 
+<!--break-->
+
 <p>Normalmente el repositorio que sirve de referencia para todos los usuarios estará alojado en algún sistema como <a href="https://github.com/">GitHub</a>, <a href="https://bitbucket.org/">BitBucket</a> o <a href="https://about.gitlab.com/">GitLab</a>, de forma que cuando queremos empezar a trabajar con un proyecto haremos un <code class="highlighter-rouge">git clone</code> de ese repositorio “remoto”. Será con esta versión “de referencia” con la que nosotros sincronizaremos nuestros cambios.</p>
 
 <p>Internamente, Git almacena cierta información relacionada con este repositorio remoto en el fichero <code class="highlighter-rouge">.git/config</code>. Veamos, por ejemplo, lo que este fichero contiene para el caso del repositorio donde alojo el código de este blog:</p>

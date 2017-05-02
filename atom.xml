@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-04-30T14:38:26+01:00</updated>
+ <updated>2017-05-02T18:46:35+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -20,6 +20,8 @@
    <content type="html">&lt;p&gt;Tenía pendiente escribir la última parte de esta serie desde hace tiempo. Tras revisar &lt;a href=&quot;/2017/03/como-funciona-git-3/&quot;&gt;cómo Git gestiona merge y rebase&lt;/a&gt;, queda por ver la forma en que Git gestiona la capa de distribución, es decir, el trabajo y sincronización con repositorios remotos.&lt;/p&gt;
 
 &lt;p&gt;Como ya sabemos, Git es un sistema de control distribuido de versiones, donde cada persona no tiene más que una copia completa del repositorio. Es decir, cada usuario que clone un repositorio Git tendrá una copia de la carpeta &lt;code class=&quot;highlighter-rouge&quot;&gt;.git&lt;/code&gt;, carpeta que contiene montones de cosas, según vimos en anteriores posts de la serie.&lt;/p&gt;
+
+&lt;!--break--&gt;
 
 &lt;p&gt;Normalmente el repositorio que sirve de referencia para todos los usuarios estará alojado en algún sistema como &lt;a href=&quot;https://github.com/&quot;&gt;GitHub&lt;/a&gt;, &lt;a href=&quot;https://bitbucket.org/&quot;&gt;BitBucket&lt;/a&gt; o &lt;a href=&quot;https://about.gitlab.com/&quot;&gt;GitLab&lt;/a&gt;, de forma que cuando queremos empezar a trabajar con un proyecto haremos un &lt;code class=&quot;highlighter-rouge&quot;&gt;git clone&lt;/code&gt; de ese repositorio “remoto”. Será con esta versión “de referencia” con la que nosotros sincronizaremos nuestros cambios.&lt;/p&gt;
 
