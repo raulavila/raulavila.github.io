@@ -4,13 +4,84 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-05-02T18:46:35+01:00</updated>
+ <updated>2017-05-06T13:21:23+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Lecciones aprendidas tras mi primer proyecto como Anchor</title>
+   <link href="http://www.raulavila.com/2017/05/lecciones-aprendidas-anchor/"/>
+   <updated>2017-05-06T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2017/05/lecciones-aprendidas-anchor</id>
+   <content type="html">&lt;p&gt;Acabo de terminar mi primera experiencia como Anchor (aka Team Leader). Hacer un buen trabajo en este rol era uno de mis objetivos del año 2017, y creo que lo he conseguido. Quizás no haya sido el mejor proyecto para empezar, por varios factores que no vienen al caso, pero en general estoy muy satisfecho con todo lo hecho y aprendido.&lt;/p&gt;
+
+&lt;p&gt;Me gustaría recoger en este post varias conclusiones que he ido sacando, así como algunas lecciones aprendidas. A lo mejor os parece que no digo más que obviedades. Bien, llevo trabajando muchos años, y muchas de estas cosas no las he visto poner en práctica tanto como podéis pensar.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;h3 id=&quot;nunca-confíes-en-tu-memoria-utiliza-trello&quot;&gt;Nunca confíes en tu memoria, utiliza Trello&lt;/h3&gt;
+
+&lt;p&gt;Maldita sea, nunca me había parado a pensar la cantidad de cosas que hay que tener en la cabeza al mismo tiempo a modo de TODOs si no te dedicas 100% al desarrollo. A la semana de unirme al proyecto me dí cuenta de la necesidad de utiliar una herramienta en condiciones para recoger y hacer tracking de todas estas acciones. &lt;a href=&quot;https://trello.com/&quot;&gt;Trello&lt;/a&gt; viene que ni pintado, funciona genial, y hay versiones para todas las plataformas.&lt;/p&gt;
+
+&lt;h3 id=&quot;no-llegues-tarde-a-la-standup&quot;&gt;No llegues tarde a la standup&lt;/h3&gt;
+
+&lt;p&gt;Lo más normal en nuestros días es arrancar la jornada con la típica standup, y creo que es muy perjudicial para el equipo si el anchor no llega a tiempo, o directamente ni aparece.  A no ser que haya un motivo de peso detrás, por supuesto (hijos, percances en el transporte, etc), no es mi intención aquí iniciar un debate en torno a la flexibilidad horaria o conciliación familiar. En algunos casos quizás tener la standup a primera hora no sea la mejor opción, y pueda moverse un poco más tarde.&lt;/p&gt;
+
+&lt;p&gt;Personalmente además, he encontrado muy útil llegar algo pronto a la oficina para planificar un poco el día, antes de que empezara la vorágine, pero esto ya es una preferencia personal.&lt;/p&gt;
+
+&lt;h3 id=&quot;da-los-buenos-días&quot;&gt;Da los buenos días&lt;/h3&gt;
+
+&lt;p&gt;Empieza la standup dando los buenos días a todo el equipo. Algo tan tonto sirve para dar un empujón de moral a tus compañeros, normalmente algo dormidos en ese momento.&lt;/p&gt;
+
+&lt;h3 id=&quot;pide-las-cosas-por-favor&quot;&gt;Pide las cosas por favor&lt;/h3&gt;
+
+&lt;p&gt;Solicita las cosas con amabilidad, evita meter prisas, y en caso de que lo que pidas sea relativamente urgente comunica el motivo de la urgencia. Nunca digas algo como “necesito esto para YA”.&lt;/p&gt;
+
+&lt;h3 id=&quot;da-las-gracias&quot;&gt;Da las gracias&lt;/h3&gt;
+
+&lt;p&gt;Siempre que pidas algo a alguien, o siempre que alguien se acerque a tí para comentarte algo que ha hecho o alguna idea que ha tenido, dale las gracias para terminar la conversación. O mejor aún, da las gracias y pronuncia su nombre detrás.&lt;/p&gt;
+
+&lt;h3 id=&quot;sé-empático&quot;&gt;Sé empático&lt;/h3&gt;
+
+&lt;p&gt;Ten empatía con todo el mundo, intenta ponerte siempre en su piel y entender los motivos de cualquier forma de actuar, por rara que sea. Os recomiendo el libro &lt;a href=&quot;https://www.amazon.es/Comunicación-violenta-Un-lenguaje-vida/dp/987218349X/ref=sr_1_2&quot;&gt;Comunicación No Violenta&lt;/a&gt;, donde se trata este tema en profundidad.&lt;/p&gt;
+
+&lt;h3 id=&quot;utiliza-la-crítica-constructiva&quot;&gt;Utiliza la crítica constructiva&lt;/h3&gt;
+
+&lt;p&gt;Cuando creas que alguien ha hecho algo mal, y digo creas porque quizás seas tú el equivocado, dirígete a él con educación, pregunta los motivos de lo que ha hecho, y expón los motivos por los que piensas que no es correcto. Nunca seas tajante, y trata siempre de llegar a un consenso conjunto. Por nada del mundo intentes imponer tus ideas.&lt;/p&gt;
+
+&lt;h3 id=&quot;para-criticar-horrores-indiscutibles-utiliza-las-retrospectivas&quot;&gt;Para criticar horrores indiscutibles, utiliza las retrospectivas&lt;/h3&gt;
+
+&lt;p&gt;Si ves algo en el código que es un horror sin ningún tipo de discusión, saca el tema a colación en la retrospectiva, pero jamás menciones a la persona que lo ha hecho directamente. De hecho intenta no mirar el autor del commit si es posible, para no saberlo siquiera (he re reconocer que es difícil resistirse a esto último…).&lt;/p&gt;
+
+&lt;p&gt;Estoy hablando de cosas tan horribles como copy-paste coding a lo bestia, no añadir mensajes en los mensajes de commit…repito, horrores clamorosos. Si se habla abiertamente, aunque alguien se dé por aludido, si comentas el problema con empatía nunca debería haber ningún problema, y todo el equipo aprenderá la lección.&lt;/p&gt;
+
+&lt;h3 id=&quot;nunca-culpes-a-nadie&quot;&gt;Nunca culpes a nadie&lt;/h3&gt;
+
+&lt;p&gt;Tanto los éxitos como los errores deben ser responsabilidad del equipo. Nunca, NUNCA, culpes directamente a una persona de cualquier error que haya podido ocurrir.&lt;/p&gt;
+
+&lt;h3 id=&quot;ten-claros-tus-principios-y-valores&quot;&gt;Ten claros tus principios y valores&lt;/h3&gt;
+
+&lt;p&gt;Los que me conocéis o venís siguiendo en el blog sabéis que yo pongo la calidad software como uno de los valores fundamentales que hay que mantener en un proyecto. Nunca abandonaré esa idea, y es necesario actuar siempre en consecuencia, incluso habiendo plazos o presiones de por medio. Siempre, repito, SIEMPRE, una escasa calidad en nuestro código terminará repercutiendo negativamente en el coste del proyecto.&lt;/p&gt;
+
+&lt;p&gt;Nunca abandones tus principios, es la única forma de sentir orgullo del trabajo entregado por el equipo, por encima de las consideraciones que el negocio pueda tener.&lt;/p&gt;
+
+&lt;h3 id=&quot;prepara-las-reuniones&quot;&gt;Prepara las reuniones&lt;/h3&gt;
+
+&lt;p&gt;Dedica un tiempo a preparar las reuniones que convoques o a las que seas convocado. Si surge un tema inesperado no debería haber problema en que te quedes un poco “en bragas”, pero el que sea tema principal de una reunión deberías llevarlo totalmente controlado, y si puede ser, con las dudas que haya que plantear ya preparadas.&lt;/p&gt;
+
+&lt;h3 id=&quot;documenta&quot;&gt;Documenta&lt;/h3&gt;
+
+&lt;p&gt;Sí, documenta, y no utilices como excusa que en Agile no se hace, porque no es verdad. Cualquier proyecto necesita tener un fichero README decente, un diagrama de arquitectura que sirva como punto central de discusión para todo el mundo, etc. No estoy hablando de análisis funcionales (jamás pensé que estas dos palabras aparecerían en mi blog), ni de diseños detallados, sólo de documentación que es necesario tener.&lt;/p&gt;
+
+&lt;h3 id=&quot;humildad&quot;&gt;Humildad&lt;/h3&gt;
+
+&lt;p&gt;La humildad me sigue pareciendo la cualidad número uno que debemos tener en nuestra profesión. El día que la pierda, y espero que no ocurra nunca, me gustaría recibir una colleja a tiempo.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Cómo funciona Git (y 4)</title>
@@ -1109,33 +1180,6 @@ First Commit&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;p&gt;La lista podría continuar con otras cosas: escribir un blog, colaborar en proyectos Open Source…pero nada de eso me parece tan importante como los cuatro puntos que he reflejado.&lt;/p&gt;
 
 &lt;p&gt;Y como último consejo, ¡sed humildes! Nadie está en posesión de la verdad absoluta, fundamentalmente porque tal verdad no existe, y siempre habrá ahí fuera gente que sepa mucho más que vosotros. De hecho, en este post no estoy diciendo que yo ahora sea un buen programador para nada. Es fácil decir cuando algo no es bueno, pero no es tan fácil decir cuando lo es.&lt;/p&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>Mis propósitos para 2017</title>
-   <link href="http://www.raulavila.com/2017/01/propositos-2017/"/>
-   <updated>2017-01-01T00:00:00+00:00</updated>
-   <id>http://www.raulavila.com/2017/01/propositos-2017</id>
-   <content type="html">&lt;p&gt;¡Feliz 2017! Es la primera vez que escribo un post en un primero de Enero, cosa que sólo fue posible hacer en 2016 ya que este blog nació a finales de Enero de 2015 :) El motivo de encontrarme en pijama tecleando unas palabras es que, animado por la &lt;a href=&quot;http://us2.campaign-archive2.com/?u=374c664073e1a1fa3deca53b4&amp;amp;id=f0e4a3e3ec&amp;amp;e=b93d18ec09&quot;&gt;Bonilista&lt;/a&gt; y otros blogs de tuiteros que sigo, he decidido plasmar en un post mis objetivos para este año que empieza, y que será bastante desafiante para mí, sobre todo a nivel profesional.&lt;/p&gt;
-
-&lt;!--break--&gt;
-
-&lt;p&gt;Así que allá vamos:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Hacer un buen trabajo en mi nuevo rol en &lt;a href=&quot;http://pivotal.io/&quot;&gt;Pivotal&lt;/a&gt;: inicié mi andadura en Pivotal el 1 de Febrero de 2016, y once meses después (el 3 de Enero, con el nuevo año) me uniré a un proyecto en el rol de anchor (algo así como “Team Leader”, &lt;a href=&quot;https://medium.com/built-to-adapt/the-pivotal-glossary-93b8be9de916&quot;&gt;en este artículo&lt;/a&gt; tenéis una descripción de todos los roles que existen en mi empresa). No es un ascenso en realidad, tan solo uno de los roles que se pueden desempeñar si eres Senior. Esto significa que existe la posibilidad de ser anchor en un proyecto y no serlo en el siguiente, a diferencia de la típica escalera corporativa. Pero bien es cierto que el cambio en mis tareas va a ser importante durante unos meses, sé que al principio será algo complicado, pero me encuentro bastante motivado, y me va a servir para aprender un montón.&lt;/li&gt;
-  &lt;li&gt;Mejorar mi vocabulario en inglés: en este momento, el vocabulario es mi punto débil en inglés con diferencia. He reflexionado un poco y creo que mi problema es la falta de método para interiorizar nuevas palabras. Cada día escucho, leo o incluso tengo que utilizar alguna palabra nueva (con la ayuda de WordReference en este caso), pero no las registro en ningún lado, y si necesito usarlas en un período de tiempo no las recuerdo. Existe un sistema conocido como &lt;a href=&quot;http://ankisrs.net/&quot;&gt;Anki Cards&lt;/a&gt;, son tarjetas con dos caras que se pueden utilizar para repasar este tipo de cosas (no entraré en detalles aquí). Lo empecé a utilizar hace un año, pero abandoné. Pienso retomarlo de nuevo, y la medida de mi éxito en este punto será poder “jugar” a Anki en Diciembre con un porcentaje alto de aciertos. Veremos.&lt;/li&gt;
-  &lt;li&gt;Llevar un registro de los libros que termine: creo que es muy útil registrar &lt;a href=&quot;http://evernote.com&quot;&gt;en algún lado&lt;/a&gt; los libros leídos, para poder mirar atrás y recapacitar sobre lo aprendido. Antiguamente con los libros en papel bastaba con ir a tu biblioteca particular, pero ahora, con el Kindle, &lt;a href=&quot;https://www.safaribooksonline.com&quot;&gt;Safari Books&lt;/a&gt;, audiolibros…es más complicado. Leo menos de lo que querría, pero me gustaría tener una métrica real para poder valorarlo a final de año. La verdad es que este objetivo debería ser fácil :).&lt;/li&gt;
-  &lt;li&gt;Rodar y mejorar mis dotes de public speaking: el año pasado dí &lt;a href=&quot;https://skillsmatter.com/skillscasts/8851-lscc-meetup&quot;&gt;mi primera charla en inglés&lt;/a&gt;, un par de veces además. Estoy bastante contento con su contenido, y creo que la mejoraré y repetiré en algún evento durante 2017. Me gustaría, además, poder presentarla en español, así que la propondré en &lt;a href=&quot;/2016/11/codemotion-2016/&quot;&gt;Codemotion&lt;/a&gt;, donde creo que encaja bien (llevo varios años intentando hablar en esta gran conferencia), y quizás algún otro sarao. También tengo algunas ideas para nuevas charlas, por lo que como parte de este objetivo tengo desarrollar una nueva ponencia.&lt;/li&gt;
-  &lt;li&gt;Ir al gimnasio al menos tres veces por semana: este objetivo prácticamente lo tengo cumplido por defecto, en 2016 no hubo semana que bajara de dos días en el gimnasio. Pero sé que, debido al trabajo, necesito no perder de vista esto, así que intentaré llevar un control algo más exhaustivo.&lt;/li&gt;
-  &lt;li&gt;Conocer a más gente de la comunidad, tanto en Londres como en España: cada vez tengo más conocidos en el mundillo, me muevo bastante por Londres, sobre todo en eventos de la &lt;a href=&quot;https://www.meetup.com/london-software-craftsmanship/&quot;&gt;LSCC&lt;/a&gt; y la &lt;a href=&quot;https://www.meetup.com/Londonjavacommunity&quot;&gt;LJC&lt;/a&gt;, así que de tanto ver las mismas caras acabas conociendo a mucha gente. En España lo tengo algo más complicado, Twitter es muy bueno en esto, y en 2016 el &lt;a href=&quot;/2016/11/codemotion-2016/&quot;&gt;Codemotion&lt;/a&gt; fue una gran oportunidad para conocer a figuras importantes de la escena española. En este año me gustaría consolidar alguna de las relaciones iniciadas, y comenzar otras.&lt;/li&gt;
-  &lt;li&gt;Escribir al menos 15 posts en el blog: no es un objetivo demasiado ambicioso, pero quiero ser realista. Estoy muy orgulloso de todo el trabajo que he realizado aquí, y me gustaría mantener un ritmo razonable, sin quemarme.&lt;/li&gt;
-  &lt;li&gt;Publicar al menos 5 posts en &lt;a href=&quot;https://dev.to/&quot;&gt;The Practical Dev&lt;/a&gt;: como ya conté hace poco, decidí comenzar a escribir en inglés fuera de este blog, y la plataforma elegida fue &lt;a href=&quot;https://dev.to/&quot;&gt;The Practical Dev&lt;/a&gt;. En este año quiero incrementar mi presencia en esta web, sin ser demasiado ambicioso. En realidad, de momento me estoy dedicando a traducir artículos escritos en el blog, pero no descarto publicar algo más “exclusivo”.&lt;/li&gt;
-  &lt;li&gt;Terminar al menos un curso online “end to end”: con esto quiero decir completando todas las prácticas, exámenes, o lo que sea. Veo muchos vídeos o tutoriales de forma habitual, pero con cursos completos no soy tan consistente. En 2016 conseguí completar el &lt;a href=&quot;https://www.coursera.org/learn/progfun1&quot;&gt;popular curso de Scala en Coursera &lt;/a&gt;, pero fracasé en completar la especialización, que era mi objetivo en realidad. El motivo fue que no ví un retorno de la inversión claro, dada la dificultad de las prácticas. Quizás este año finalice alguna de las otras partes de la especialización, o quizás me líe la manta a la cabeza con alguna otra cosa que considere más interesante.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Creo que lo dejaré aquí, sé que será casi imposible conseguir todo lo que pretendo, pero siempre hay que apuntar alto, ¿verdad? A finales de año repasaré cómo ha ido todo, y veré si tuvo sentido escribir esto.&lt;/p&gt;
 </content>
  </entry>
  
