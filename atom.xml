@@ -4,13 +4,45 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-05-06T13:21:23+01:00</updated>
+ <updated>2017-05-24T11:12:13+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>¿Programadores ágiles?</title>
+   <link href="http://www.raulavila.com/2017/05/programadores-agiles/"/>
+   <updated>2017-05-24T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2017/05/programadores-agiles</id>
+   <content type="html">&lt;p&gt;Supongo que a nadie le pillará por sorpresa si afirmo que el desarrollo Agile está en boca de toda las empresas hoy día. Incluso el tema se está llevando a otra dimensión con el deslumbrante nombre de “Transformación Digital”. Por tanto, no creo que sea necesario explicar en este post qué es el desarrollo ágil.&lt;/p&gt;
+
+&lt;p&gt;El asunto ha llegado al nivel de que no es difícil encontrar ofertas donde se buscan “Agile Developers”, y aquí es donde el asunto empieza a cobrar tintes algo cómicos. Personalmente, no creo que casi ninguna empresa que publica una oferta con ese título tenga mucha idea de las skills que diferencian a un programador ágil de uno que no lo sea, y si lo afirmo con tanta rotundidad es porque nunca he visto mención alguna a las que yo creo son las habilidades principales que todo desarrollador ágil debe tener.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;Fue Kent Beck quien &lt;a href=&quot;https://www.quora.com/If-you-had-to-write-the-Agile-manifesto-again-would-you-change-something-on-it&quot;&gt;en una sesión de preguntas en Quora&lt;/a&gt; comentó que el nombre “Agile” fuera quizás un error cuando un grupo de profesionales acuñaron el termino hace ya casi dos décadas. Lo que ha ocurrido con el tiempo es que las grandes corporaciones han comenzado a confundir “ágil” con “rápido”, por tanto “Programador ágil” pasa a ser entendido como “Programdor rápido”. Es decir, las empresas quieren gente que les entregue una mayor cantidad de trabajo en menos tiempo, pero sin tener bien claras las cualidades que un programdor capaz de hacer esto debe tener. Se piensa además, que con seguir las ceremonias de Scrum esta mayor velocidad se alcanzará mágicamente. Un poco absurdo todo.&lt;/p&gt;
+
+&lt;p&gt;En mi opinión, las principales cualidades del desarrollo ágil son el ritmo sostenible y el feedback constante. Para conseguir ambas cosas se necesita mejorar la comunicación, conseguir una máxima visibilidad del trabajo realizado, pero, por encima de todo, alcanzar una excelencia técnica en el proceso de desarrollo del software entregado.&lt;/p&gt;
+
+&lt;p&gt;Es esta excelencia técnica la que consigue, a la larga, incrementar la cantidad de funcionalidades entregadas por unidad de tiempo. En efecto, estoy hablando de abogar por la máxima calidad en lo que hacemos.&lt;/p&gt;
+
+&lt;p&gt;Dicho esto, ¿cuáles son las habilidades que debe tener un buen programador ágil? Pues, desde mi punto de vista, dos:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Dominio del testing&lt;/li&gt;
+  &lt;li&gt;Dominio del &lt;a href=&quot;https://martinfowler.com/books/refactoring.html&quot;&gt;refactoring&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Si un programador es capaz de entregar software perfectamente cubierto y descrito por tests, dicho software carecerá de regresión en el futuro (o tendrá muy poca), por lo que hacer crecer el sistema será mucho más sencillo, sin un decremento notorio en la velocidad. El hecho de tener los tests como “red de seguridad” permitirá además moldear nuestro código mediante el refactoring sin miedo a romper nada. Y es el refactoring constante, la adaptación de nuestro código para hacerlo más legible y mantenible lo que realmente tiene un impacto brutal en la calidad del software entregado.&lt;/p&gt;
+
+&lt;p&gt;¿Es más importante el testing o el refactoring? En realidad ninguna está por encima de otra, porque ambas se necesitan para crear un círculo virtuoso. Quizás os venga a la mente el &lt;a href=&quot;/2016/01/aprendiendo-TDD/&quot;&gt;TDD&lt;/a&gt; como consagración definitiva de este círculo. Y aunque personalmente considero que el TDD es increíblemente útil, en última instancia podría tolerar no utilizarlo siempre y cuando no se pierdan de vista la importancia de los tests y el refactoring en todo momento. Esta, y no otra, es la forma de conseguir el ritmo sostenible que mencionaba más arriba.&lt;/p&gt;
+
+&lt;p&gt;Por tanto, si en el futuro os topáis con una oferta donde se buscan “Agile Developers” pero no se mencionan una de estas dos habilidades, desconfiad :).&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Lecciones aprendidas tras mi primer proyecto como Anchor</title>
@@ -1148,38 +1180,6 @@ First Commit&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-first-commit-tag.jpg&quot; alt=&quot;Git Blob&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Terminamos esta primera entrega sobre el funcionamiento interno de Git. &lt;a href=&quot;/2017/02/como-funciona-git-2/&quot;&gt;En la siguiente&lt;/a&gt; veremos cómo Git añade nuevos commits al histórico, revisaremos los tipos de datos durante el proceso, y veremos cómo se realiza la gestion de ramas.&lt;/p&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>You fui un mal programador</title>
-   <link href="http://www.raulavila.com/2017/01/yo-fui-un-mal-programador/"/>
-   <updated>2017-01-09T00:00:00+00:00</updated>
-   <id>http://www.raulavila.com/2017/01/you-fui-un-mal-programador</id>
-   <content type="html">&lt;p&gt;Yo fui un mal programador. Cuando terminé la carrera, como primero de promoción, pensé que ya había cumplido mi parte, y que las empresas deberían reconocer mi valía de inmediato, por lo que cuando nadie valoró ese detalle en mi CV, me cabreé. La verdad es que no me costó demasiado encontrar mi primer trabajo, el sector se encontraba en la parte alta de un ciclo, aunque ni por asomo se acercaba a la locura que estamos viviendo ahora.&lt;/p&gt;
-
-&lt;!--break--&gt;
-
-&lt;p&gt;Total, que una vez inicié mi andadura en una típica cárnica española, consideré que mi inteligencia me haría crecer profesionalmente sin que yo hiciera gran cosa en mi tiempo libre, aparte de trabajar de la mejor forma que podía cuando estaba en la oficina. Ocurrió que la forma de trabajar en ese primer equipo no era demasiado colaborativa y no favorecía demasiado el aprendizaje. Además, como ya comenté en &lt;a href=&quot;/2015/08/10-years/&quot;&gt;mi post de 10 años de profesional&lt;/a&gt; no elegí demasiado sabiamente las tecnologías más apropiadas para un primer puesto de trabajo. Por último, el ambiente, lleno de continuas quejas sobre lo mal que estaba nuestro sector (“hay que dejar la informática”), hizo que me desmotivara y estancara.&lt;/p&gt;
-
-&lt;p&gt;Mi segunda empresa, la consultora más grande de España, no hizo sino hundirme más en el pozo. Aquel proyecto era tóxico, con docenas de personas sin hacer nada, cosa que justificaban debido a las no subidas de sueldo. Al menos en este caso reaccioné a tiempo.&lt;/p&gt;
-
-&lt;p&gt;En mi tercera empresa estuve más de cinco años, y la verdad es que disfruté de casi todo mi tiempo allí. Pero se dió un pequeño problema, trabajaba prácticamente solo como desarrollador en Madrid. No había discusiones sobre decisiones técnicas, y de revisiones de código o pair programming ni hablemos. Como nunca tuve a nadie diciéndome si hacía o no bien las cosas, aunque yo intentaba hacerlas bien, como nunca me formaba ni leía, pues las hacía más mal que bien, aunque, todo sea dicho, ninguno de los proyectos en los que trabajé fue un fracaso, ya que siempre intenté trabajar duro. Así que quizás no fuera un mal trabajador, pero sí era un mal programador, de ahí el título de este post. Hoy seguramente se me caería la cara de vergüenza si viera el código que entregué durante esos años.&lt;/p&gt;
-
-&lt;p&gt;Hace unos cuatro años todo cambió, la historia no es sencilla de contar en un simple post, pero varios factores contribuyeron a que me diera cuenta de lo mal que estaba llevando mi carrera profesional. Así que me puse las pilas: leí muchos libros, estudié muchos cursos, comencé a seguir muchísimas webs (para &lt;a href=&quot;/2015/10/estar-al-dia/&quot;&gt;estar al día&lt;/a&gt;), &lt;a href=&quot;/2016/12/aprender-ingles/&quot;&gt;estudié inglés&lt;/a&gt;…en fin, todo lo que debería haber hecho y no hice al principio de mi carrera. Quizás malgasté siete u ocho años en total, y aunque no me queje del momento en que me encuentro ahora, quien sabe cómo de diferente habría sido todo si no hubiera metido tanto la pata al principio.&lt;/p&gt;
-
-&lt;p&gt;Si escribo este post es únicamente para que un potencial lector que se esté iniciando en este mundo tan apasionante no cometa los mismos errores que cometí yo y se convierta en un mal programador sin posibilidad de vuelta atrás. Así que, por favor, nunca nunca:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Dejéis de aprender: leed libros (&lt;a href=&quot;https://jasonroell.com/2015/03/16/12-most-infuential-books-every-software-engineer-needs-to-read/&quot;&gt;aquí tenéis una buena lista para empezar&lt;/a&gt;), suscribiros a newsletters como la de &lt;a href=&quot;https://dzone.com/&quot;&gt;DZone&lt;/a&gt;, seguid a las personas adecuadadas en Twitter…&lt;/li&gt;
-  &lt;li&gt;Trabajéis sin un buen mentor a vuestro lado: donde digo mentor me vale “buen programador”. Es necesario que alguien critique vuestro trabajo, es la mejor forma de aprender. Y por supuesto, nunca os toméis las críticas como algo personal&lt;/li&gt;
-  &lt;li&gt;Dejéis de asistir a eventos técnicos: se aprende muchísimo, y lo mejor de todo, se conoce a gente muy interesante&lt;/li&gt;
-  &lt;li&gt;Dejéis de disfrutar de vuestro trabajo: si no disfrutáis el día a día, buscad otro sitio. Nos podemos permitir ese lujo, y lo peor que nos puede ocurrir es caer en la desmotivación&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;La lista podría continuar con otras cosas: escribir un blog, colaborar en proyectos Open Source…pero nada de eso me parece tan importante como los cuatro puntos que he reflejado.&lt;/p&gt;
-
-&lt;p&gt;Y como último consejo, ¡sed humildes! Nadie está en posesión de la verdad absoluta, fundamentalmente porque tal verdad no existe, y siempre habrá ahí fuera gente que sepa mucho más que vosotros. De hecho, en este post no estoy diciendo que yo ahora sea un buen programador para nada. Es fácil decir cuando algo no es bueno, pero no es tan fácil decir cuando lo es.&lt;/p&gt;
 </content>
  </entry>
  
