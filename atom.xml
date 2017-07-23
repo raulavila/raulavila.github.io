@@ -4,13 +4,85 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-05-24T12:02:42+01:00</updated>
+ <updated>2017-07-23T17:40:38+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Mis etapas con el refactoring</title>
+   <link href="http://www.raulavila.com/2017/07/etapas-refactoring/"/>
+   <updated>2017-07-23T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2017/07/etapas-refactoring</id>
+   <content type="html">&lt;p&gt;Mi relación con el refactoring viene de lejos, de hecho entre los primeros posts que publiqué se encontraba &lt;a href=&quot;/2015/02/fowler-refactoring-1/&quot;&gt;una serie de tres&lt;/a&gt; donde analizaba de forma algo crítica el libro “Refactoring” de Fowler, y que seguramente hoy día escribiría de forma diferente.&lt;/p&gt;
+
+&lt;p&gt;Al cabo de los años he llegado a definirme a mí mismo, medio en coña medio en serio, como un “yonki del refactoring”. En efecto, refactorizar código y dejarlo apañado es una de las tareas que más disfruto en mi día a día como desarrollador, tanto que hubo un momento determinado en que quizás hasta llegué a pasarme.&lt;/p&gt;
+
+&lt;p&gt;En este post voy a describir cada una de las etapas que he atravesado en mi relación con el refactoring. Supongo que muchos de vosotros os veréis reflejados en algunas de ellas.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;h2 id=&quot;desconocimiento-total&quot;&gt;Desconocimiento total&lt;/h2&gt;
+
+&lt;p&gt;En la carrera nunca me hablaron de refactoring, y tampoco en mis primeros trabajos. &lt;a href=&quot;/2017/01/yo-fui-un-mal-programador/&quot;&gt;Como tampoco ponía demasiado interés en investigar demasiado por mi cuenta&lt;/a&gt;, para mí este concepto no existió durante varios años. De forma que al principio de mi carrera profesional yo me dedicaba a tirar y tirar código como mejor sabía, y “con mucho cuidadito” para no romper nada de lo que habían dejado los anteriores programadores. Porque de tests automatizados de momento ni hablemos, claro.&lt;/p&gt;
+
+&lt;h2 id=&quot;reingeniería&quot;&gt;Reingeniería&lt;/h2&gt;
+
+&lt;p&gt;La primera vez que escuché este palabro en uno de mis primeros proyectos no sabía muy bien lo que significaba. Resulta que en un proyecto en el que estaba trabajando llegamos a tener un módulo contenido en un único fichero fuente con más de 30.000 líneas (cágate lorito). Sumemos a esto que no existía un control de versiones en condiciones y todos los programadores teníamos que acceder a los mismos ficheros ubicados en el servidor de desarrollo. Pensad detenidamente lo que esto significa…en efecto, era necesario bloquear el fichero (lo abríamos con Vim) para que si otro venía después viera que alguien estaba editando y se abstuviera. Si el cambio era urgente tenías que preguntar en persona si el que lo tenía pillado podía liberarlo…una fiesta vamos.&lt;/p&gt;
+
+&lt;p&gt;Total, que un día, nuestro jefe de proyecto decidió coger el toro por los cuernos y decretar que era necesario hacer una “reingeniería” de este módulo, con el único motivo de aumentar la productividad de los desarrolladores al evitar estos bloqueos que comentaba. Vamos, que el motivo de fondo no fue mejorar la calidad ni nada parecido, sino evitar que se produjera una situación que cada vez era más incómoda. Esta labor fue encomendada a uno de los líderes de equipo del proyecto, porque por supuesto los programadores junior debíamos dedicarnos exclusivamente a transcribir los diseños que nos pasaba el analista.&lt;/p&gt;
+
+&lt;p&gt;Diría que esta “reingenría” fue la primera vez que viví de cerca un proceso de refactoring, porque a fin de cuentas se trataba de eso. La productividad del equipo mejoró bastante cuando David, nuestro jefe de equipo, terminó su labor, dividiendo este módulo monstruoso en varios submódulos, y diría que la sostenibilidad del código también, aunque no fuera ese el objetivo inicial.&lt;/p&gt;
+
+&lt;p&gt;No obstante, a pesar de vivir los beneficios del refactoring de primera mano, no investigué mucho más allá, de momento.&lt;/p&gt;
+
+&lt;h2 id=&quot;liderando-mi-propia-reingeniería&quot;&gt;Liderando mi propia reingeniería&lt;/h2&gt;
+
+&lt;p&gt;Pasaron los años, y me encontraba trabajando en una pequeña empresa donde yo era el responsable único de una aplicación web, bastante crítica por otra parte. La aplicación fue creciendo y creciendo hasta llegar a un punto parecido al sistema que comentaba en la etapa anterior (¿pero es que no aprendía nada?), con clases de 10.000 líneas, código dupicado por doquier, y cosas así.&lt;/p&gt;
+
+&lt;p&gt;Así que llegó un momento en que no era posible continuar de forma sostenible (o lo que yo creía que era sostenible) sin hacer una “reingeniería”, y se lo propuse a mi jefe, quien aceptó. Me llevó cosa de dos meses reestructurar el diseño, y recuerdo perfectamente como tenía que probar el sistema completo de forma manual tras cada cambio importante…Otra cosa que recuerdo es que desconocía todas las funcionalidades que ofrecen los IDEs para llevar a cabo este tipo de tareas automáticamente…En fin, es lo que había. Como ya he comentado varias veces con anterioridad, si os encontráis en las primeras fases de vuestra carrera buscad a toda costa un mentor que os guíe y os evite meteros en este tipo de pozos de los que cuesta mucho salir.&lt;/p&gt;
+
+&lt;h2 id=&quot;refactoring-tímido&quot;&gt;Refactoring tímido&lt;/h2&gt;
+
+&lt;p&gt;En un momento determinado me di cuenta de que estaba llegando a un punto muerto en mi carrera, y por fin decidí hacer todas las cosas que no había hecho anteriormente, empezando por leer &lt;a href=&quot;https://www.amazon.es/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882/ref=sr_1_1&quot;&gt;Clean Code&lt;/a&gt;, aprender algo de testing (poquito de momento), etc. De repente empecé a ver que el código que anteriormente escribía y me parecía bastante decente, era más bien una birria, y tenía mucho que mejorar.&lt;/p&gt;
+
+&lt;p&gt;Así que comencé a dar la importancia que se merecen los nombres de las cosas (variables, métodos, clases…), el tamaño de nuestros métodos…por entonces no tenía muy claros los &lt;a href=&quot;https://es.wikipedia.org/wiki/SOLID&quot;&gt;principios SOLID&lt;/a&gt;, pero algo iba mejorando. Tampoco me atrevía a refactorizar (sí, por fin sabía que refactoring era una palabra que existía) con demasiada agresividad por miedo a romper cosas que hubieran hecho otros, y es que aún no podíamos sacar pecho de nuestra suite de tests en el proyecto en que estaba trabajando entonces.&lt;/p&gt;
+
+&lt;h2 id=&quot;refactoring-constante-e-irresponsable&quot;&gt;Refactoring constante (e irresponsable)&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;/2015/04/trabajo-londres/&quot;&gt;Me mudé a Londres&lt;/a&gt;, y en mi primer trabajo encontré un compañero obsesionado con la calidad, el &lt;a href=&quot;https://es.wikipedia.org/wiki/Principio_de_responsabilidad_%C3%BAnica&quot;&gt;Single Responsibility Principle&lt;/a&gt; (sobre todo), el clean code…Yo por mi cuenta me estaba leyendo el libro &lt;a href=&quot;https://www.amazon.es/Refactoring-Improving-Design-Existing-Technology/dp/0201485672/ref=sr_1_1&quot;&gt;Refactoring&lt;/a&gt; de Fowler, y si a todo esto sumamos que iniciamos un proyecto desde cero con tests en condiciones, &lt;a href=&quot;/2015/01/entornos-integrados-desarrollo/&quot;&gt;que aprendí a utilizar los IDEs como dios manda&lt;/a&gt;… el tema del refactoring se me subió a la cabeza, y no podía parar de refactorizar código por allá donde pasaba. ¿Por qué no hacerlo? Era increíblemente divertido, los tests me garantizaban que no rompía nada…en lo que no pensé con detenimiento fue en el coste que todo esto conllevaba a mi empresa.&lt;/p&gt;
+
+&lt;h2 id=&quot;tdd&quot;&gt;TDD&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;/2015/08/primera-experiencia-tdd/&quot;&gt;Cuando conocí el TDD&lt;/a&gt;, y lo practiqué de verdad, mi relación con el refactoring empezó a cambiar, e intentaba aplicarlo cuando le llegaba el turno dentro del ciclo Red / Green / Refactor, y si de verdad el diseño del código / sistema lo necesitaba. Ya no refactorizaba cada vez que ponía las manos sobre un nuevo proyecto como si me fuera la vida en ello, entre otras cosas porque comencé a entender que como profesionales debemos aportar un valor a nuestra empresa a cambio del dinero que ella invierte en nosotros, y en muchas ocasiones refactorizar como fin en sí mismo no está aportando tal valor. A fin de cuentas, no estamos añadiendo ninguna funcionalidad nueva, y el cuento de que el sistema será más mantenible en el futuro puede sonar a buena excusa, aunque se cae sola si pensamos en la frecuencia con que ese evento ocurrirá.&lt;/p&gt;
+
+&lt;p&gt;Una vez leí que las personas nos preocupamos en un alto porcentaje de ocasiones (que creo recordar rondaba el 80%) por cosas que nunca ocurren. Pues bien, exactamente lo mismo puede ocurrir con los refactorings si se hacen de forma irresponsable, con la consecuencia además de que nos hacen perder dinero.&lt;/p&gt;
+
+&lt;h2 id=&quot;refactoring-responsable&quot;&gt;Refactoring responsable&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://naildrivin5.com/blog/2013/08/08/responsible-refactoring.html&quot;&gt;Este artículo de David Bryant Copeland&lt;/a&gt; (autor del excelente libro &lt;a href=&quot;/2017/02/senior-software-engineer-book/&quot;&gt;“The Senior Software Engineer”&lt;/a&gt;) confirmó del todo las dudas que iba teniendo acerca de la conveniencia del “refactoring por el refactoring”. No voy a repetir en este post casi nada de lo que cuenta el artículo, &lt;a href=&quot;http://naildrivin5.com/blog/2013/08/08/responsible-refactoring.html&quot;&gt;de obligada lectura&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;En resumen, lo que viene a decir es que dentro del ciclo TDD, cuando estamos desarrollando un nuevo sistema, el refactoring es perfecto, pero que cuando nos toca mantener un sistema que está en producción, hay que pensárselo dos veces, ya que podemos incurrir en bugs que no harán sino aumentar el coste de una tarea que hemos realizado y nadie nos ha pedido, por mucho que nos guste.&lt;/p&gt;
+
+&lt;p&gt;¡Ojo!, ni el artículo ni yo decimos que no haya que refactorizar, tan sólo que hay que hacerlo únicamente cuando sea la mejor forma de alcanzar un fin determinado, como puede ser arreglar un bug, añadir una nueva funcionalidad a un código extremadamente rígido, etc.&lt;/p&gt;
+
+&lt;p&gt;Como ejemplo de esto último, recientemente me encontré en un proyecto una historia de usuario que requería invertir el orden en que dos pasos de negocio se estaban realizando. Resulta que esos pasos estaban distribuidos en clases diferentes, con una herencia compleja, varios &lt;a href=&quot;/2015/07/acoplamiento-temporal/&quot;&gt;acoplamientos temporales&lt;/a&gt;…y el cambio no era para nada trivial. Decidí (más bien decidí junto a la persona con quien hacía pairing) que llevar a cabo un refactoring responsable, eliminando jerarquías innecesarias, &lt;a href=&quot;https://en.wikipedia.org/wiki/Composition_over_inheritance&quot;&gt;favorenciendo composición sobre herencia&lt;/a&gt;, etc, era la mejor forma de preparar el código para el cambio. Tomada esta decisión, tras un día de trabajo (y con una buena suite de tests dándonos feedback de nuestros cambios, por supuesto), los pasos que había que intercambiar en nuestro código quedaron tal que así:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-java&quot; data-lang=&quot;java&quot;&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//...&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;stepA&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;stepB&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//...&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Ya os podéis imaginar lo fácil que fue hacer que &lt;code class=&quot;highlighter-rouge&quot;&gt;stepB()&lt;/code&gt; ocurriera antes que &lt;code class=&quot;highlighter-rouge&quot;&gt;stepA&lt;/code&gt; con esta nueva versión del código.&lt;/p&gt;
+
+&lt;p&gt;Desconozco si en el futuro entraré en una nueva etapa dentro mi particular relación con el refactoring, pero de momento me encuentro en esta última :). Y vosotros, ¿qué opináis? ¿Habéis tenido experiencias similares?&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>¿Qué es un Programador Ágil?</title>
@@ -939,247 +1011,6 @@ Switched to branch 'develop'&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;p&gt;David Bonilla ha metido el dedo en la llaga hablando de los lazos familiares. Tener a toda la familia y amigos lejos se hace duro en muchos momentos, yo aún no tengo hijos, pero sé lo complicado que sería dar ese paso, por ejemplo. Tampoco he tenido mala suerte, de momento, en cuestiones de salud. Todos estos factores pueden suponer un buen empujón para tomar la decisión de volver.&lt;/p&gt;
 
 &lt;p&gt;Así que, quien sabe, quizás vuelva algún día, aunque de hacerlo, me gustaría poder hacer valer toda la experiencia que he ido adquiriendo aquí, principalmente a nivel de idioma. &lt;a href=&quot;/2016/12/aprender-ingles/&quot;&gt;Aprender un segundo lenguaje en condiciones&lt;/a&gt; está siendo muy complicado, y no quiero pensar que no pudiera seguir sacándole partido en un futuro. También me gustaría que se pudieran dar la mayor parte de las circunstancias que he comentado en este post, aunque algunas de ellas &lt;a href=&quot;http://www.silicon.es/los-emprendedores-lo-tienen-facil-en-espana-infografia-54433&quot;&gt;me parecen una utopía&lt;/a&gt;.&lt;/p&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>Cómo funciona Git (parte 1)</title>
-   <link href="http://www.raulavila.com/2017/01/como-funciona-git-1/"/>
-   <updated>2017-01-22T00:00:00+00:00</updated>
-   <id>http://www.raulavila.com/2017/01/como-funciona-git-1</id>
-   <content type="html">&lt;p&gt;El sábado pasado estuve en un workshop sobre &lt;a href=&quot;https://git-scm.com/&quot;&gt;Git&lt;/a&gt; impartido por el gran &lt;a href=&quot;https://twitter.com/theNeomatrix369&quot;&gt;Mani&lt;/a&gt; en la &lt;a href=&quot;https://twitter.com/theNeomatrix369&quot;&gt;London Software Craftmanship Community&lt;/a&gt;. Me sirvió para consolidar de manera más o menos definitiva los conocimientos sobre esta herramienta que he ido adquiriendo con la práctica durante casi tres años ya.&lt;/p&gt;
-
-&lt;p&gt;Al volver a casa, me picó el gusanillo en relación al funcionamiento interno de Git, así que he estado investigando un poco, y plasmaré lo aprendido en esta serie de posts. Personalmente, he descubierto que conocer este funcionamiento interno es muy útil para tener menos miedo a la magia de Git, porque, en el fondo, los principios más importantes no tienen demasiado misterio. Asumo que, si estás leyendo esto, es porque posees un conocimiento de Git “medio”, en caso contrario os recomiendo empezar &lt;a href=&quot;http://gitimmersion.com/&quot;&gt;por aquí&lt;/a&gt; y volver después a este post.&lt;/p&gt;
-
-&lt;!--break--&gt;
-
-&lt;h2 id=&quot;qué-es-git-estructura-básica&quot;&gt;Qué es Git. Estructura básica&lt;/h2&gt;
-
-&lt;p&gt;Git es una herramienta de control de versiones distribuida, pero en última instancia no es más que un gestor de contenido, y en este post entenderéis por qué.&lt;/p&gt;
-
-&lt;p&gt;El núcleo de Git no es ni más ni menos que un mapa clave-valor de toda la vida, donde las claves son valores hash generados mediante el &lt;a href=&quot;https://en.wikipedia.org/wiki/SHA-1&quot;&gt;algoritmo SHA1&lt;/a&gt;, y los valores pueden ser varias cosas. En este post nos centraremos en los diferentes tipos de valor que Git puede almacenar.&lt;/p&gt;
-
-&lt;p&gt;Supongo que os será familiar, pero una clave hash SHA1 es algo así:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;cf23df2207d99a74fbe169e3eba035e633b65d94&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Es decir, una serie de 40 caracteres, que Git generará a partir del contenido que almacenemos en el valor correspondiente. Esto significa que, a mismo valor, misma clave hash generada. Para hacer la prueba sólo tenéis que utilizar uno de los conocidos como “plumbing commands” en Git, &lt;code class=&quot;highlighter-rouge&quot;&gt;hash-object&lt;/code&gt;, de la siguiente forma:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;echo Hello World | git hash-object --stdin&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Comando que generará el valor &lt;code class=&quot;highlighter-rouge&quot;&gt;557db03de997c86a4a028e1ebd3a1ceb225be238&lt;/code&gt;, desde cualquier máquina, y por supuesto, de forma idempotente.&lt;/p&gt;
-
-&lt;p&gt;El comando &lt;code class=&quot;highlighter-rouge&quot;&gt;hash-object&lt;/code&gt; puede invocarse sin necesidad de estar en un repositorio de Git y funcionará sin problemas. Para seguir clarificando conceptos, sin embargo, vamos a crear un repositorio de Git, para trabajar desde allí (lo que conseguimos con &lt;code class=&quot;highlighter-rouge&quot;&gt;git init&lt;/code&gt; en cualquier carpeta, preferentemente vacía).&lt;/p&gt;
-
-&lt;p&gt;Más o menos todos sabemos que inicializar un directorio como repositorio de Git crea una carpeta &lt;code class=&quot;highlighter-rouge&quot;&gt;.git&lt;/code&gt; con varias cosas, aquí tenemos una captura de una versión recién creada:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;.git
-├── HEAD
-├── branches
-├── config
-├── description
-├── hooks
-│   ├── applypatch-msg.sample
-│   ├── commit-msg.sample
-│   ├── post-update.sample
-│   ├── pre-applypatch.sample
-│   ├── pre-commit.sample
-│   ├── pre-push.sample
-│   ├── pre-rebase.sample
-│   ├── pre-receive.sample
-│   ├── prepare-commit-msg.sample
-│   └── update.sample
-├── info
-│   └── exclude
-├── objects
-│   ├── info
-│   └── pack
-└── refs
-    ├── heads
-    └── tags&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Muchas de ellas las iremos desgranando en esta serie. La subcarpeta más importante, y la que contiene el mapa clave-valor que he mencionado más arriba, es &lt;code class=&quot;highlighter-rouge&quot;&gt;objects&lt;/code&gt;. Vemos que, de momento, &lt;code class=&quot;highlighter-rouge&quot;&gt;objects&lt;/code&gt; está vacía, tan solo tiene dos sucarpetas, &lt;code class=&quot;highlighter-rouge&quot;&gt;info&lt;/code&gt; y &lt;code class=&quot;highlighter-rouge&quot;&gt;pack&lt;/code&gt;, también vacías, y que vamos a ignorar por ahora.&lt;/p&gt;
-
-&lt;h2 id=&quot;guardando-objetos&quot;&gt;Guardando objetos&lt;/h2&gt;
-
-&lt;p&gt;Vamos a utilizar de nuevo &lt;code class=&quot;highlighter-rouge&quot;&gt;hash-object&lt;/code&gt; para almacenar una entrada con el valor “Hello World” en &lt;code class=&quot;highlighter-rouge&quot;&gt;objects&lt;/code&gt;. Esto lo podemos conseguir de la siguiente manera:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ echo Hello World | git hash-object --stdin -w
-557db03de997c86a4a028e1ebd3a1ceb225be238&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Aunque la salida del comando es la misma que conseguimos al lanzarlo sin la opción &lt;code class=&quot;highlighter-rouge&quot;&gt;-w&lt;/code&gt;, ha ocurrido algo interesante. Analicemos de nuevo el contenido de &lt;code class=&quot;highlighter-rouge&quot;&gt;objects&lt;/code&gt;:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;├── objects
-│   ├── 55
-│   │   └── 7db03de997c86a4a028e1ebd3a1ceb225be238
-│   ├── info
-│   └── pack&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Vemos que ahora tenemos una carpeta, &lt;code class=&quot;highlighter-rouge&quot;&gt;55&lt;/code&gt;, con un fichero, &lt;code class=&quot;highlighter-rouge&quot;&gt;7db03de997c86a4a028e1ebd3a1ceb225be238&lt;/code&gt;. Es decir, Git ha tomado los dos primeros caracteres de la clave hash generada a partir del valor “Hello World”, ha creado una carpeta, y con el resto de la clave ha creado un fichero. El contenido de este fichero no se puede inspeccionar con un editor de texto, pero sí existe un comando de Git que nos permite visualizar su contenido fácilmente, &lt;code class=&quot;highlighter-rouge&quot;&gt;cat-file&lt;/code&gt;:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git cat-file -p 557db03de997c86a4a028e1ebd3a1ceb225be238
-Hello World
-
-$ git cat-file -p 557db03
-Hello World&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;He repetido el comando dos veces, la segunda de manera simplificada, para demostrar que, si nuestro repositorio Git no tiene dos claves que empiecen por &lt;code class=&quot;highlighter-rouge&quot;&gt;557db03&lt;/code&gt; es posible trabajar con las claves simplificadas igualmente. Podemos bajar hasta a cuatro caracteres si queremos, pero lo normal es simplificar a 6 o 7, cifra que prácticamente elimina la posibilidad de tener duplicados en un mismo repositorio.&lt;/p&gt;
-
-&lt;p&gt;El comando &lt;code class=&quot;highlighter-rouge&quot;&gt;cat-file&lt;/code&gt; también permite interrogar por el tipo del valor, veamos qué obtenemos:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git cat-file -t 557db03
-blob&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;En efecto, el tipo de nuestro valor es &lt;strong&gt;blob&lt;/strong&gt;, que viene a ser un array de bytes sin más, y es el tipo que se utiliza para almacenar los ficheros que todos subimos a nuestro control de versiones, sean binarios o código fuente. Es uno de los cuatro tipos que Git puede almacenar en su repositorio. Sí, habéis leído bien, Git sólo maneja cuatro tipos de datos.&lt;/p&gt;
-
-&lt;p&gt;Vamos a ir dibujando un diagrama de nuestro repositorio sobre la marcha. De momento, lo que tenemos es:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-blob.jpg&quot; alt=&quot;Git Blob&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;primer-commit&quot;&gt;Primer commit&lt;/h2&gt;
-
-&lt;p&gt;Aunque hemos utilizado un “plumbing command” para guardar algo en el repositorio, esta no es para nada la forma habitual de utilizar Git. En el 100% de los casos, crearemos un fichero con algún contenido, así que vamos a ello:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ echo Hello World &amp;gt; hello.txt
-
-$ git add .
-
-$ git commit -m &quot;First commit&quot;
-[master (root-commit) d1ee121] First commit
- 1 file changed, 1 insertion(+)
- create mode 100644 hello.txt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Como ya he comentado anteriormente, se presupone cierto conocimiento de la herramienta, por lo que no entraré en detalles de lo que estoy haciendo en cada paso. Tan sólo añadir que, nuestra carpeta &lt;code class=&quot;highlighter-rouge&quot;&gt;objects&lt;/code&gt; ha permanecido inmutable hasta el último commando, es decir, hasta el momento en que hemos hecho commit, donde ha quedado así:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;├── objects
-│   ├── 55
-│   │   └── 7db03de997c86a4a028e1ebd3a1ceb225be238
-│   ├── 97
-│   │   └── b49d4c943e3715fe30f141cc6f27a8548cee0e
-│   ├── d1
-│   │   └── ee121d5fe96b891ac0cc695498f31c0a4a7664
-│   ├── info
-│   └── pack&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Es decir, se han añadido cuatro entradas nuevas al mapa clave-valor. Vamos a inspeccionar cada una de ellas.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;557db03&lt;/code&gt; sigue siendo la entrada que añadimos manualmente, es decir, el blob “Hello World”&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Vamos a utilizar el comando &lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt; para conocer la clave hash que se ha asociado al commit:&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git log -1
-commit d1ee121d5fe96b891ac0cc695498f31c0a4a7664
-Author: RaulAvila &amp;lt;xxxxxx@gmail.com&amp;gt;
-Date:   Sun Jan 22 18:50:55 2017 +0000
-
-    First commit&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;La clave hash simplificada del commit es &lt;code class=&quot;highlighter-rouge&quot;&gt;d1ee121&lt;/code&gt;. Veamos qué obtenemos con &lt;code class=&quot;highlighter-rouge&quot;&gt;cat-file&lt;/code&gt;, de la misma forma en que hicimos con el blob:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git cat-file -t d1ee121
-commit
-
-$ git cat-file -p d1ee121
-tree 97b49d4c943e3715fe30f141cc6f27a8548cee0e
-author RaulAvila &amp;lt;xxxxxx@gmail.com&amp;gt; 1485111055 +0000
-committer RaulAvila &amp;lt;xxxxxx@gmail.com&amp;gt; 1485111055 +0000
-
-First commit&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Es decir, el tipo del valor asociado a &lt;code class=&quot;highlighter-rouge&quot;&gt;d1ee121&lt;/code&gt; es &lt;strong&gt;commit&lt;/strong&gt;, por lo que acabamos de descubrir el segundo tipo de datos que puede almacenar Git. El contenido del fichero, además de la información que muestra el comando &lt;code class=&quot;highlighter-rouge&quot;&gt;git log&lt;/code&gt;, hace referencia a un “tree”, con un código hash, que “casualmente” también encontramos en la carpeta &lt;code class=&quot;highlighter-rouge&quot;&gt;objects&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;97b49d4&lt;/code&gt;. Así que vamos a inspeccionar este hash:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git cat-file -t 97b49d4
-tree
-
-$ git cat-file -p 97b49d4
-100644 blob 557db03de997c86a4a028e1ebd3a1ceb225be238	hello.txt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Acabamos de descubrir el tercer tipo de datos, &lt;strong&gt;tree&lt;/strong&gt;, que viene a ser el equivalente a una carpeta en una estructura de ficheros de toda la vida. De hecho si mostramos el contenido del valor de esta entrada tree, lo que tenemos es una lista de ficheros, donde la primera columna son permisos de acceso, la segunda el tipo del valor (que puede ser un blob u otro tree), la tercera la clave hash que lo identifica, y la segunda el nombre del fichero. Muy parecido a la salida de &lt;code class=&quot;highlighter-rouge&quot;&gt;ls&lt;/code&gt; en Unix, ¿verdad? Seguro que ya os habéis dado cuenta de la naturaleza recursiva de esta estructura, puesto que un tree puede contener otros trees a varios niveles, además de ficheros “normales”, o blobs. A modo de ejemplo, esta podría ser una salida perfectamente válida del comando &lt;code class=&quot;highlighter-rouge&quot;&gt;cat-file -p&lt;/code&gt; sobre un valor tree:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;100644 blob 557db03de997c86a4a028e1ebd3a1ceb225be238     hello.txt
-040000 tree f27fede2220bcd326aee3e86ddfd4ebd0fe58cb9     src&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Es decir, un fichero y otra carpeta, que a su vez puede contener más ficheros.&lt;/p&gt;
-
-&lt;p&gt;En este punto ya hemos visto que nuestra carpeta &lt;code class=&quot;highlighter-rouge&quot;&gt;objects&lt;/code&gt; tiene tres entradas:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;557db03&lt;/code&gt;, el valor “Hello World” que almacenamos de forma manual antes de crear nuestro primer fichero + commit&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;d1ee121&lt;/code&gt; contiene toda la información de nuestro primer commit, con un tree directamente asociado al commit, a modo de root&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;97b49d4&lt;/code&gt; es el mencionado tree, y contiene un fichero de nombre “hello.txt”, que está asociado al hash &lt;code class=&quot;highlighter-rouge&quot;&gt;557db03&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;¡Un momento! ¿Habéis notado algo? El valor hash asociado al fichero “hello.txt” es exactamente el mismo que nosotros añadimos manualmente antes de hacer un commit. En efecto, Git ha detectado que el contenido del fichero es el mismo que el que ya existe en esa entrada del repositorio (más que nada porque el valor hash generado es idéntico), ¡y la ha reutilizado! De hecho, la entrada &lt;code class=&quot;highlighter-rouge&quot;&gt;557db03&lt;/code&gt; contiene sólo el blob “Hello World”, sin ninguna información del nombre del fichero que lo contiene. Esta información es propiedad del objeto tree que referencie a dicho blob.&lt;/p&gt;
-
-&lt;p&gt;Si completamos el diagrama, asociando los diferentes valores, nos quedaría algo así:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-first-commit.jpg&quot; alt=&quot;Git Blob&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;tags&quot;&gt;Tags&lt;/h2&gt;
-
-&lt;p&gt;Comenté anteriormente que Git puede almacenar cuatro tipos de datos, pero de momento sólo hemos visto tres. El tipo que nos queda es más difícil de introducir de manera “casual”, y es &lt;strong&gt;tag&lt;/strong&gt;. Supongo que estaréis familiarizados con los tags de Git, para marcar un commit concreto que nos interesa. Vamos a hacerlo con este primer commit:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git tag -a first -m &quot;First Commit&quot;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Tras hacer esto, los cambios dentro de nuestra carpeta &lt;code class=&quot;highlighter-rouge&quot;&gt;.git&lt;/code&gt; se pueden ver aquí:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;├── objects
-│   ├── 04
-│   │   └── 50100369ff9e0b980dfc6ae42aaeb1de6890f6
-│   ├── 55
-│   │   └── 7db03de997c86a4a028e1ebd3a1ceb225be238
-│   ├── 97
-│   │   └── b49d4c943e3715fe30f141cc6f27a8548cee0e
-│   ├── d1
-│   │   └── ee121d5fe96b891ac0cc695498f31c0a4a7664
-│   ├── info
-│   └── pack
-└── refs
-    ├── heads
-    │   └── master
-    └── tags
-        └── first&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Son los siguientes:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Tenemos un nuevo valor en &lt;code class=&quot;highlighter-rouge&quot;&gt;objects&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;0450100&lt;/code&gt;, una inspección con &lt;code class=&quot;highlighter-rouge&quot;&gt;cat-file&lt;/code&gt; nos da lo siguiente:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git cat-file -t 0450100
-tag
-
-$ git cat-file -p 0450100
-object d1ee121d5fe96b891ac0cc695498f31c0a4a7664
-type commit
-tag first
-tagger RaulAvila &amp;lt;xxxxxx@gmail.com&amp;gt; 1485112874 +0000
-
-First Commit&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Es decir, el valor es del tipo &lt;strong&gt;tag&lt;/strong&gt;, como hemos adelantado, y apunta al objeto &lt;code class=&quot;highlighter-rouge&quot;&gt;d1ee121&lt;/code&gt;, que no es más que el commit en el que estábamos cuando creamos el tag. Este valor también contiene la descripción que añadimos al tag cuando lo creamos.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;En la carpeta &lt;code class=&quot;highlighter-rouge&quot;&gt;.git/refs/tags&lt;/code&gt; tenemos un nuevo fichero, &lt;code class=&quot;highlighter-rouge&quot;&gt;first&lt;/code&gt;, que podemos inspeccionar con un editor de texto o el comando &lt;code class=&quot;highlighter-rouge&quot;&gt;cat&lt;/code&gt;:&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ cat .git/refs/tags/first
-0450100369ff9e0b980dfc6ae42aaeb1de6890f6&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Está claro que este fichero no es más que un alias que contiene una referencia al hash del tag creado, ni más ni menos.&lt;/p&gt;
-
-&lt;p&gt;Con esto, actualicemos nuestro diagrama:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-first-commit-tag.jpg&quot; alt=&quot;Git Blob&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Terminamos esta primera entrega sobre el funcionamiento interno de Git. &lt;a href=&quot;/2017/02/como-funciona-git-2/&quot;&gt;En la siguiente&lt;/a&gt; veremos cómo Git añade nuevos commits al histórico, revisaremos los tipos de datos durante el proceso, y veremos cómo se realiza la gestion de ramas.&lt;/p&gt;
 </content>
  </entry>
  
