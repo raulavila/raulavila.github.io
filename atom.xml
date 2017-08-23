@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-07-23T17:40:38+01:00</updated>
+ <updated>2017-08-23T21:18:03+02:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -13,9 +13,95 @@
 
  
  <entry>
+   <title>Cómo escribir un CV para el mercado IT anglosajón</title>
+   <link href="http://www.raulavila.com/2017/08/cv-it-anglosajon/"/>
+   <updated>2017-08-23T00:00:00+02:00</updated>
+   <id>http://www.raulavila.com/2017/08/cv-it-anglosajon</id>
+   <content type="html">&lt;p&gt;Hace más de dos años escribí un post sobre los pasos que tomé para &lt;a href=&quot;/2015/04/trabajo-londres/&quot;&gt;buscar trabajo como informático en Londres&lt;/a&gt;. Ese post ha resultado ser el más popular de mi blog con diferencia, y a partir de él he sido contactado varias veces solicitando información adicional, preguntando dudas, etc.&lt;/p&gt;
+
+&lt;p&gt;Recientemente un lector me escribió con la intención de recibir feedback sobre su CV, lo que me dio la idea de plasmar en un post los consejos que habría podido darle a él personalmente, para así poder ayudar a más personas.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;Aclaro que casi todo lo que escribiré a continuación no es más que mi opinión, basada en todas las investigaciones que en su día hice para redactar un CV orientado al mercado anglosajón en Europa. Me refiero, por tanto, al Reino Unido, aunque creo que Irlanda también podría entrar en el mismo saco. No sé si lo mismo sería válido en otros países como Alemania o Francia, por ejemplo.&lt;/p&gt;
+
+&lt;p&gt;Puntualización: &lt;a href=&quot;http://raulavila.com/public/CV_Raul_Avila.pdf&quot;&gt;la versión de mi CV actual&lt;/a&gt; está un poco sucia, porque no me encuentro buscando trabajo y no cumple varios de los puntos que digo aquí, así que cogedla con pinzas. Pero creo que sigue siendo útil ponerla para ejemplo de algunas cosas concretas.&lt;/p&gt;
+
+&lt;h3 id=&quot;formato&quot;&gt;Formato&lt;/h3&gt;
+
+&lt;p&gt;El formato a utilizar deber ser PDF, por un sencillo motivo: si utilizas Word u otro similar, los recruiters se podrán tomar la libertad de editar alegremente el currículum, cosa que supongo no os interesa (en PDF también es posible, pero más complicado). Si en algún caso os piden el CV en formato Word, y el puesto es muy atractivo, quizás convenga acceder a ello, pero no se me ocurre un motivo honesto detrás, la verdad.&lt;/p&gt;
+
+&lt;p&gt;Como ya comenté en mi post sobre Londres, el mercado de recruiters es una jungla, y cuanto menos manga ancha les demos, mejor.&lt;/p&gt;
+
+&lt;h3 id=&quot;foto-y-fecha-de-nacimiento&quot;&gt;Foto y fecha de nacimiento&lt;/h3&gt;
+
+&lt;p&gt;Estos detalles &lt;strong&gt;no deben&lt;/strong&gt; aparecer en el CV. Quizás me equivoco, pero en UK un recruiter o empresa descartará automáticamente tu candidatura si esos detalles aparecen en el CV. Hay motivos legales para esto, y es que si aparecen la fecha de nacimiento o la foto se abre la veda a discriminación por motivos de imagen o edad, cosa que jamás debería ocurrir durante un proceso de selección, ¿verdad?&lt;/p&gt;
+
+&lt;h3 id=&quot;diseño&quot;&gt;Diseño&lt;/h3&gt;
+
+&lt;p&gt;Esto es una opinión personal, pero no somos diseñadores gráficos, y creo que un CV cuanto más sobrio en su diseño, mejor. &lt;a href=&quot;http://raulavila.com/public/CV_Raul_Avila.pdf&quot;&gt;El mío&lt;/a&gt; es bastante simple, como podéis ver, aunque su tiempo me llevó. No digo que si preferís algo más llamativo esté mal, de todas formas.&lt;/p&gt;
+
+&lt;h3 id=&quot;longitud&quot;&gt;Longitud&lt;/h3&gt;
+
+&lt;p&gt;Dependiendo de la experiencia, la máxima longitud debe estar entre dos y tres páginas. Si tenéis poca experiencia, haced todo lo posible para dejarlo en una. Entiendo que a partir de ciertos años / número de empresas, puede ser un desafío concentrarlo todo en dos páginas, pero creedme que merece la pena el esfuerzo. Los recruiters no suelen pasar de la primera página en un primer filtro, no hablemos de la segunda. Si hay tercera página debería contener datos de poca importancia, como empresas donde trabajamos hace tiempo, por ejemplo.&lt;/p&gt;
+
+&lt;p&gt;Lo que sí es muy importante es dejar la información más destacada en la primera página: nombre, perfil, datos de contacto, habilidades técnicas, y si es posible debería aparecer vuestra última experiencia (nombre de empresa y puesto). Esto último fui incapaz de cumplirlo en mi CV, pero es aconsejable. Profundizemos en las diferentes secciones a incluir.&lt;/p&gt;
+
+&lt;h3 id=&quot;secciones&quot;&gt;Secciones&lt;/h3&gt;
+
+&lt;p&gt;Por supuesto, el encabezado debe contener vuestro nombre en grande, correo y teléfono. Yo no crearía una sección específica para esto, todo el mundo sabe diferenciar qué es cada cosa. Si os gusta definiros con un título específico (por ejemplo, Software Engineer, Senior Java Developer…), podéis ponerlo en pequeño debajo de vuestro nombre. Aunque personalmente prefiero poner esto como comienzo de la primera sección. Veamos cuáles son las secciones que recomiendo:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Profile&lt;/strong&gt;: breve descripción, en un párrafo, de quienes sois, con qué título os gusto definiros, cuál es vuestro perfil, etc. Deber ser muy concisa. Os pongo la descripción que yo utilicé la última vez que busqué trabajo como ejemplo (no creo que sea especialmente brillante, por otro lado):
+    &lt;blockquote&gt;
+      &lt;p&gt;Senior Java Software Engineer specialized in back-end developments, with a strong focus on quality, use of patterns and, in general, improving the processes and practices of the teams where I’m involved. Having an extensive experience (10+ years), my goal is not just delivering working software but consolidating solid architectures and optimizing the maintainability of the final result.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Core Strenghts&lt;/strong&gt; (opcional): cuatro o cinco puntos, no especialmente técnicos, en los que creáis que destacáis. Esta sección, en mi opinión, es un poco basura, da pie a muchos tópicos, pero a las empresas les encanta. Una puntualización aquí: por favor, no pongáis “Attention to detail”. Diría que podéis omitir esta sección sin ningún problema si no os llama especialmente la atención.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Technical Skills&lt;/strong&gt;: quizás sea esta la sección más complicada de todas. A nada que vayamos teniendo experiencia, el número de tecnologías, frameworks y herramientas que conoceremos crecerá exponecialmente. Seguramente nos sea imposible poner todo lo que sabemos aquí, y a una empresa de bien no debería importarle demasiado que no hayamos trabajado con MongoDB, por ejemplo. Pero si buscáis vuestro primer trabajo fuera de España, vuestra situación será que tendréis que pasar un primer filtro más complicado por parte de recruiters, y estos se dedican mucho a filtrar CVs haciendo búsquedas por palabras. Esto significa que os podéis quedar fuera de un proceso si omitís algo que conocéis y una empresa lo pide.&lt;/p&gt;
+
+    &lt;p&gt;Es importante organizar esta sección en subsecciones, para que no parezca un conglomerado de siglas. Yo, tras darle muchas vueltas, y siendo principalmente un Java Backend Developer, dividí esta parte en: Java Ecosystem, Software Architecture, Data Processing (bases de datos, formatos y demás) y Miscellaneous (aquí tienen cabida todo tipo de herramientas, desde IDEs, control de versiones, gestión de proyectos, también metoodologías, etc).&lt;/p&gt;
+
+    &lt;p&gt;La verdad es que revisando mi CV ahora, quitaría algunas cosas para hacer la sección más ligera.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Work Experience&lt;/strong&gt;: ordenados del más reciente al más antiguo, tenemos que listar nuestros trabajos y describir qué hicimos en ellos. A mí me gusta utilizar una sola línea como encabezado para cada entrada, conteniendo “[Fecha]: [Puesto] at [Empresa]”, por ejemplo “2014 to 2016: Software Developer at Pepito SL”, porque a más líneas más espacio que nos quitamos para otras cosas. Debajo del título de cada puesto conviene añadir una breve descripción sobre la empresa: si era una startup, una consultoría, etc. Y a continuación, añadid una lista de puntos describiendo el puesto. Los británicos están enamorados de lo que ellos llaman “achievements”, esto es, cosas muy objetivas que logramos durante nuestra estancia en la empresa, el problema es que en nuestro trabajo es complicado encontrar cosas “cuantificables”, algo que un comercial, por ejemplo, tiene más fácil. No obstante, siempre podemos hablar del éxito de una aplicación que salió a producción, por ejemplo, de cómo mejoramos la suite de tests en un proyecto, o de cómo cambiamos la forma de trabajar en un equipo para que adoptaran Agile (ehem), de cómo fuimos ascendidos tras un tiempo, etc. Por supuesto conviene describir los proyectos en los que estuvimos, pero sin entrar en demasiado detalle de cada uno. A mí me gusta generalizar bastante aquí.&lt;/p&gt;
+
+    &lt;p&gt;No conviene entrar demasiado en detalle acerca de las tecnologías que utilizamos en cada empresa. Ya añadimos previamente una sección de Technical Skills, por lo que lo veo redundante. Aunque siempre podemos mencionar por encima las dos o tres más importantes de cada sitio.&lt;/p&gt;
+
+    &lt;p&gt;Si hemos estado en varias compañías, y nuestra experiencia es ya dilatada, no tiene mucho sentido dar tanto detalle de las primeras. Para esto yo utilizo una sección adicional, &lt;strong&gt;Early Career&lt;/strong&gt;, donde en un par de líneas describo por encima en qué empresas estuve y qué rol.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Contributions to Community&lt;/strong&gt; (opcional): si tenéis un blog, un perfil de GitHub, dais charlas, organizáis un meetup, tenéis un podcast…debería ir aquí.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Education&lt;/strong&gt;: si tenéis un título universitario indicadlo en esta sección. No la pongo casi al final del CV porque sí, las empresas van a valorar muy muy poco esto, y aunque no vamos a omitirlo, no debemos darle más importancia de la que tiene, poniéndolo justo debajo del nombre en el encabezado, por ejemplo.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Certifications and Additional Courses&lt;/strong&gt;: bastante obvio esto, al nivel de Education en cuanto a importancia, aunque en ocasiones puede ser más valorado, si recientemente os habéis sacado la certificación de Coursera en Scala, por ejemplo. Además demuestra inquietud si se ve que periódicamente váis estudiando nuevas cosas.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Additional Information&lt;/strong&gt; (opcional): aquí podéis poner lo que queráis, si os gusta la música, el Kickboxing, hacer senderismo. Si por culpa de esta sección os toca añadir otra hoja, me la ahorraría. Quizás convenga añadir aquí que actualmente residís en España, para que quede claro que tendréis que viajar para entrevistas. Una vez viváis fuera y busquéis en la misma ciudad no es necesario dar ningún detalle sobre nuestra residencia.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;puntualizaciones&quot;&gt;Puntualizaciones&lt;/h3&gt;
+
+&lt;p&gt;Repito que este post está basado en mi experiencia, y para nada digo que sea un canon ni nada parecido, es sólo lo que me ha funcionado a mí. Internet está lleno de recursos que profundizan en este tema, hay incluso cursos, y hasta empresas que por un “módico” precio (unas 300 libras) te lo preparan ellas. Yo nunca haría algo así, pero la opción existe.&lt;/p&gt;
+
+&lt;p&gt;Os habréis fijado que en ningún momento añado mi dirección, u otras cosas que suelen ponerse en los CV en España, como puede ser el hecho de tener carnet de conducir. Son detalles que ocupan espacio y no aportan nada. Tampoco es necesario que indiquéis si tenéis un nivel de inglés B2, C1, o lo que sea. Las empresas sólo están interesadas en que os comuniquéis de forma razonable, y eso lo va a detectar el recruiter en un minuto de conversación telefónica cuando os llame la primera vez.&lt;/p&gt;
+
+&lt;p&gt;Un último consejo: pillad un número de teléfono exclusivo para la búsqueda de empleo. Existen tantas agencias de recruiters a la caza de candidatos y currículums, que, una vez registren vuestro número en su base de datos, os llamarán una y otra vez hasta la eternidad. Y es bastante coñazo, la verdad.&lt;/p&gt;
+
+&lt;p&gt;Espero que este post os sirva de ayuda si estáis considerando dar el salto desde España. Es cierto que ahora mismo, con el tema Brexit, puede haber más reticencias, pero yo soy muy optimista al respecto en nuestro sector. Seguramente UK quede algo afectado a medio plazo, pero creo que IT seguirá tan vivo como siempre. Y sinceramente, la experiencia merece mucho la pena.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
    <title>Mis etapas con el refactoring</title>
    <link href="http://www.raulavila.com/2017/07/etapas-refactoring/"/>
-   <updated>2017-07-23T00:00:00+01:00</updated>
+   <updated>2017-07-23T00:00:00+02:00</updated>
    <id>http://www.raulavila.com/2017/07/etapas-refactoring</id>
    <content type="html">&lt;p&gt;Mi relación con el refactoring viene de lejos, de hecho entre los primeros posts que publiqué se encontraba &lt;a href=&quot;/2015/02/fowler-refactoring-1/&quot;&gt;una serie de tres&lt;/a&gt; donde analizaba de forma algo crítica el libro “Refactoring” de Fowler, y que seguramente hoy día escribiría de forma diferente.&lt;/p&gt;
 
@@ -87,7 +173,7 @@
  <entry>
    <title>¿Qué es un Programador Ágil?</title>
    <link href="http://www.raulavila.com/2017/05/programadores-agiles/"/>
-   <updated>2017-05-24T00:00:00+01:00</updated>
+   <updated>2017-05-24T00:00:00+02:00</updated>
    <id>http://www.raulavila.com/2017/05/programadores-agiles</id>
    <content type="html">&lt;p&gt;Supongo que a nadie le pillará por sorpresa si afirmo que el desarrollo Agile está en boca de toda las empresas hoy día. Incluso el tema se está llevando a otra dimensión con el deslumbrante nombre de “Transformación Digital”. Por tanto, no creo que sea necesario explicar en este post qué es el desarrollo ágil.&lt;/p&gt;
 
@@ -119,7 +205,7 @@
  <entry>
    <title>Lecciones aprendidas tras mi primer proyecto como Anchor</title>
    <link href="http://www.raulavila.com/2017/05/lecciones-aprendidas-anchor/"/>
-   <updated>2017-05-06T00:00:00+01:00</updated>
+   <updated>2017-05-06T00:00:00+02:00</updated>
    <id>http://www.raulavila.com/2017/05/lecciones-aprendidas-anchor</id>
    <content type="html">&lt;p&gt;Acabo de terminar mi primera experiencia como Anchor (aka Team Leader). Hacer un buen trabajo en este rol era uno de mis objetivos del año 2017, y creo que lo he conseguido. Quizás no haya sido el mejor proyecto para empezar, por varios factores que no vienen al caso, pero en general estoy muy satisfecho con todo lo hecho y aprendido.&lt;/p&gt;
 
@@ -190,7 +276,7 @@
  <entry>
    <title>Cómo funciona Git (y 4)</title>
    <link href="http://www.raulavila.com/2017/04/como-funciona-git-4/"/>
-   <updated>2017-04-30T00:00:00+01:00</updated>
+   <updated>2017-04-30T00:00:00+02:00</updated>
    <id>http://www.raulavila.com/2017/04/como-funciona-git-4</id>
    <content type="html">&lt;p&gt;Tenía pendiente escribir la última parte de esta serie desde hace tiempo. Tras revisar &lt;a href=&quot;/2017/03/como-funciona-git-3/&quot;&gt;cómo Git gestiona merge y rebase&lt;/a&gt;, queda por ver la forma en que Git gestiona la capa de distribución, es decir, el trabajo y sincronización con repositorios remotos.&lt;/p&gt;
 
@@ -320,7 +406,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.&lt;/c
  <entry>
    <title>Cómo trabajamos en Pivotal</title>
    <link href="http://www.raulavila.com/2017/04/como-trabajamos-pivotal/"/>
-   <updated>2017-04-06T00:00:00+01:00</updated>
+   <updated>2017-04-06T00:00:00+02:00</updated>
    <id>http://www.raulavila.com/2017/04/como-trabajamos-pivotal</id>
    <content type="html">&lt;p&gt;Hace algo más de un año comencé a trabajar en &lt;a href=&quot;https://pivotal.io/&quot;&gt;Pivotal&lt;/a&gt;, una empresa donde no he dejado de aprender desde el día uno. A finales de 2016, tras descubrir la web &lt;a href=&quot;http://www.wedotdd.com/&quot;&gt;We Do TDD&lt;/a&gt; (una gran iniciativa) y unirme al canal de Slack, se me ofreció la posibilidad de ser entrevistado para describir la forma en que trabajamos, cómo utilizamos TDD, etc. Acepté en paralelo al mismo tiempo que un compañero de Berlín (Oleksii, más conocido como &lt;a href=&quot;http://www.tddfellow.com/&quot;&gt;That TDD Fellow&lt;/a&gt;), por lo que decidimos hacer la entrevista conjunta, cosa que, por otra parte, encaja bastante bien con la cultura de nuestra empresa, donde el pair programming es una constante.&lt;/p&gt;
 
@@ -333,7 +419,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.&lt;/c
  <entry>
    <title>La comunicación en proyectos Software</title>
    <link href="http://www.raulavila.com/2017/04/comunicacion-proyectos-software/"/>
-   <updated>2017-04-01T00:00:00+01:00</updated>
+   <updated>2017-04-01T00:00:00+02:00</updated>
    <id>http://www.raulavila.com/2017/04/comunicacion</id>
    <content type="html">&lt;p&gt;Esta semana hará tres meses que inicié mi andadura como Anchor en un proyecto de mi empresa. Diría que la experiencia está siendo muy buena en todos los sentidos, y me está sirviendo para aprender un montón de cosas. Quizás la más importante de todas ellas sea como gestionar la comunicación dentro de un equipo de forma eficiente, y en este post voy a repasar muchas de las conclusiones que he ido sacando en claro.&lt;/p&gt;
 
@@ -433,7 +519,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.&lt;/c
  <entry>
    <title>Cómo funciona Git (parte 3)</title>
    <link href="http://www.raulavila.com/2017/03/como-funciona-git-3/"/>
-   <updated>2017-03-11T00:00:00+00:00</updated>
+   <updated>2017-03-11T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2017/03/como-funciona-git-3</id>
    <content type="html">&lt;p&gt;Continuamos con nuestra serie sobre el funcionamiento interno de Git. &lt;a href=&quot;/2017/02/como-funciona-git-2/&quot;&gt;En el anterior post&lt;/a&gt; dejamos nuestro repositorio en el siguiente estado:&lt;/p&gt;
 
@@ -662,7 +748,7 @@ Fast-forward
  <entry>
    <title>The Senior Software Engineer (el libro)</title>
    <link href="http://www.raulavila.com/2017/02/senior-software-engineer-book/"/>
-   <updated>2017-02-26T00:00:00+00:00</updated>
+   <updated>2017-02-26T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2017/02/senior-software-engineer</id>
    <content type="html">&lt;p&gt;&lt;img src=&quot;/public/pictures/sse.jpg&quot; alt=&quot;SSE&quot; /&gt;&lt;/p&gt;
 
@@ -759,7 +845,7 @@ Fast-forward
  <entry>
    <title>Cómo funciona Git (parte 2)</title>
    <link href="http://www.raulavila.com/2017/02/como-funciona-git-2/"/>
-   <updated>2017-02-11T00:00:00+00:00</updated>
+   <updated>2017-02-11T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2017/02/como-funciona-git-2</id>
    <content type="html">&lt;p&gt;En &lt;a href=&quot;/2017/01/como-funciona-git-1/&quot;&gt;el primer post de esta serie&lt;/a&gt; comenzamos a destripar el funcionamiento interno de Git, revisando los diferentes tipos de datos que Git soporta internamente. Si no lo habéis leído &lt;a href=&quot;/2017/01/como-funciona-git-1/&quot;&gt;deberíais empezar por ahí&lt;/a&gt;.&lt;/p&gt;
 
@@ -968,49 +1054,6 @@ Switched to branch 'develop'&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-head.jpg&quot; alt=&quot;Git&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;Lo dejamos aquí por hoy. &lt;a href=&quot;/2017/03/como-funciona-git-3/&quot;&gt;En el último post de la serie&lt;/a&gt; veremos cómo funcionan &lt;code class=&quot;highlighter-rouge&quot;&gt;merge&lt;/code&gt; y &lt;code class=&quot;highlighter-rouge&quot;&gt;rebase&lt;/code&gt;, y finalizaremos con la sincronización con repositorios remotos.&lt;/p&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>¿Volver?</title>
-   <link href="http://www.raulavila.com/2017/01/volver/"/>
-   <updated>2017-01-29T00:00:00+00:00</updated>
-   <id>http://www.raulavila.com/2017/01/volver</id>
-   <content type="html">&lt;p&gt;Escribo este post inspirado por los correos dominicales de &lt;a href=&quot;http://us2.campaign-archive1.com/?u=374c664073e1a1fa3deca53b4&amp;amp;id=33d5cc4ff8&amp;amp;e=b93d18ec09&quot;&gt;David Bonilla&lt;/a&gt; y &lt;a href=&quot;http://us2.campaign-archive1.com/?u=6a0dd93f8651955858ab8633f&amp;amp;id=a9ff5e4957&amp;amp;e=96ff600f8b&quot;&gt;Jerónimo Palacios&lt;/a&gt;, ambos titulados igual: “Volver”. Jerónimo acaba de trasladar su “base de operaciones” a Granada, su ciudad de origen si no recuerdo mal, aunque seguirá trabajando en toda Europa. Y Bonilla analiza la emigración masiva que se dió en España a primeros de la década, cómo muchos informáticos tomaron la decisión de marcharse aún teniendo trabajo de sobra en nuestro país, y si se dan las condiciones para que vuelvan.&lt;/p&gt;
-
-&lt;!--break--&gt;
-
-&lt;p&gt;Este tema me toca muy cerca porque, como bien sabréis si me seguís con algo de regularidad, vivo en Londres, &lt;a href=&quot;/2015/04/trabajo-londres/&quot;&gt;ciudad a la que me mudé&lt;/a&gt; en Abril de 2014. Yo era uno de esos informáticos que comenta Bonilla estaban con trabajo, de hecho en mi último año trabajé en más de una empresa. Aún así decidí hacer las maletas buscando nuevos desafíos.&lt;/p&gt;
-
-&lt;h2 id=&quot;españa-vs-uk&quot;&gt;España vs UK&lt;/h2&gt;
-
-&lt;p&gt;Porque de eso se trató en realidad, de buscar desafíos. Con 33 años no me apetecía nada quedarme estancado en el rol “Desarrollador Senior” según se entiende en la mayor parte de empresas españolas. Añado esto último porque precisamente una de las primeras cosas que aprendí en UK fue que el puesto de “Senior Developer” puede tener todo el recorrido que quieras sin restricciones de techo salarial o responsabilidades. De hecho, algo que al principió me impactó bastante fue comprobar como determinados puestos de “Project Manager” tenían un salario menor que el de los “Senior Developer” en su mismo proyecto, siendo esto así porque los roles definen responsabilidades y no jerarquías.&lt;/p&gt;
-
-&lt;p&gt;Es decir, aunque es inevitable que existan las escaleras corporativas / salariales dentro de una empresa, no existen tanto a nivel de proyecto / equipo, cosa que convierte los puestos de trabajo en algo mucho más estimulante.&lt;/p&gt;
-
-&lt;p&gt;Otra cosa interesante que he encontrado es respeto. En ningún caso he escuchado la famosa frase “al menos alégrate de tener trabajo”, que tantas veces oí en España cuando venían mal dadas. Aquí queda claro que en la relación empresa - empleado existe un beneficio mutuo que interesa mantener, y donde la formación constante es también muy importante. Así por ejemplo, nunca me he tenido que ver suplicando a mi responsable que me deje asistir a una conferencia o evento, de hecho en mi actual empresa tenemos un presupuesto anual exclusivo para este tipo de cosas.&lt;/p&gt;
-
-&lt;h3 id=&quot;abanico-de-opciones--emprender&quot;&gt;Abanico de opciones / Emprender&lt;/h3&gt;
-
-&lt;p&gt;Desde que descubrí lo fácil que es emprender en UK, siempre he dicho que el verdadero drama de España es la dificultad para el emprendimiento. Si quisiera montar una empresa aquí mañana por la mañana la tendría funcionando, y con posibilidad de facturar de inmediato antes incluso de soltar un penique. Supongo que esto no os resulta nuevo, a España llegan mucho este tipo de comparativas, pero cuando lo vives desde dentro realmente impresiona y da que pensar. Mi mujer, por ejemplo, está trabajando de freelance, y en su declaración de este año le salieron 330 libras a pagar, sin ningún otro gasto adicional. A modo de anécdota, una vez conté en un evento el desembolso que había que hacer en España para emprender, y se empezaron todos a reir porque pensaban que estaba de coña. Cuando me puse serio y dije que era verdad, fliparon bastante.&lt;/p&gt;
-
-&lt;p&gt;Si quisiera ofrecer mis servicios como autónomo a empresas de informática, no tendría más que enviar unos pocos currículums, y en poco tiempo habría encontrado una empresa que me pagaría entre 450 y 550 libras al día. &lt;a href=&quot;http://www.itjobswatch.co.uk/contracts/london/senior%20developer.do&quot;&gt;Y no me estoy sacando estos números de la manga&lt;/a&gt;. El contracting no es algo que me llame especialmente, me gusta la estabilidad de trabajar en un sitio que me guste, pero saber que las posibilidades están ahí da mucha tranquilidad.&lt;/p&gt;
-
-&lt;p&gt;Por último, y para puestos de trabajo con contrato permanente, aquí puedes encontrar empresas de todo tipo, por lo que si quieres probar un sector o tipo de empresa en concreto podrás hacerlo en algún momento, es cuestión de paciencia.&lt;/p&gt;
-
-&lt;h2 id=&quot;brexit&quot;&gt;Brexit&lt;/h2&gt;
-
-&lt;p&gt;Puede que más de uno esté pensando si mi opinión ha cambiado tras el voto del Brexit. Bien, mi respuesta es contundente: no, todo lo contrario. Tras el Brexit mi empresa, Pivotal, se ha volcado para que los inmigrantes &lt;a href=&quot;https://twitter.com/pivotal/status/798227756156932096&quot;&gt;nos sintamos totalmente acogidos&lt;/a&gt;, en Londres he notado que el sentir general hacia nosotros es de agradecimiento, y la ciudad está intentando &lt;a href=&quot;https://www.london.gov.uk/about-us/mayor-london/londonisopen&quot;&gt;abrirse más que nunca&lt;/a&gt;. Así que, personalmente, el Brexit no me ha hecho replantearme si quedarme aquí o volver, aunque está por ver cómo responderá la economía en caso de ruptura total con la UE.&lt;/p&gt;
-
-&lt;p&gt;Quizás si viviera en otras ciudades más pequeñas habría notado una diferencia, no lo sé. Pero sí quiero añadir algo, a mí personalmente me repatean el racismo y xenofobia en cualquier dirección, y no creo que en España se pueda sacar demasiado pecho en cuanto a la falta de racismo. Empecemos mirando nuestro propio ombligo, y este es un mensaje para los medios de comunicación españoles, que tanto alarmismo están levantando últimamente hablando del Reino Unido.&lt;/p&gt;
-
-&lt;h2 id=&quot;volver&quot;&gt;¿Volver?&lt;/h2&gt;
-
-&lt;p&gt;Me consta que en los últimos años nuestro sector está mejorando mucho en España. Empezando por las comunidades, que dan cabida a eventos como el &lt;a href=&quot;/2016/11/codemotion-2016/&quot;&gt;Codemotion&lt;/a&gt; o montones de meetups, sobre todo en Madrid y Barcelona, pasando por empresas españolas con ganas de cambiar las cosas (&lt;a href=&quot;http://www.codesai.com/&quot;&gt;Codesai&lt;/a&gt;, &lt;a href=&quot;https://www.logtrust.com/en/&quot;&gt;LogTrust&lt;/a&gt;…), y terminando por importantes empresas internacionales que han decidido abrir oficina (&lt;a href=&quot;https://codurance.com/&quot;&gt;Codurance&lt;/a&gt; y &lt;a href=&quot;https://www.thoughtworks.com/&quot;&gt;Thoughtworks&lt;/a&gt; a la cabeza).&lt;/p&gt;
-
-&lt;p&gt;David Bonilla ha metido el dedo en la llaga hablando de los lazos familiares. Tener a toda la familia y amigos lejos se hace duro en muchos momentos, yo aún no tengo hijos, pero sé lo complicado que sería dar ese paso, por ejemplo. Tampoco he tenido mala suerte, de momento, en cuestiones de salud. Todos estos factores pueden suponer un buen empujón para tomar la decisión de volver.&lt;/p&gt;
-
-&lt;p&gt;Así que, quien sabe, quizás vuelva algún día, aunque de hacerlo, me gustaría poder hacer valer toda la experiencia que he ido adquiriendo aquí, principalmente a nivel de idioma. &lt;a href=&quot;/2016/12/aprender-ingles/&quot;&gt;Aprender un segundo lenguaje en condiciones&lt;/a&gt; está siendo muy complicado, y no quiero pensar que no pudiera seguir sacándole partido en un futuro. También me gustaría que se pudieran dar la mayor parte de las circunstancias que he comentado en este post, aunque algunas de ellas &lt;a href=&quot;http://www.silicon.es/los-emprendedores-lo-tienen-facil-en-espana-infografia-54433&quot;&gt;me parecen una utopía&lt;/a&gt;.&lt;/p&gt;
 </content>
  </entry>
  

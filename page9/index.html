@@ -48,12 +48,32 @@
   
   <article class="post">
     <h1 class="post-title">
+      <a href="/2015/09/gradle-desde-maven/">
+        Gradle desde Maven
+      </a>
+    </h1>
+
+    <time datetime="2015-09-05T00:00:00+02:00" class="post-date index-date">05/09/2015</time>    
+
+    <p>Tras hablar de <a href="/2015/08/caracteristicas-maven/">Maven</a> hace un par de posts, he pensado que sería interesante realizar una introducción a <a href="https://gradle.org/">Gradle</a>, una alternativa con sus orígenes en proyectos basados en el lenguaje <a href="http://www.groovy-lang.org/">Groovy</a>. Groovy, al ser un lenguaje ejecutable en la JVM, convive perfectamente con Java, y de esta compatibilidad surgen interesantes aplicaciones (entre las que, a mi parecer, destaca el framework de testing <a href="https://github.com/spockframework/">Spock</a>, del que hablaremos muy pronto).</p>
+
+<p>Gradle, aunque pensado inicialmente para construir proyectos Groovy, se aprovecha de esta compatibilidad con Java, permitiendo gestionar proyectos en dicho lenguaje sin ningún problema. Aprender Gradle es sencillo, pero hay que realizar un pequeño esfuerzo para obviar el modelo Maven al tomar contacto con la herramienta. Al menos eso es lo que me ocurrió a mí durante las primeras semanas que tuve que utilizarlo. En este post explicaré los conceptos básicos, y los pondré en contraste con sus contrapuntos en Maven.</p>
+
+
+    
+      <a href="/2015/09/gradle-desde-maven/">[...Leer más...]</a>
+    
+  </article>
+
+  
+  <article class="post">
+    <h1 class="post-title">
       <a href="/2015/08/10-years/">
         Reflexiones tras 10 años de profesional
       </a>
     </h1>
 
-    <time datetime="2015-08-29T00:00:00+01:00" class="post-date index-date">29/08/2015</time>    
+    <time datetime="2015-08-29T00:00:00+02:00" class="post-date index-date">29/08/2015</time>    
 
     <p>El 22 de Agosto se cumplió una década desde mi debut en la profesión. No diría que el tiempo ha pasado volando. Hace poco leí que el cerebro humano ajusta su percepción del tiempo a la cantidad de hechos importantes ocurridos durante un lapso determinado. Por ese motivo de jóvenes tenemos la impresión de que el tiempo pasa más despacio que de adultos, porque supuestamente en edades más avanzadas la rutina nos domina. Bueno, en mi caso, durantes estos años he vivido montones de experiencias (unas mejores que otras), así que puede ser un factor de importancia en esto que comento.</p>
 
@@ -73,7 +93,7 @@
       </a>
     </h1>
 
-    <time datetime="2015-08-16T00:00:00+01:00" class="post-date index-date">16/08/2015</time>    
+    <time datetime="2015-08-16T00:00:00+02:00" class="post-date index-date">16/08/2015</time>    
 
     <p><a href="https://maven.apache.org/">Maven</a> es, de facto, la herramienta Java para construir y gestionar proyectos de desarrollo. En su día ocupó el lugar de <a href="http://ant.apache.org/">Apache Ant</a>, debido sobre todo a su modelo “convention over configuration”. La gran diferencia que aportaba sobre aquella es la facilidad para configurar un proyecto basándonos en estándares, que si no queríamos sobrescribir facilitaba enormemente el proceso de puesta en marcha inicial. Actualmente, <a href="https://gradle.org/">Gradle</a> va ganando popularidad, y aunque personalmente le veo potencial, su flexibilidad (que remite a Ant) puede llegar a ser un hándicap a la hora de comprender una configuración determinada. Maven sigue siendo, por tanto, un must si desarrollas con Java.</p>
 
@@ -93,7 +113,7 @@
       </a>
     </h1>
 
-    <time datetime="2015-08-01T00:00:00+01:00" class="post-date index-date">01/08/2015</time>    
+    <time datetime="2015-08-01T00:00:00+02:00" class="post-date index-date">01/08/2015</time>    
 
     <p><a href="https://en.wikipedia.org/wiki/Test-driven_development">Test Driven Development</a>, más conocido como TDD, es una metodología de desarrollo de software que en la última década ha ido cobrando más vigencia cada año. Inicialmente “inventado” por <a href="https://twitter.com/KentBeck">Kent Beck</a>, una de las figuras más importantes de este mundillo, adoptado por una parte importante del mundo <a href="http://agilemethodology.org/">Agile</a>, y especialmente por el movimiento <a href="http://manifesto.softwarecraftsmanship.org/">Software Craftsmanship</a>, a nivel personal mi acercamiento hasta hace nada había sido puramente teórico.</p>
 
@@ -113,7 +133,7 @@
       </a>
     </h1>
 
-    <time datetime="2015-07-19T00:00:00+01:00" class="post-date index-date">19/07/2015</time>    
+    <time datetime="2015-07-19T00:00:00+02:00" class="post-date index-date">19/07/2015</time>    
 
     <p>En los últimos doce meses no se habla de otra cosa. Una herramienta cuya primera release fue hace menos de tres años, si las cuentas no me fallan (compañía fundada en 2010), está copando todo tipo de conversaciones, charlas, artículos, blogs…ha sido adoptada por <a href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html">Amazon WS</a>, y casi todas las plataformas Cloud, y su ascensión continúa de modo vertiginoso.</p>
 
@@ -122,28 +142,6 @@
 
     
       <a href="/2015/07/revolucion-docker/">[...Leer más...]</a>
-    
-  </article>
-
-  
-  <article class="post">
-    <h1 class="post-title">
-      <a href="/2015/07/acoplamiento-temporal/">
-        Acoplamiento temporal
-      </a>
-    </h1>
-
-    <time datetime="2015-07-08T00:00:00+01:00" class="post-date index-date">08/07/2015</time>    
-
-    <p>Creo que todos habremos leído más de un artículo o libro en el que, mencionando las buenas prácticas que debemos seguir a la hora de diseñar e implementar nuestras aplicaciones, se hace especial hincapié en dos conceptos:</p>
-
-<ul>
-  <li>Alta cohesión (<a href="http://stackoverflow.com/questions/10830135/what-is-high-cohesion-and-how-to-use-it-make-it">high cohesion</a>): sin ánimo de profundizar, la alta cohesión se consigue cuando una clase hace una labor bien definida, y  no múltiples tareas poco relacionadas. Una medida de alta cohesión podría ser el uso que los diferentes métodos de una clase hacen de las variables de instancia, si todos los métodos utilizan todas las variables de instancia la cohesión es alta. A nivel de módulo voy a poner un contraejemplo bastante significativo, la clase <code class="highlighter-rouge">java.util</code>, que contiene tanto las <a href="http://docs.oracle.com/javase/7/docs/api/java/util/Collections.html">Java Collections</a> como clases para manejar fechas y demás. Curioso que algo tan definido como las Collections no tenga su propio paquete, pero evidentemente por motivos históricos y compatibilidad hacia atrás se ha tenido que quedar así</li>
-</ul>
-
-
-    
-      <a href="/2015/07/acoplamiento-temporal/">[...Leer más...]</a>
     
   </article>
 
