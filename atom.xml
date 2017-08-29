@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-08-30T00:59:43+02:00</updated>
+ <updated>2017-08-30T01:03:16+02:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -404,7 +404,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.&lt;/c
 &lt;table&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;Serie Git Completa:&lt;/td&gt;
+      &lt;td&gt;Serie completa:&lt;/td&gt;
       &lt;td&gt;&lt;a href=&quot;/2017/01/como-funciona-git-1/&quot;&gt;Parte 1&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href=&quot;/2017/02/como-funciona-git-2/&quot;&gt;Parte 2&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href=&quot;/2017/03/como-funciona-git-3/&quot;&gt;Parte 3&lt;/a&gt;&lt;/td&gt;
@@ -758,7 +758,7 @@ Fast-forward
 &lt;table&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;Serie Git Completa:&lt;/td&gt;
+      &lt;td&gt;Serie completa:&lt;/td&gt;
       &lt;td&gt;&lt;a href=&quot;/2017/01/como-funciona-git-1/&quot;&gt;Parte 1&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href=&quot;/2017/02/como-funciona-git-2/&quot;&gt;Parte 2&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href=&quot;/2017/03/como-funciona-git-3/&quot;&gt;Parte 3&lt;/a&gt;&lt;/td&gt;
@@ -1082,7 +1082,7 @@ Switched to branch 'develop'&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 &lt;table&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;Serie Git Completa:&lt;/td&gt;
+      &lt;td&gt;Serie completa:&lt;/td&gt;
       &lt;td&gt;&lt;a href=&quot;/2017/01/como-funciona-git-1/&quot;&gt;Parte 1&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href=&quot;/2017/02/como-funciona-git-2/&quot;&gt;Parte 2&lt;/a&gt;&lt;/td&gt;
       &lt;td&gt;&lt;a href=&quot;/2017/03/como-funciona-git-3/&quot;&gt;Parte 3&lt;/a&gt;&lt;/td&gt;
