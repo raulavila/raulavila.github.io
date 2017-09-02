@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-08-30T08:44:04+02:00</updated>
+ <updated>2017-09-02T13:53:23+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -13,9 +13,71 @@
 
  
  <entry>
+   <title>Procesos de onboarding</title>
+   <link href="http://www.raulavila.com/2017/09/procesos-onboarding/"/>
+   <updated>2017-09-02T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2017/09/onboarding</id>
+   <content type="html">&lt;p&gt;A lo largo de mi carrera he vivido todo tipo de procesos de onboarding. Hoy estaba reflexionando sobre este tema, ya que en mi empresa se están revisando algunas cosas al respecto, y he comenzado a rememorar los que a mí, por suerte o por desgracia, me tocaron en el pasado.&lt;/p&gt;
+
+&lt;p&gt;Creo que muchísimas empresas no tienen realmente clara la importancia de optimizar la experiencia de aterrizaje para los nuevos empleados que entran a trabajar en sus oficinas. Y es un gravísimo error, ya que desde el día cero se está invirtiendo dinero en esa persona. Sería ideal por tanto que esa inversión genere un retorno óptimo lo más pronto posible.&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;h2 id=&quot;cómo-no-hacer-un-onboarding&quot;&gt;Cómo NO hacer un onboarding&lt;/h2&gt;
+
+&lt;p&gt;Lo creáis o no, más de una y de dos veces, mi primer día de trabajo fue tal que así:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Llegar a la oficina, comentar en recepción que soy “el nuevo”. Sentarme a esperar a que venga a recibirme alguien.&lt;/li&gt;
+  &lt;li&gt;Aparece una persona a recogerme. No me queda claro si será mi jefe o no.&lt;/li&gt;
+  &lt;li&gt;Esa persona me conduce a la zona de la oficina donde está mi equipo, y me presenta a otra persona diferente. Al menos ahora parece que sé quién supervisará mi trabajo en los primeros días, pero no me queda claro quien era el otro.&lt;/li&gt;
+  &lt;li&gt;Mi nuevo jefe me dice que me siente en una mesa, que puede tener o no un ordenador preparado para mí, y ahí me quedo esperando a que alguien me indique qué hacer.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Lo que viene a continuación depende del caso, pero yo he vivido todo tipo de situaciones absurdas. Desde tenerme casi un mes sin ordenador, leyendo un manual impreso, hasta cambiarme de equipo tras una semana sin haber hecho apenas nada.&lt;/p&gt;
+
+&lt;p&gt;Casi todas estas experiencias venían además con el añadido de que no me presentaban a mis compañeros en condiciones, poniéndome en la incómoda situación de tener que hacerlo yo. Al ser bastante tímido (aunque con el tiempo he ido superando parte de mi timidez) me costaba romper el hielo y pasar de presentarme a la persona que estuviera sentada a mi lado.&lt;/p&gt;
+
+&lt;p&gt;Me consta que la excusa para que se dieran estas situaciones era siempre similar: haber entrado en un momento especialmente crítico para el proyecto.&lt;/p&gt;
+
+&lt;p&gt;No sé si muchos de vosotros habréis experimentado algún proceso similar, pero es altamente desmotivante. Sientes que nadie te estaba esperando y que no tienen muy claro qué hacer contigo.&lt;/p&gt;
+
+&lt;p&gt;La otra cara de la moneda es hacer un onboarding a toda prisa, ¡debido exactamente al mismo motivo! Te meten en una sala de reuniones, te explican el proyecto por encima, y te ponen a trabajar asignándote un bug o tarea sencilla, en ocasiones sin siquiera explicarte la estructura de tu equipo. En este caso, suele ocurrir además que nadie te explica el tipo de cosas que todos queremos conocer para movernos dentro de la empresa (por ejemplo, cuál es el proceso para solicitar vacaciones, correos de contacto…tareas administrativas en general, vaya).&lt;/p&gt;
+
+&lt;p&gt;Quizás los ejemplos que he puesto sean un pelín extremos, pero seguramente alguna de las cosas relatadas os resulten algo familiares. A mi parecer, en ninguna situación, una persona uniéndose a una empresa debe quedarse con la sensación tras un primer día de que no le han hecho apenas caso o de que se ha quedado con un montón de dudas que no sabe cuando va a poder resolver.&lt;/p&gt;
+
+&lt;h2 id=&quot;cómo-debería-ser-un-onboarding&quot;&gt;Cómo debería ser un onboarding&lt;/h2&gt;
+
+&lt;p&gt;En esta sección voy a detallar el que, en mi opinión, sería un proceso de onboarding ideal. Está bastante basado en el que viví en mi actual empresa, y quizás no se pueda aplicar en todos los casos, pero puede ser un buen punto de partida.&lt;/p&gt;
+
+&lt;p&gt;Una semana antes de la fecha de inicio recibimos una correo escrito y firmado por nuestro futuro manager. En este correo se nos da la bienvenida, se describe de forma breve cómo será nuestro primer día, y se especifica a qué hora debemos estar en la oficina, confirmando que debemos preguntar por él (o ella).&lt;/p&gt;
+
+&lt;p&gt;Al llegar el primer día, nuestro nuevo manager nos recibe y tenemos nuestra primera reunión “one to one”, donde pasamos revista a temas como la misión de la empresa, las expectativas que tienen de mí, etc. En este primer contacto sería ideal dar al nuevo empleado un “Welcome pack”, conteniendo una carta de bienvenida, reincidiendo en los aspectos que se hayan podido cubrir en esta primera reunión con mi manager, etc. Si este pack contiene algún detalle a modo de regalo mejor que mejor, este tipo de tonterías se agradecen de veras en un día algo tenso como es siempre el primer día en una nueva empresa.&lt;/p&gt;
+
+&lt;p&gt;Se nos proporciona un check list, detallando cosas que deberemos ir aprendiendo durante nuestra primera fase en la empresa. Aquí entran tanto tareas administrativas (solicitar vacaciones, cómo reportar a la empresa si un día estamos enfermos…), cosas como configurar la firma de correo, nuestro equipo de trabajo, burocracia que siempre tenemos que hacer al principio (enviar algún formulario para darnos de alta en el seguro médico, por ejemplo), etc. Cada uno de estos puntos tendrá un enlace detallado con los pasos a seguir, y una persona de referencia a la que contactar en caso de duda (nuestro manager u otra persona diferente). Este checklist estará dividido por períodos temporales, hay cosas que deben hacerse el primer día, para otras tendremos la primera semana completa, etc.&lt;/p&gt;
+
+&lt;p&gt;Tras la reunión con nuestro manager nos indicarán donde sentarnos, y nos presentarán a nuestros compañeros de mesa, que dependiendo de las circunstancias serán nuestros futuros compañeros de equipo o no. El resto del primer día lo ponemos ocupar perfectamente en ejecutar el checklist. A la hora de la comida, sería ideal que nuestro manager nos ofreciera acompañarnos para explicarnos un poco las opciones que existen por la zona, explicarnos cómo funciona el área común si existe, etc. Esta primera comida es una buena forma de romper el hielo con la gente de la oficina.&lt;/p&gt;
+
+&lt;p&gt;En nuestro segundo día es posible que tengamos que unirnos a un equipo de trabajo o no. En el primer caso, la persona que lidere el equipo debería introducirnos a nuestros nuevos compañeros (siempre que eso no haya ocurrido ya) y programar una reunión de unas 2-3 horas para familiarizarnos con los aspectos que necesitemos para poder ser productivos en el proyecto a la mayor brevedad (tanto a nivel técnico como metodológico). Este tipo de sesiones suelen ser bastante intensas, y siempre me parece adecuado dejar a la persona sola durante unas horas por la tarde para que repase y asimile conceptos por su cuenta. De esta forma, al día siguiente podríamos tener una nueva sesión para aclarar cualquier duda que haya podido surgir. Debemos tener en cuenta también que nuestro nuevo compañero puede necesitar algún tiempo extra para seguir revisando el checklist que le proporcionamos en el primer día.&lt;/p&gt;
+
+&lt;p&gt;En el tercer día, aparte de aclarar dudas, sería en mi opinión el momento ideal para comenzar a trabajar en nuestro nuevo proyecto. La mejor forma de suaviar la curva de aprendizaje, y lo tengo 100% claro, es hacer &lt;a href=&quot;/2016/08/pair-programming/&quot;&gt;Pair Programming&lt;/a&gt;. Incluso si en nuestra empresa no programamos en parejas de forma habitual (cosa que habría que replanterase, pero esa es otra historia :)), esta práctica es ideal para introducir nuevos miembros en el equipo de forma rápida y eficiente. El número de días que necesitemos hacerlo dependerá de cada caso, pero podría estar en torno a una semana. Si durante el proceso de selección no se comunicó claramente que el Pair Programming se va a llevar a cabo es posible que el nuevo desarrollador pueda sentirse algo incómodo, y en tal caso, lo ideal es dejarle tiempo solo entre sesiones de pairing. Lo ideal, en mi opinión, sería sin embargo utilizar esta práctica en más de una situación y dejarlo claro en la oferta inicial, para que los candidatos conozcan de antemano estas condiciones.&lt;/p&gt;
+
+&lt;p&gt;Al final de la primera semana tendremos una nueva reunión con nuestro manager, reunión en la que repasaremos la semana que termina, discutiremos cualquier problema o duda que haya podido surgir, daremos feedback sobre cómo nos estamos sintiendo en estos primeros días, etc. Es importante alentar a nuestros nuevos compañeros a que sean totalmente transparentes y mencionen cualquier cosa que les preocupe desde el momento cero, para así poder solucionar los problemas rápidamente.&lt;/p&gt;
+
+&lt;p&gt;Lo que ocurra en sucesivas semanas dependerá de la empresa, pero es muy importante que la figura del manager esté siempre visible y nos haga sentir acogidos.&lt;/p&gt;
+
+&lt;h4 id=&quot;y-si-no-hay-proyecto&quot;&gt;¿Y si no hay proyecto?&lt;/h4&gt;
+
+&lt;p&gt;En el caso de que no haya proyecto al que unirnos en nuestra primera semana (cosa que puede ocurrir en consultoría), la empresa debería tener siempre a mano algún tipo de plan B, para que un nuevo empleado se sienta útil lo más pronto posible. Este plan B puede consistir en cosas como colaboraciones en proyectos Open Source, proyectos internos, tener alguna biblioteca de cursos prácticos que podamos realizar para aprender alguna tecnología nueva, etc.&lt;/p&gt;
+
+&lt;p&gt;Tengo la impresión de que he escrito un post lleno de obviedades, pero han sido tantas las veces que he experimentado un proceso de onboarding frustrante que consideré interesante escribir sobre esto. Puede que en la práctica haya compromisos que impidan la implementación de un proceso adecuado tan bien como nos gustaría, pero a mi parecer, cuando nuevos empleados entran en nuestra empresa, ellos deberían ser el compromiso número uno y deberíamos despriorizar todos los demás.&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
    <title>Cómo escribir un CV para el mercado IT anglosajón</title>
    <link href="http://www.raulavila.com/2017/08/cv-it-anglosajon/"/>
-   <updated>2017-08-23T00:00:00+02:00</updated>
+   <updated>2017-08-23T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2017/08/cv-it-anglosajon</id>
    <content type="html">&lt;p&gt;Hace más de dos años escribí un post sobre los pasos que tomé para &lt;a href=&quot;/2015/04/trabajo-londres/&quot;&gt;buscar trabajo como informático en Londres&lt;/a&gt;. Ese post ha resultado ser el más popular de mi blog con diferencia, y a partir de él he sido contactado varias veces solicitando información adicional, preguntando dudas, etc.&lt;/p&gt;
 
@@ -101,7 +163,7 @@
  <entry>
    <title>Mis etapas con el refactoring</title>
    <link href="http://www.raulavila.com/2017/07/etapas-refactoring/"/>
-   <updated>2017-07-23T00:00:00+02:00</updated>
+   <updated>2017-07-23T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2017/07/etapas-refactoring</id>
    <content type="html">&lt;p&gt;Mi relación con el refactoring viene de lejos, de hecho entre los primeros posts que publiqué se encontraba &lt;a href=&quot;/2015/02/fowler-refactoring-1/&quot;&gt;una serie de tres&lt;/a&gt; donde analizaba de forma algo crítica el libro “Refactoring” de Fowler, y que seguramente hoy día escribiría de forma diferente.&lt;/p&gt;
 
@@ -173,7 +235,7 @@
  <entry>
    <title>¿Qué es un Programador Ágil?</title>
    <link href="http://www.raulavila.com/2017/05/programadores-agiles/"/>
-   <updated>2017-05-24T00:00:00+02:00</updated>
+   <updated>2017-05-24T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2017/05/programadores-agiles</id>
    <content type="html">&lt;p&gt;Supongo que a nadie le pillará por sorpresa si afirmo que el desarrollo Agile está en boca de toda las empresas hoy día. Incluso el tema se está llevando a otra dimensión con el deslumbrante nombre de “Transformación Digital”. Por tanto, no creo que sea necesario explicar en este post qué es el desarrollo ágil.&lt;/p&gt;
 
@@ -205,7 +267,7 @@
  <entry>
    <title>Lecciones aprendidas tras mi primer proyecto como Anchor</title>
    <link href="http://www.raulavila.com/2017/05/lecciones-aprendidas-anchor/"/>
-   <updated>2017-05-06T00:00:00+02:00</updated>
+   <updated>2017-05-06T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2017/05/lecciones-aprendidas-anchor</id>
    <content type="html">&lt;p&gt;Acabo de terminar mi primera experiencia como Anchor (aka Team Leader). Hacer un buen trabajo en este rol era uno de mis objetivos del año 2017, y creo que lo he conseguido. Quizás no haya sido el mejor proyecto para empezar, por varios factores que no vienen al caso, pero en general estoy muy satisfecho con todo lo hecho y aprendido.&lt;/p&gt;
 
@@ -276,7 +338,7 @@
  <entry>
    <title>Cómo funciona Git (y 4)</title>
    <link href="http://www.raulavila.com/2017/04/como-funciona-git-4/"/>
-   <updated>2017-04-30T00:00:00+02:00</updated>
+   <updated>2017-04-30T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2017/04/como-funciona-git-4</id>
    <content type="html">&lt;p&gt;Tenía pendiente escribir la última parte de esta serie desde hace tiempo. Tras revisar &lt;a href=&quot;/2017/03/como-funciona-git-3/&quot;&gt;cómo Git gestiona merge y rebase&lt;/a&gt;, queda por ver la forma en que Git gestiona la capa de distribución, es decir, el trabajo y sincronización con repositorios remotos.&lt;/p&gt;
 
@@ -418,7 +480,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.&lt;/c
  <entry>
    <title>Cómo trabajamos en Pivotal</title>
    <link href="http://www.raulavila.com/2017/04/como-trabajamos-pivotal/"/>
-   <updated>2017-04-06T00:00:00+02:00</updated>
+   <updated>2017-04-06T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2017/04/como-trabajamos-pivotal</id>
    <content type="html">&lt;p&gt;Hace algo más de un año comencé a trabajar en &lt;a href=&quot;https://pivotal.io/&quot;&gt;Pivotal&lt;/a&gt;, una empresa donde no he dejado de aprender desde el día uno. A finales de 2016, tras descubrir la web &lt;a href=&quot;http://www.wedotdd.com/&quot;&gt;We Do TDD&lt;/a&gt; (una gran iniciativa) y unirme al canal de Slack, se me ofreció la posibilidad de ser entrevistado para describir la forma en que trabajamos, cómo utilizamos TDD, etc. Acepté en paralelo al mismo tiempo que un compañero de Berlín (Oleksii, más conocido como &lt;a href=&quot;http://www.tddfellow.com/&quot;&gt;That TDD Fellow&lt;/a&gt;), por lo que decidimos hacer la entrevista conjunta, cosa que, por otra parte, encaja bastante bien con la cultura de nuestra empresa, donde el pair programming es una constante.&lt;/p&gt;
 
@@ -431,7 +493,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.&lt;/c
  <entry>
    <title>La comunicación en proyectos Software</title>
    <link href="http://www.raulavila.com/2017/04/comunicacion-proyectos-software/"/>
-   <updated>2017-04-01T00:00:00+02:00</updated>
+   <updated>2017-04-01T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2017/04/comunicacion</id>
    <content type="html">&lt;p&gt;Esta semana hará tres meses que inicié mi andadura como Anchor en un proyecto de mi empresa. Diría que la experiencia está siendo muy buena en todos los sentidos, y me está sirviendo para aprender un montón de cosas. Quizás la más importante de todas ellas sea como gestionar la comunicación dentro de un equipo de forma eficiente, y en este post voy a repasar muchas de las conclusiones que he ido sacando en claro.&lt;/p&gt;
 
@@ -531,7 +593,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.&lt;/c
  <entry>
    <title>Cómo funciona Git (parte 3)</title>
    <link href="http://www.raulavila.com/2017/03/como-funciona-git-3/"/>
-   <updated>2017-03-11T00:00:00+01:00</updated>
+   <updated>2017-03-11T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2017/03/como-funciona-git-3</id>
    <content type="html">&lt;p&gt;Continuamos con nuestra serie sobre el funcionamiento interno de Git. &lt;a href=&quot;/2017/02/como-funciona-git-2/&quot;&gt;En el anterior post&lt;/a&gt; dejamos nuestro repositorio en el siguiente estado:&lt;/p&gt;
 
@@ -772,7 +834,7 @@ Fast-forward
  <entry>
    <title>The Senior Software Engineer (el libro)</title>
    <link href="http://www.raulavila.com/2017/02/senior-software-engineer-book/"/>
-   <updated>2017-02-26T00:00:00+01:00</updated>
+   <updated>2017-02-26T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2017/02/senior-software-engineer</id>
    <content type="html">&lt;p&gt;&lt;img src=&quot;/public/pictures/sse.jpg&quot; alt=&quot;SSE&quot; /&gt;&lt;/p&gt;
 
@@ -863,233 +925,6 @@ Fast-forward
 &lt;h2 id=&quot;conclusiones&quot;&gt;Conclusiones&lt;/h2&gt;
 
 &lt;p&gt;No dejéis pasar este libro, es un compendio excelente de buenas prácticas a seguir para convertirnos en buenos programadores, y además incluye una lista de lectura con libros y artículos que sirven de complemento perfecto para continuar aprendiendo. Me extraña bastante no verlo más a menudo en recopilaciones de libros que todo desarrollador debería leer, y espero que el tiempo le haga justicia (se publicó inicialmente en 2014).&lt;/p&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>Cómo funciona Git (parte 2)</title>
-   <link href="http://www.raulavila.com/2017/02/como-funciona-git-2/"/>
-   <updated>2017-02-11T00:00:00+01:00</updated>
-   <id>http://www.raulavila.com/2017/02/como-funciona-git-2</id>
-   <content type="html">&lt;p&gt;En &lt;a href=&quot;/2017/01/como-funciona-git-1/&quot;&gt;el primer post de esta serie&lt;/a&gt; comenzamos a destripar el funcionamiento interno de Git, revisando los diferentes tipos de datos que Git soporta internamente. Si no lo habéis leído &lt;a href=&quot;/2017/01/como-funciona-git-1/&quot;&gt;deberíais empezar por ahí&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Dejamos nuestro repositorio en el siguiente estado:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;.
-└── hello.txt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Es decir, un directorio con un fichero &lt;code class=&quot;highlighter-rouge&quot;&gt;hello.txt&lt;/code&gt;, fichero que contiene el texto “Hello World”. Tras hacer nuestro primer commit y añadir un tag, nos quedó la siguiente estructura interna:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-first-commit-tag.jpg&quot; alt=&quot;Git&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Seguiremos trabajando desde aquí.&lt;/p&gt;
-
-&lt;!--break--&gt;
-
-&lt;h2 id=&quot;segundo-commit&quot;&gt;Segundo commit&lt;/h2&gt;
-
-&lt;p&gt;Vamos a añadir una nueva carpeta &lt;code class=&quot;highlighter-rouge&quot;&gt;greetings&lt;/code&gt;, que contendrá un fichero, &lt;code class=&quot;highlighter-rouge&quot;&gt;hello2.txt&lt;/code&gt; con el mismo texto “Hello World”:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ mkdir greetings
-
-$ cd greetings
-
-$ cp ../hello.txt .
-
-$ mv hello.txt hello2.txt
-
-$ cd ..
-
-$ tree
-.
-├── greetings
-│   └── hello2.txt
-└── hello.txt
-
-1 directory, 2 files
-
-$ git add .
-
-$ git commit -m &quot;Second commit&quot;
-[master 284c288] Second commit
- 1 file changed, 1 insertion(+)
- create mode 100644 greetings/hello2.txt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Tras estas operaciones, nuestra carpeta &lt;code class=&quot;highlighter-rouge&quot;&gt;.git/objects&lt;/code&gt; contiene ahora 7 objetos:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;├── objects
-│   ├── 04
-│   │   └── 50100369ff9e0b980dfc6ae42aaeb1de6890f6
-│   ├── 28
-│   │   └── 4c288acedfc52626386bbf134465f073cf2990
-│   ├── 4a
-│   │   └── f5100442a48dd4b8a53e4cb05b848d0336d8d7
-│   ├── 55
-│   │   └── 7db03de997c86a4a028e1ebd3a1ceb225be238
-│   ├── 97
-│   │   └── b49d4c943e3715fe30f141cc6f27a8548cee0e
-│   ├── d1
-│   │   └── ee121d5fe96b891ac0cc695498f31c0a4a7664
-│   ├── ee
-│   │   └── 6b307ad7ed6204ec4331aa38c04ea73b684287
-│   ├── info
-│   └── pack&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Comparando con la versión anterior, tenemos tres nuevos objetos, vamos a revisarlos de forma individual, y comprobar cómo ha quedado la estructura en forma de árbol.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;284c28&lt;/code&gt;, es el objeto que contiene la información del segundo commit:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git cat-file -t 284c28
-commit
-
-$ git cat-file -p 284c28
-tree ee6b307ad7ed6204ec4331aa38c04ea73b684287
-parent d1ee121d5fe96b891ac0cc695498f31c0a4a7664
-author RaulAvila &amp;lt;xxxxx@gmail.com&amp;gt; 1486816422 +0000
-committer RaulAvila &amp;lt;xxxxx@gmail.com&amp;gt; 1486816422 +0000
-
-Second commit&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Este commit se diferencia del primero en que tiene un parent, &lt;code class=&quot;highlighter-rouge&quot;&gt;d1ee12&lt;/code&gt;, que no es más que el primer commit. Esta es la forma en que Git controla el histórico enlazando commit sucesivos. También vemos que nuestro commit referencia a un nuevo tree, &lt;code class=&quot;highlighter-rouge&quot;&gt;ee6b30&lt;/code&gt;, el segundo objeto añadido con este commit:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git cat-file -t ee6b30
-tree
-
-$ git cat-file -p ee6b30
-040000 tree 4af5100442a48dd4b8a53e4cb05b848d0336d8d7	greetings
-100644 blob 557db03de997c86a4a028e1ebd3a1ceb225be238	hello.txt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Este objeto tree es el nuevo root de nuestro proyecto. Vemos que este root ahora contiene el fichero &lt;code class=&quot;highlighter-rouge&quot;&gt;hello.txt&lt;/code&gt;, que no ha cambiado respecto al primer commit, por lo que sigue estando contenido en el objecto &lt;code class=&quot;highlighter-rouge&quot;&gt;557db0&lt;/code&gt;, y la nueva carpeta, que está almacenada en git como un nuevo objeto tree, &lt;code class=&quot;highlighter-rouge&quot;&gt;4af510&lt;/code&gt;:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git cat-file -t 4af510
-tree
-
-$ git cat-file -p 4af510
-100644 blob 557db03de997c86a4a028e1ebd3a1ceb225be238	hello2.txt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;El contenido de la carpeta es un puntero al contenido (blob) del nuevo fichero, de nombre &lt;code class=&quot;highlighter-rouge&quot;&gt;hello2.txt&lt;/code&gt;. ¿Notáis algo llamativo? En efecto, el hash al que apunta este tree es también &lt;code class=&quot;highlighter-rouge&quot;&gt;557db0&lt;/code&gt;, esto es así porque ambos ficheros contienen la misma información, de forma que el hash calculado es idéntico.&lt;/p&gt;
-
-&lt;p&gt;Con todo esto, veamos cómo queda nuestro árbol de objetos:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-second-commit.jpg&quot; alt=&quot;Git&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Este va a ser el diagrama más complicado que veremos en la serie, y espero que más o menos haya quedado claro. Git intenta reutilizar toda la información que sea posible al añadir nuevos commits, y así, el blob “Hello World” es apuntado desde tres lugares diferentes (el fichero del primer commit, el mismo fichero del segundo, y el nuevo fichero del segundo). De esta forma se minimiza la cantidad de datos creados por cada cambio. Además, las carpetas &lt;code class=&quot;highlighter-rouge&quot;&gt;info&lt;/code&gt; y &lt;code class=&quot;highlighter-rouge&quot;&gt;pack&lt;/code&gt; se utilizan en procesos de compresión que no cubriremos aquí (para empezar, porque no los conozco todavía :)).&lt;/p&gt;
-
-&lt;p&gt;A continuación veremos una de las funcionalidades más potentes de Git, y os asombraréis de lo sencilla que es su implementación.&lt;/p&gt;
-
-&lt;h2 id=&quot;ramas&quot;&gt;Ramas&lt;/h2&gt;
-
-&lt;p&gt;Para comprender bien el funcionamiento de las ramas (branches) en Git, vamos a simplificar el diagrama de la estructura que hemos ido creando, y nos quedaremos únicamente con los commits:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-commit-history-1.jpg&quot; alt=&quot;Git&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Todos sabemos que cuando iniciamos un proyecto Git, este nos crea con nuestro primer commit una única rama de nombre &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;. Internamente, una rama es algo tan tonto como un pequeño ficherito que apunta a un commit, ni más ni menos, es decir, un alias:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ cat .git/refs/heads/master
-284c288acedfc52626386bbf134465f073cf2990&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Como véis, el contenido de este fichero es el hash del último commit que hemos realizado:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-master.jpg&quot; alt=&quot;Git&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;La gran diferencia entre tags y ramas es que los tags son inmutables, mientras que las ramas están “vivas”, avanzando con cada commit añadido a la historia.&lt;/p&gt;
-
-&lt;p&gt;Vamos a crear una nueva rama apuntando al mismo commit:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git branch develop
-
-$ cat .git/refs/heads/develop
-284c288acedfc52626386bbf134465f073cf2990&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Sin demasiadas sorpresas, la nueva rama apunta al commit en que nos encontramos, coincidendo con &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;, es decir:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-master-develop.jpg&quot; alt=&quot;Git&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;La pregunta aquí es qué rama será la que avanzará si añadimos un nuevo commit, veámoslo en vivo:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ echo &quot;Goodbye&quot; &amp;gt; goodbye.txt
-
-$ git add .
-
-$ git commit -m &quot;Third commit&quot;
-[master aa90e47] Third commit
- 1 file changed, 1 insertion(+)
- create mode 100644 goodbye.txt
-
-$ cat .git/refs/heads/master
-aa90e471ababde242281c833fffea255f69dd28a
-
-$ cat .git/refs/heads/develop
-284c288acedfc52626386bbf134465f073cf2990
-
-$ git branch
-  develop
-* master&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;En efecto, seguimos en &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;, porque &lt;code class=&quot;highlighter-rouge&quot;&gt;git branch&lt;/code&gt; tan solo crea una rama en el actual commit sin ponerla como rama activa. Para conseguir esto deberíamos hacer:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git checkout develop
-Switched to branch 'develop'
-
-$ git branch
-* develop
-  master&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Ahora sí, nuestra rama activa es develop, y si añadimos un nuevo commit no será asociado a master hasta que realicemos un merge o un rebase (volveremos sobre esto en el siguiente post). Como alternativa, podríamos crear una nueva rama y movernos a ella en un paso con &lt;code class=&quot;highlighter-rouge&quot;&gt;git checkout -b rama&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;¿Cómo almacena Git la información de la rama activa? Pues muy sencillo, en el fichero &lt;code class=&quot;highlighter-rouge&quot;&gt;.git/HEAD&lt;/code&gt;, que en realidad no es más que un fichero de texto apuntando al lugar en que nos encontramos dentro del histórico (es decir, un puntero a un puntero). De hecho este fichero no tiene por qué apuntar a una rama, puede hacerlo a un commit determinado si hacemos un &lt;code class=&quot;highlighter-rouge&quot;&gt;git checkout &amp;lt;hash&amp;gt;&lt;/code&gt;, lo que se conoce como “detached HEAD”. Veamos varios ejemplos de esto:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git branch
-* develop
-  master
-
-$ cat .git/HEAD
-ref: refs/heads/develop
-
-$ git checkout master
-Switched to branch 'master'
-
-$ cat .git/HEAD
-ref: refs/heads/master
-
-$ git checkout aa90e47
-Note: checking out 'aa90e47'.
-
-You are in 'detached HEAD' state. You can look around, make experimental
-changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by performing another checkout.
-
-If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -b with the checkout command again. Example:
-
-  git checkout -b &amp;lt;new-branch-name&amp;gt;
-
-HEAD is now at aa90e47... Third commit
-
-$ cat .git/HEAD
-aa90e471ababde242281c833fffea255f69dd28a
-
-$ git checkout develop
-Previous HEAD position was aa90e47... Third commit
-Switched to branch 'develop'&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Tras este mareo, este es la instantánea de nuestro histórico:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-head.jpg&quot; alt=&quot;Git&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Lo dejamos aquí por hoy. &lt;a href=&quot;/2017/03/como-funciona-git-3/&quot;&gt;En el último post de la serie&lt;/a&gt; veremos cómo funcionan &lt;code class=&quot;highlighter-rouge&quot;&gt;merge&lt;/code&gt; y &lt;code class=&quot;highlighter-rouge&quot;&gt;rebase&lt;/code&gt;, y finalizaremos con la sincronización con repositorios remotos.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Serie completa:&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;/2017/01/como-funciona-git-1/&quot;&gt;Parte 1&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;/2017/02/como-funciona-git-2/&quot;&gt;Parte 2&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;/2017/03/como-funciona-git-3/&quot;&gt;Parte 3&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;/2017/04/como-funciona-git-4/&quot;&gt;Parte 4&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
 </content>
  </entry>
  

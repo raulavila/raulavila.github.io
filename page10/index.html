@@ -48,12 +48,32 @@
   
   <article class="post">
     <h1 class="post-title">
+      <a href="/2015/07/revolucion-docker/">
+        La revolución Docker
+      </a>
+    </h1>
+
+    <time datetime="2015-07-19T00:00:00+01:00" class="post-date index-date">19/07/2015</time>    
+
+    <p>En los últimos doce meses no se habla de otra cosa. Una herramienta cuya primera release fue hace menos de tres años, si las cuentas no me fallan (compañía fundada en 2010), está copando todo tipo de conversaciones, charlas, artículos, blogs…ha sido adoptada por <a href="http://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html">Amazon WS</a>, y casi todas las plataformas Cloud, y su ascensión continúa de modo vertiginoso.</p>
+
+<p>Pero, ¿qué demonios es <a href="https://www.docker.com/">Docker</a>? Hasta hace relativamente poco yo no lo sabía con toda certeza, pero sí parecía que todo el mundo alucinaba con el tema. Así que al fin me puse manos a la obra, para comprender de forma general en qué consistía, cómo utilizarlo, y qué ventajas ofrece. En este post compartiré con vosotros todo (o casi todo) lo que he aprendido, por si puede servir de referencia.</p>
+
+
+    
+      <a href="/2015/07/revolucion-docker/">[...Leer más...]</a>
+    
+  </article>
+
+  
+  <article class="post">
+    <h1 class="post-title">
       <a href="/2015/07/acoplamiento-temporal/">
         Acoplamiento temporal
       </a>
     </h1>
 
-    <time datetime="2015-07-08T00:00:00+02:00" class="post-date index-date">08/07/2015</time>    
+    <time datetime="2015-07-08T00:00:00+01:00" class="post-date index-date">08/07/2015</time>    
 
     <p>Creo que todos habremos leído más de un artículo o libro en el que, mencionando las buenas prácticas que debemos seguir a la hora de diseñar e implementar nuestras aplicaciones, se hace especial hincapié en dos conceptos:</p>
 
@@ -75,7 +95,7 @@
       </a>
     </h1>
 
-    <time datetime="2015-06-28T00:00:00+02:00" class="post-date index-date">28/06/2015</time>    
+    <time datetime="2015-06-28T00:00:00+01:00" class="post-date index-date">28/06/2015</time>    
 
     <p>Seguimos con la serie de Multithreading. Nuestro juego de Ping Pong <a href="/2015/06/multithreading-2/">lo dejamos</a> en un punto bastante óptimo, con los threads (jugadores) quedando bloqueados a la espera de su turno, y con la posibilidad de escalar al número de jugadores que quisiéramos. Sin embargo, había algo que no era demasiado elegante, y es que la clase <code class="highlighter-rouge">Game</code> se encargaba enteramente de la creación, inicio y finalización de threads, así como de sincronizarse con estos para no terminar antes de que los diferentes threads lo hubieran hecho:</p>
 
@@ -93,7 +113,7 @@
       </a>
     </h1>
 
-    <time datetime="2015-06-13T00:00:00+02:00" class="post-date index-date">13/06/2015</time>    
+    <time datetime="2015-06-13T00:00:00+01:00" class="post-date index-date">13/06/2015</time>    
 
     <p>En <a href="/2015/05/multithreading-1/">mi anterior post</a> vimos algunos conceptos básicos de multithreading desde un punto de vista eminentemente práctico. Con el desarrollo de un juego de Ping Pong en mente, continuaremos introduciendo mejoras progresivas que nos servirán para explicar conceptos que todos deberíamos conocer a la hora de implementar aplicaciones concurrentes en Java.</p>
 
@@ -111,7 +131,7 @@
       </a>
     </h1>
 
-    <time datetime="2015-05-31T00:00:00+02:00" class="post-date index-date">31/05/2015</time>    
+    <time datetime="2015-05-31T00:00:00+01:00" class="post-date index-date">31/05/2015</time>    
 
     <p>Voy a iniciar con este post una serie en la que introduciré conceptos básicos de programación concurrente / multithreading. Lo sé, Internet está plagado de referencias, tutoriales, artículos, etc, pero mi intención será dar un enfoque diferente en este blog. Lo normal, o al menos eso me ha parecido a mí siempre que he intentado empaparme de este tema es profundizar mucho en la teoría por un lado, o bien en ejemplos excesivamente complejos por otro.</p>
 
@@ -120,34 +140,6 @@
 
     
       <a href="/2015/05/multithreading-1/">[...Leer más...]</a>
-    
-  </article>
-
-  
-  <article class="post">
-    <h1 class="post-title">
-      <a href="/2015/05/explorando-vagrant/">
-        Explorando Vagrant
-      </a>
-    </h1>
-
-    <time datetime="2015-05-17T00:00:00+02:00" class="post-date index-date">17/05/2015</time>    
-
-    <p>La configuración de los entornos de desarrollo, y los problemas derivados de la incompatibilidad entre diferentes versiones, ha sido, desde siempre, uno de los grandes problemas que hay que afrontar durante el curso de un proyecto.</p>
-
-<p>Es bien sabido que la primera tarea que debemos realizar al incorporarnos a un equipo es configurar nuestro equipo con las múltiples herramientas que son necesarias para poder compilar, desplegar, testear, depurar, etc, a saber:</p>
-
-<ul>
-  <li>JDK</li>
-  <li>Maven</li>
-  <li>Base de datos (PostgreSQL, MySQL…)</li>
-  <li>Tomcat</li>
-  <li>etc</li>
-</ul>
-
-
-    
-      <a href="/2015/05/explorando-vagrant/">[...Leer más...]</a>
     
   </article>
 

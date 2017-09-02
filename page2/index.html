@@ -48,12 +48,32 @@
   
   <article class="post">
     <h1 class="post-title">
+      <a href="/2017/04/como-funciona-git-4/">
+        Cómo funciona Git (y 4)
+      </a>
+    </h1>
+
+    <time datetime="2017-04-30T00:00:00+01:00" class="post-date index-date">30/04/2017</time>    
+
+    <p>Tenía pendiente escribir la última parte de esta serie desde hace tiempo. Tras revisar <a href="/2017/03/como-funciona-git-3/">cómo Git gestiona merge y rebase</a>, queda por ver la forma en que Git gestiona la capa de distribución, es decir, el trabajo y sincronización con repositorios remotos.</p>
+
+<p>Como ya sabemos, Git es un sistema de control distribuido de versiones, donde cada persona no tiene más que una copia completa del repositorio. Es decir, cada usuario que clone un repositorio Git tendrá una copia de la carpeta <code class="highlighter-rouge">.git</code>, carpeta que contiene montones de cosas, según vimos en anteriores posts de la serie.</p>
+
+
+    
+      <a href="/2017/04/como-funciona-git-4/">[...Leer más...]</a>
+    
+  </article>
+
+  
+  <article class="post">
+    <h1 class="post-title">
       <a href="/2017/04/como-trabajamos-pivotal/">
         Cómo trabajamos en Pivotal
       </a>
     </h1>
 
-    <time datetime="2017-04-06T00:00:00+02:00" class="post-date index-date">06/04/2017</time>    
+    <time datetime="2017-04-06T00:00:00+01:00" class="post-date index-date">06/04/2017</time>    
 
     <p>Hace algo más de un año comencé a trabajar en <a href="https://pivotal.io/">Pivotal</a>, una empresa donde no he dejado de aprender desde el día uno. A finales de 2016, tras descubrir la web <a href="http://www.wedotdd.com/">We Do TDD</a> (una gran iniciativa) y unirme al canal de Slack, se me ofreció la posibilidad de ser entrevistado para describir la forma en que trabajamos, cómo utilizamos TDD, etc. Acepté en paralelo al mismo tiempo que un compañero de Berlín (Oleksii, más conocido como <a href="http://www.tddfellow.com/">That TDD Fellow</a>), por lo que decidimos hacer la entrevista conjunta, cosa que, por otra parte, encaja bastante bien con la cultura de nuestra empresa, donde el pair programming es una constante.</p>
 
@@ -72,7 +92,7 @@
       </a>
     </h1>
 
-    <time datetime="2017-04-01T00:00:00+02:00" class="post-date index-date">01/04/2017</time>    
+    <time datetime="2017-04-01T00:00:00+01:00" class="post-date index-date">01/04/2017</time>    
 
     <p>Esta semana hará tres meses que inicié mi andadura como Anchor en un proyecto de mi empresa. Diría que la experiencia está siendo muy buena en todos los sentidos, y me está sirviendo para aprender un montón de cosas. Quizás la más importante de todas ellas sea como gestionar la comunicación dentro de un equipo de forma eficiente, y en este post voy a repasar muchas de las conclusiones que he ido sacando en claro.</p>
 
@@ -90,7 +110,7 @@
       </a>
     </h1>
 
-    <time datetime="2017-03-11T00:00:00+01:00" class="post-date index-date">11/03/2017</time>    
+    <time datetime="2017-03-11T00:00:00+00:00" class="post-date index-date">11/03/2017</time>    
 
     <p>Continuamos con nuestra serie sobre el funcionamiento interno de Git. <a href="/2017/02/como-funciona-git-2/">En el anterior post</a> dejamos nuestro repositorio en el siguiente estado:</p>
 
@@ -110,7 +130,7 @@
       </a>
     </h1>
 
-    <time datetime="2017-02-26T00:00:00+01:00" class="post-date index-date">26/02/2017</time>    
+    <time datetime="2017-02-26T00:00:00+00:00" class="post-date index-date">26/02/2017</time>    
 
     <p><img src="/public/pictures/sse.jpg" alt="SSE" /></p>
 
@@ -121,35 +141,6 @@
 
     
       <a href="/2017/02/senior-software-engineer-book/">[...Leer más...]</a>
-    
-  </article>
-
-  
-  <article class="post">
-    <h1 class="post-title">
-      <a href="/2017/02/como-funciona-git-2/">
-        Cómo funciona Git (parte 2)
-      </a>
-    </h1>
-
-    <time datetime="2017-02-11T00:00:00+01:00" class="post-date index-date">11/02/2017</time>    
-
-    <p>En <a href="/2017/01/como-funciona-git-1/">el primer post de esta serie</a> comenzamos a destripar el funcionamiento interno de Git, revisando los diferentes tipos de datos que Git soporta internamente. Si no lo habéis leído <a href="/2017/01/como-funciona-git-1/">deberíais empezar por ahí</a>.</p>
-
-<p>Dejamos nuestro repositorio en el siguiente estado:</p>
-
-<figure class="highlight"><pre><code class="language-text" data-lang="text">.
-└── hello.txt</code></pre></figure>
-
-<p>Es decir, un directorio con un fichero <code class="highlighter-rouge">hello.txt</code>, fichero que contiene el texto “Hello World”. Tras hacer nuestro primer commit y añadir un tag, nos quedó la siguiente estructura interna:</p>
-
-<p><img src="/public/pictures/git-internals/git-first-commit-tag.jpg" alt="Git" /></p>
-
-<p>Seguiremos trabajando desde aquí.</p>
-
-
-    
-      <a href="/2017/02/como-funciona-git-2/">[...Leer más...]</a>
     
   </article>
 

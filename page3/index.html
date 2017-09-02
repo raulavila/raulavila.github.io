@@ -48,12 +48,41 @@
   
   <article class="post">
     <h1 class="post-title">
+      <a href="/2017/02/como-funciona-git-2/">
+        Cómo funciona Git (parte 2)
+      </a>
+    </h1>
+
+    <time datetime="2017-02-11T00:00:00+00:00" class="post-date index-date">11/02/2017</time>    
+
+    <p>En <a href="/2017/01/como-funciona-git-1/">el primer post de esta serie</a> comenzamos a destripar el funcionamiento interno de Git, revisando los diferentes tipos de datos que Git soporta internamente. Si no lo habéis leído <a href="/2017/01/como-funciona-git-1/">deberíais empezar por ahí</a>.</p>
+
+<p>Dejamos nuestro repositorio en el siguiente estado:</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">.
+└── hello.txt</code></pre></figure>
+
+<p>Es decir, un directorio con un fichero <code class="highlighter-rouge">hello.txt</code>, fichero que contiene el texto “Hello World”. Tras hacer nuestro primer commit y añadir un tag, nos quedó la siguiente estructura interna:</p>
+
+<p><img src="/public/pictures/git-internals/git-first-commit-tag.jpg" alt="Git" /></p>
+
+<p>Seguiremos trabajando desde aquí.</p>
+
+
+    
+      <a href="/2017/02/como-funciona-git-2/">[...Leer más...]</a>
+    
+  </article>
+
+  
+  <article class="post">
+    <h1 class="post-title">
       <a href="/2017/01/volver/">
         ¿Volver?
       </a>
     </h1>
 
-    <time datetime="2017-01-29T00:00:00+01:00" class="post-date index-date">29/01/2017</time>    
+    <time datetime="2017-01-29T00:00:00+00:00" class="post-date index-date">29/01/2017</time>    
 
     <p>Escribo este post inspirado por los correos dominicales de <a href="http://us2.campaign-archive1.com/?u=374c664073e1a1fa3deca53b4&amp;id=33d5cc4ff8&amp;e=b93d18ec09">David Bonilla</a> y <a href="http://us2.campaign-archive1.com/?u=6a0dd93f8651955858ab8633f&amp;id=a9ff5e4957&amp;e=96ff600f8b">Jerónimo Palacios</a>, ambos titulados igual: “Volver”. Jerónimo acaba de trasladar su “base de operaciones” a Granada, su ciudad de origen si no recuerdo mal, aunque seguirá trabajando en toda Europa. Y Bonilla analiza la emigración masiva que se dió en España a primeros de la década, cómo muchos informáticos tomaron la decisión de marcharse aún teniendo trabajo de sobra en nuestro país, y si se dan las condiciones para que vuelvan.</p>
 
@@ -71,9 +100,9 @@
       </a>
     </h1>
 
-    <time datetime="2017-01-22T00:00:00+01:00" class="post-date index-date">22/01/2017</time>    
+    <time datetime="2017-01-22T00:00:00+00:00" class="post-date index-date">22/01/2017</time>    
 
-    <p>El sábado pasado estuve en un workshop sobre <a href="https://git-scm.com/">Git</a> impartido por el gran <a href="https://twitter.com/theNeomatrix369">Mani</a> en la <a href="https://www.meetup.com/london-software-craftsmanship/">London Software Craftsmanship Community</a>. Me sirvió para consolidar de manera más o menos definitiva los conocimientos sobre esta herramienta que he ido adquiriendo con la práctica durante casi tres años ya.</p>
+    <p>El sábado pasado estuve en un workshop sobre <a href="https://git-scm.com/">Git</a> impartido por el gran <a href="https://twitter.com/theNeomatrix369">Mani</a> en la <a href="https://twitter.com/theNeomatrix369">London Software Craftmanship Community</a>. Me sirvió para consolidar de manera más o menos definitiva los conocimientos sobre esta herramienta que he ido adquiriendo con la práctica durante casi tres años ya.</p>
 
 <p>Al volver a casa, me picó el gusanillo en relación al funcionamiento interno de Git, así que he estado investigando un poco, y plasmaré lo aprendido en esta serie de posts. Personalmente, he descubierto que conocer este funcionamiento interno es muy útil para tener menos miedo a la magia de Git, porque, en el fondo, los principios más importantes no tienen demasiado misterio. Asumo que, si estás leyendo esto, es porque posees un conocimiento de Git “medio”, en caso contrario os recomiendo empezar <a href="http://gitimmersion.com/">por aquí</a> y volver después a este post.</p>
 
@@ -91,7 +120,7 @@
       </a>
     </h1>
 
-    <time datetime="2017-01-09T00:00:00+01:00" class="post-date index-date">09/01/2017</time>    
+    <time datetime="2017-01-09T00:00:00+00:00" class="post-date index-date">09/01/2017</time>    
 
     <p>Yo fui un mal programador. Cuando terminé la carrera, como primero de promoción, pensé que ya había cumplido mi parte, y que las empresas deberían reconocer mi valía de inmediato, por lo que cuando nadie valoró ese detalle en mi CV, me cabreé. La verdad es que no me costó demasiado encontrar mi primer trabajo, el sector se encontraba en la parte alta de un ciclo, aunque ni por asomo se acercaba a la locura que estamos viviendo ahora.</p>
 
@@ -109,35 +138,13 @@
       </a>
     </h1>
 
-    <time datetime="2017-01-01T00:00:00+01:00" class="post-date index-date">01/01/2017</time>    
+    <time datetime="2017-01-01T00:00:00+00:00" class="post-date index-date">01/01/2017</time>    
 
     <p>¡Feliz 2017! Es la primera vez que escribo un post en un primero de Enero, cosa que sólo fue posible hacer en 2016 ya que este blog nació a finales de Enero de 2015 :) El motivo de encontrarme en pijama tecleando unas palabras es que, animado por la <a href="http://us2.campaign-archive2.com/?u=374c664073e1a1fa3deca53b4&amp;id=f0e4a3e3ec&amp;e=b93d18ec09">Bonilista</a> y otros blogs de tuiteros que sigo, he decidido plasmar en un post mis objetivos para este año que empieza, y que será bastante desafiante para mí, sobre todo a nivel profesional.</p>
 
 
     
       <a href="/2017/01/propositos-2017/">[...Leer más...]</a>
-    
-  </article>
-
-  
-  <article class="post">
-    <h1 class="post-title">
-      <a href="/2016/12/aprender-ingles/">
-        Aprender inglés
-      </a>
-    </h1>
-
-    <time datetime="2016-12-22T00:00:00+01:00" class="post-date index-date">22/12/2016</time>    
-
-    <p>Un lector me pidió hace unas semanas que escribiera un post sobre cómo aprendí inglés. Y aunque este blog es básicamente tecnológico, el conocimiento de este idioma es fundamental para desarrollar una carrera en nuestro mundillo, así que no creo que sea un tema demasiado off-topic para hablar de él.</p>
-
-<h2 id="mis-precedentes">Mis precedentes</h2>
-
-<p>Yo siempre he sido muy negado con los idiomas. Diría que es algo que compartimos el 95% (o más) de los españoles. Con la perspectiva del tiempo, está claro que todo viene del nefasto sistema educativo español, donde la asignatura de inglés consiste básicamente en estudiar la gramática y los verbos irregulares año tras año, sin hacer ningún tipo de hincapié en la conversación o el listening. Añadamos a esto que en España se doblan películas y series, y aunque en la última década esto ha mejorado gracias al DVD y TDT, la mentalidad sigue siendo parecida, y por norma general nos resulta más cómodo el doblaje que los subtítulos.</p>
-
-
-    
-      <a href="/2016/12/aprender-ingles/">[...Leer más...]</a>
     
   </article>
 
