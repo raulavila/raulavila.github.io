@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-09-09T19:57:33+01:00</updated>
+ <updated>2017-09-09T20:27:09+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -63,7 +63,7 @@
 
 &lt;p&gt;He puesto el ejemplo de los plazos porque creo que todos lo hemos experimentado, pero existen otros muchos aspectos donde comprender el punto de vista del cliente es también necesario. No profundizo más porque el tema es denso y daría para una serie de posts :).&lt;/p&gt;
 
-&lt;h2 id=&quot;7-no-pensar-en-quién-vendrá-después&quot;&gt;7. No pensar en quién vendrá después&lt;/h2&gt;
+&lt;h2 id=&quot;7-no-pensar-en-quien-vendrá-después&quot;&gt;7. No pensar en quien vendrá después&lt;/h2&gt;
 
 &lt;p&gt;¿A qué me refiero con esto? Me refiero tanto a futuros programadores que tendrán que lidiar con nuestro código para corregir bugs o añadir nuevas funcionalidades como al equipo de operaciones que tendrá que desplegar la aplicación en diferentes entornos, diagnosticar posibles problemas, etc. Es por tanto, fundamental, no descuidar aspectos ya mencionados anteriormente, como la legibilidad del código, pero también otros como proporcionar una documentación adecuada (a poder ser en forma de &lt;a href=&quot;https://jesuslc.com/2016/07/12/como-escribir-un-readme-que-mole/&quot;&gt;README&lt;/a&gt;), generar unas trazas (logs) de calidad, que en caso de problema permitan detectar qué está ocurriendo y facilitar la comunicación entre desarrollo y operaciones, encapsular parámetros de configuración en un solo lugar (y documentar cómo modificarlos), etc.&lt;/p&gt;
 </content>
