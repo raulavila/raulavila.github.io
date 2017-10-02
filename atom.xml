@@ -4,13 +4,38 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-09-09T20:27:09+01:00</updated>
+ <updated>2017-10-02T12:14:36+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
    <email/>
  </author>
 
+ 
+ <entry>
+   <title>Tómate un descanso (o los modos enfocado y difuso)</title>
+   <link href="http://www.raulavila.com/2017/10/tomate-un-descanso/"/>
+   <updated>2017-10-02T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2017/10/tomate-un-descanso</id>
+   <content type="html">&lt;p&gt;En nuestra profesión no nos pagan por estar sentados un determinado número de horas por día al ordenador, sino por utilizar nuestros cerebros de la forma más eficiente posible para aprender y resolver problemas.&lt;/p&gt;
+
+&lt;p&gt;Hará unos tres años completé el curso &lt;a href=&quot;https://www.coursera.org/learn/learning-how-to-learn&quot;&gt;Learning How to Learn&lt;/a&gt; de Coursera, y uno de los temas que trataron me marcó especialmente. Se trata de la división entre los dos modos de funcionamiento de nuestro cerebro cuando tratamos de resolver un problema: modo “enfocado” (focused) y modo “difuso” (diffused).&lt;/p&gt;
+
+&lt;!--break--&gt;
+
+&lt;p&gt;Sin entrar en detalles científicos (ni los recuerdo bien, ni sería capaz de hacerlo sin desbarrar un poco), ambos modos utilizan mecanismos del cerebro completamente diferentes, y lo más importante, son excluyentes. Eso quiere decir que o utilizamos uno o utilizamos otro.&lt;/p&gt;
+
+&lt;p&gt;Cuando, como programadores, estamos trabajando en la resolución de un problema en particular, es evidente que utilizamos el modo enfocado, ya que estamos poniendo toda nuestra atención en salir del “atolladero” en que podamos estar. Muchas veces la solución la encontramos y seguimos adelante, pero seguramente habréis experimentado la típica situación de bloqueo donde no parecemos capaces de avanzar hacia ningún lado.&lt;/p&gt;
+
+&lt;p&gt;Es en este tipo de situaciones donde deberíamos poner el modo difuso a funcionar. Para ello, es necesario que desviemos nuestra atención de lo que estamos haciendo y nos pongamos a hacer algo completamente diferente: dar un paseo, hacernos un café, salir a correr, tener una conversación no relacionada con nuestro problema…Los mecanismos del modo difuso empezarán a analizar nuestro desafío desde un punto de vista totalmente diferente (por ejemplo, a un mayor nivel de abstracción), y, no siempre, pero sí en un número importante de casos, nos acercarán a la solución en mayor medida que si hubiéramos continuado obcecados.&lt;/p&gt;
+
+&lt;p&gt;Estoy seguro de que todos habéis experimentado esta situación en algún momento de vuestras vidas, especialmente cuando abandonamos la oficina tras horas de frustración y al día siguiente a primera hora encontramos una respuesta en cinco minutos. Ahora ya sabéis que hay estudios científicos que explican el porqué :).&lt;/p&gt;
+
+&lt;p&gt;Por tanto, la próxima vez que llevéis más de una hora sin progresar en absoluto, dejad lo que estáis haciendo y ponéos a hacer otra cosa. Aún más, añadiría que no sólo en esa situación es útil dar paso a vuestro modo difuso, sino que puede ser de mucha utilidad también para ayudarnos a encontrar mejores soluciones en cualquier escenario, incluso cuando de inicio empecemos con una idea en mente sin haber peleado demasiado por encontrarla.&lt;/p&gt;
+
+&lt;p&gt;Para facilitar esta situación que acabo de describir, la &lt;a href=&quot;https://en.wikipedia.org/wiki/Pomodoro_Technique&quot;&gt;técnica Pomodoro&lt;/a&gt; puede seros útil. Si no la conocéis, no es más que un método de gestión de tiempo, donde los intervalos de trabajo se delimitan a 25 minutos, forzando un descanso de 5 minutos entre sesiones de trabajo, y de 15 minutos tras tres sesiones. Hay miles de webs donde se describe con más detalle, pero espero que sirva para haceros a la idea.&lt;/p&gt;
+</content>
+ </entry>
  
  <entry>
    <title>Los 7 pecados capitales del programador</title>
@@ -644,247 +669,6 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.&lt;/c
 &lt;/ul&gt;
 
 &lt;p&gt;Con esto termino mi repaso a las diferentes formas de comunicación en proyectos de empresa. Si pensáis que me he dejado alguna, o si creéis necesario puntualizar algún aspecto de los tratados, estaré encantado de seguir discutiendo en los comentarios.&lt;/p&gt;
-</content>
- </entry>
- 
- <entry>
-   <title>Cómo funciona Git (parte 3)</title>
-   <link href="http://www.raulavila.com/2017/03/como-funciona-git-3/"/>
-   <updated>2017-03-11T00:00:00+00:00</updated>
-   <id>http://www.raulavila.com/2017/03/como-funciona-git-3</id>
-   <content type="html">&lt;p&gt;Continuamos con nuestra serie sobre el funcionamiento interno de Git. &lt;a href=&quot;/2017/02/como-funciona-git-2/&quot;&gt;En el anterior post&lt;/a&gt; dejamos nuestro repositorio en el siguiente estado:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-head.jpg&quot; alt=&quot;Git&quot; /&gt;&lt;/p&gt;
-
-&lt;!--break--&gt;
-
-&lt;p&gt;Es hora de revisar como funcionan dos de los comandos más utilizados (y más temidos también): &lt;code class=&quot;highlighter-rouge&quot;&gt;merge&lt;/code&gt; y &lt;code class=&quot;highlighter-rouge&quot;&gt;rebase&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;merge&quot;&gt;Merge&lt;/h2&gt;
-
-&lt;p&gt;Git merge significa algo así como “fusiona los contenidos de ambas ramas, utilizando la mejor estrategia posible, y añadiendo un nuevo commit en caso necesario”. No pretendo entrar en detalles de &lt;a href=&quot;https://git-scm.com/docs/merge-strategies&quot;&gt;todas las estrategias que se pueden utilizar&lt;/a&gt;, tan sólo cubriré los casos más frecuentes.&lt;/p&gt;
-
-&lt;h4 id=&quot;fast-forward&quot;&gt;Fast-forward&lt;/h4&gt;
-
-&lt;p&gt;Veamos que ocurre si queremos fusionar las dos ramas en el estado que tenemos ahora mismo:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git branch
-  develop
-* master
-
-$ git merge develop
-Already up-to-date.
-
-$ git checkout develop
-Switched to branch 'develop'
-
-$ git merge master
-Updating 284c288..aa90e47
-Fast-forward
- goodbye.txt | 1 +
- 1 file changed, 1 insertion(+)
- create mode 100644 goodbye.txt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Intentamos fusionar &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt; en &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;, pero Git nos dice que la rama &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; ya está actualizada. Esto es así porque la historia en &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; va por delante de la historia en &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt;, siendo el último commit en &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; un sucesor del último commit en &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt;. Es decir, no hay nada que hacer, porque evidentemente Git no va a eliminar nuevos commits de &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; para fusionarla con &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;Nos vamos a &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt; y la fusionamos con &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;. Vemos que Git ejecuta la tarea utilizando la estrategia “fast-forward”. Esto significa que Git ha detectado que la historia de &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; que no está en &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt; tiene como ancestro el último commit de &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt;, por lo que solamente necesita mover el puntero de la rama (arrastrando HEAD con él) hasta el último commit de &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;. Tras realizar esta acción el contenido de Git queda así:&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-fast-forward.jpg&quot; alt=&quot;Git&quot; /&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;recursive&quot;&gt;Recursive&lt;/h4&gt;
-
-&lt;p&gt;Para explicar correctamente la siguiente estrategia de merge volvamos a la versión anterior de nuestro repositorio, es decir:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-head.jpg&quot; alt=&quot;Git&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Es interesante recordar lo que tenemos en ambas ramas también:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git branch
-  develop
-* master
-
-$ tree
-.
-├── goodbye.txt
-├── greetings
-│   └── hello2.txt
-└── hello.txt
-
-1 directory, 3 files
-
-$ git checkout develop
-Switched to branch 'develop'
-
-$ tree
-.
-├── greetings
-│   └── hello2.txt
-└── hello.txt
-
-1 directory, 2 files&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Siendo breves, en &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; tenemos un commit que añade el fichero &lt;code class=&quot;highlighter-rouge&quot;&gt;goodbye.txt&lt;/code&gt;, commit que no tenemos en &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt;. Vamos a añadir un nuevo commit en la rama &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt;:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ echo &quot;Greeting develop&quot; &amp;gt; goodbye_develop.txt
-
-$ git add .
-
-$ git commit -m &quot;New commit in develop&quot;
-[develop ac88e5b] New commit in develop
- 1 file changed, 1 insertion(+)
- create mode 100644 goodbye_develop.txt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Tras este commmit se nos queda el siguiente dibujo:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-merge-1.jpg&quot; alt=&quot;Git&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Como veis, ambas ramas han “divergido”, partiendo de un ancestro común (el commit &lt;code class=&quot;highlighter-rouge&quot;&gt;284c28&lt;/code&gt;). Vamos a hacer merge de la rama &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; dentro de &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt;:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git merge master
-Merge made by the 'recursive' strategy.
- goodbye.txt | 1 +
- 1 file changed, 1 insertion(+)
- create mode 100644 goodbye.txt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Git ha utilizado la estrategia “recursive”. Esta es la historia que ha quedado en &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt;:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;*   01c72ea 2017-03-11 | Merge branch 'master' into develop (HEAD -&amp;gt; develop) [RaulAvila]
-|\
-| * aa90e47 2017-02-11 | Third commit (master) [RaulAvila]
-* | ac88e5b 2017-03-11 | New commit in develop [RaulAvila]
-|/
-* 284c288 2017-02-11 | Second commit [RaulAvila]
-* d1ee121 2017-01-22 | First commit (tag: first) [RaulAvila]&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Si os fijáis bien, se ha añadido un nuevo commit del tipo “merge commit”. La gran diferencia entre un commit normal y uno de tipo “merge”, es que en este último existen dos ancestros, cosa que podemos ver fácilmente con el comando &lt;code class=&quot;highlighter-rouge&quot;&gt;cat-file&lt;/code&gt;:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git cat-file -p 01c72ea
-tree 77f9b4b34bc364b29ac12fec827985384d469ddd
-parent ac88e5b089928490ff498f63218687ded7b57c87
-parent aa90e471ababde242281c833fffea255f69dd28a
-author RaulAvila &amp;lt;xxxxxx@gmail.com&amp;gt; 1489226224 +0000
-committer RaulAvila &amp;lt;xxxxxx@gmail.com&amp;gt; 1489226224 +0000
-
-Merge branch 'master' into develop&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Así nos queda nuestro “árbol” de Git, tras esta operación:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-merge-2.jpg&quot; alt=&quot;Git&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;La rama &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; no sabe nada de lo que ha ocurrido en &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt;. En teoría podríamos continuar añadiendo nuevos commits en &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; y hacerla evolucionar de manera independiente. Pero en proyectos reales, lo más normal en estos casos es sincronizar ambas ramas, lo que en este caso es tan sencillo como hacer:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git checkout master
-Switched to branch 'master'
-
-$ git merge develop
-Updating aa90e47..01c72ea
-Fast-forward
- goodbye_develop.txt | 1 +
- 1 file changed, 1 insertion(+)
- create mode 100644 goodbye_develop.txt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Espero que tenga sentido lo que ha ocurrido ahora, Git ha detectado el merge que tuvo lugar en develop, por lo que para fusionar &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt; en &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; le basta con hacer un fast-forward, moviendo el puntero de la rama al “merge commit”, es decir:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-merge-3.jpg&quot; alt=&quot;Git&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Por cierto, tras todo este proceso, nuestro repositorio ha quedado tal que así:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ tree
-.
-├── goodbye.txt
-├── goodbye_develop.txt
-├── greetings
-│   └── hello2.txt
-└── hello.txt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;h2 id=&quot;rebase&quot;&gt;Rebase&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://git-scm.com/docs/git-rebase&quot;&gt;Git rebase&lt;/a&gt; es uno de los comandos más potentes de Git, pero también el más peligroso. No es más que una forma diferente de fusionar el contenido de dos ramas, siguiendo una estrategia bastante agresiva: reescribir la historia, sin añadir ningún commit adicional, como sí hacía merge. El mejor articulo para entender las diferencias entre &lt;code class=&quot;highlighter-rouge&quot;&gt;merge&lt;/code&gt; y &lt;code class=&quot;highlighter-rouge&quot;&gt;rebase&lt;/code&gt; &lt;a href=&quot;https://www.atlassian.com/git/tutorials/merging-vs-rebasing&quot;&gt;es este&lt;/a&gt;, no es mi intención cubrir con mucho detalle algo que ya se ha discutido hasta la saciedad, sino mostrar cuál es el proceso interno en el repositorio de Git.&lt;/p&gt;
-
-&lt;p&gt;Veamos pues qué ocurre cuando hacemos &lt;code class=&quot;highlighter-rouge&quot;&gt;rebase&lt;/code&gt;, y para ello partiremos de este estado anterior:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-merge-1.jpg&quot; alt=&quot;Git&quot; /&gt;&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git branch
-* develop
-  master
-
-$ git rebase master
-First, rewinding head to replay your work on top of it...
-Applying: New commit in develop&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Leemos dos mensajes:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;“Rewinding head to replay your work on top of it”: Git busca el ancestro común de ambas ramas (el commit &lt;code class=&quot;highlighter-rouge&quot;&gt;284c28&lt;/code&gt;), y mueve el puntero &lt;code class=&quot;highlighter-rouge&quot;&gt;HEAD&lt;/code&gt; por la historia de &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; hasta el último commit que encuentre allí (que es &lt;code class=&quot;highlighter-rouge&quot;&gt;aa90e4&lt;/code&gt;).&lt;/li&gt;
-  &lt;li&gt;“Appying: New commit in develop”: Git comienza a leer la historia de &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt; a partir del ancestro común (recordemos, &lt;code class=&quot;highlighter-rouge&quot;&gt;284c28&lt;/code&gt;), y commit a commit, lee el contenido de cada uno de ellos (los commits pueden contener trees, blobs… &lt;a href=&quot;/2017/01/como-funciona-git-1/&quot;&gt;leed la primera parte de la serie si no sabéis a qué me refiero&lt;/a&gt;), y genera, para cada commit,  &lt;strong&gt;un nuevo commit&lt;/strong&gt; con exactamente el mismo contenido, pero con un ancestro diferente, puesto que los va situando encima del todo en la historia, tras el último commit de &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;. Recordemos que los commits en Git son inmutables, por lo que si cambia el ancestro, aún manteniendo el contenido, hay que generar un nuevo commit. En realidad no sólo cambia el ancestro, también la fecha, que contendrá el día y hora en que ejecutamos el rebase.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Como sólo tenemos un commit en &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt; que no esté en &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;, Git generará un nuevo commit con el mismo contenido, pero teniendo como ancestro a &lt;code class=&quot;highlighter-rouge&quot;&gt;aa90e4&lt;/code&gt; (el último commit de &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt;). Este nuevo commit tendrá un hash diferente, ya que su fecha/hora y ancestro han cambiado, aún compartiendo contenido (en el caso que nos ocupa, el nuevo hash es &lt;code class=&quot;highlighter-rouge&quot;&gt;3e7eed&lt;/code&gt;). Si hubiera más de un commit en &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt; se seguiría reescribiendo la historia, de forma que un segundo commit se añadiría encima de &lt;code class=&quot;highlighter-rouge&quot;&gt;3e7eed&lt;/code&gt;, y así sucesivamente.&lt;/p&gt;
-
-&lt;p&gt;Nuestro árbol de Git queda así:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-rebase-1.jpg&quot; alt=&quot;Git&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;No he dejado el commit &lt;code class=&quot;highlighter-rouge&quot;&gt;284c28&lt;/code&gt; por error. Este es el commit que anteriormente pertenecia a &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt;, pero ha dejado de hacerlo tras el rebase, momento en que ha sido reemplazado por &lt;code class=&quot;highlighter-rouge&quot;&gt;3e7eed&lt;/code&gt;, que tiene el mismo contenido pero distinto ancestro. El hecho de que tengamos un commit sin ninguna rama que lo referencia significa que en algún momento el recolector de basura de Git lo eliminará de su base de datos. Pero si no queremos que eso ocurra siempre podemos crear una rama apuntando a él, recordad que una rama no es más que un puntero a un commit. Es decir, podríamos hacer esto:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git checkout 284c28
-Note: checking out '284c28'.
-
-You are in 'detached HEAD' state. You can look around, make experimental
-changes and commit them, and you can discard any commits you make in this
-state without impacting any branches by performing another checkout.
-
-If you want to create a new branch to retain commits you create, you may
-do so (now or later) by using -b with the checkout command again. Example:
-
-  git checkout -b &amp;lt;new-branch-name&amp;gt;
-
-HEAD is now at 284c288... Second commit
-
-$ git checkout -b backup
-Switched to a new branch 'backup'&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;Y desde ahora siempre tendremos una referencia a nuestra rama &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt; antes del &lt;code class=&quot;highlighter-rouge&quot;&gt;rebase&lt;/code&gt;. De hecho conozco a gente que antes de hacer un rebase se crea una rama backup de esta forma desde la propia &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt;, de forma que si el rebase fracasa estrepitosamente siempre se mantiene la referencia del punto de partida:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/public/pictures/git-internals/git-rebase-2.jpg&quot; alt=&quot;Git&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;En este punto supongo que sabríais decirme lo que ocurriría si nos vamos a master y hacemos &lt;code class=&quot;highlighter-rouge&quot;&gt;git merge develop&lt;/code&gt;, ¿verdad?:&lt;/p&gt;
-
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;$ git merge develop
-Updating aa90e47..3e7eed9
-Fast-forward
- goodbye_develop.txt | 1 +
- 1 file changed, 1 insertion(+)
- create mode 100644 goodbye_develop.txt&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
-
-&lt;p&gt;En efecto, mediante un sencillo fast-forward, el puntero de &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; se mueve al mismo commit que completa la rama &lt;code class=&quot;highlighter-rouge&quot;&gt;develop&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;resolución-de-conflictos&quot;&gt;Resolución de conflictos&lt;/h2&gt;
-
-&lt;p&gt;En la práctica, hacer &lt;code class=&quot;highlighter-rouge&quot;&gt;merge&lt;/code&gt; y &lt;code class=&quot;highlighter-rouge&quot;&gt;rebase&lt;/code&gt; no es tan bonito ni sencillo como acabo de representar, y normalmente tendremos que resolver &lt;a href=&quot;https://help.github.com/articles/resolving-a-merge-conflict-using-the-command-line/&quot;&gt;los temidos conflictos&lt;/a&gt;. No voy a entrar en detalles sobre este tema, no es el objetivo de estos posts, tan solo añadir un par de puntualizaciones:&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Si el conflicto ocurre durante un merge donde se está aplicando la estrategia “recursive”, lo que ocurre al resolver los conflictos es que los cambios que generemos al resolverlos se añadirán al contenido (“blob”) del merge commit.&lt;/li&gt;
-  &lt;li&gt;Si el conflicto ocurre durante un rebase, Git se quejará mientras aplica uno de los commits según va reescribiendo la historia, y parará de reescribir hasta que lo arreglemos. Una vez solucionado, y tras continuar con el rebase (&lt;code class=&quot;highlighter-rouge&quot;&gt;git rebase --continue&lt;/code&gt;) los cambios se añadirán al contenido del commit que se estaba reescribiendo, por lo que en este caso se dará la situación de que un commit “reescrito” no tiene el mismo contenido que el original.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Repito, esta explicación es muy “a grosso”, y entrar en detalles requeriría un artículo en condiciones.&lt;/p&gt;
-
-&lt;p&gt;Finalizo aquí este post de la serie. Mi intención inicial era cubrir la forma en que Git trabaja con repositorios remotos, pero creo que desembocaría en un artículo demasiado largo y poco cohesionado. Así que lo haré en el siguiente, y ahora sí, &lt;a href=&quot;/2017/04/como-funciona-git-4/&quot;&gt;último post de la serie&lt;/a&gt;.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;Serie completa:&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;/2017/01/como-funciona-git-1/&quot;&gt;Parte 1&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;/2017/02/como-funciona-git-2/&quot;&gt;Parte 2&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;/2017/03/como-funciona-git-3/&quot;&gt;Parte 3&lt;/a&gt;&lt;/td&gt;
-      &lt;td&gt;&lt;a href=&quot;/2017/04/como-funciona-git-4/&quot;&gt;Parte 4&lt;/a&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
 </content>
  </entry>
  
