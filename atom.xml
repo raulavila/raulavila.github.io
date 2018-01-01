@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2017-10-02T12:14:36+01:00</updated>
+ <updated>2018-01-01T11:51:43+01:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -13,34 +13,55 @@
 
  
  <entry>
-   <title>Tómate un descanso (o los modos enfocado y difuso)</title>
-   <link href="http://www.raulavila.com/2017/10/tomate-un-descanso/"/>
-   <updated>2017-10-02T00:00:00+01:00</updated>
-   <id>http://www.raulavila.com/2017/10/tomate-un-descanso</id>
-   <content type="html">&lt;p&gt;En nuestra profesión no nos pagan por estar sentados un determinado número de horas por día al ordenador, sino por utilizar nuestros cerebros de la forma más eficiente posible para aprender y resolver problemas.&lt;/p&gt;
-
-&lt;p&gt;Hará unos tres años completé el curso &lt;a href=&quot;https://www.coursera.org/learn/learning-how-to-learn&quot;&gt;Learning How to Learn&lt;/a&gt; de Coursera, y uno de los temas que trataron me marcó especialmente. Se trata de la división entre los dos modos de funcionamiento de nuestro cerebro cuando tratamos de resolver un problema: modo “enfocado” (focused) y modo “difuso” (diffused).&lt;/p&gt;
+   <title>Adiós 2017, hola 2018</title>
+   <link href="http://www.raulavila.com/2018/01/adios-2017-hola-2018/"/>
+   <updated>2018-01-01T00:00:00+01:00</updated>
+   <id>http://www.raulavila.com/2018/01/adios-2017-hola-2018</id>
+   <content type="html">&lt;p&gt;A primeros del año pasado me animé a formalizar una lista de propósitos de año nuevo, animado por la &lt;a href=&quot;http://www.bonillaware.com/&quot;&gt;Bonilista&lt;/a&gt;. Ahora que acabamos de entrar en 2018 ha llegado el momento de hacer retrospectiva y mirar un poco hacia el futuro.&lt;/p&gt;
 
 &lt;!--break--&gt;
 
-&lt;p&gt;Sin entrar en detalles científicos (ni los recuerdo bien, ni sería capaz de hacerlo sin desbarrar un poco), ambos modos utilizan mecanismos del cerebro completamente diferentes, y lo más importante, son excluyentes. Eso quiere decir que o utilizamos uno o utilizamos otro.&lt;/p&gt;
+&lt;h2 id=&quot;2017&quot;&gt;2017&lt;/h2&gt;
 
-&lt;p&gt;Cuando, como programadores, estamos trabajando en la resolución de un problema en particular, es evidente que utilizamos el modo enfocado, ya que estamos poniendo toda nuestra atención en salir del “atolladero” en que podamos estar. Muchas veces la solución la encontramos y seguimos adelante, pero seguramente habréis experimentado la típica situación de bloqueo donde no parecemos capaces de avanzar hacia ningún lado.&lt;/p&gt;
+&lt;p&gt;En el año que terminó me propuse:&lt;/p&gt;
 
-&lt;p&gt;Es en este tipo de situaciones donde deberíamos poner el modo difuso a funcionar. Para ello, es necesario que desviemos nuestra atención de lo que estamos haciendo y nos pongamos a hacer algo completamente diferente: dar un paseo, hacernos un café, salir a correr, tener una conversación no relacionada con nuestro problema…Los mecanismos del modo difuso empezarán a analizar nuestro desafío desde un punto de vista totalmente diferente (por ejemplo, a un mayor nivel de abstracción), y, no siempre, pero sí en un número importante de casos, nos acercarán a la solución en mayor medida que si hubiéramos continuado obcecados.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Hacer un buen trabajo en mi nuevo rol en &lt;a href=&quot;http://pivotal.io/&quot;&gt;Pivotal&lt;/a&gt;: ha sido un año de cambios en el tipo de labores que he llevado a cabo en mi empresa, para dos proyectos diferentes (ambos en el mismo cliente). Creo que mi trabajo realizado en el primer proyecto fue bastante bueno (además de desafiante), aunque la verdad es que eché de menos un mayor contacto con el desarrollo puro y duro. El segundo proyecto está aún en fases iniciales, y me cuesta evaluar el éxito o fracaso en este punto.&lt;/li&gt;
+  &lt;li&gt;Mejorar mi vocabulario en inglés: me propuse recopilar palabras nuevas que fuera viendo cada día en Anki, y refrescar regularmente, con el objetivo de tener un alto porcentaje de aciertos en Diciembre. La primera parte la conseguí sin problemas, pero me ha faltado la disciplina necesaria para hacer revisiones periódicas.&lt;/li&gt;
+  &lt;li&gt;Llevar un registro de los libros que termine: me dí de alta en Goodreads, y allí &lt;a href=&quot;https://www.goodreads.com/review/list/64983367?shelf=read&quot;&gt;fui recopilando los libros leídos&lt;/a&gt;. Así que ahora es más fácil echar la vista atrás y juzgar si he leído tanto como me gustaría o no.&lt;/li&gt;
+  &lt;li&gt;Rodar y mejorar mis dotes de public speaking: pude prácticar en algún que otro Open Conference en Londres, y además di una charla en verano en &lt;a href=&quot;http://adalab.es/&quot;&gt;AdaLab&lt;/a&gt;, cosa que me hizo especial ilusión. En el lado negativo, no conseguí meter la cabeza como quería en alguna conferencia, tan solo en una que fue cancelada en el último momento (mala suerte aquí, la verdad).&lt;/li&gt;
+  &lt;li&gt;Ir al gimnasio al menos tres veces por semana: el que yo pensaba era un objetivo conseguido por defecto, y del que solo debía mantener la rutina lograda en 2016 se truncó por completo debido a un desafortunado accidente en la primera semana de Enero donde me rompí un dedo del pie. Tras el reposo necesario recuperar el ritmo de gimnasio ha sido duro, y aún no lo he conseguido. He vuelto, eso sí, a practicar Pilates una vez por semana, mi deporte favorito, y que dejé un poco de lado al mudarme a Londres por ser algo caro.&lt;/li&gt;
+  &lt;li&gt;Conocer a más gente de la comunidad, tanto en Londres como en España: objetivo 100% conseguido, especialmente en España, donde he asistido a dos conferencias (Codemotion y Software Craftsmanship Barcelona), he conocido a muchísima gente (tanto en persona como por Twitter), e incluso he iniciado un proyecto del que hablaré al final del post.&lt;/li&gt;
+  &lt;li&gt;Escribir al menos 15 posts en el blog: conseguido, aunque me ha quedado la sensación de que tras lograr el objetivo bajé el ritmo de forma preocupante. En este punto necesito replantearme un poco la futura dirección del blog, blog que por otra parte ha tenido su mejor año en cuestión de visitas, especialmente tras aparecer en portada de &lt;a href=&quot;https://www.meneame.net/m/SysDevs/como-funciona-git-parte-1&quot;&gt;Menéame&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Publicar al menos 5 posts en &lt;a href=&quot;https://dev.to/&quot;&gt;The Practical Dev&lt;/a&gt;: objetivo conseguido, aunque me ocurre como con mi blog, una vez que llegué a la cifra lo tomé como una meta lograda y paré el ritmo. La verdad es que no espero publicar demasiado en esta plataforma en el futuro.&lt;/li&gt;
+  &lt;li&gt;Terminar al menos un curso online “end to end”: he realizado varios cursos cortos, en plataformas como Udemy y Safari Books, pero en realidad ninguno de ellos tenía la enjundia que buscaba. También realicé el curso &lt;a href=&quot;http://www.jbrains.ca/training/surviving-legacy-code/&quot;&gt;Surviving Legacy Code&lt;/a&gt;, que sin estar mal del todo no llega al nivel de &lt;a href=&quot;http://www.jbrains.ca/training/the-worlds-best-introduction-to-test-driven-development/&quot;&gt;World’s best intro to TDD&lt;/a&gt; del mismo autor.&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;Estoy seguro de que todos habéis experimentado esta situación en algún momento de vuestras vidas, especialmente cuando abandonamos la oficina tras horas de frustración y al día siguiente a primera hora encontramos una respuesta en cinco minutos. Ahora ya sabéis que hay estudios científicos que explican el porqué :).&lt;/p&gt;
+&lt;p&gt;Objetivos concretos aparte, en general no diría que 2017 ha sido un año especialmente bueno, debido sobre todo a un problema de actitud personal. Espero cambiar este actitud algo negativa en el año que entra.&lt;/p&gt;
 
-&lt;p&gt;Por tanto, la próxima vez que llevéis más de una hora sin progresar en absoluto, dejad lo que estáis haciendo y ponéos a hacer otra cosa. Aún más, añadiría que no sólo en esa situación es útil dar paso a vuestro modo difuso, sino que puede ser de mucha utilidad también para ayudarnos a encontrar mejores soluciones en cualquier escenario, incluso cuando de inicio empecemos con una idea en mente sin haber peleado demasiado por encontrarla.&lt;/p&gt;
+&lt;h2 id=&quot;2018&quot;&gt;2018&lt;/h2&gt;
 
-&lt;p&gt;Para facilitar esta situación que acabo de describir, la &lt;a href=&quot;https://en.wikipedia.org/wiki/Pomodoro_Technique&quot;&gt;técnica Pomodoro&lt;/a&gt; puede seros útil. Si no la conocéis, no es más que un método de gestión de tiempo, donde los intervalos de trabajo se delimitan a 25 minutos, forzando un descanso de 5 minutos entre sesiones de trabajo, y de 15 minutos tras tres sesiones. Hay miles de webs donde se describe con más detalle, pero espero que sirva para haceros a la idea.&lt;/p&gt;
+&lt;p&gt;Mis propósitos para 2018 son:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Mejorar mi actitud ante los problemas: como acabo de comentar, en ocasiones he adoptado una actitud algo negativa ante determinadas situaciones, y por otro lado me he comido demasiado el tarro pensando en errores pasados que ya no tienen ningún remedio. Esta actitud suele tener efectos algo negativos en mi día a día, sobre todo en lo que respecta a mi productividad personal fuera del trabajo, y necesito progresar bastante en este aspecto.&lt;/li&gt;
+  &lt;li&gt;Mejorar mis dotes comunicativas: mi mayor punto débil desde siempre ha sido mi dificultad para comunicarme en reuniones y situaciones similares. Siempre he sido bueno explicando problemas concretos, pero menos bueno esbozando soluciones a alto nivel cuando la audiencia es de más de una persona. Creo que esto es debido a mi naturaleza introvertida, y debería trabajar en mejorar este aspecto de una vez por todas. Estoy barajando varias opciones, y seguramente hable de ello en el futuro.&lt;/li&gt;
+  &lt;li&gt;Perder peso: al bajar el ritmo de gimnasio en 2017, he engordado algunos kilos, y mi médico ya me ha alertado de los riesgos que esto conlleva a largo plazo. En 2018 &lt;strong&gt;DEBO&lt;/strong&gt; perder peso, cosa que me propongo hacer a base de ejercicio y vigilando algunos excesos.&lt;/li&gt;
+  &lt;li&gt;Publicar posts que aporten valor a la comunidad: no voy a cometer de nuevo el error de ponerme un número de posts como meta, y parar al llegar a él. Este año mi único objetivo es publicar contenidos de valor, sean 2, 7 o 20 posts.&lt;/li&gt;
+  &lt;li&gt;Aprender desarrollo front-end: en los últimos cinco años me he dedicado al back-end en un 95%, y el front-end ha evolucionado una barbaridad. En mi actual proyecto, una aplicación full stack, estamos utilizando tecnologías como Angular, y me siento bastante en pañales a la hora de afrontar el desarrollo de funcionalidades completas. Así que espero mejorar este aspecto considerablemente en los próximos doce meses.&lt;/li&gt;
+  &lt;li&gt;Leer libros no técnicos: casi me había olvidado del placer de leer sobre temas no relacionados con mi profesión. El año pasado volví a hacerlo, y espero incrementar el ratio para 2018.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;code&quot;&gt;CODE&lt;/h3&gt;
+
+&lt;p&gt;Dejo una sopresa para el final. En los últimos meses de 2017 he estado trabajando en un proyecto bastante ilusionante junto a &lt;a href=&quot;https://twitter.com/RaulVillaresBg&quot;&gt;Raúl Villares&lt;/a&gt; (al que conocí gracias a este blog). Se trata de una comunidad virtual, al estilo &lt;a href=&quot;http://virtualjug.com/&quot;&gt;vJUG&lt;/a&gt;, donde realizaremos sesiones periódicas en YouTube Live sobre desarrollo software, y en castellano. El nombre de la comunidad, CODE, significa “Charlas Online de Desarrollo en Español”. De momento, permaneced atentos a Twitter para conocer más novedades, ya que mañana (2 de Enero) será el lanzamiento oficial.&lt;/p&gt;
 </content>
  </entry>
  
  <entry>
    <title>Los 7 pecados capitales del programador</title>
    <link href="http://www.raulavila.com/2017/09/pecados-capitales-programador/"/>
-   <updated>2017-09-09T00:00:00+01:00</updated>
+   <updated>2017-09-09T00:00:00+02:00</updated>
    <id>http://www.raulavila.com/2017/09/pecados-capitales-programador</id>
    <content type="html">&lt;p&gt;Inspirado por el post &lt;a href=&quot;https://jeronimopalacios.com/2015/03/los-7-pecados-capitales-del-product-owner/&quot;&gt;Los 7 pecados capitales del Product Owner&lt;/a&gt; publicado hace unos años por &lt;a href=&quot;https://twitter.com/giropa832&quot;&gt;Jerónimo Palacios&lt;/a&gt; me he decidido a recopilar los que son, para mí, los siete pecados más importantes que he cometido o he visto cometer a programadores a lo largo de mi carrera.&lt;/p&gt;
 
@@ -97,7 +118,7 @@
  <entry>
    <title>Procesos de onboarding</title>
    <link href="http://www.raulavila.com/2017/09/procesos-onboarding/"/>
-   <updated>2017-09-02T00:00:00+01:00</updated>
+   <updated>2017-09-02T00:00:00+02:00</updated>
    <id>http://www.raulavila.com/2017/09/onboarding</id>
    <content type="html">&lt;p&gt;A lo largo de mi carrera he vivido todo tipo de procesos de onboarding. Hoy estaba reflexionando sobre este tema, ya que en mi empresa se están revisando algunas cosas al respecto, y he comenzado a rememorar los que a mí, por suerte o por desgracia, me tocaron en el pasado.&lt;/p&gt;
 
@@ -159,7 +180,7 @@
  <entry>
    <title>Cómo escribir un CV para el mercado IT anglosajón</title>
    <link href="http://www.raulavila.com/2017/08/cv-it-anglosajon/"/>
-   <updated>2017-08-23T00:00:00+01:00</updated>
+   <updated>2017-08-23T00:00:00+02:00</updated>
    <id>http://www.raulavila.com/2017/08/cv-it-anglosajon</id>
    <content type="html">&lt;p&gt;Hace más de dos años escribí un post sobre los pasos que tomé para &lt;a href=&quot;/2015/04/trabajo-londres/&quot;&gt;buscar trabajo como informático en Londres&lt;/a&gt;. Ese post ha resultado ser el más popular de mi blog con diferencia, y a partir de él he sido contactado varias veces solicitando información adicional, preguntando dudas, etc.&lt;/p&gt;
 
@@ -245,7 +266,7 @@
  <entry>
    <title>Mis etapas con el refactoring</title>
    <link href="http://www.raulavila.com/2017/07/etapas-refactoring/"/>
-   <updated>2017-07-23T00:00:00+01:00</updated>
+   <updated>2017-07-23T00:00:00+02:00</updated>
    <id>http://www.raulavila.com/2017/07/etapas-refactoring</id>
    <content type="html">&lt;p&gt;Mi relación con el refactoring viene de lejos, de hecho entre los primeros posts que publiqué se encontraba &lt;a href=&quot;/2015/02/fowler-refactoring-1/&quot;&gt;una serie de tres&lt;/a&gt; donde analizaba de forma algo crítica el libro “Refactoring” de Fowler, y que seguramente hoy día escribiría de forma diferente.&lt;/p&gt;
 
@@ -317,7 +338,7 @@
  <entry>
    <title>¿Qué es un Programador Ágil?</title>
    <link href="http://www.raulavila.com/2017/05/programadores-agiles/"/>
-   <updated>2017-05-24T00:00:00+01:00</updated>
+   <updated>2017-05-24T00:00:00+02:00</updated>
    <id>http://www.raulavila.com/2017/05/programadores-agiles</id>
    <content type="html">&lt;p&gt;Supongo que a nadie le pillará por sorpresa si afirmo que el desarrollo Agile está en boca de toda las empresas hoy día. Incluso el tema se está llevando a otra dimensión con el deslumbrante nombre de “Transformación Digital”. Por tanto, no creo que sea necesario explicar en este post qué es el desarrollo ágil.&lt;/p&gt;
 
@@ -349,7 +370,7 @@
  <entry>
    <title>Lecciones aprendidas tras mi primer proyecto como Anchor</title>
    <link href="http://www.raulavila.com/2017/05/lecciones-aprendidas-anchor/"/>
-   <updated>2017-05-06T00:00:00+01:00</updated>
+   <updated>2017-05-06T00:00:00+02:00</updated>
    <id>http://www.raulavila.com/2017/05/lecciones-aprendidas-anchor</id>
    <content type="html">&lt;p&gt;Acabo de terminar mi primera experiencia como Anchor (aka Team Leader). Hacer un buen trabajo en este rol era uno de mis objetivos del año 2017, y creo que lo he conseguido. Quizás no haya sido el mejor proyecto para empezar, por varios factores que no vienen al caso, pero en general estoy muy satisfecho con todo lo hecho y aprendido.&lt;/p&gt;
 
@@ -420,7 +441,7 @@
  <entry>
    <title>Cómo funciona Git (y 4)</title>
    <link href="http://www.raulavila.com/2017/04/como-funciona-git-4/"/>
-   <updated>2017-04-30T00:00:00+01:00</updated>
+   <updated>2017-04-30T00:00:00+02:00</updated>
    <id>http://www.raulavila.com/2017/04/como-funciona-git-4</id>
    <content type="html">&lt;p&gt;Tenía pendiente escribir la última parte de esta serie desde hace tiempo. Tras revisar &lt;a href=&quot;/2017/03/como-funciona-git-3/&quot;&gt;cómo Git gestiona merge y rebase&lt;/a&gt;, queda por ver la forma en que Git gestiona la capa de distribución, es decir, el trabajo y sincronización con repositorios remotos.&lt;/p&gt;
 
@@ -562,7 +583,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.&lt;/c
  <entry>
    <title>Cómo trabajamos en Pivotal</title>
    <link href="http://www.raulavila.com/2017/04/como-trabajamos-pivotal/"/>
-   <updated>2017-04-06T00:00:00+01:00</updated>
+   <updated>2017-04-06T00:00:00+02:00</updated>
    <id>http://www.raulavila.com/2017/04/como-trabajamos-pivotal</id>
    <content type="html">&lt;p&gt;Hace algo más de un año comencé a trabajar en &lt;a href=&quot;https://pivotal.io/&quot;&gt;Pivotal&lt;/a&gt;, una empresa donde no he dejado de aprender desde el día uno. A finales de 2016, tras descubrir la web &lt;a href=&quot;http://www.wedotdd.com/&quot;&gt;We Do TDD&lt;/a&gt; (una gran iniciativa) y unirme al canal de Slack, se me ofreció la posibilidad de ser entrevistado para describir la forma en que trabajamos, cómo utilizamos TDD, etc. Acepté en paralelo al mismo tiempo que un compañero de Berlín (Oleksii, más conocido como &lt;a href=&quot;http://www.tddfellow.com/&quot;&gt;That TDD Fellow&lt;/a&gt;), por lo que decidimos hacer la entrevista conjunta, cosa que, por otra parte, encaja bastante bien con la cultura de nuestra empresa, donde el pair programming es una constante.&lt;/p&gt;
 
@@ -575,7 +596,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.&lt;/c
  <entry>
    <title>La comunicación en proyectos Software</title>
    <link href="http://www.raulavila.com/2017/04/comunicacion-proyectos-software/"/>
-   <updated>2017-04-01T00:00:00+01:00</updated>
+   <updated>2017-04-01T00:00:00+02:00</updated>
    <id>http://www.raulavila.com/2017/04/comunicacion</id>
    <content type="html">&lt;p&gt;Esta semana hará tres meses que inicié mi andadura como Anchor en un proyecto de mi empresa. Diría que la experiencia está siendo muy buena en todos los sentidos, y me está sirviendo para aprender un montón de cosas. Quizás la más importante de todas ellas sea como gestionar la comunicación dentro de un equipo de forma eficiente, y en este post voy a repasar muchas de las conclusiones que he ido sacando en claro.&lt;/p&gt;
 
