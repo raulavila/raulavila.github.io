@@ -4,7 +4,7 @@
  <title>Raúl Ávila</title>
  <link href="http://www.raulavila.com/atom.xml" rel="self"/>
  <link href="http://www.raulavila.com/"/>
- <updated>2018-01-01T11:51:43+01:00</updated>
+ <updated>2018-02-21T20:30:55+00:00</updated>
  <id>http://www.raulavila.com/</id>
  <author>
    <name>Raul Avila</name>
@@ -15,7 +15,7 @@
  <entry>
    <title>Adiós 2017, hola 2018</title>
    <link href="http://www.raulavila.com/2018/01/adios-2017-hola-2018/"/>
-   <updated>2018-01-01T00:00:00+01:00</updated>
+   <updated>2018-01-01T00:00:00+00:00</updated>
    <id>http://www.raulavila.com/2018/01/adios-2017-hola-2018</id>
    <content type="html">&lt;p&gt;A primeros del año pasado me animé a formalizar una lista de propósitos de año nuevo, animado por la &lt;a href=&quot;http://www.bonillaware.com/&quot;&gt;Bonilista&lt;/a&gt;. Ahora que acabamos de entrar en 2018 ha llegado el momento de hacer retrospectiva y mirar un poco hacia el futuro.&lt;/p&gt;
 
@@ -61,7 +61,7 @@
  <entry>
    <title>Los 7 pecados capitales del programador</title>
    <link href="http://www.raulavila.com/2017/09/pecados-capitales-programador/"/>
-   <updated>2017-09-09T00:00:00+02:00</updated>
+   <updated>2017-09-09T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2017/09/pecados-capitales-programador</id>
    <content type="html">&lt;p&gt;Inspirado por el post &lt;a href=&quot;https://jeronimopalacios.com/2015/03/los-7-pecados-capitales-del-product-owner/&quot;&gt;Los 7 pecados capitales del Product Owner&lt;/a&gt; publicado hace unos años por &lt;a href=&quot;https://twitter.com/giropa832&quot;&gt;Jerónimo Palacios&lt;/a&gt; me he decidido a recopilar los que son, para mí, los siete pecados más importantes que he cometido o he visto cometer a programadores a lo largo de mi carrera.&lt;/p&gt;
 
@@ -118,7 +118,7 @@
  <entry>
    <title>Procesos de onboarding</title>
    <link href="http://www.raulavila.com/2017/09/procesos-onboarding/"/>
-   <updated>2017-09-02T00:00:00+02:00</updated>
+   <updated>2017-09-02T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2017/09/onboarding</id>
    <content type="html">&lt;p&gt;A lo largo de mi carrera he vivido todo tipo de procesos de onboarding. Hoy estaba reflexionando sobre este tema, ya que en mi empresa se están revisando algunas cosas al respecto, y he comenzado a rememorar los que a mí, por suerte o por desgracia, me tocaron en el pasado.&lt;/p&gt;
 
@@ -180,7 +180,7 @@
  <entry>
    <title>Cómo escribir un CV para el mercado IT anglosajón</title>
    <link href="http://www.raulavila.com/2017/08/cv-it-anglosajon/"/>
-   <updated>2017-08-23T00:00:00+02:00</updated>
+   <updated>2017-08-23T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2017/08/cv-it-anglosajon</id>
    <content type="html">&lt;p&gt;Hace más de dos años escribí un post sobre los pasos que tomé para &lt;a href=&quot;/2015/04/trabajo-londres/&quot;&gt;buscar trabajo como informático en Londres&lt;/a&gt;. Ese post ha resultado ser el más popular de mi blog con diferencia, y a partir de él he sido contactado varias veces solicitando información adicional, preguntando dudas, etc.&lt;/p&gt;
 
@@ -266,7 +266,7 @@
  <entry>
    <title>Mis etapas con el refactoring</title>
    <link href="http://www.raulavila.com/2017/07/etapas-refactoring/"/>
-   <updated>2017-07-23T00:00:00+02:00</updated>
+   <updated>2017-07-23T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2017/07/etapas-refactoring</id>
    <content type="html">&lt;p&gt;Mi relación con el refactoring viene de lejos, de hecho entre los primeros posts que publiqué se encontraba &lt;a href=&quot;/2015/02/fowler-refactoring-1/&quot;&gt;una serie de tres&lt;/a&gt; donde analizaba de forma algo crítica el libro “Refactoring” de Fowler, y que seguramente hoy día escribiría de forma diferente.&lt;/p&gt;
 
@@ -338,7 +338,7 @@
  <entry>
    <title>¿Qué es un Programador Ágil?</title>
    <link href="http://www.raulavila.com/2017/05/programadores-agiles/"/>
-   <updated>2017-05-24T00:00:00+02:00</updated>
+   <updated>2017-05-24T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2017/05/programadores-agiles</id>
    <content type="html">&lt;p&gt;Supongo que a nadie le pillará por sorpresa si afirmo que el desarrollo Agile está en boca de toda las empresas hoy día. Incluso el tema se está llevando a otra dimensión con el deslumbrante nombre de “Transformación Digital”. Por tanto, no creo que sea necesario explicar en este post qué es el desarrollo ágil.&lt;/p&gt;
 
@@ -370,7 +370,7 @@
  <entry>
    <title>Lecciones aprendidas tras mi primer proyecto como Anchor</title>
    <link href="http://www.raulavila.com/2017/05/lecciones-aprendidas-anchor/"/>
-   <updated>2017-05-06T00:00:00+02:00</updated>
+   <updated>2017-05-06T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2017/05/lecciones-aprendidas-anchor</id>
    <content type="html">&lt;p&gt;Acabo de terminar mi primera experiencia como Anchor (aka Team Leader). Hacer un buen trabajo en este rol era uno de mis objetivos del año 2017, y creo que lo he conseguido. Quizás no haya sido el mejor proyecto para empezar, por varios factores que no vienen al caso, pero en general estoy muy satisfecho con todo lo hecho y aprendido.&lt;/p&gt;
 
@@ -441,7 +441,7 @@
  <entry>
    <title>Cómo funciona Git (y 4)</title>
    <link href="http://www.raulavila.com/2017/04/como-funciona-git-4/"/>
-   <updated>2017-04-30T00:00:00+02:00</updated>
+   <updated>2017-04-30T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2017/04/como-funciona-git-4</id>
    <content type="html">&lt;p&gt;Tenía pendiente escribir la última parte de esta serie desde hace tiempo. Tras revisar &lt;a href=&quot;/2017/03/como-funciona-git-3/&quot;&gt;cómo Git gestiona merge y rebase&lt;/a&gt;, queda por ver la forma en que Git gestiona la capa de distribución, es decir, el trabajo y sincronización con repositorios remotos.&lt;/p&gt;
 
@@ -583,7 +583,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.&lt;/c
  <entry>
    <title>Cómo trabajamos en Pivotal</title>
    <link href="http://www.raulavila.com/2017/04/como-trabajamos-pivotal/"/>
-   <updated>2017-04-06T00:00:00+02:00</updated>
+   <updated>2017-04-06T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2017/04/como-trabajamos-pivotal</id>
    <content type="html">&lt;p&gt;Hace algo más de un año comencé a trabajar en &lt;a href=&quot;https://pivotal.io/&quot;&gt;Pivotal&lt;/a&gt;, una empresa donde no he dejado de aprender desde el día uno. A finales de 2016, tras descubrir la web &lt;a href=&quot;http://www.wedotdd.com/&quot;&gt;We Do TDD&lt;/a&gt; (una gran iniciativa) y unirme al canal de Slack, se me ofreció la posibilidad de ser entrevistado para describir la forma en que trabajamos, cómo utilizamos TDD, etc. Acepté en paralelo al mismo tiempo que un compañero de Berlín (Oleksii, más conocido como &lt;a href=&quot;http://www.tddfellow.com/&quot;&gt;That TDD Fellow&lt;/a&gt;), por lo que decidimos hacer la entrevista conjunta, cosa que, por otra parte, encaja bastante bien con la cultura de nuestra empresa, donde el pair programming es una constante.&lt;/p&gt;
 
@@ -596,7 +596,7 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.&lt;/c
  <entry>
    <title>La comunicación en proyectos Software</title>
    <link href="http://www.raulavila.com/2017/04/comunicacion-proyectos-software/"/>
-   <updated>2017-04-01T00:00:00+02:00</updated>
+   <updated>2017-04-01T00:00:00+01:00</updated>
    <id>http://www.raulavila.com/2017/04/comunicacion</id>
    <content type="html">&lt;p&gt;Esta semana hará tres meses que inicié mi andadura como Anchor en un proyecto de mi empresa. Diría que la experiencia está siendo muy buena en todos los sentidos, y me está sirviendo para aprender un montón de cosas. Quizás la más importante de todas ellas sea como gestionar la comunicación dentro de un equipo de forma eficiente, y en este post voy a repasar muchas de las conclusiones que he ido sacando en claro.&lt;/p&gt;
 

@@ -48,7 +48,7 @@
       <main>
         <article class="post">
   <h1 class="post-title">Cómo funciona Git (parte 3)</h1>
-  <time datetime="2017-03-11T00:00:00+01:00" class="post-date">11/03/2017</time>
+  <time datetime="2017-03-11T00:00:00+00:00" class="post-date">11/03/2017</time>
   <div class="post-tags">
     
     | <a href="/tag/git">git</a> |
@@ -235,10 +235,10 @@ Applying: New commit in develop</code></pre></figure>
 
 <p><img src="/public/pictures/git-internals/git-rebase-1.jpg" alt="Git" /></p>
 
-<p>No he dejado el commit <code class="highlighter-rouge">284c28</code> por error. Este es el commit que anteriormente pertenecia a <code class="highlighter-rouge">develop</code>, pero ha dejado de hacerlo tras el rebase, momento en que ha sido reemplazado por <code class="highlighter-rouge">3e7eed</code>, que tiene el mismo contenido pero distinto ancestro. El hecho de que tengamos un commit sin ninguna rama que lo referencia significa que en algún momento el recolector de basura de Git lo eliminará de su base de datos. Pero si no queremos que eso ocurra siempre podemos crear una rama apuntando a él, recordad que una rama no es más que un puntero a un commit. Es decir, podríamos hacer esto:</p>
+<p>No he dejado el commit <code class="highlighter-rouge">ac88e5b</code> por error. Este es el commit que anteriormente pertenecia a <code class="highlighter-rouge">develop</code>, pero ha dejado de hacerlo tras el rebase, momento en que ha sido reemplazado por <code class="highlighter-rouge">3e7eed</code>, que tiene el mismo contenido pero distinto ancestro. El hecho de que tengamos un commit sin ninguna rama que lo referencia significa que en algún momento el recolector de basura de Git lo eliminará de su base de datos. Pero si no queremos que eso ocurra siempre podemos crear una rama apuntando a él, recordad que una rama no es más que un puntero a un commit. Es decir, podríamos hacer esto:</p>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text">$ git checkout 284c28
-Note: checking out '284c28'.
+<figure class="highlight"><pre><code class="language-text" data-lang="text">$ git checkout ac88e5b
+Note: checking out 'ac88e5b'.
 
 You are in 'detached HEAD' state. You can look around, make experimental
 changes and commit them, and you can discard any commits you make in this
@@ -249,7 +249,7 @@ do so (now or later) by using -b with the checkout command again. Example:
 
   git checkout -b &lt;new-branch-name&gt;
 
-HEAD is now at 284c288... Second commit
+HEAD is now at ac88e5b... Second commit
 
 $ git checkout -b backup
 Switched to a new branch 'backup'</code></pre></figure>
@@ -304,7 +304,7 @@ Fast-forward
         <h3>
           <a href="/2018/01/adios-2017-hola-2018/">
             Adiós 2017, hola 2018
-            <small><time datetime="2018-01-01T00:00:00+01:00">01/01/2018</time></small>
+            <small><time datetime="2018-01-01T00:00:00+00:00">01/01/2018</time></small>
           </a>
         </h3>
       </li>
@@ -313,7 +313,7 @@ Fast-forward
         <h3>
           <a href="/2017/09/pecados-capitales-programador/">
             Los 7 pecados capitales del programador
-            <small><time datetime="2017-09-09T00:00:00+02:00">09/09/2017</time></small>
+            <small><time datetime="2017-09-09T00:00:00+01:00">09/09/2017</time></small>
           </a>
         </h3>
       </li>
@@ -322,7 +322,7 @@ Fast-forward
         <h3>
           <a href="/2017/09/procesos-onboarding/">
             Procesos de onboarding
-            <small><time datetime="2017-09-02T00:00:00+02:00">02/09/2017</time></small>
+            <small><time datetime="2017-09-02T00:00:00+01:00">02/09/2017</time></small>
           </a>
         </h3>
       </li>
